@@ -1,0 +1,48 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="_overhead" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">100170</Value>
+    </Setting>
+    <Setting Name="_nocat" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">100169</Value>
+    </Setting>
+    <Setting Name="_exrate" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="_excassopath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\</Value>
+    </Setting>
+    <Setting Name="_incassopath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="_bankpath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="_prod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">;Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-P</Value>
+    </Setting>
+    <Setting Name="_test" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">;Host=localhost;Port=5433;Database=SPAS</Value>
+    </Setting>
+    <Setting Name="_produser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Werner</Value>
+    </Setting>
+    <Setting Name="_testuser" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">postgres</Value>
+    </Setting>
+    <Setting Name="_prodpwd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Hek4DEaswo8ApdFnTOwk</Value>
+    </Setting>
+    <Setting Name="_testpwd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Mhg112kP</Value>
+    </Setting>
+    <Setting Name="_tstovh" Type="System.String" Scope="User">
+      <Value Profile="(Default)">;Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-D</Value>
+    </Setting>
+    <Setting Name="_accovh" Type="System.String" Scope="User">
+      <Value Profile="(Default)">;Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS_T</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
