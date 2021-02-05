@@ -662,11 +662,11 @@ SELECT bankacc.accountno FROM cp LEFT JOIN bankacc ON bankacc.id = cp.fk_bankacc
         SQLstr = Strings.Left(SQLstr, Strings.Len(SQLstr) - 1) 'remove the last comma
         RunSQL(SQLstr, "NULL", "Save Excasso job 2")
         'If cntold > 0 Then
-        SPAS.Cmx_Excasso_Select.Items.Add(j_name)
-        'End If
-        SPAS.Cmx_Excasso_Select.SelectedIndex = SPAS.Cmx_Excasso_Select.Items.Count - 1
+        If Strings.Left(SPAS.Cmx_Excasso_Select.SelectedItem, 13) = "Nieuwe lijst " Then
+            SPAS.Cmx_Excasso_Select.Items.Add(j_name)
+            SPAS.Cmx_Excasso_Select.SelectedIndex = SPAS.Cmx_Excasso_Select.Items.Count - 1
+        End If
 
-        'SPAS.Get_Excasso_Data()
 
     End Sub
 

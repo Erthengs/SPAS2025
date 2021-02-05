@@ -2305,7 +2305,9 @@ Tbx_00_BankAcc__id2.TextChanged, Tbx_00_BankAcc__bic.TextChanged, Tbx_10_BankAcc
 
     Private Sub Dgv_Excasso2_DoubleClick(sender As Object, e As EventArgs) Handles Dgv_Excasso2.DoubleClick
 
-        Clipboard.SetText(Dgv_Excasso2.CurrentCell.Value)
+
+        If Dgv_Excasso2.CurrentCell.ColumnIndex <> 1 Then Exit Sub
+        'Clipboard.SetText(Dgv_Excasso2.CurrentCell.Value)
         TC_Main.SelectedIndex = 4
         Tbx_Journal_Filter.Text = Dgv_Excasso2.CurrentCell.Value
         If Lv_Journal_List.Items.Count > 0 Then
