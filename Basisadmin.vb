@@ -43,6 +43,7 @@ Module Basisadmin
         Collect_data("
                 select 
                 (select count(*) from account) As Accounts,
+                (select count(*) from accgroup) As Accountgroepen,
                 (select count(*) from bank) As Banktransacties,
                 (select count(*) from bankacc) As Bankrekeningen,
                 (select count(*) from contract) As Contracten,
@@ -88,9 +89,10 @@ Module Basisadmin
         Next
         'If SPAS.Lbx_Basis.Items.Count > 0 Then Select_Obj2()
     End Sub
-    Sub Select_Obj2()
+    Sub Select_Obj2(sender As String)
 
         '@@@deze module moet nog verbeterd worden via gebruik van een dataset en het kunnen hanteren van 0-waarden
+
 
         'A GENERIC PART ===========================================================================
         Dim fld, fk_tbl As String, id, fk_id, pos, pos1, pos2 As Integer
@@ -99,7 +101,7 @@ Module Basisadmin
         Dim tmp
         Dim col As Integer = -1
         Edit_Mode = False
-        SPAS.Manage_Buttons_Target(True, True, True, False, False)
+        'SPAS.Manage_Buttons_Target(True, True, True, False, False, "Select_Obj2")
 
         Try
             id = SPAS.Lbx_Basis.Items(SPAS.Lbx_Basis.SelectedIndex)(SPAS.Lbx_Basis.ValueMember)
@@ -112,6 +114,7 @@ Module Basisadmin
         Empty_Tabpage()
 
         For Each ctl In SPAS.TC_Object.TabPages(tb).Controls
+            'If tb = 4 Then MsgBox(ctl.Name & " " & ctl.Text)
             If Strings.InStr(ctl.Name, "_pkid") > 0 Then ctl.Text = id
 
             pos = Strings.InStr(ctl.Name, "__")
@@ -158,26 +161,28 @@ Module Basisadmin
                         ctl.Image = Nothing
                     End Try
                 ElseIf TypeOf ctl Is ComboBox Then
+
                     '1) get fk_id from data base
                     pos1 = Strings.InStr(ctl.Name, "fk_")
                     If pos1 > 0 Then
                         pos2 = Strings.InStr(ctl.Name, "_id")
                         fk_id = dst.Tables(0).Rows(0)(col) 'QuerySQL("SELECT " & fld & " FROM " & tbl & " WHERE id='" & id & "'")
                         fk_tbl = Mid(fld, 4, Len(fld) - 6) ', pos2 - pos1
-                            'MsgBox(fk_tbl)
-                            If fk_tbl = "bank" Then fk_tbl = "bankacc"
-                            If fk_tbl = "acco" Then fk_tbl = "account"
-                            If fk_tbl = "bankacc" Or fk_tbl = "account" Then  '@@@ workaround
+                        'MsgBox(fk_tbl)
+                        If fk_tbl = "bank" Then fk_tbl = "bankacc"
+                        If fk_tbl = "acco" Then fk_tbl = "account"
+                        'MsgBox(fk_id)
+                        If fk_tbl = "bankacc" Or fk_tbl = "account" Or fk_tbl = "accgroup" Then  '@@@ workaround
 
-                                ctl.Text = QuerySQL("SELECT name FROM " & fk_tbl & " WHERE id='" & fk_id & "'")
-                            Else
-                                ctl.Text = QuerySQL("SELECT Concat(name, ', ', name_add) as name 
-                                                FROM " & fk_tbl & " WHERE id='" & fk_id & "'")
-                            End If
+                            ctl.Text = QuerySQL("SELECT name FROM " & fk_tbl & " WHERE id='" & fk_id & "'")
                         Else
-                            ctl.Text = dst.Tables(0).Rows(0)(col)
+                            ctl.Text = QuerySQL("SELECT Concat(name, ', ', name_add) as name 
+                            FROM " & fk_tbl & " WHERE id='" & fk_id & "'")
+                        End If
+                    Else
+                        ctl.Text = dst.Tables(0).Rows(0)(col)
                     End If
-
+                    'MsgBox(ctl.Text)
                 ElseIf TypeOf ctl Is DateTimePicker Then
                     ctl.Value = dst.Tables(0).Rows(0)(col)
                 End If
@@ -206,17 +211,13 @@ Module Basisadmin
             SPAS.Lbl_Contract_Bronaccount.Visible = Not IsDBNull(dst.Tables(0).Rows(0)(2))
             SPAS.Cmx_00_Contract__fk_account_id.Visible = Not IsDBNull(dst.Tables(0).Rows(0)(2))
             SPAS.Lbl_Contract_tgt.Text = SPAS.Cmx_01_contract__fk_target_id.Text
+            'Cmx_01_Target__fk_cp_id
 
-            'Dim img As Image
-            'Try
-            'Dim photo = QuerySQL("SELECT target.photo FROM contract JOIN target ON contract.fk_target_id = target.id WHERE contract.id='" & id & "'")
-            'img = BlobToImage(photo)
-            'SPAS.Pic_Contract_Target_photo.Image = img
-            'Catch ex As Exception
-            'SPAS.Pic_Contract_Target_photo.Image = Nothing
-            'End Try
         End If
+        If tb = 1 Then
+            'SPAS.Cmx_01_Target__fk_cp_id.Text = "Marchitan"
 
+        End If
 
         If tb = 2 Then 'RELATION
             SPAS.Dtp_00_relation__date1.Enabled = (SPAS.Tbx_00_Relation__iban.Text <> "")
@@ -224,6 +225,7 @@ Module Basisadmin
             SPAS.Dtp_00_relation__date3.Enabled = (SPAS.Tbx_00_Relation__iban.Text <> "")
         End If
         If tb = 4 Then 'ACCOUNT
+
             SPAS.Cbx_00_Account__active.Enabled = (SPAS.Lbl_00_Account__source.Text = "cat")
             If SPAS.Lbl_00_Account__source.Text = "cat" Then SPAS.Tbx_01_Account__name.Enabled = True
 
@@ -236,12 +238,20 @@ Module Basisadmin
         Dim tb As Integer = SPAS.TC_Object.SelectedIndex
         Dim tbl As String = SPAS.TC_Object.TabPages(tb).Name
         Dim SQLstr, SQLstr1, SQLstr2 As String
-        Dim arg = SPAS.Tbx_Basis_Filter.Text.ToUpper
+
+        ' Dim arg = SPAS.Tbx_Basis_Filter.Text.ToUpper
+        Dim arg = SPAS.Searchbox.Text.ToUpper
         Dim sel_act As String = ""
-        Dim filtersql As String = ""
-        If Not SPAS.Rbn_contract_all.Checked Then 'then filtering is not required
-            sel_act = " AND active=" & IIf(SPAS.Rbn_contract_active.Checked, True, False)
+        If SPAS.Cbx_LifeCycle.Text = "Actief" Then
+            sel_act = " AND active=True"
         End If
+        If SPAS.Cbx_LifeCycle.Text = "Inactief" Then
+            sel_act = " AND active=False"
+        End If
+
+
+        Dim filtersql As String = ""
+
 
         If tb = 0 Then
             If arg <> "" Then
@@ -256,7 +266,7 @@ Module Basisadmin
             SQLstr = "SELECT contract.id, CONCAT(relation.name, ',', relation.name_add, ' - ', target.name, ',', target.name_add) as name FROM contract 
                           JOIN target ON contract.fk_target_id = target.id 
                           JOIN relation ON contract.fk_relation_id = relation.id 
-                          WHERE contract.active=" & IIf(SPAS.Rbn_contract_active.Checked Or SPAS.Rbn_contract_all.Checked, True, False) & "
+                          WHERE contract.active=" & IIf(SPAS.Cbx_LifeCycle.Text = "Inactief", False, True) & "
                           " & filtersql & "
                           ORDER BY relation.name, target.name"
             Load_Listbox(SPAS.Lbx_Basis, SQLstr)
@@ -280,7 +290,7 @@ Module Basisadmin
                         cp.name) as name 
                         FROM " & tbl & " t 
                         LEFT JOIN cp ON cp.id = t.fk_cp_id
-                        WHERE t.active=" & IIf(SPAS.Rbn_contract_active.Checked Or SPAS.Rbn_contract_all.Checked, True, False) & " 
+                        WHERE t.active=" & IIf(SPAS.Cbx_LifeCycle.Text = "Inactief", False, True) & " 
                          " & filtersql & "
                         ORDER BY t.name"
 
@@ -294,7 +304,7 @@ Module Basisadmin
                        WHERE (name iLike '%" & arg & "%'" & sel_act & " 
                        OR accgroup iLike '%" & arg & "%' 
                        OR source iLike '%" & arg & "%')
-                       AND (active=" & IIf(SPAS.Rbn_contract_active.Checked Or SPAS.Rbn_contract_all.Checked, True, False) & ") 
+                       AND (active=" & IIf(SPAS.Cbx_LifeCycle.Text = "Inactief", False, True) & ") 
                        ORDER BY source, accgroup, name"
             Load_Listbox(SPAS.Lbx_Basis, SQLstr1)
             'Clipboard.Clear()
@@ -333,14 +343,19 @@ Module Basisadmin
                 'SPAS.Lbx_Basis.SelectedItem = SPAS.Lbx_Basis.Items(rowit1)
 
                 SPAS.Lbx_Basis.SetSelected(rowit1, True)
-                Exit Sub
+                'SPAS.Click_Lbx_Basis()
+                ''Select_Obj2("Locate_Listbox_Position")
+                Exit For
             End If
         Next
-        Select_Obj2()
+        'MsgBox("1")
+        'Select_Obj2("Locate_Listbox_Position")
+        'MsgBox("2")
     End Sub
     Function Handle_errors(ByVal errmsg As String)
         Dim tb As Integer = SPAS.TC_Object.SelectedIndex
         Dim tbl As String = SPAS.TC_Object.TabPages(tb).Name
+
         Dim pos, cnt, ix As Integer
         Dim nm, nma As String
         Dim errmsg1 = ""
@@ -361,18 +376,22 @@ Module Basisadmin
                 End If
                 'check whether there is an active contract with the same sponsor and sponsoree
                 If Add_Mode Then
-
+                    Dim startdate As String = SPAS.Dtp_31_contract__startdate.Value.Year & "-" & SPAS.Dtp_31_contract__startdate.Value.Month & "-" &
+                        SPAS.Dtp_31_contract__startdate.Value.Day
                     Dim sqlstr As String = "
-                    SELECT COUNT(*) FROM contract WHERE active=True
-                    AND fk_target_id ='" & SPAS.Cmx_01_contract__fk_target_id.SelectedValue & "' 
+                    SELECT t.name||','||t.name_add||' ('||r.name||','||r.name_add||') tot '||c.enddate FROM contract c
+                    LEFT JOIN target t on t.id = c.fk_target_id 
+                    LEFT JOIN relation r on r.id = c.fk_relation_id 
+                    WHERE '" & startdate & "' < enddate
+                    AND fk_target_id ='" & SPAS.Cmx_01_contract__fk_target_id.SelectedValue & "'
                     AND fk_relation_id ='" & SPAS.Cmx_00_contract__fk_relation_id.SelectedValue & "'"
 
-                    'Clipboard.Clear()
-                    'Clipboard.SetText(sqlstr)
-
-                    If QuerySQL(sqlstr) > 0 Then
-                        errmsg1 &= "- Er is bestaat al een contract voor deze sponsor en gesponsorde, pas deze s.v.p. aan." & vbCrLf
-                    End If
+                    Clipboard.Clear()
+                    Clipboard.SetText(sqlstr)
+                    'MsgBox("Stop")
+                    Dim res As String = QuerySQL(sqlstr)
+                    If res <> "" Then errmsg1 &= "Er loopt al een contract voor " & res & "." & vbCrLf &
+                        "Dit contract mag daarmee niet overlappen. Beëindig deze eerst alvorens dit contract af te sluiten."
                 End If
 
             Case 1, 2, 3
@@ -504,21 +523,26 @@ Module Basisadmin
         'Clipboard.SetText(SQLstr)
         RunSQL(SQLstr, "NULL", "Insert into table " & tbl)
 
-        'addition for contract;  target  - 
+        'addition for contract;  target  - --
         Select Case tb
             Case 0
                 SPAS.Pan_contract_select_target.Enabled = False
+                Dim Source_Account = QuerySQL("SELECT id FROM account WHERE f_key='" & SPAS.Cmx_01_contract__fk_target_id.SelectedValue & "'")
+                Calculate_Budget(Source_Account)
+            Case 2
+                Load_Combobox(SPAS.Cmx_00_contract__fk_relation_id, "id", "name", "SELECT id, CONCAT(name, ', ', name_add) as name FROM relation WHERE active=TRUE ORDER BY name")
             Case 1, 3 'creating an account for target or cp...
-
+                Load_Combobox(SPAS.Cmx_01_Target__fk_cp_id, "id", "name", "SELECT id, CONCAT(name, ', ', name_add) as name FROM cp WHERE active=True ORDER BY name")
                 new_id = QuerySQL("Select Max(id) From " & tbl)
                 Dim tbtxt As String = SPAS.TC_Object.TabPages(tb).Tag
                 SQLstr = "SELECT CONCAT(name,',', name_add) FROM " & tbl & " WHERE id=" & new_id
                 If SPAS.Chbx_test.Checked Then MsgBox(SQLstr)
                 name = QuerySQL(SQLstr)
-                Dim accgroup
+                Dim accgroup As String
                 'Dim tt As String = QuerySQL("SELECT ttype " & tbl & " WHERE id=" & new_id)
-                'accgroup = IIf(tt = "Kind", "Kindersponsorhulp", IIf(tt = "Oudere", "Ouderensponsorhulp", ""))
-                Create_Account(tbtxt.ToLower, name, "onbepaald", new_id)
+                accgroup = IIf(SPAS.Tbx_01_Target__ttype.Text = "Kind", "Kindersponsoring", IIf(SPAS.Tbx_01_Target__ttype.Text = "Oudere", "Ouderensponsoring", "Incidentele hulp"))
+                '@@@ tijdelijke oplossing, moet geparametriseerd worden
+                Create_Account(tbtxt.ToLower, name, accgroup, new_id)
         End Select
 
     End Sub
@@ -529,32 +553,45 @@ Module Basisadmin
         Dim tb As Integer = SPAS.TC_Object.SelectedIndex
         Dim tbl As String = SPAS.TC_Object.TabPages(tb).Name
 
+
         For Each f In SPAS.TC_Object.TabPages(tb).Controls
             If Strings.InStr(f.Name, "_pkid") > 0 Then id = Convert.ToInt32(f.Text)
         Next
-        pic.Image = Clipboard.GetImage()
 
-        Try
-            If Not pic.Image Is Nothing Then
-                pic.Image.Save(IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.MyPictures, "SPAStmp_pic.jpg"))
-                ImgFile = IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.MyPictures, "SPAStmp_pic.jpg")
-            Else
-                ImgFile = "NULL"
+        If pic.Image Is Nothing Then
+            pic.Image = Clipboard.GetImage()
+            If pic.Image Is Nothing Then
+                MsgBox("U heeft geen afbeeling op het klembord. Druk op Shift+Windowstoets+S om een afbeelding van het scherm te selecteren")
+                Exit Sub
             End If
+            Try
+                If Not pic.Image Is Nothing Then
+                    pic.Image.Save(IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.MyPictures, "SPAStmp_pic.jpg"))
+                    ImgFile = IO.Path.Combine(My.Computer.FileSystem.SpecialDirectories.MyPictures, "SPAStmp_pic.jpg")
+                Else
+                    ImgFile = "NULL"
+                End If
 
-        Catch
-            ImgFile = "NULL"
-            MsgBox("Niets op het klembord")
-        End Try
-        If Add_Mode Or Edit_Mode Then
-            MsgBox("U kunt pas een foto toevoegen als " & tbl & "opgeslagen is.")
+            Catch
+                ImgFile = "NULL"
+                MsgBox("Niets op het klembord")
+            End Try
+            If Add_Mode Then  'Or Edit_Mode
+                MsgBox("U kunt pas een foto toevoegen als " & tbl & "opgeslagen is.")
+            Else
+
+            End If
+            SQLstr = "UPDATE " & tbl & " SET photo=@image WHERE id=" & id
+            If SPAS.Chbx_test.Checked = True Then MsgBox(SQLstr)
+            RunSQL(SQLstr, ImgFile, "")
         Else
+            pic.Image = Nothing
+            SQLstr = "UPDATE " & tbl & " SET photo=null WHERE id=" & id
+            If SPAS.Chbx_test.Checked = True Then MsgBox(SQLstr)
+            RunSQL(SQLstr, "NULL", "Save_Image")
+
 
         End If
-        SQLstr = "UPDATE " & tbl & " SET photo=@image WHERE id=" & id
-        If SPAS.Chbx_test.Checked = True Then MsgBox(SQLstr)
-        RunSQL(SQLstr, ImgFile, "")
-
 
     End Sub
     'TARGET MODULES ===============================================================================================
@@ -668,24 +705,12 @@ Module Basisadmin
     Sub Calculate_contract_amounts()
 
         SPAS.Tbx_01_contract_yeartotal.Text = (GetDouble(SPAS.Tbx_11_Contract__donation.Text) _
-            + GetDouble(SPAS.Tbx_11_contract__overhead.Text))
+           + GetDouble(SPAS.Tbx_11_contract__overhead.Text))
         SPAS.Tbx_contract_period_amt.Text = (GetDouble(SPAS.Tbx_01_contract_yeartotal.Text) /
-                GetDouble(SPAS.Cmx_02_Contract__term.Text))
-    End Sub
-    Sub Update_Contract()
-        '1 Close old contract by
-        '- putting enddate = new startdate -1
-        '- rename contract number with by adding suffix number 
-        Dim SQLstr As String = "
-UPDATE contract SET 
-"
-        '2 Create a new contract with
-        '- All the date of the current contract, except
-        '- New start date
-        '- undefined end date
-        '- contract number with by adding suffix number +1
+            GetDouble(SPAS.Cmx_02_Contract__term.Text))
 
     End Sub
+
 
     Function Contract_number(ByVal prefix As String)
         Dim cnt = QuerySQL("SELECT COUNT(name) FROM Contract WHERE name Like '%" & prefix & "%'")
@@ -734,7 +759,7 @@ UPDATE contract SET
             LEFT JOIN target ta ON ac.f_key = ta.id
             WHERE
             j.source = 'Incasso' AND 
-            j.date='01-01-2020' 
+            j.date='01-01-2021' 
             Group by  j.amt1, Concat(r.name, ', ', r.name_add), j.fk_relation, r.id, fk_account, ta.ttype
 "
         Return SQLstr
@@ -753,18 +778,54 @@ UPDATE contract SET
             AND 
             ((r.date1 <='" & date_start & "' AND ta.ttype = 'Kind') OR
             (r.date2 <='" & date_start & "' AND ta.ttype = 'Oudere') OR
-            (r.date3 <='" & date_start & "' AND ta.ttype = 'Oudere'))
+            (r.date3 <='" & date_start & "' AND ta.ttype = 'Overig'))
             GROUP BY ta.ttype
-
 "
+        '        Return SQLstr
+
+        SQLstr = "
+            Select 'Kind',  count (distinct r.id),sum((co.donation+co.overhead)/term)
+            From contract co LEFT Join Target ta ON co.fk_target_id = ta.id LEFT Join Relation r ON co.fk_relation_id = r.id 
+            Where co.autcol = True And co.startdate <= '" & date_start & "' AND co.enddate > '" & date_start & "' AND r.date1 <='" & date_start & "' AND ta.ttype = 'Kind'
+            union
+            Select 'Oudere',  count (distinct r.id),sum((co.donation+co.overhead)/term)
+            From contract co  LEFT Join Target ta ON co.fk_target_id = ta.id LEFT Join Relation r ON co.fk_relation_id = r.id
+            Where co.autcol = True And co.startdate <= '" & date_start & "' AND co.enddate > '" & date_start & "' AND  r.date2 <='" & date_start & "' AND ta.ttype = 'Oudere'
+            union
+            Select 'Overig',  count (distinct r.id),sum((co.donation+co.overhead)/term)
+            From contract co LEFT Join Target ta ON co.fk_target_id = ta.id LEFT Join Relation r ON co.fk_relation_id = r.id
+            Where co.autcol = True And co.startdate <= '" & date_start & "' AND co.enddate > '" & date_start & "' AND  r.date3 <='" & date_start & "' AND ta.ttype = 'Overig'
+
+            union
+            Select 'Totaal',
+			(SELECT count (distinct r.id)
+            FROM contract co LEFT JOIN Target ta ON co.fk_target_id = ta.id LEFT JOIN Relation r ON co.fk_relation_id = r.id 
+            WHERE co.autcol = True AND co.startdate <= '" & date_start & "' AND co.enddate > '" & date_start & "' AND r.date1 <='" & date_start & "' AND ta.ttype = 'Kind'
+			) + 
+			(SELECT count (distinct r.id)
+            FROM contract co  LEFT JOIN Target ta ON co.fk_target_id = ta.id LEFT JOIN Relation r ON co.fk_relation_id = r.id
+            WHERE co.autcol = True AND co.startdate <= '" & date_start & "' AND co.enddate > '" & date_start & "' AND  r.date2 <='" & date_start & "' AND ta.ttype = 'Oudere'
+			) + 
+			(SELECT count (distinct r.id)
+            FROM contract co  LEFT JOIN Target ta ON co.fk_target_id = ta.id LEFT JOIN Relation r ON co.fk_relation_id = r.id
+            WHERE co.autcol = True AND co.startdate <= '" & date_start & "' AND co.enddate > '" & date_start & "' AND  r.date3 <='" & date_start & "' AND ta.ttype = 'Overig'
+			),
+			(SELECT sum((co.donation+co.overhead)/term)
+            FROM contract co  LEFT JOIN Target ta ON co.fk_target_id = ta.id LEFT JOIN Relation r ON co.fk_relation_id = r.id
+            WHERE co.autcol = True AND co.startdate <= '" & date_start & "' AND co.enddate > '" & date_start & "') 
+
+        "
         Return SQLstr
+
+
     End Function
 
     Function Create_Incasso_Bookings(date_start As String)
         Dim SQLstr As String = "
             SELECT 
                 Concat(r.name, ', ',r.name_add) As Sponsor, 
-                Concat(ta.name, ', ',ta.name_add, ' / ', co.name) As Doel, 
+                ta.name||', '||ta.name_add As Doel, 
+                co.name As Contractnr, 
                 ta.ttype As Doeltype, 
                 sum(co.donation/co.term) As Donatie,
                 sum(co.overhead/co.term) As overhead,
@@ -780,7 +841,7 @@ UPDATE contract SET
                 AND 
             ((r.date1 <='" & date_start & "' AND ta.ttype = 'Kind') OR
             (r.date2 <='" & date_start & "' AND ta.ttype = 'Oudere') OR
-                (r.date3 <='" & date_start & "' AND ta.ttype = 'Oudere'))
+            (r.date3 <='" & date_start & "' AND ta.ttype = 'Overig'))
 
             GROUP BY  ac.id,r.id,ta.name,ta.name_add, co.name, r.reference, r.name, r.name_add, r.iban, ta.ttype, r.date1, r.date2
             ORDER by  ta.ttype, r.reference
@@ -832,7 +893,7 @@ UPDATE contract SET
             distinct ac.id, ac.name,
 	        CASE 
 				WHEN " & d2 & " = 1 Then ac.b_jan
-				WHEN " & d2 & " = 2 Then ac.b_feb
+				WHEN " & d2 & " = 2 Then ac.b_feb 
 				WHEN " & d2 & " = 3 Then ac.b_mar
 				WHEN " & d2 & " = 4 Then ac.b_apr
 				WHEN " & d2 & " = 5 Then ac.b_may 
@@ -872,7 +933,8 @@ UPDATE contract SET
             ORDER BY ac.name ASC
 
 "
-        'MsgBox(SQLstr)
+        'Clipboard.Clear()
+        'Clipboard.SetText(SQLstr)
         Return SQLstr
 
 

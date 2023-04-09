@@ -15,6 +15,7 @@ Module DataManagement
     Public ind1 As Integer = -1
     Public dst As DataSet
     Public dst1 As DataSet
+    Public dstbank As DataSet
     Public totsql As String
     Public nocat As String
     Public _overhead As String
@@ -28,13 +29,10 @@ connstart:
         Try
             connection = New NpgsqlConnection(connect_string)
             If connection.State = ConnectionState.Closed Then connection.Open()
-            'MsgBox("Connection success")
         Catch ex As Exception
             ans = MsgBox("Er kon geen verbinding gemaakt worden met de database. Wilt u het nog een keer proberen?", vbYesNo)
             If ans = vbYes Then
-
                 GoTo connstart
-
             Else
                 Application.Exit()
             End If
@@ -124,6 +122,21 @@ connstart:
         End Try
 
     End Sub
+    Sub Collect_bankdata(ByVal sql As String)
+        Try
+            Connect(sql)
+            Dim da = New NpgsqlDataAdapter(sql, connection)
+            connection.Close()
+            Dim ds = New DataSet
+            da.Fill(ds, "Table")
+            dstbank = ds
+        Catch
+            MsgBox("De data kon niet opgehaald worden.")
+            Clipboard.Clear()
+            Clipboard.SetText(sql)
+        End Try
+
+    End Sub
     Function QuerySQL(ByVal sql As String)
         Try
             Connect(sql)
@@ -188,6 +201,7 @@ connstart:
         connection.Close()
 
     End Sub
+
     Sub Save_Gridview_to_sql(ByVal dgv As DataGridView, tabl As String)
         Connect(dgv.Name & "-" & tabl)
         Dim name, version, type, SQLstr As String
@@ -240,4 +254,42 @@ connstart:
         Return bm
 
     End Function
+
+    Sub Export_2_Excel(ByVal dgv As DataGridView)
+
+
+        Dim ExcelApp As Object, ExcelBook As Object
+        Dim ExcelSheet As Object
+        Dim i As Integer
+        Dim j As Integer
+
+        'create object of excel
+        ExcelApp = CreateObject("Excel.Application")
+        ExcelBook = ExcelApp.WorkBooks.Add
+        ExcelSheet = ExcelBook.WorkSheets(1)
+
+        With ExcelSheet
+            For Each column As DataGridViewColumn In dgv.Columns
+                .cells(1, column.Index + 1) = column.HeaderText
+            Next
+            For i = 1 To dgv.RowCount
+                '.cells(i + 1, 1) = dgv.Rows(i - 1).Cells("id").Value
+                For j = 0 To dgv.Columns.Count - 1
+                    .cells(i + 1, j + 1) = dgv.Rows(i - 1).Cells(j).Value
+                Next
+            Next
+        End With
+
+        ExcelApp.Visible = True
+        '
+        ExcelSheet = Nothing
+        ExcelBook = Nothing
+        ExcelApp = Nothing
+
+
+
+
+    End Sub
+
+
 End Module

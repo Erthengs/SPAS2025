@@ -36,23 +36,27 @@ Partial Class Banksplit
         Me.Btn_Split_Cancel = New System.Windows.Forms.Button()
         Me.Tbx_Split_Bank_id = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Lbl_SplitBank_Accountnr = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Lbl_SplitBank_Type = New System.Windows.Forms.Label()
         CType(Me.Dgv_Split, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label76
         '
         Me.Label76.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label76.Location = New System.Drawing.Point(24, 28)
+        Me.Label76.Location = New System.Drawing.Point(23, 9)
         Me.Label76.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label76.Name = "Label76"
-        Me.Label76.Size = New System.Drawing.Size(138, 18)
+        Me.Label76.Size = New System.Drawing.Size(81, 18)
         Me.Label76.TabIndex = 31
         Me.Label76.Text = "Omschrijving"
         '
         'Label1
         '
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(24, 86)
+        Me.Label1.Location = New System.Drawing.Point(23, 59)
         Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(81, 19)
@@ -63,28 +67,28 @@ Partial Class Banksplit
         '
         Me.Tbx_Split_Description.Enabled = False
         Me.Tbx_Split_Description.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_Split_Description.Location = New System.Drawing.Point(142, 28)
+        Me.Tbx_Split_Description.Location = New System.Drawing.Point(109, 12)
         Me.Tbx_Split_Description.Multiline = True
         Me.Tbx_Split_Description.Name = "Tbx_Split_Description"
-        Me.Tbx_Split_Description.Size = New System.Drawing.Size(373, 51)
+        Me.Tbx_Split_Description.Size = New System.Drawing.Size(405, 41)
         Me.Tbx_Split_Description.TabIndex = 33
         '
         'Tbx_Split_Amount
         '
         Me.Tbx_Split_Amount.Enabled = False
         Me.Tbx_Split_Amount.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_Split_Amount.Location = New System.Drawing.Point(142, 85)
+        Me.Tbx_Split_Amount.Location = New System.Drawing.Point(109, 56)
         Me.Tbx_Split_Amount.Name = "Tbx_Split_Amount"
-        Me.Tbx_Split_Amount.Size = New System.Drawing.Size(100, 21)
+        Me.Tbx_Split_Amount.Size = New System.Drawing.Size(70, 21)
         Me.Tbx_Split_Amount.TabIndex = 34
         '
         'Label2
         '
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(287, 88)
+        Me.Label2.Location = New System.Drawing.Point(184, 59)
         Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(113, 19)
+        Me.Label2.Size = New System.Drawing.Size(51, 19)
         Me.Label2.TabIndex = 32
         Me.Label2.Text = "Bank id"
         '
@@ -92,32 +96,32 @@ Partial Class Banksplit
         '
         Me.Tbx_Split_seqorder.Enabled = False
         Me.Tbx_Split_seqorder.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_Split_seqorder.Location = New System.Drawing.Point(414, 110)
+        Me.Tbx_Split_seqorder.Location = New System.Drawing.Point(363, 59)
         Me.Tbx_Split_seqorder.Name = "Tbx_Split_seqorder"
-        Me.Tbx_Split_seqorder.Size = New System.Drawing.Size(100, 21)
+        Me.Tbx_Split_seqorder.Size = New System.Drawing.Size(64, 21)
         Me.Tbx_Split_seqorder.TabIndex = 34
         '
         'Dgv_Split
         '
         Me.Dgv_Split.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Dgv_Split.Location = New System.Drawing.Point(26, 142)
+        Me.Dgv_Split.Location = New System.Drawing.Point(26, 113)
         Me.Dgv_Split.Name = "Dgv_Split"
-        Me.Dgv_Split.Size = New System.Drawing.Size(488, 174)
+        Me.Dgv_Split.Size = New System.Drawing.Size(488, 203)
         Me.Dgv_Split.TabIndex = 35
         '
         'Tbx_Split_Diff
         '
         Me.Tbx_Split_Diff.Enabled = False
         Me.Tbx_Split_Diff.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_Split_Diff.Location = New System.Drawing.Point(142, 115)
+        Me.Tbx_Split_Diff.Location = New System.Drawing.Point(109, 83)
         Me.Tbx_Split_Diff.Name = "Tbx_Split_Diff"
-        Me.Tbx_Split_Diff.Size = New System.Drawing.Size(100, 21)
+        Me.Tbx_Split_Diff.Size = New System.Drawing.Size(70, 21)
         Me.Tbx_Split_Diff.TabIndex = 37
         '
         'Label3
         '
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(24, 116)
+        Me.Label3.Location = New System.Drawing.Point(23, 86)
         Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(81, 19)
@@ -148,26 +152,68 @@ Partial Class Banksplit
         '
         Me.Tbx_Split_Bank_id.Enabled = False
         Me.Tbx_Split_Bank_id.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_Split_Bank_id.Location = New System.Drawing.Point(414, 85)
+        Me.Tbx_Split_Bank_id.Location = New System.Drawing.Point(240, 59)
         Me.Tbx_Split_Bank_id.Name = "Tbx_Split_Bank_id"
-        Me.Tbx_Split_Bank_id.Size = New System.Drawing.Size(100, 21)
+        Me.Tbx_Split_Bank_id.Size = New System.Drawing.Size(60, 21)
         Me.Tbx_Split_Bank_id.TabIndex = 117
         '
         'Label4
         '
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(287, 113)
+        Me.Label4.Location = New System.Drawing.Point(311, 59)
         Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(113, 19)
+        Me.Label4.Size = New System.Drawing.Size(47, 19)
         Me.Label4.TabIndex = 118
-        Me.Label4.Text = "Volgnummer"
+        Me.Label4.Text = "Volgnr"
+        '
+        'Label5
+        '
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(308, 86)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(50, 19)
+        Me.Label5.TabIndex = 119
+        Me.Label5.Text = "Account"
+        '
+        'Lbl_SplitBank_Accountnr
+        '
+        Me.Lbl_SplitBank_Accountnr.Location = New System.Drawing.Point(363, 88)
+        Me.Lbl_SplitBank_Accountnr.Name = "Lbl_SplitBank_Accountnr"
+        Me.Lbl_SplitBank_Accountnr.Size = New System.Drawing.Size(151, 19)
+        Me.Lbl_SplitBank_Accountnr.TabIndex = 120
+        Me.Lbl_SplitBank_Accountnr.Text = "Accountnr"
+        '
+        'Label6
+        '
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(184, 86)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(51, 19)
+        Me.Label6.TabIndex = 121
+        Me.Label6.Text = "Type"
+        '
+        'Lbl_SplitBank_Type
+        '
+        Me.Lbl_SplitBank_Type.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_SplitBank_Type.Location = New System.Drawing.Point(237, 86)
+        Me.Lbl_SplitBank_Type.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_SplitBank_Type.Name = "Lbl_SplitBank_Type"
+        Me.Lbl_SplitBank_Type.Size = New System.Drawing.Size(63, 19)
+        Me.Lbl_SplitBank_Type.TabIndex = 122
+        Me.Lbl_SplitBank_Type.Text = "Type"
         '
         'Banksplit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(526, 370)
+        Me.Controls.Add(Me.Lbl_SplitBank_Type)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.Lbl_SplitBank_Accountnr)
+        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Tbx_Split_Bank_id)
         Me.Controls.Add(Me.Btn_Split_Cancel)
@@ -202,4 +248,8 @@ Partial Class Banksplit
     Friend WithEvents Btn_Split_Cancel As Button
     Friend WithEvents Tbx_Split_Bank_id As TextBox
     Friend WithEvents Label4 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Lbl_SplitBank_Accountnr As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Lbl_SplitBank_Type As Label
 End Class

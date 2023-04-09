@@ -31,8 +31,8 @@ Namespace My
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)> _
     Private Shared Sub AutoSaveSettings(sender As Global.System.Object, e As Global.System.EventArgs)
         If My.Application.SaveMySettingsOnExit Then
-                My.Settings.Save()
-            End If
+            My.Settings.Save()
+        End If
     End Sub
 #End If
 #End Region
@@ -53,30 +53,19 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("")>
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property _exrate() As String
             Get
-                Return CType(Me("_exrate"), String)
+                Return CType(Me("_exrate"),String)
             End Get
             Set
                 Me("_exrate") = value
             End Set
         End Property
-        <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute("")>
-        Public Property _whatsnew() As String
-            Get
-                Return CType(Me("_whatsnew"), String)
-            End Get
-            Set
-                Me("_whatsnew") = Value
-            End Set
-        End Property
-
+        
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("")>  _
@@ -112,10 +101,10 @@ Namespace My
                 Me("_bankpath") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(),
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),
-         Global.System.Configuration.DefaultSettingValueAttribute(";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-H")>
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute(";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-H")>  _
         Public Property _prod() As String
             Get
                 Return CType(Me("_prod"),String)
@@ -182,6 +171,30 @@ Namespace My
             End Get
             Set
                 Me("_lastdb") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute(";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-TEST")>  _
+        Public Property _db_test() As String
+            Get
+                Return CType(Me("_db_test"),String)
+            End Get
+            Set
+                Me("_db_test") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute(";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-ACCEPTATIE")>  _
+        Public Property _db_accept() As String
+            Get
+                Return CType(Me("_db_accept"),String)
+            End Get
+            Set
+                Me("_db_accept") = value
             End Set
         End Property
     End Class

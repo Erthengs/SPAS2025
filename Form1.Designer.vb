@@ -24,30 +24,47 @@ Partial Class SPAS
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SPAS))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle40 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle41 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle42 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle43 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle44 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle45 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle46 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle47 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle48 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle49 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle50 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle51 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle52 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle53 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle54 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle55 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle56 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TC_Main = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.Btn_Basis_Delete = New System.Windows.Forms.Button()
-        Me.Rbn_contract_all = New System.Windows.Forms.RadioButton()
-        Me.Rbn_contract_inactive = New System.Windows.Forms.RadioButton()
-        Me.Rbn_contract_active = New System.Windows.Forms.RadioButton()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Lbx_Basis = New System.Windows.Forms.ListBox()
-        Me.Tbx_Basis_Filter = New System.Windows.Forms.TextBox()
+        Me.Btn_Basis_Cancel = New System.Windows.Forms.Button()
+        Me.Btn_Basis_Save = New System.Windows.Forms.Button()
+        Me.Btn_Basis_Add = New System.Windows.Forms.Button()
         Me.TC_Object = New System.Windows.Forms.TabControl()
         Me.Contract = New System.Windows.Forms.TabPage()
+        Me.Pan_Test = New System.Windows.Forms.Panel()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Chbx_test = New System.Windows.Forms.CheckBox()
         Me.Lbl_Contract_tgt = New System.Windows.Forms.Label()
         Me.Label96 = New System.Windows.Forms.Label()
         Me.Lbl_Contract_Bronaccount = New System.Windows.Forms.Label()
@@ -94,6 +111,17 @@ Partial Class SPAS
         Me.Tbx_11_Contract__donation = New System.Windows.Forms.TextBox()
         Me.Tbx_01_contract_yeartotal = New System.Windows.Forms.TextBox()
         Me.target = New System.Windows.Forms.TabPage()
+        Me.Tbx_20_Target__childnearby = New System.Windows.Forms.TextBox()
+        Me.Tbx_20_Target__children = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Rbtn_Target_Alone = New System.Windows.Forms.RadioButton()
+        Me.Rbtn_Target_Institution = New System.Windows.Forms.RadioButton()
+        Me.Rbtn_Target_OtherHousing = New System.Windows.Forms.RadioButton()
+        Me.Label78 = New System.Windows.Forms.Label()
+        Me.Label65 = New System.Windows.Forms.Label()
+        Me.Label62 = New System.Windows.Forms.Label()
+        Me.Label118 = New System.Windows.Forms.Label()
+        Me.Cmx_01_Target__fk_cp_id = New System.Windows.Forms.ComboBox()
         Me.Pan_Target = New System.Windows.Forms.Panel()
         Me.Rbtn_Target_Child = New System.Windows.Forms.RadioButton()
         Me.Rbtn_Target_Elder = New System.Windows.Forms.RadioButton()
@@ -101,16 +129,12 @@ Partial Class SPAS
         Me.Cbx_00_target__active = New System.Windows.Forms.CheckBox()
         Me.Label75 = New System.Windows.Forms.Label()
         Me.Label55 = New System.Windows.Forms.Label()
-        Me.Label54 = New System.Windows.Forms.Label()
         Me.Lbl_CP = New System.Windows.Forms.Label()
         Me.Lbl_Target_Total_Expenses = New System.Windows.Forms.Label()
-        Me.Cmx_01_Target__fk_cp_id = New System.Windows.Forms.ComboBox()
-        Me.Tbx_20_Target__children = New System.Windows.Forms.TextBox()
         Me.Lbl_Target_NameAdd = New System.Windows.Forms.Label()
         Me.Tbx_00_Target__living = New System.Windows.Forms.TextBox()
         Me.Tbx_10_Target__water = New System.Windows.Forms.TextBox()
         Me.Tbx_01_Target__name_add = New System.Windows.Forms.TextBox()
-        Me.Label26 = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Lbl_Target_Name = New System.Windows.Forms.Label()
         Me.Tbx_10_Target__benefit = New System.Windows.Forms.TextBox()
@@ -124,23 +148,17 @@ Partial Class SPAS
         Me.Lbl_Target_Description = New System.Windows.Forms.Label()
         Me.Lbl_Target_Type = New System.Windows.Forms.Label()
         Me.Tbx_10_Target__pension = New System.Windows.Forms.TextBox()
-        Me.Rbtn_Target_Institution = New System.Windows.Forms.RadioButton()
         Me.Lbl_00_Target__reference = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.Lbl_Target_Extra = New System.Windows.Forms.Label()
         Me.Lbl_Target_pkid = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.Rbtn_Target_OtherHousing = New System.Windows.Forms.RadioButton()
         Me.Tbx_00_Target__description = New System.Windows.Forms.TextBox()
-        Me.Rbtn_Target_Alone = New System.Windows.Forms.RadioButton()
         Me.Tbx_10_Target__allowance = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.Tbx_20_Target__childnearby = New System.Windows.Forms.TextBox()
         Me.Lbl_Target_Salary = New System.Windows.Forms.Label()
         Me.Tbx_10_Target__income = New System.Windows.Forms.TextBox()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.Label15 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Lbl_Target_Income = New System.Windows.Forms.Label()
         Me.Tbx_00_Target__zip = New System.Windows.Forms.TextBox()
@@ -148,7 +166,6 @@ Partial Class SPAS
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Tbx_00_Target__country = New System.Windows.Forms.TextBox()
         Me.Lbl_Target_Otherincome = New System.Windows.Forms.Label()
-        Me.Lbl_Living = New System.Windows.Forms.Label()
         Me.Tbx_10_Target__rent = New System.Windows.Forms.TextBox()
         Me.Lbl_Target_Address = New System.Windows.Forms.Label()
         Me.Tbx_10_Target__medicine = New System.Windows.Forms.TextBox()
@@ -162,6 +179,21 @@ Partial Class SPAS
         Me.Tbx_10_Target__gaselectra = New System.Windows.Forms.TextBox()
         Me.Pic_Target__photo = New System.Windows.Forms.PictureBox()
         Me.Relation = New System.Windows.Forms.TabPage()
+        Me.Label60 = New System.Windows.Forms.Label()
+        Me.Label59 = New System.Windows.Forms.Label()
+        Me.Label58 = New System.Windows.Forms.Label()
+        Me.Label57 = New System.Windows.Forms.Label()
+        Me.Label56 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Tbx_00_Relation__city = New System.Windows.Forms.TextBox()
+        Me.Tbx_00_Relation__zip = New System.Windows.Forms.TextBox()
+        Me.Tbx_00_Relation__phone = New System.Windows.Forms.TextBox()
+        Me.Tbx_00_Relation__address = New System.Windows.Forms.TextBox()
+        Me.Tbx_00_Relation__email = New System.Windows.Forms.TextBox()
+        Me.Tbx_01_relation__name = New System.Windows.Forms.TextBox()
+        Me.Tbx_01_Relation__name_add = New System.Windows.Forms.TextBox()
+        Me.Tbx_00_Relation__description = New System.Windows.Forms.TextBox()
         Me.Rbn_Relation_6 = New System.Windows.Forms.RadioButton()
         Me.Rbn_Relation_5 = New System.Windows.Forms.RadioButton()
         Me.Tbx_01_Relation__title = New System.Windows.Forms.TextBox()
@@ -177,28 +209,13 @@ Partial Class SPAS
         Me.Label66 = New System.Windows.Forms.Label()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.Lbl_00_relation__reference = New System.Windows.Forms.Label()
-        Me.Tbx_00_Relation__description = New System.Windows.Forms.TextBox()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.Lbl_relation_pkid = New System.Windows.Forms.Label()
-        Me.Tbx_00_Relation__phone = New System.Windows.Forms.TextBox()
-        Me.Label56 = New System.Windows.Forms.Label()
-        Me.Tbx_01_relation__name = New System.Windows.Forms.TextBox()
-        Me.Tbx_00_Relation__zip = New System.Windows.Forms.TextBox()
-        Me.Label57 = New System.Windows.Forms.Label()
-        Me.Label58 = New System.Windows.Forms.Label()
-        Me.Tbx_00_Relation__email = New System.Windows.Forms.TextBox()
-        Me.Tbx_00_Relation__address = New System.Windows.Forms.TextBox()
-        Me.Label59 = New System.Windows.Forms.Label()
-        Me.Tbx_00_Relation__city = New System.Windows.Forms.TextBox()
         Me.Label69 = New System.Windows.Forms.Label()
-        Me.Label60 = New System.Windows.Forms.Label()
         Me.Label68 = New System.Windows.Forms.Label()
         Me.Label67 = New System.Windows.Forms.Label()
-        Me.Label62 = New System.Windows.Forms.Label()
         Me.Label64 = New System.Windows.Forms.Label()
-        Me.Label65 = New System.Windows.Forms.Label()
         Me.Tbx_00_Relation__iban = New System.Windows.Forms.TextBox()
-        Me.Tbx_01_Relation__name_add = New System.Windows.Forms.TextBox()
         Me.CP = New System.Windows.Forms.TabPage()
         Me.Cbx_00_cp__active = New System.Windows.Forms.CheckBox()
         Me.Tbx_00_cp__description = New System.Windows.Forms.TextBox()
@@ -225,7 +242,8 @@ Partial Class SPAS
         Me.Tbx_01_CP__name_add = New System.Windows.Forms.TextBox()
         Me.Pic_cp__photo = New System.Windows.Forms.PictureBox()
         Me.Account = New System.Windows.Forms.TabPage()
-        Me.Btn_Account_Startsaldi_All = New System.Windows.Forms.Button()
+        Me.Cmx_01_account__fk_accgroup_id = New System.Windows.Forms.ComboBox()
+        Me.Lbl_Account_Doeltype = New System.Windows.Forms.Label()
         Me.Lbl_20_Account__f_key = New System.Windows.Forms.Label()
         Me.Lbl_Account_Budget_Difference = New System.Windows.Forms.Label()
         Me.Label136 = New System.Windows.Forms.Label()
@@ -282,7 +300,6 @@ Partial Class SPAS
         Me.Btn_Account_Budget_All = New System.Windows.Forms.Button()
         Me.Btn_Account_Budget_Id = New System.Windows.Forms.Button()
         Me.BankAcc = New System.Windows.Forms.TabPage()
-        Me.Btn_Bankacc_UpdateStartsaldi = New System.Windows.Forms.Button()
         Me.Label104 = New System.Windows.Forms.Label()
         Me.Label105 = New System.Windows.Forms.Label()
         Me.Cbx_00_BankAcc__active = New System.Windows.Forms.CheckBox()
@@ -305,66 +322,125 @@ Partial Class SPAS
         Me.Label52 = New System.Windows.Forms.Label()
         Me.Tbx_10_BankAcc__startbalance = New System.Windows.Forms.TextBox()
         Me.Label40 = New System.Windows.Forms.Label()
-        Me.Btn_Basis_Save = New System.Windows.Forms.Button()
-        Me.Btn_Basis_Add = New System.Windows.Forms.Button()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.Btn_Basis_Cancel = New System.Windows.Forms.Button()
+        Me.Accgroup = New System.Windows.Forms.TabPage()
+        Me.Tbx_00_Accgroup__description = New System.Windows.Forms.TextBox()
+        Me.Label130 = New System.Windows.Forms.Label()
+        Me.Tbx_00_Accgroup__subtype = New System.Windows.Forms.TextBox()
+        Me.Label137 = New System.Windows.Forms.Label()
+        Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.Rbtn_accgroup_Income = New System.Windows.Forms.RadioButton()
+        Me.Rbtn_accgroup_transit = New System.Windows.Forms.RadioButton()
+        Me.Rbtn_accgroup_expense = New System.Windows.Forms.RadioButton()
+        Me.Cbx_00_accgroup__active = New System.Windows.Forms.CheckBox()
+        Me.Label132 = New System.Windows.Forms.Label()
+        Me.Lbl_accgroup_pkid = New System.Windows.Forms.Label()
+        Me.Label134 = New System.Windows.Forms.Label()
+        Me.Label135 = New System.Windows.Forms.Label()
+        Me.Tbx_01_Accgroup__name = New System.Windows.Forms.TextBox()
+        Me.Tbx_01_Accgroup__type = New System.Windows.Forms.TextBox()
         Me.Tab_Bank = New System.Windows.Forms.TabPage()
-        Me.Rbn_Bank_Other = New System.Windows.Forms.RadioButton()
-        Me.Rbn_Bank_Extra = New System.Windows.Forms.RadioButton()
-        Me.Rbn_Bank_Contract = New System.Windows.Forms.RadioButton()
-        Me.Dgv_Bank_Account2 = New System.Windows.Forms.DataGridView()
-        Me.Label100 = New System.Windows.Forms.Label()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Label150 = New System.Windows.Forms.Label()
+        Me.Tbx_Bank_Afschrift = New System.Windows.Forms.TextBox()
+        Me.Label148 = New System.Windows.Forms.Label()
+        Me.Btn_Bank_Type = New System.Windows.Forms.Button()
+        Me.Cmx_Bank_bankacc = New System.Windows.Forms.ComboBox()
+        Me.Label63 = New System.Windows.Forms.Label()
         Me.Dgv_Bank_Account = New System.Windows.Forms.DataGridView()
+        Me.Tbx_Bank_Search = New System.Windows.Forms.TextBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.Btn_Bank_Download = New System.Windows.Forms.Button()
+        Me.Tbx_Bank_Description = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Dgv_Bank_Account2 = New System.Windows.Forms.DataGridView()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label100 = New System.Windows.Forms.Label()
+        Me.Cmx_Bank_Account = New System.Windows.Forms.ComboBox()
+        Me.Btn_Bank_Add_Journal = New System.Windows.Forms.Button()
         Me.Tbx_Bank_Amount = New System.Windows.Forms.TextBox()
         Me.Lbl_Bank_Saldo = New System.Windows.Forms.Label()
-        Me.Cmx_Bank_bankacc = New System.Windows.Forms.ComboBox()
-        Me.Tbx_Bank_Code = New System.Windows.Forms.TextBox()
-        Me.Label76 = New System.Windows.Forms.Label()
-        Me.Label73 = New System.Windows.Forms.Label()
-        Me.Label72 = New System.Windows.Forms.Label()
-        Me.Tbx_Bank_Relation_account = New System.Windows.Forms.TextBox()
-        Me.Tbx_Bank_Relation = New System.Windows.Forms.TextBox()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.Tbx_Bank_Search = New System.Windows.Forms.TextBox()
-        Me.Label63 = New System.Windows.Forms.Label()
-        Me.Btn_Bank_Split = New System.Windows.Forms.Button()
-        Me.Btn_Bank_Categorize = New System.Windows.Forms.Button()
         Me.Btn_Bank_Folder = New System.Windows.Forms.Button()
-        Me.Btn_Bank_Save_Accounts = New System.Windows.Forms.Button()
-        Me.Btn_Bank_Add_Journal = New System.Windows.Forms.Button()
-        Me.Cmx_Bank_Account = New System.Windows.Forms.ComboBox()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Tbx_Bank_Description = New System.Windows.Forms.TextBox()
+        Me.Btn_Bank_Categorize = New System.Windows.Forms.Button()
+        Me.Tbx_Bank_Code = New System.Windows.Forms.TextBox()
+        Me.Btn_Bank_Split = New System.Windows.Forms.Button()
+        Me.Label76 = New System.Windows.Forms.Label()
+        Me.Tbx_Bank_Relation = New System.Windows.Forms.TextBox()
+        Me.Label73 = New System.Windows.Forms.Label()
+        Me.Tbx_Bank_Relation_account = New System.Windows.Forms.TextBox()
+        Me.Label72 = New System.Windows.Forms.Label()
+        Me.Pan_Bank_jtype = New System.Windows.Forms.Panel()
+        Me.Rbn_Bank_jtype_con = New System.Windows.Forms.RadioButton()
+        Me.Rbn_Bank_jtype_int = New System.Windows.Forms.RadioButton()
+        Me.Rbn_Bank_jtype_ext = New System.Windows.Forms.RadioButton()
         Me.Dgv_Bank = New System.Windows.Forms.DataGridView()
-        Me.Btn_Bank_Download = New System.Windows.Forms.Button()
         Me.Incasso = New System.Windows.Forms.TabPage()
-        Me.Cmx_Incasso_Bankaccount = New System.Windows.Forms.ComboBox()
-        Me.Label145 = New System.Windows.Forms.Label()
-        Me.Lbl_Incasso_Error = New System.Windows.Forms.Label()
-        Me.Rbn_Incasso_SEPA = New System.Windows.Forms.RadioButton()
-        Me.Rbn_Incasso_journal = New System.Windows.Forms.RadioButton()
-        Me.Label82 = New System.Windows.Forms.Label()
-        Me.Label79 = New System.Windows.Forms.Label()
-        Me.Btn_Incasso_Print = New System.Windows.Forms.Button()
-        Me.Btn_Incasso_Delete = New System.Windows.Forms.Button()
-        Me.Btn_Run_Incasso = New System.Windows.Forms.Button()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Lv_Incasso_Overview = New System.Windows.Forms.ListView()
         Me.Item = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Doel = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.CP2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.Lbl_Incasso_job_name = New System.Windows.Forms.Label()
-        Me.Lbl_Incasso_Status = New System.Windows.Forms.Label()
-        Me.Label94 = New System.Windows.Forms.Label()
-        Me.Label71 = New System.Windows.Forms.Label()
-        Me.Dtp_Incasso_end = New System.Windows.Forms.DateTimePicker()
-        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label79 = New System.Windows.Forms.Label()
+        Me.Lbl_Incasso_Error = New System.Windows.Forms.Label()
+        Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Dtp_Incasso_start = New System.Windows.Forms.DateTimePicker()
+        Me.Cmx_Incasso_Bankaccount = New System.Windows.Forms.ComboBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Rbn_Incasso_SEPA = New System.Windows.Forms.RadioButton()
+        Me.Label145 = New System.Windows.Forms.Label()
+        Me.Label94 = New System.Windows.Forms.Label()
+        Me.Rbn_Incasso_journal = New System.Windows.Forms.RadioButton()
+        Me.Label71 = New System.Windows.Forms.Label()
+        Me.Lbl_Incasso_Status = New System.Windows.Forms.Label()
+        Me.Label82 = New System.Windows.Forms.Label()
+        Me.Lbl_Incasso_job_name = New System.Windows.Forms.Label()
+        Me.Btn_Incasso_Export = New System.Windows.Forms.Button()
+        Me.Btn_Incasso_Delete = New System.Windows.Forms.Button()
+        Me.Btn_Run_Incasso = New System.Windows.Forms.Button()
+        Me.Btn_Incasso_Print = New System.Windows.Forms.Button()
+        Me.Dtp_Incasso_end = New System.Windows.Forms.DateTimePicker()
         Me.Dgv_Incasso = New System.Windows.Forms.DataGridView()
         Me.Uitkering = New System.Windows.Forms.TabPage()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Gbx_Excasso_Doeltype = New System.Windows.Forms.GroupBox()
+        Me.Label123 = New System.Windows.Forms.Label()
+        Me.Tbx_Excasso_Exchange_rate = New System.Windows.Forms.TextBox()
+        Me.Label103 = New System.Windows.Forms.Label()
+        Me.Btn_Excasso_Exchrate = New System.Windows.Forms.Button()
+        Me.Button8 = New System.Windows.Forms.Button()
+        Me.Dtp_Excasso_Start = New System.Windows.Forms.DateTimePicker()
+        Me.Btn_Excasso_Calculate_Exchrate = New System.Windows.Forms.Button()
         Me.Lbl_Excasso_LastCalc = New System.Windows.Forms.Label()
         Me.Lbl_Excasso_CPid = New System.Windows.Forms.Label()
+        Me.Btn_Excasso_Copy_to_clipboard = New System.Windows.Forms.Button()
+        Me.Label83 = New System.Windows.Forms.Label()
+        Me.Cbx_Uitkering_Kind = New System.Windows.Forms.CheckBox()
+        Me.Cbx_Uitkering_Oudere = New System.Windows.Forms.CheckBox()
+        Me.Cbx_Uitkering_Overig = New System.Windows.Forms.CheckBox()
+        Me.Cmx_Excasso_Select = New System.Windows.Forms.ComboBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Pan_Excasso_preset = New System.Windows.Forms.Panel()
+        Me.Rbn_uitkering_budget = New System.Windows.Forms.RadioButton()
+        Me.Rbn_uitkering_saldo = New System.Windows.Forms.RadioButton()
+        Me.Rbn_uitkering_nul = New System.Windows.Forms.RadioButton()
+        Me.Gbx_Excasso_Calculate = New System.Windows.Forms.GroupBox()
+        Me.Label106 = New System.Windows.Forms.Label()
+        Me.Label127 = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_Items_Contract = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_Items_Intern = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_Intern = New System.Windows.Forms.Label()
+        Me.Label107 = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_Extra = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_Items_Extra = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_Totalen = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_Tot_Gen = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_CP_Totaal = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_Contractwaarde = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_Tot_Gen_MLD = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_CP_Totaal_MDL = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_Totaal_MDL = New System.Windows.Forms.Label()
+        Me.Label89 = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_Totaal = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.Label99 = New System.Windows.Forms.Label()
         Me.Lbl_Excasso_Contract = New System.Windows.Forms.Label()
@@ -372,118 +448,101 @@ Partial Class SPAS
         Me.Label86 = New System.Windows.Forms.Label()
         Me.Tbx_Excasso_Norm1 = New System.Windows.Forms.TextBox()
         Me.Btn_Excasso_CP_Calculate = New System.Windows.Forms.Button()
-        Me.Lbl_Excasso_Totalen = New System.Windows.Forms.Label()
         Me.Tbx_Excasso_CP2 = New System.Windows.Forms.TextBox()
         Me.Btn_Excasso_Base1 = New System.Windows.Forms.Button()
-        Me.Lbl_Excasso_CP_Totaal = New System.Windows.Forms.Label()
         Me.Btn_Excasso_Base2 = New System.Windows.Forms.Button()
         Me.Btn_Excasso_Base3 = New System.Windows.Forms.Button()
+        Me.Label98 = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_Items_Totaal = New System.Windows.Forms.Label()
         Me.Lbl_Excasso_Extr = New System.Windows.Forms.Label()
         Me.Label139 = New System.Windows.Forms.Label()
         Me.Tbx_Excasso_Norm3 = New System.Windows.Forms.TextBox()
         Me.Tbx_Excasso_Norm2 = New System.Windows.Forms.TextBox()
         Me.Tbx_Excasso_CP3 = New System.Windows.Forms.TextBox()
         Me.Lbl_Excasso_Internal = New System.Windows.Forms.Label()
-        Me.Gbx_Excasso_Calculate = New System.Windows.Forms.GroupBox()
-        Me.Btn_Excasso_Nullvalues = New System.Windows.Forms.Button()
-        Me.Btn_Excasso_Act_Saldo = New System.Windows.Forms.Button()
-        Me.Lbl_Excasso_Items_Intern = New System.Windows.Forms.Label()
-        Me.Btn_Excasso_Maandbudget = New System.Windows.Forms.Button()
-        Me.Lbl_Excasso_Items_Contract = New System.Windows.Forms.Label()
-        Me.Lbl_Excasso_Items_Extra = New System.Windows.Forms.Label()
-        Me.Lbl_Excasso_Contractwaarde = New System.Windows.Forms.Label()
-        Me.Lbl_Excasso_Extra = New System.Windows.Forms.Label()
-        Me.Lbl_Excasso_Intern = New System.Windows.Forms.Label()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Dtp_Excasso_Start = New System.Windows.Forms.DateTimePicker()
-        Me.Label103 = New System.Windows.Forms.Label()
-        Me.Tbx_Excasso_Exchange_rate = New System.Windows.Forms.TextBox()
-        Me.Label83 = New System.Windows.Forms.Label()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.Btn_Excasso_Calculate_Exchrate = New System.Windows.Forms.Button()
-        Me.Btn_Excasso_Exchrate = New System.Windows.Forms.Button()
-        Me.Gbx_Excasso_Doeltype = New System.Windows.Forms.GroupBox()
-        Me.Label127 = New System.Windows.Forms.Label()
-        Me.Btn_Excasso_FormRefresh = New System.Windows.Forms.Button()
-        Me.Btn_Excasso_Copy_to_clipboard = New System.Windows.Forms.Button()
-        Me.Cbx_Uitkering_Kind = New System.Windows.Forms.CheckBox()
-        Me.Label107 = New System.Windows.Forms.Label()
-        Me.Label98 = New System.Windows.Forms.Label()
-        Me.Cbx_Uitkering_Oudere = New System.Windows.Forms.CheckBox()
-        Me.Lbl_Excasso_Tot_Gen_MLD = New System.Windows.Forms.Label()
-        Me.Lbl_Excasso_Totaal_MDL = New System.Windows.Forms.Label()
-        Me.Label89 = New System.Windows.Forms.Label()
-        Me.Lbl_Excasso_Tot_Gen = New System.Windows.Forms.Label()
-        Me.Lbl_Excasso_Totaal = New System.Windows.Forms.Label()
-        Me.Label118 = New System.Windows.Forms.Label()
-        Me.Cbx_Uitkering_Overig = New System.Windows.Forms.CheckBox()
-        Me.Lbl_Excasso_Items_Totaal = New System.Windows.Forms.Label()
-        Me.Cmx_Excasso_Select = New System.Windows.Forms.ComboBox()
         Me.Dgv_Excasso2 = New System.Windows.Forms.DataGridView()
-        Me.Btn_Excasso_Cancel = New System.Windows.Forms.Button()
-        Me.Btn_Excasso_Print = New System.Windows.Forms.Button()
-        Me.Btn_Excasso_Delete = New System.Windows.Forms.Button()
         Me.Btn_Excasso_Save = New System.Windows.Forms.Button()
+        Me.Btn_Excasso_Print = New System.Windows.Forms.Button()
+        Me.Btn_Excasso_Cancel = New System.Windows.Forms.Button()
+        Me.Btn_Excasso_Delete = New System.Windows.Forms.Button()
         Me.Intern = New System.Windows.Forms.TabPage()
-        Me.Lbl_Journal_Status = New System.Windows.Forms.Label()
-        Me.Cbx_Journal_Status_Verwerkt = New System.Windows.Forms.CheckBox()
-        Me.Cbx_Journal_Status_Open = New System.Windows.Forms.CheckBox()
-        Me.Btn_Journal_Intern = New System.Windows.Forms.Button()
-        Me.Chbx_Journal_Inactive = New System.Windows.Forms.CheckBox()
-        Me.Cbx_Journal_DeSelect_All = New System.Windows.Forms.CheckBox()
-        Me.Cbx_Journal_Select_All = New System.Windows.Forms.CheckBox()
-        Me.Lbl_Boeking_Selecteer = New System.Windows.Forms.Label()
-        Me.Lbl_Journal_Filter = New System.Windows.Forms.Label()
-        Me.Tbx_Journal_Filter = New System.Windows.Forms.TextBox()
+        Me.Label147 = New System.Windows.Forms.Label()
+        Me.Tbx_Journnal_Jname = New System.Windows.Forms.TextBox()
+        Me.Label146 = New System.Windows.Forms.Label()
+        Me.TC_Boeking = New System.Windows.Forms.TabControl()
+        Me.Boekingen = New System.Windows.Forms.TabPage()
+        Me.Tbx_Journal_Descr = New System.Windows.Forms.TextBox()
         Me.Dgv_Journal_items = New System.Windows.Forms.DataGridView()
-        Me.Lv_Journal_List = New System.Windows.Forms.ListView()
-        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.Gbx_Journal_Totals = New System.Windows.Forms.GroupBox()
-        Me.Lbl_Journal_Sum_Amt_Start = New System.Windows.Forms.Label()
-        Me.Label137 = New System.Windows.Forms.Label()
-        Me.Label133 = New System.Windows.Forms.Label()
-        Me.Label134 = New System.Windows.Forms.Label()
-        Me.Label135 = New System.Windows.Forms.Label()
-        Me.Label131 = New System.Windows.Forms.Label()
-        Me.Label132 = New System.Windows.Forms.Label()
-        Me.Lbl_Journal_Sum_Amt_Out = New System.Windows.Forms.Label()
-        Me.Lbl_Journal_Sum_Amt_Saldo = New System.Windows.Forms.Label()
-        Me.Lbl_Journal_Sum_Amt_In = New System.Windows.Forms.Label()
-        Me.Lbl_Journal_Sum_Item_Saldo = New System.Windows.Forms.Label()
+        Me.Overboekingen = New System.Windows.Forms.TabPage()
+        Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.Rbn_Journal_Extra = New System.Windows.Forms.RadioButton()
+        Me.Tbx_Journal_Name = New System.Windows.Forms.TextBox()
         Me.Label126 = New System.Windows.Forms.Label()
-        Me.Lbl_Journal_Sum_Item_In = New System.Windows.Forms.Label()
-        Me.Lbl_Journal_Sum_Item_Out = New System.Windows.Forms.Label()
-        Me.Label124 = New System.Windows.Forms.Label()
-        Me.Label123 = New System.Windows.Forms.Label()
-        Me.Gbx_Boekingen_Overboeking = New System.Windows.Forms.GroupBox()
-        Me.Lbl_Journal_Source_Restamt = New System.Windows.Forms.Label()
+        Me.Rbn_Journal_Contract = New System.Windows.Forms.RadioButton()
+        Me.Rbn_Journal_Intern = New System.Windows.Forms.RadioButton()
+        Me.Label54 = New System.Windows.Forms.Label()
+        Me.Btn_Journal_Intern_Save = New System.Windows.Forms.Button()
         Me.Btn_Journal_Recalculate = New System.Windows.Forms.Button()
-        Me.Label129 = New System.Windows.Forms.Label()
-        Me.Label121 = New System.Windows.Forms.Label()
-        Me.Lbl_Journal_Source_Name = New System.Windows.Forms.Label()
-        Me.Lbl_Journal_Source_id = New System.Windows.Forms.Label()
-        Me.Dtp_Journal_intern = New System.Windows.Forms.DateTimePicker()
-        Me.Label128 = New System.Windows.Forms.Label()
-        Me.Tbx_Journal_Description = New System.Windows.Forms.TextBox()
-        Me.Btn_Journal_Add_Source = New System.Windows.Forms.Button()
-        Me.Lbl_Journal_Source_Saldo = New System.Windows.Forms.Label()
-        Me.Label125 = New System.Windows.Forms.Label()
-        Me.Label95 = New System.Windows.Forms.Label()
+        Me.Btn_Journals_Cancel = New System.Windows.Forms.Button()
         Me.Btn_Select_Bulk = New System.Windows.Forms.Button()
+        Me.Label121 = New System.Windows.Forms.Label()
+        Me.Dtp_Journal_intern = New System.Windows.Forms.DateTimePicker()
         Me.Dgv_Journal_Intern = New System.Windows.Forms.DataGridView()
         Me.id1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Accnt = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Amt1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Btn_Journal_Intern_Save = New System.Windows.Forms.Button()
+        Me.Label128 = New System.Windows.Forms.Label()
+        Me.Label125 = New System.Windows.Forms.Label()
+        Me.Tbx_Journal_Description = New System.Windows.Forms.TextBox()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Btn_Journal_Add_Source = New System.Windows.Forms.Button()
+        Me.Label95 = New System.Windows.Forms.Label()
+        Me.Lbl_Journal_Source_Name = New System.Windows.Forms.Label()
         Me.Tbx_Journal_Source_Amt = New System.Windows.Forms.TextBox()
-        Me.Btn_Journals_Cancel = New System.Windows.Forms.Button()
+        Me.Lbl_Journal_Source_Saldo = New System.Windows.Forms.Label()
+        Me.Lbl_Journal_Source_Restamt = New System.Windows.Forms.Label()
+        Me.Lbl_Journal_Source_id = New System.Windows.Forms.Label()
+        Me.Label129 = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label149 = New System.Windows.Forms.Label()
+        Me.Cbx_Journal_Saldo_Open = New System.Windows.Forms.CheckBox()
+        Me.Label124 = New System.Windows.Forms.Label()
+        Me.Cbx_Journal_Status_Verwerkt = New System.Windows.Forms.CheckBox()
+        Me.Lbl_Journal_Status = New System.Windows.Forms.Label()
+        Me.Cbx_Journal_Status_Open = New System.Windows.Forms.CheckBox()
+        Me.Cbx_Journal_Select_All = New System.Windows.Forms.CheckBox()
+        Me.Cbx_Journal_DeSelect_All = New System.Windows.Forms.CheckBox()
+        Me.Lbl_Boeking_Selecteer = New System.Windows.Forms.Label()
+        Me.Tbx_Journal_Filter = New System.Windows.Forms.TextBox()
+        Me.Lv_Journal_List = New System.Windows.Forms.ListView()
+        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.Chbx_Journal_Inactive = New System.Windows.Forms.CheckBox()
         Me.Cmx_Journal_List = New System.Windows.Forms.ComboBox()
         Me.Tab_Rapportage = New System.Windows.Forms.TabPage()
-        Me.Btn_Rapportage_Ververs = New System.Windows.Forms.Button()
+        Me.TC_Rapportage = New System.Windows.Forms.TabControl()
+        Me.Journaal = New System.Windows.Forms.TabPage()
+        Me.Dgv_Rapportage_Overzicht = New System.Windows.Forms.DataGridView()
+        Me.Bank = New System.Windows.Forms.TabPage()
         Me.Dgv_Rapportage = New System.Windows.Forms.DataGridView()
+        Me.Details = New System.Windows.Forms.TabPage()
+        Me.Dgv_Rapportage_Details = New System.Windows.Forms.DataGridView()
+        Me.TC_Controles = New System.Windows.Forms.TabPage()
+        Me.Cmx_Report5 = New System.Windows.Forms.ComboBox()
+        Me.Dgv_Report_5 = New System.Windows.Forms.DataGridView()
+        Me.Overhead = New System.Windows.Forms.TabPage()
+        Me.Dgv_Report_7 = New System.Windows.Forms.DataGridView()
+        Me.TC_Boekingen = New System.Windows.Forms.TabPage()
+        Me.Tbx_Report6_Add = New System.Windows.Forms.TextBox()
+        Me.Dgv_Report_6 = New System.Windows.Forms.DataGridView()
+        Me.Jaarafsluiting = New System.Windows.Forms.TabPage()
+        Me.Lbl_Report_total = New System.Windows.Forms.Label()
+        Me.Label108 = New System.Windows.Forms.Label()
+        Me.Btn_Report_YearEnd_Post = New System.Windows.Forms.Button()
+        Me.Btn_Report_YearEnd_Show = New System.Windows.Forms.Button()
+        Me.Dgv_Report_Year_Closing = New System.Windows.Forms.DataGridView()
         Me.Instellingen = New System.Windows.Forms.TabPage()
-        Me.Btn_Settings_Save = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.Tbx_Settings_Banktext_Oudere = New System.Windows.Forms.TextBox()
         Me.Tbx_Settings_Banktext_Kind = New System.Windows.Forms.TextBox()
@@ -498,6 +557,10 @@ Partial Class SPAS
         Me.Label141 = New System.Windows.Forms.Label()
         Me.Label142 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Cmx_Settings_Saldosteun = New System.Windows.Forms.ComboBox()
+        Me.Cmx_Settings_Transitoria = New System.Windows.Forms.ComboBox()
+        Me.Label133 = New System.Windows.Forms.Label()
+        Me.Label131 = New System.Windows.Forms.Label()
         Me.Cmx_Settings_Banktransactiekosten = New System.Windows.Forms.ComboBox()
         Me.Label102 = New System.Windows.Forms.Label()
         Me.Cmx_Settings_Bankkosten = New System.Windows.Forms.ComboBox()
@@ -510,73 +573,109 @@ Partial Class SPAS
         Me.Label119 = New System.Windows.Forms.Label()
         Me.Cmx_Settings_Overhead = New System.Windows.Forms.ComboBox()
         Me.Label116 = New System.Windows.Forms.Label()
-        Me.Btn_Settings_Cancel = New System.Windows.Forms.Button()
         Me.TabPage8 = New System.Windows.Forms.TabPage()
-        Me.Btn_Beheer_YearClose = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Dgv_Test = New System.Windows.Forms.DataGridView()
         Me.Dgv_Mgnt_Tables = New System.Windows.Forms.DataGridView()
         Me.Label61 = New System.Windows.Forms.Label()
-        Me.Label78 = New System.Windows.Forms.Label()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.BestandToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.NieuwToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OpenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Chbx_test = New System.Windows.Forms.CheckBox()
+        Me.MenuAdd = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuSave = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuCancel = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Cbx_LifeCycle = New System.Windows.Forms.ToolStripComboBox()
+        Me.Menu_Print = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuCategoriseer = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Menu_Export = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuBanktransactie = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuUploadAlles = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripTextBox1 = New System.Windows.Forms.ToolStripTextBox()
+        Me.MenuFilter = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Searchbox = New System.Windows.Forms.ToolStripTextBox()
+        Me.ZoekenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
-        Me.Button3 = New System.Windows.Forms.Button()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.Pan_Test = New System.Windows.Forms.Panel()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.TC_Main.SuspendLayout()
-        Me.TabPage1.SuspendLayout()
-        Me.TC_Object.SuspendLayout()
-        Me.Contract.SuspendLayout()
-        Me.Pan_Contract_Date_New.SuspendLayout()
-        Me.Pan_contract_select_target.SuspendLayout()
-        CType(Me.Pic_Contract_Target_photo, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.target.SuspendLayout()
-        Me.Pan_Target.SuspendLayout()
-        CType(Me.Pic_Target__photo, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Relation.SuspendLayout()
-        Me.CP.SuspendLayout()
-        CType(Me.Pic_cp__photo, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Account.SuspendLayout()
-        Me.Pan_account.SuspendLayout()
-        Me.BankAcc.SuspendLayout()
-        Me.Tab_Bank.SuspendLayout()
-        CType(Me.Dgv_Bank_Account2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Dgv_Bank_Account, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Dgv_Bank, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Incasso.SuspendLayout()
-        CType(Me.Dgv_Incasso, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Uitkering.SuspendLayout()
-        Me.GroupBox4.SuspendLayout()
-        Me.Gbx_Excasso_Calculate.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.Gbx_Excasso_Doeltype.SuspendLayout()
-        CType(Me.Dgv_Excasso2, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Intern.SuspendLayout()
-        CType(Me.Dgv_Journal_items, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Gbx_Journal_Totals.SuspendLayout()
-        Me.Gbx_Boekingen_Overboeking.SuspendLayout()
-        CType(Me.Dgv_Journal_Intern, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Tab_Rapportage.SuspendLayout()
-        CType(Me.Dgv_Rapportage, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Instellingen.SuspendLayout()
-        Me.GroupBox5.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
-        Me.TabPage8.SuspendLayout()
-        CType(Me.Dgv_Mgnt_Tables, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.MenuStrip1.SuspendLayout()
-        Me.Pan_Test.SuspendLayout()
-        Me.SuspendLayout()
+        Me.TC_Main.SuspendLayout
+        Me.TabPage1.SuspendLayout
+        Me.Panel1.SuspendLayout
+        Me.TC_Object.SuspendLayout
+        Me.Contract.SuspendLayout
+        Me.Pan_Test.SuspendLayout
+        Me.Pan_Contract_Date_New.SuspendLayout
+        Me.Pan_contract_select_target.SuspendLayout
+        CType(Me.Pic_Contract_Target_photo, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.target.SuspendLayout
+        Me.Pan_Target.SuspendLayout
+        CType(Me.Pic_Target__photo, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Relation.SuspendLayout
+        Me.CP.SuspendLayout
+        CType(Me.Pic_cp__photo, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Account.SuspendLayout
+        Me.Pan_account.SuspendLayout
+        Me.BankAcc.SuspendLayout
+        Me.Accgroup.SuspendLayout
+        Me.Panel9.SuspendLayout
+        Me.Tab_Bank.SuspendLayout
+        Me.Panel6.SuspendLayout
+        CType(Me.Dgv_Bank_Account, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.Dgv_Bank_Account2, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Pan_Bank_jtype.SuspendLayout
+        CType(Me.Dgv_Bank, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Incasso.SuspendLayout
+        Me.Panel3.SuspendLayout
+        Me.Panel10.SuspendLayout
+        Me.Panel5.SuspendLayout
+        CType(Me.Dgv_Incasso, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Uitkering.SuspendLayout
+        Me.Panel4.SuspendLayout
+        Me.Gbx_Excasso_Doeltype.SuspendLayout
+        Me.GroupBox1.SuspendLayout
+        Me.Pan_Excasso_preset.SuspendLayout
+        Me.Gbx_Excasso_Calculate.SuspendLayout
+        Me.GroupBox4.SuspendLayout
+        CType(Me.Dgv_Excasso2, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Intern.SuspendLayout
+        Me.TC_Boeking.SuspendLayout
+        Me.Boekingen.SuspendLayout
+        CType(Me.Dgv_Journal_items, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Overboekingen.SuspendLayout
+        Me.Panel8.SuspendLayout
+        CType(Me.Dgv_Journal_Intern, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Panel7.SuspendLayout
+        Me.Panel2.SuspendLayout
+        Me.Tab_Rapportage.SuspendLayout
+        Me.TC_Rapportage.SuspendLayout
+        Me.Journaal.SuspendLayout
+        CType(Me.Dgv_Rapportage_Overzicht, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Bank.SuspendLayout
+        CType(Me.Dgv_Rapportage, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Details.SuspendLayout
+        CType(Me.Dgv_Rapportage_Details, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.TC_Controles.SuspendLayout
+        CType(Me.Dgv_Report_5, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Overhead.SuspendLayout
+        CType(Me.Dgv_Report_7, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.TC_Boekingen.SuspendLayout
+        CType(Me.Dgv_Report_6, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Jaarafsluiting.SuspendLayout
+        CType(Me.Dgv_Report_Year_Closing, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Instellingen.SuspendLayout
+        Me.GroupBox5.SuspendLayout
+        Me.GroupBox3.SuspendLayout
+        Me.TabPage8.SuspendLayout
+        CType(Me.Dgv_Test, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.Dgv_Mgnt_Tables, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.MenuStrip1.SuspendLayout
+        Me.SuspendLayout
         '
         'TC_Main
         '
-        Me.TC_Main.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.TC_Main.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TC_Main.Controls.Add(Me.TabPage1)
         Me.TC_Main.Controls.Add(Me.Tab_Bank)
         Me.TC_Main.Controls.Add(Me.Incasso)
@@ -586,99 +685,93 @@ Partial Class SPAS
         Me.TC_Main.Controls.Add(Me.Instellingen)
         Me.TC_Main.Controls.Add(Me.TabPage8)
         Me.TC_Main.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TC_Main.Location = New System.Drawing.Point(12, 40)
+        Me.TC_Main.Location = New System.Drawing.Point(0, 28)
         Me.TC_Main.Margin = New System.Windows.Forms.Padding(2)
         Me.TC_Main.Name = "TC_Main"
         Me.TC_Main.SelectedIndex = 0
-        Me.TC_Main.Size = New System.Drawing.Size(1115, 671)
+        Me.TC_Main.Size = New System.Drawing.Size(1030, 602)
         Me.TC_Main.TabIndex = 0
         '
         'TabPage1
         '
         Me.TabPage1.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.TabPage1.Controls.Add(Me.Btn_Basis_Delete)
-        Me.TabPage1.Controls.Add(Me.Rbn_contract_all)
-        Me.TabPage1.Controls.Add(Me.Rbn_contract_inactive)
-        Me.TabPage1.Controls.Add(Me.Rbn_contract_active)
-        Me.TabPage1.Controls.Add(Me.Lbx_Basis)
-        Me.TabPage1.Controls.Add(Me.Tbx_Basis_Filter)
+        Me.TabPage1.Controls.Add(Me.Panel1)
         Me.TabPage1.Controls.Add(Me.TC_Object)
-        Me.TabPage1.Controls.Add(Me.Btn_Basis_Save)
-        Me.TabPage1.Controls.Add(Me.Btn_Basis_Add)
-        Me.TabPage1.Controls.Add(Me.Label22)
-        Me.TabPage1.Controls.Add(Me.Btn_Basis_Cancel)
         Me.TabPage1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabPage1.Location = New System.Drawing.Point(4, 28)
         Me.TabPage1.Margin = New System.Windows.Forms.Padding(2)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(2)
-        Me.TabPage1.Size = New System.Drawing.Size(1107, 639)
+        Me.TabPage1.Size = New System.Drawing.Size(1022, 570)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Basisadministratie   "
         '
-        'Btn_Basis_Delete
+        'Panel1
         '
-        Me.Btn_Basis_Delete.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Basis_Delete.Enabled = False
-        Me.Btn_Basis_Delete.Image = Global.SPAS.My.Resources.Resources.trash_2_161
-        Me.Btn_Basis_Delete.Location = New System.Drawing.Point(106, 549)
-        Me.Btn_Basis_Delete.Name = "Btn_Basis_Delete"
-        Me.Btn_Basis_Delete.Size = New System.Drawing.Size(32, 32)
-        Me.Btn_Basis_Delete.TabIndex = 98
-        Me.Btn_Basis_Delete.UseVisualStyleBackColor = True
-        '
-        'Rbn_contract_all
-        '
-        Me.Rbn_contract_all.AutoSize = True
-        Me.Rbn_contract_all.Location = New System.Drawing.Point(166, 56)
-        Me.Rbn_contract_all.Name = "Rbn_contract_all"
-        Me.Rbn_contract_all.Size = New System.Drawing.Size(41, 21)
-        Me.Rbn_contract_all.TabIndex = 19
-        Me.Rbn_contract_all.Text = "All"
-        Me.Rbn_contract_all.UseVisualStyleBackColor = True
-        '
-        'Rbn_contract_inactive
-        '
-        Me.Rbn_contract_inactive.AutoSize = True
-        Me.Rbn_contract_inactive.Location = New System.Drawing.Point(84, 56)
-        Me.Rbn_contract_inactive.Name = "Rbn_contract_inactive"
-        Me.Rbn_contract_inactive.Size = New System.Drawing.Size(71, 21)
-        Me.Rbn_contract_inactive.TabIndex = 19
-        Me.Rbn_contract_inactive.Text = "Inactief"
-        Me.Rbn_contract_inactive.UseVisualStyleBackColor = True
-        '
-        'Rbn_contract_active
-        '
-        Me.Rbn_contract_active.AutoSize = True
-        Me.Rbn_contract_active.Checked = True
-        Me.Rbn_contract_active.Location = New System.Drawing.Point(14, 56)
-        Me.Rbn_contract_active.Name = "Rbn_contract_active"
-        Me.Rbn_contract_active.Size = New System.Drawing.Size(61, 21)
-        Me.Rbn_contract_active.TabIndex = 19
-        Me.Rbn_contract_active.TabStop = True
-        Me.Rbn_contract_active.Text = "Actief"
-        Me.Rbn_contract_active.UseVisualStyleBackColor = True
+        Me.Panel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Panel1.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Panel1.Controls.Add(Me.Lbx_Basis)
+        Me.Panel1.Controls.Add(Me.Btn_Basis_Cancel)
+        Me.Panel1.Controls.Add(Me.Btn_Basis_Save)
+        Me.Panel1.Controls.Add(Me.Btn_Basis_Add)
+        Me.Panel1.Location = New System.Drawing.Point(4, 15)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(274, 547)
+        Me.Panel1.TabIndex = 99
         '
         'Lbx_Basis
         '
-        Me.Lbx_Basis.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Lbx_Basis.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Lbx_Basis.FormattingEnabled = True
         Me.Lbx_Basis.ItemHeight = 16
-        Me.Lbx_Basis.Location = New System.Drawing.Point(14, 79)
+        Me.Lbx_Basis.Location = New System.Drawing.Point(0, 0)
         Me.Lbx_Basis.Name = "Lbx_Basis"
-        Me.Lbx_Basis.Size = New System.Drawing.Size(235, 452)
+        Me.Lbx_Basis.Size = New System.Drawing.Size(275, 500)
         Me.Lbx_Basis.TabIndex = 17
         '
-        'Tbx_Basis_Filter
+        'Btn_Basis_Cancel
         '
-        Me.Tbx_Basis_Filter.Location = New System.Drawing.Point(80, 28)
-        Me.Tbx_Basis_Filter.Name = "Tbx_Basis_Filter"
-        Me.Tbx_Basis_Filter.Size = New System.Drawing.Size(156, 23)
-        Me.Tbx_Basis_Filter.TabIndex = 16
+        Me.Btn_Basis_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Btn_Basis_Cancel.Enabled = False
+        Me.Btn_Basis_Cancel.Image = Global.SPAS.My.Resources.Resources.Cancel_16x16
+        Me.Btn_Basis_Cancel.Location = New System.Drawing.Point(141, 393)
+        Me.Btn_Basis_Cancel.Name = "Btn_Basis_Cancel"
+        Me.Btn_Basis_Cancel.Size = New System.Drawing.Size(32, 32)
+        Me.Btn_Basis_Cancel.TabIndex = 1
+        Me.Btn_Basis_Cancel.UseVisualStyleBackColor = True
+        Me.Btn_Basis_Cancel.Visible = False
+        '
+        'Btn_Basis_Save
+        '
+        Me.Btn_Basis_Save.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Btn_Basis_Save.Enabled = False
+        Me.Btn_Basis_Save.Image = Global.SPAS.My.Resources.Resources.Save_16x16
+        Me.Btn_Basis_Save.Location = New System.Drawing.Point(179, 393)
+        Me.Btn_Basis_Save.Name = "Btn_Basis_Save"
+        Me.Btn_Basis_Save.Size = New System.Drawing.Size(32, 32)
+        Me.Btn_Basis_Save.TabIndex = 1
+        Me.Btn_Basis_Save.UseVisualStyleBackColor = True
+        Me.Btn_Basis_Save.Visible = False
+        '
+        'Btn_Basis_Add
+        '
+        Me.Btn_Basis_Add.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Btn_Basis_Add.Image = Global.SPAS.My.Resources.Resources.Add_16x16
+        Me.Btn_Basis_Add.Location = New System.Drawing.Point(217, 393)
+        Me.Btn_Basis_Add.Name = "Btn_Basis_Add"
+        Me.Btn_Basis_Add.Size = New System.Drawing.Size(32, 32)
+        Me.Btn_Basis_Add.TabIndex = 1
+        Me.Btn_Basis_Add.UseVisualStyleBackColor = True
+        Me.Btn_Basis_Add.Visible = False
         '
         'TC_Object
         '
-        Me.TC_Object.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.TC_Object.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TC_Object.Appearance = System.Windows.Forms.TabAppearance.Buttons
         Me.TC_Object.Controls.Add(Me.Contract)
         Me.TC_Object.Controls.Add(Me.target)
@@ -686,18 +779,20 @@ Partial Class SPAS
         Me.TC_Object.Controls.Add(Me.CP)
         Me.TC_Object.Controls.Add(Me.Account)
         Me.TC_Object.Controls.Add(Me.BankAcc)
+        Me.TC_Object.Controls.Add(Me.Accgroup)
         Me.TC_Object.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TC_Object.Location = New System.Drawing.Point(272, 26)
+        Me.TC_Object.Location = New System.Drawing.Point(282, 16)
         Me.TC_Object.Margin = New System.Windows.Forms.Padding(2)
         Me.TC_Object.Name = "TC_Object"
         Me.TC_Object.SelectedIndex = 0
-        Me.TC_Object.Size = New System.Drawing.Size(789, 567)
+        Me.TC_Object.Size = New System.Drawing.Size(730, 550)
         Me.TC_Object.TabIndex = 7
         Me.TC_Object.Tag = "Doel"
         '
         'Contract
         '
         Me.Contract.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Contract.Controls.Add(Me.Pan_Test)
         Me.Contract.Controls.Add(Me.Lbl_Contract_tgt)
         Me.Contract.Controls.Add(Me.Label96)
         Me.Contract.Controls.Add(Me.Lbl_Contract_Bronaccount)
@@ -742,9 +837,53 @@ Partial Class SPAS
         Me.Contract.Margin = New System.Windows.Forms.Padding(2)
         Me.Contract.Name = "Contract"
         Me.Contract.Padding = New System.Windows.Forms.Padding(2)
-        Me.Contract.Size = New System.Drawing.Size(781, 533)
+        Me.Contract.Size = New System.Drawing.Size(722, 516)
         Me.Contract.TabIndex = 1
         Me.Contract.Text = "Contract"
+        '
+        'Pan_Test
+        '
+        Me.Pan_Test.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Pan_Test.Controls.Add(Me.Button3)
+        Me.Pan_Test.Controls.Add(Me.Button4)
+        Me.Pan_Test.Controls.Add(Me.Chbx_test)
+        Me.Pan_Test.Font = New System.Drawing.Font("Calibri Light", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Pan_Test.Location = New System.Drawing.Point(596, 510)
+        Me.Pan_Test.Margin = New System.Windows.Forms.Padding(2)
+        Me.Pan_Test.Name = "Pan_Test"
+        Me.Pan_Test.Size = New System.Drawing.Size(144, 20)
+        Me.Pan_Test.TabIndex = 33
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(88, 0)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(2)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(44, 20)
+        Me.Button3.TabIndex = 32
+        Me.Button3.Text = "reset"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button4
+        '
+        Me.Button4.Location = New System.Drawing.Point(51, 0)
+        Me.Button4.Margin = New System.Windows.Forms.Padding(2)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(33, 20)
+        Me.Button4.TabIndex = 2
+        Me.Button4.Text = "test"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'Chbx_test
+        '
+        Me.Chbx_test.AutoSize = True
+        Me.Chbx_test.Location = New System.Drawing.Point(0, 3)
+        Me.Chbx_test.Margin = New System.Windows.Forms.Padding(2)
+        Me.Chbx_test.Name = "Chbx_test"
+        Me.Chbx_test.Size = New System.Drawing.Size(46, 18)
+        Me.Chbx_test.TabIndex = 3
+        Me.Chbx_test.Text = "Test"
+        Me.Chbx_test.UseVisualStyleBackColor = True
         '
         'Lbl_Contract_tgt
         '
@@ -755,6 +894,7 @@ Partial Class SPAS
         Me.Lbl_Contract_tgt.Size = New System.Drawing.Size(20, 18)
         Me.Lbl_Contract_tgt.TabIndex = 73
         Me.Lbl_Contract_tgt.Text = "id"
+        Me.Lbl_Contract_tgt.Visible = False
         '
         'Label96
         '
@@ -765,11 +905,12 @@ Partial Class SPAS
         Me.Label96.Size = New System.Drawing.Size(14, 18)
         Me.Label96.TabIndex = 72
         Me.Label96.Text = "/"
+        Me.Label96.Visible = False
         '
         'Lbl_Contract_Bronaccount
         '
         Me.Lbl_Contract_Bronaccount.AutoSize = True
-        Me.Lbl_Contract_Bronaccount.Location = New System.Drawing.Point(22, 252)
+        Me.Lbl_Contract_Bronaccount.Location = New System.Drawing.Point(15, 253)
         Me.Lbl_Contract_Bronaccount.Name = "Lbl_Contract_Bronaccount"
         Me.Lbl_Contract_Bronaccount.Size = New System.Drawing.Size(85, 18)
         Me.Lbl_Contract_Bronaccount.TabIndex = 70
@@ -781,7 +922,7 @@ Partial Class SPAS
         Me.Cmx_00_Contract__fk_account_id.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.Cmx_00_Contract__fk_account_id.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.Cmx_00_Contract__fk_account_id.FormattingEnabled = True
-        Me.Cmx_00_Contract__fk_account_id.Location = New System.Drawing.Point(145, 249)
+        Me.Cmx_00_Contract__fk_account_id.Location = New System.Drawing.Point(138, 250)
         Me.Cmx_00_Contract__fk_account_id.Name = "Cmx_00_Contract__fk_account_id"
         Me.Cmx_00_Contract__fk_account_id.Size = New System.Drawing.Size(288, 26)
         Me.Cmx_00_Contract__fk_account_id.Sorted = True
@@ -796,6 +937,7 @@ Partial Class SPAS
         Me.Tbx_Contract_ttype.Name = "Tbx_Contract_ttype"
         Me.Tbx_Contract_ttype.Size = New System.Drawing.Size(52, 26)
         Me.Tbx_Contract_ttype.TabIndex = 66
+        Me.Tbx_Contract_ttype.Visible = False
         '
         'Cbx_00_contract__active
         '
@@ -814,7 +956,7 @@ Partial Class SPAS
         '
         Me.Lbl_contract_mach_datum.AutoSize = True
         Me.Lbl_contract_mach_datum.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_contract_mach_datum.Location = New System.Drawing.Point(492, 347)
+        Me.Lbl_contract_mach_datum.Location = New System.Drawing.Point(459, 312)
         Me.Lbl_contract_mach_datum.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Lbl_contract_mach_datum.Name = "Lbl_contract_mach_datum"
         Me.Lbl_contract_mach_datum.Size = New System.Drawing.Size(165, 18)
@@ -826,7 +968,7 @@ Partial Class SPAS
         '
         Me.Lbl_contract_macht_kenm.AutoSize = True
         Me.Lbl_contract_macht_kenm.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_contract_macht_kenm.Location = New System.Drawing.Point(492, 321)
+        Me.Lbl_contract_macht_kenm.Location = New System.Drawing.Point(459, 286)
         Me.Lbl_contract_macht_kenm.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Lbl_contract_macht_kenm.Name = "Lbl_contract_macht_kenm"
         Me.Lbl_contract_macht_kenm.Size = New System.Drawing.Size(136, 18)
@@ -838,7 +980,7 @@ Partial Class SPAS
         '
         Me.Pan_Contract_Date_New.Controls.Add(Me.Dtp_30_Contract_Change)
         Me.Pan_Contract_Date_New.Controls.Add(Me.Lbl_contract_new_date)
-        Me.Pan_Contract_Date_New.Location = New System.Drawing.Point(485, 211)
+        Me.Pan_Contract_Date_New.Location = New System.Drawing.Point(452, 206)
         Me.Pan_Contract_Date_New.Name = "Pan_Contract_Date_New"
         Me.Pan_Contract_Date_New.Size = New System.Drawing.Size(284, 32)
         Me.Pan_Contract_Date_New.TabIndex = 63
@@ -921,7 +1063,7 @@ Partial Class SPAS
         '
         Me.Lbl_00_contract_autcol.AutoSize = True
         Me.Lbl_00_contract_autcol.ForeColor = System.Drawing.Color.Black
-        Me.Lbl_00_contract_autcol.Location = New System.Drawing.Point(662, 315)
+        Me.Lbl_00_contract_autcol.Location = New System.Drawing.Point(629, 286)
         Me.Lbl_00_contract_autcol.MinimumSize = New System.Drawing.Size(93, 26)
         Me.Lbl_00_contract_autcol.Name = "Lbl_00_contract_autcol"
         Me.Lbl_00_contract_autcol.Size = New System.Drawing.Size(93, 26)
@@ -946,7 +1088,7 @@ Partial Class SPAS
         'Label85
         '
         Me.Label85.AutoSize = True
-        Me.Label85.Location = New System.Drawing.Point(22, 219)
+        Me.Label85.Location = New System.Drawing.Point(15, 220)
         Me.Label85.Name = "Label85"
         Me.Label85.Size = New System.Drawing.Size(58, 18)
         Me.Label85.TabIndex = 56
@@ -957,7 +1099,7 @@ Partial Class SPAS
         Me.dtp_contract_relation_date.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
         Me.dtp_contract_relation_date.Enabled = False
         Me.dtp_contract_relation_date.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtp_contract_relation_date.Location = New System.Drawing.Point(662, 344)
+        Me.dtp_contract_relation_date.Location = New System.Drawing.Point(629, 312)
         Me.dtp_contract_relation_date.Name = "dtp_contract_relation_date"
         Me.dtp_contract_relation_date.Size = New System.Drawing.Size(93, 26)
         Me.dtp_contract_relation_date.TabIndex = 54
@@ -968,7 +1110,7 @@ Partial Class SPAS
         '
         Me.Label80.AutoSize = True
         Me.Label80.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label80.Location = New System.Drawing.Point(494, 102)
+        Me.Label80.Location = New System.Drawing.Point(461, 104)
         Me.Label80.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label80.Name = "Label80"
         Me.Label80.Size = New System.Drawing.Size(45, 18)
@@ -978,7 +1120,7 @@ Partial Class SPAS
         'Label84
         '
         Me.Label84.AutoSize = True
-        Me.Label84.Location = New System.Drawing.Point(22, 187)
+        Me.Label84.Location = New System.Drawing.Point(15, 188)
         Me.Label84.Name = "Label84"
         Me.Label84.Size = New System.Drawing.Size(86, 18)
         Me.Label84.TabIndex = 44
@@ -1028,7 +1170,7 @@ Partial Class SPAS
         '
         Me.Label70.AutoSize = True
         Me.Label70.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label70.Location = New System.Drawing.Point(494, 175)
+        Me.Label70.Location = New System.Drawing.Point(461, 170)
         Me.Label70.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label70.Name = "Label70"
         Me.Label70.Size = New System.Drawing.Size(98, 18)
@@ -1041,7 +1183,7 @@ Partial Class SPAS
         Me.Cmx_00_contract__fk_relation_id.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.Cmx_00_contract__fk_relation_id.Enabled = False
         Me.Cmx_00_contract__fk_relation_id.FormattingEnabled = True
-        Me.Cmx_00_contract__fk_relation_id.Location = New System.Drawing.Point(145, 217)
+        Me.Cmx_00_contract__fk_relation_id.Location = New System.Drawing.Point(138, 218)
         Me.Cmx_00_contract__fk_relation_id.Name = "Cmx_00_contract__fk_relation_id"
         Me.Cmx_00_contract__fk_relation_id.Size = New System.Drawing.Size(288, 26)
         Me.Cmx_00_contract__fk_relation_id.Sorted = True
@@ -1054,7 +1196,7 @@ Partial Class SPAS
         Me.Cmx_01_contract__fk_target_id.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.Cmx_01_contract__fk_target_id.Enabled = False
         Me.Cmx_01_contract__fk_target_id.FormattingEnabled = True
-        Me.Cmx_01_contract__fk_target_id.Location = New System.Drawing.Point(145, 184)
+        Me.Cmx_01_contract__fk_target_id.Location = New System.Drawing.Point(138, 185)
         Me.Cmx_01_contract__fk_target_id.Name = "Cmx_01_contract__fk_target_id"
         Me.Cmx_01_contract__fk_target_id.Size = New System.Drawing.Size(288, 26)
         Me.Cmx_01_contract__fk_target_id.TabIndex = 29
@@ -1065,7 +1207,7 @@ Partial Class SPAS
         Me.Cmx_02_Contract__term.Enabled = False
         Me.Cmx_02_Contract__term.FormattingEnabled = True
         Me.Cmx_02_Contract__term.Items.AddRange(New Object() {"1", "3", "4", "6", "12"})
-        Me.Cmx_02_Contract__term.Location = New System.Drawing.Point(693, 142)
+        Me.Cmx_02_Contract__term.Location = New System.Drawing.Point(660, 137)
         Me.Cmx_02_Contract__term.Name = "Cmx_02_Contract__term"
         Me.Cmx_02_Contract__term.Size = New System.Drawing.Size(62, 26)
         Me.Cmx_02_Contract__term.TabIndex = 23
@@ -1074,7 +1216,7 @@ Partial Class SPAS
         'Dtp_31_contract__enddate
         '
         Me.Dtp_31_contract__enddate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_31_contract__enddate.Location = New System.Drawing.Point(333, 370)
+        Me.Dtp_31_contract__enddate.Location = New System.Drawing.Point(326, 287)
         Me.Dtp_31_contract__enddate.Name = "Dtp_31_contract__enddate"
         Me.Dtp_31_contract__enddate.Size = New System.Drawing.Size(100, 26)
         Me.Dtp_31_contract__enddate.TabIndex = 26
@@ -1084,17 +1226,17 @@ Partial Class SPAS
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(285, 373)
+        Me.Label4.Location = New System.Drawing.Point(246, 291)
         Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(35, 18)
+        Me.Label4.Size = New System.Drawing.Size(75, 18)
         Me.Label4.TabIndex = 9
-        Me.Label4.Text = "Eind"
+        Me.Label4.Text = "Einddatum"
         '
         'Dtp_31_contract__startdate
         '
         Me.Dtp_31_contract__startdate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_31_contract__startdate.Location = New System.Drawing.Point(145, 370)
+        Me.Dtp_31_contract__startdate.Location = New System.Drawing.Point(138, 287)
         Me.Dtp_31_contract__startdate.Name = "Dtp_31_contract__startdate"
         Me.Dtp_31_contract__startdate.Size = New System.Drawing.Size(100, 26)
         Me.Dtp_31_contract__startdate.TabIndex = 25
@@ -1104,28 +1246,32 @@ Partial Class SPAS
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(21, 286)
+        Me.Label5.Location = New System.Drawing.Point(12, 336)
         Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(89, 18)
+        Me.Label5.Size = New System.Drawing.Size(75, 18)
         Me.Label5.TabIndex = 19
-        Me.Label5.Text = "Omschrijving"
+        Me.Label5.Text = "Toelichting"
         '
         'Tbx_00_contract__description
         '
+        Me.Tbx_00_contract__description.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Tbx_00_contract__description.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_00_contract__description.Location = New System.Drawing.Point(145, 284)
+        Me.Tbx_00_contract__description.Location = New System.Drawing.Point(15, 360)
         Me.Tbx_00_contract__description.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_contract__description.Multiline = True
         Me.Tbx_00_contract__description.Name = "Tbx_00_contract__description"
-        Me.Tbx_00_contract__description.Size = New System.Drawing.Size(288, 81)
+        Me.Tbx_00_contract__description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.Tbx_00_contract__description.Size = New System.Drawing.Size(699, 142)
         Me.Tbx_00_contract__description.TabIndex = 6
         '
         'Chx_00_contract__autcol
         '
         Me.Chx_00_contract__autcol.AutoSize = True
         Me.Chx_00_contract__autcol.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Chx_00_contract__autcol.Location = New System.Drawing.Point(497, 295)
+        Me.Chx_00_contract__autcol.Location = New System.Drawing.Point(464, 260)
         Me.Chx_00_contract__autcol.Margin = New System.Windows.Forms.Padding(2)
         Me.Chx_00_contract__autcol.Name = "Chx_00_contract__autcol"
         Me.Chx_00_contract__autcol.Size = New System.Drawing.Size(160, 22)
@@ -1137,7 +1283,7 @@ Partial Class SPAS
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(494, 145)
+        Me.Label7.Location = New System.Drawing.Point(461, 140)
         Me.Label7.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(124, 18)
@@ -1147,7 +1293,7 @@ Partial Class SPAS
         'Tbx_11_contract__overhead
         '
         Me.Tbx_11_contract__overhead.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_11_contract__overhead.Location = New System.Drawing.Point(693, 75)
+        Me.Tbx_11_contract__overhead.Location = New System.Drawing.Point(660, 78)
         Me.Tbx_11_contract__overhead.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_11_contract__overhead.Name = "Tbx_11_contract__overhead"
         Me.Tbx_11_contract__overhead.Size = New System.Drawing.Size(62, 23)
@@ -1158,17 +1304,17 @@ Partial Class SPAS
         '
         Me.Lbl_Basis_Startdatum.AutoSize = True
         Me.Lbl_Basis_Startdatum.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Basis_Startdatum.Location = New System.Drawing.Point(22, 376)
+        Me.Lbl_Basis_Startdatum.Location = New System.Drawing.Point(15, 287)
         Me.Lbl_Basis_Startdatum.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Lbl_Basis_Startdatum.Name = "Lbl_Basis_Startdatum"
-        Me.Lbl_Basis_Startdatum.Size = New System.Drawing.Size(80, 18)
+        Me.Lbl_Basis_Startdatum.Size = New System.Drawing.Size(77, 18)
         Me.Lbl_Basis_Startdatum.TabIndex = 7
-        Me.Lbl_Basis_Startdatum.Text = "Datum start"
+        Me.Lbl_Basis_Startdatum.Text = "Startdatum"
         '
         'Tbx_contract_period_amt
         '
         Me.Tbx_contract_period_amt.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_contract_period_amt.Location = New System.Drawing.Point(693, 173)
+        Me.Tbx_contract_period_amt.Location = New System.Drawing.Point(660, 168)
         Me.Tbx_contract_period_amt.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_contract_period_amt.Name = "Tbx_contract_period_amt"
         Me.Tbx_contract_period_amt.Size = New System.Drawing.Size(62, 23)
@@ -1180,7 +1326,7 @@ Partial Class SPAS
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(494, 51)
+        Me.Label3.Location = New System.Drawing.Point(461, 52)
         Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(37, 18)
@@ -1191,7 +1337,7 @@ Partial Class SPAS
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(494, 77)
+        Me.Label10.Location = New System.Drawing.Point(461, 78)
         Me.Label10.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(69, 18)
@@ -1202,7 +1348,7 @@ Partial Class SPAS
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(494, 20)
+        Me.Label1.Location = New System.Drawing.Point(461, 34)
         Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(67, 18)
@@ -1212,7 +1358,7 @@ Partial Class SPAS
         'Tbx_11_Contract__donation
         '
         Me.Tbx_11_Contract__donation.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_11_Contract__donation.Location = New System.Drawing.Point(693, 49)
+        Me.Tbx_11_Contract__donation.Location = New System.Drawing.Point(660, 52)
         Me.Tbx_11_Contract__donation.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_11_Contract__donation.Name = "Tbx_11_Contract__donation"
         Me.Tbx_11_Contract__donation.Size = New System.Drawing.Size(62, 23)
@@ -1222,7 +1368,7 @@ Partial Class SPAS
         'Tbx_01_contract_yeartotal
         '
         Me.Tbx_01_contract_yeartotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_01_contract_yeartotal.Location = New System.Drawing.Point(693, 102)
+        Me.Tbx_01_contract_yeartotal.Location = New System.Drawing.Point(660, 104)
         Me.Tbx_01_contract_yeartotal.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_01_contract_yeartotal.Name = "Tbx_01_contract_yeartotal"
         Me.Tbx_01_contract_yeartotal.Size = New System.Drawing.Size(62, 23)
@@ -1233,20 +1379,27 @@ Partial Class SPAS
         'target
         '
         Me.target.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.target.Controls.Add(Me.Tbx_20_Target__childnearby)
+        Me.target.Controls.Add(Me.Tbx_20_Target__children)
+        Me.target.Controls.Add(Me.Label16)
+        Me.target.Controls.Add(Me.Rbtn_Target_Alone)
+        Me.target.Controls.Add(Me.Rbtn_Target_Institution)
+        Me.target.Controls.Add(Me.Rbtn_Target_OtherHousing)
+        Me.target.Controls.Add(Me.Label78)
+        Me.target.Controls.Add(Me.Label65)
+        Me.target.Controls.Add(Me.Label62)
+        Me.target.Controls.Add(Me.Label118)
+        Me.target.Controls.Add(Me.Cmx_01_Target__fk_cp_id)
         Me.target.Controls.Add(Me.Pan_Target)
         Me.target.Controls.Add(Me.Cbx_00_target__active)
         Me.target.Controls.Add(Me.Label75)
         Me.target.Controls.Add(Me.Label55)
-        Me.target.Controls.Add(Me.Label54)
         Me.target.Controls.Add(Me.Lbl_CP)
         Me.target.Controls.Add(Me.Lbl_Target_Total_Expenses)
-        Me.target.Controls.Add(Me.Cmx_01_Target__fk_cp_id)
-        Me.target.Controls.Add(Me.Tbx_20_Target__children)
         Me.target.Controls.Add(Me.Lbl_Target_NameAdd)
         Me.target.Controls.Add(Me.Tbx_00_Target__living)
         Me.target.Controls.Add(Me.Tbx_10_Target__water)
         Me.target.Controls.Add(Me.Tbx_01_Target__name_add)
-        Me.target.Controls.Add(Me.Label26)
         Me.target.Controls.Add(Me.Label19)
         Me.target.Controls.Add(Me.Lbl_Target_Name)
         Me.target.Controls.Add(Me.Tbx_10_Target__benefit)
@@ -1260,23 +1413,17 @@ Partial Class SPAS
         Me.target.Controls.Add(Me.Lbl_Target_Description)
         Me.target.Controls.Add(Me.Lbl_Target_Type)
         Me.target.Controls.Add(Me.Tbx_10_Target__pension)
-        Me.target.Controls.Add(Me.Rbtn_Target_Institution)
         Me.target.Controls.Add(Me.Lbl_00_Target__reference)
         Me.target.Controls.Add(Me.Label18)
         Me.target.Controls.Add(Me.Label23)
         Me.target.Controls.Add(Me.Lbl_Target_Extra)
         Me.target.Controls.Add(Me.Lbl_Target_pkid)
         Me.target.Controls.Add(Me.Label13)
-        Me.target.Controls.Add(Me.Rbtn_Target_OtherHousing)
         Me.target.Controls.Add(Me.Tbx_00_Target__description)
-        Me.target.Controls.Add(Me.Rbtn_Target_Alone)
         Me.target.Controls.Add(Me.Tbx_10_Target__allowance)
         Me.target.Controls.Add(Me.Label12)
-        Me.target.Controls.Add(Me.Tbx_20_Target__childnearby)
         Me.target.Controls.Add(Me.Lbl_Target_Salary)
         Me.target.Controls.Add(Me.Tbx_10_Target__income)
-        Me.target.Controls.Add(Me.Label16)
-        Me.target.Controls.Add(Me.Label15)
         Me.target.Controls.Add(Me.Label2)
         Me.target.Controls.Add(Me.Lbl_Target_Income)
         Me.target.Controls.Add(Me.Tbx_00_Target__zip)
@@ -1284,7 +1431,6 @@ Partial Class SPAS
         Me.target.Controls.Add(Me.Label17)
         Me.target.Controls.Add(Me.Tbx_00_Target__country)
         Me.target.Controls.Add(Me.Lbl_Target_Otherincome)
-        Me.target.Controls.Add(Me.Lbl_Living)
         Me.target.Controls.Add(Me.Tbx_10_Target__rent)
         Me.target.Controls.Add(Me.Lbl_Target_Address)
         Me.target.Controls.Add(Me.Tbx_10_Target__medicine)
@@ -1300,10 +1446,115 @@ Partial Class SPAS
         Me.target.Location = New System.Drawing.Point(4, 30)
         Me.target.Name = "target"
         Me.target.Padding = New System.Windows.Forms.Padding(3)
-        Me.target.Size = New System.Drawing.Size(781, 533)
+        Me.target.Size = New System.Drawing.Size(722, 516)
         Me.target.TabIndex = 2
         Me.target.Tag = "Doel"
         Me.target.Text = "Doel"
+        '
+        'Tbx_20_Target__childnearby
+        '
+        Me.Tbx_20_Target__childnearby.Location = New System.Drawing.Point(550, 410)
+        Me.Tbx_20_Target__childnearby.Name = "Tbx_20_Target__childnearby"
+        Me.Tbx_20_Target__childnearby.Size = New System.Drawing.Size(50, 26)
+        Me.Tbx_20_Target__childnearby.TabIndex = 65
+        '
+        'Tbx_20_Target__children
+        '
+        Me.Tbx_20_Target__children.Location = New System.Drawing.Point(550, 380)
+        Me.Tbx_20_Target__children.Name = "Tbx_20_Target__children"
+        Me.Tbx_20_Target__children.Size = New System.Drawing.Size(50, 26)
+        Me.Tbx_20_Target__children.TabIndex = 64
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(429, 384)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(107, 18)
+        Me.Label16.TabIndex = 63
+        Me.Label16.Text = "Aantal kinderen"
+        '
+        'Rbtn_Target_Alone
+        '
+        Me.Rbtn_Target_Alone.AutoSize = True
+        Me.Rbtn_Target_Alone.Location = New System.Drawing.Point(550, 310)
+        Me.Rbtn_Target_Alone.Name = "Rbtn_Target_Alone"
+        Me.Rbtn_Target_Alone.Size = New System.Drawing.Size(108, 22)
+        Me.Rbtn_Target_Alone.TabIndex = 62
+        Me.Rbtn_Target_Alone.TabStop = True
+        Me.Rbtn_Target_Alone.Text = "Alleenstaand"
+        Me.Rbtn_Target_Alone.UseVisualStyleBackColor = True
+        '
+        'Rbtn_Target_Institution
+        '
+        Me.Rbtn_Target_Institution.AutoSize = True
+        Me.Rbtn_Target_Institution.Location = New System.Drawing.Point(550, 330)
+        Me.Rbtn_Target_Institution.Name = "Rbtn_Target_Institution"
+        Me.Rbtn_Target_Institution.Size = New System.Drawing.Size(130, 22)
+        Me.Rbtn_Target_Institution.TabIndex = 61
+        Me.Rbtn_Target_Institution.TabStop = True
+        Me.Rbtn_Target_Institution.Text = "Tehuis/Instelling"
+        Me.Rbtn_Target_Institution.UseVisualStyleBackColor = True
+        '
+        'Rbtn_Target_OtherHousing
+        '
+        Me.Rbtn_Target_OtherHousing.AutoSize = True
+        Me.Rbtn_Target_OtherHousing.Location = New System.Drawing.Point(550, 350)
+        Me.Rbtn_Target_OtherHousing.Name = "Rbtn_Target_OtherHousing"
+        Me.Rbtn_Target_OtherHousing.Size = New System.Drawing.Size(70, 22)
+        Me.Rbtn_Target_OtherHousing.TabIndex = 60
+        Me.Rbtn_Target_OtherHousing.TabStop = True
+        Me.Rbtn_Target_OtherHousing.Text = "Anders"
+        Me.Rbtn_Target_OtherHousing.UseVisualStyleBackColor = True
+        '
+        'Label78
+        '
+        Me.Label78.AutoSize = True
+        Me.Label78.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label78.Location = New System.Drawing.Point(429, 280)
+        Me.Label78.Name = "Label78"
+        Me.Label78.Size = New System.Drawing.Size(115, 18)
+        Me.Label78.TabIndex = 58
+        Me.Label78.Text = "Omstandigheden"
+        '
+        'Label65
+        '
+        Me.Label65.AutoSize = True
+        Me.Label65.Location = New System.Drawing.Point(429, 310)
+        Me.Label65.Name = "Label65"
+        Me.Label65.Size = New System.Drawing.Size(90, 18)
+        Me.Label65.TabIndex = 57
+        Me.Label65.Text = "Woonsituatie"
+        '
+        'Label62
+        '
+        Me.Label62.AutoSize = True
+        Me.Label62.Location = New System.Drawing.Point(429, 414)
+        Me.Label62.Name = "Label62"
+        Me.Label62.Size = New System.Drawing.Size(122, 18)
+        Me.Label62.TabIndex = 56
+        Me.Label62.Text = "Korste afstand (m)"
+        '
+        'Label118
+        '
+        Me.Label118.Font = New System.Drawing.Font("Arial Narrow", 7.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label118.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label118.Location = New System.Drawing.Point(6, 152)
+        Me.Label118.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label118.Name = "Label118"
+        Me.Label118.Size = New System.Drawing.Size(130, 28)
+        Me.Label118.TabIndex = 54
+        Me.Label118.Text = "Shift-S-Window: selecteer; dubbelklik  foto: plak of verwijder"
+        '
+        'Cmx_01_Target__fk_cp_id
+        '
+        Me.Cmx_01_Target__fk_cp_id.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.Cmx_01_Target__fk_cp_id.FormattingEnabled = True
+        Me.Cmx_01_Target__fk_cp_id.Location = New System.Drawing.Point(147, 342)
+        Me.Cmx_01_Target__fk_cp_id.Name = "Cmx_01_Target__fk_cp_id"
+        Me.Cmx_01_Target__fk_cp_id.Size = New System.Drawing.Size(233, 26)
+        Me.Cmx_01_Target__fk_cp_id.TabIndex = 15
+        Me.Cmx_01_Target__fk_cp_id.Tag = "Contactpersoon"
         '
         'Pan_Target
         '
@@ -1365,7 +1616,7 @@ Partial Class SPAS
         'Label75
         '
         Me.Label75.AutoSize = True
-        Me.Label75.Location = New System.Drawing.Point(138, 26)
+        Me.Label75.Location = New System.Drawing.Point(144, 26)
         Me.Label75.Name = "Label75"
         Me.Label75.Size = New System.Drawing.Size(74, 18)
         Me.Label75.TabIndex = 41
@@ -1375,37 +1626,27 @@ Partial Class SPAS
         '
         Me.Label55.AutoSize = True
         Me.Label55.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label55.Location = New System.Drawing.Point(452, 3)
+        Me.Label55.Location = New System.Drawing.Point(429, 5)
         Me.Label55.Name = "Label55"
         Me.Label55.Size = New System.Drawing.Size(122, 18)
         Me.Label55.TabIndex = 34
         Me.Label55.Text = "Financiële situatie"
         '
-        'Label54
-        '
-        Me.Label54.AutoSize = True
-        Me.Label54.Location = New System.Drawing.Point(452, 323)
-        Me.Label54.Name = "Label54"
-        Me.Label54.Size = New System.Drawing.Size(90, 18)
-        Me.Label54.TabIndex = 33
-        Me.Label54.Text = "Woonsituatie"
-        '
         'Lbl_CP
         '
         Me.Lbl_CP.AutoSize = True
-        Me.Lbl_CP.Location = New System.Drawing.Point(18, 379)
+        Me.Lbl_CP.Location = New System.Drawing.Point(6, 345)
         Me.Lbl_CP.Name = "Lbl_CP"
-        Me.Lbl_CP.Size = New System.Drawing.Size(106, 18)
+        Me.Lbl_CP.Size = New System.Drawing.Size(24, 18)
         Me.Lbl_CP.TabIndex = 10
-        Me.Lbl_CP.Text = "Contactpersoon"
+        Me.Lbl_CP.Text = "CP"
         '
         'Lbl_Target_Total_Expenses
         '
-        Me.Lbl_Target_Total_Expenses.AutoSize = True
         Me.Lbl_Target_Total_Expenses.BackColor = System.Drawing.Color.White
         Me.Lbl_Target_Total_Expenses.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Lbl_Target_Total_Expenses.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Target_Total_Expenses.Location = New System.Drawing.Point(697, 264)
+        Me.Lbl_Target_Total_Expenses.Location = New System.Drawing.Point(638, 234)
         Me.Lbl_Target_Total_Expenses.MinimumSize = New System.Drawing.Size(80, 23)
         Me.Lbl_Target_Total_Expenses.Name = "Lbl_Target_Total_Expenses"
         Me.Lbl_Target_Total_Expenses.Size = New System.Drawing.Size(80, 23)
@@ -1413,30 +1654,10 @@ Partial Class SPAS
         Me.Lbl_Target_Total_Expenses.Text = "0,00"
         Me.Lbl_Target_Total_Expenses.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'Cmx_01_Target__fk_cp_id
-        '
-        Me.Cmx_01_Target__fk_cp_id.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.Cmx_01_Target__fk_cp_id.FormattingEnabled = True
-        Me.Cmx_01_Target__fk_cp_id.Location = New System.Drawing.Point(141, 376)
-        Me.Cmx_01_Target__fk_cp_id.Name = "Cmx_01_Target__fk_cp_id"
-        Me.Cmx_01_Target__fk_cp_id.Size = New System.Drawing.Size(260, 26)
-        Me.Cmx_01_Target__fk_cp_id.TabIndex = 15
-        Me.Cmx_01_Target__fk_cp_id.Tag = "Contactpersoon"
-        '
-        'Tbx_20_Target__children
-        '
-        Me.Tbx_20_Target__children.Location = New System.Drawing.Point(725, 352)
-        Me.Tbx_20_Target__children.Margin = New System.Windows.Forms.Padding(2)
-        Me.Tbx_20_Target__children.Name = "Tbx_20_Target__children"
-        Me.Tbx_20_Target__children.Size = New System.Drawing.Size(51, 26)
-        Me.Tbx_20_Target__children.TabIndex = 23
-        Me.Tbx_20_Target__children.Text = "0"
-        Me.Tbx_20_Target__children.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
         'Lbl_Target_NameAdd
         '
         Me.Lbl_Target_NameAdd.AutoSize = True
-        Me.Lbl_Target_NameAdd.Location = New System.Drawing.Point(18, 219)
+        Me.Lbl_Target_NameAdd.Location = New System.Drawing.Point(6, 219)
         Me.Lbl_Target_NameAdd.Name = "Lbl_Target_NameAdd"
         Me.Lbl_Target_NameAdd.Size = New System.Drawing.Size(71, 18)
         Me.Lbl_Target_NameAdd.TabIndex = 3
@@ -1444,7 +1665,7 @@ Partial Class SPAS
         '
         'Tbx_00_Target__living
         '
-        Me.Tbx_00_Target__living.Location = New System.Drawing.Point(542, 200)
+        Me.Tbx_00_Target__living.Location = New System.Drawing.Point(504, 202)
         Me.Tbx_00_Target__living.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_Target__living.Name = "Tbx_00_Target__living"
         Me.Tbx_00_Target__living.Size = New System.Drawing.Size(61, 26)
@@ -1453,33 +1674,24 @@ Partial Class SPAS
         '
         'Tbx_10_Target__water
         '
-        Me.Tbx_10_Target__water.Location = New System.Drawing.Point(716, 169)
+        Me.Tbx_10_Target__water.Location = New System.Drawing.Point(662, 169)
         Me.Tbx_10_Target__water.Name = "Tbx_10_Target__water"
-        Me.Tbx_10_Target__water.Size = New System.Drawing.Size(62, 26)
+        Me.Tbx_10_Target__water.Size = New System.Drawing.Size(54, 26)
         Me.Tbx_10_Target__water.TabIndex = 38
         Me.Tbx_10_Target__water.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Tbx_01_Target__name_add
         '
-        Me.Tbx_01_Target__name_add.Location = New System.Drawing.Point(141, 216)
+        Me.Tbx_01_Target__name_add.Location = New System.Drawing.Point(147, 216)
         Me.Tbx_01_Target__name_add.Name = "Tbx_01_Target__name_add"
-        Me.Tbx_01_Target__name_add.Size = New System.Drawing.Size(260, 26)
+        Me.Tbx_01_Target__name_add.Size = New System.Drawing.Size(233, 26)
         Me.Tbx_01_Target__name_add.TabIndex = 2
         Me.Tbx_01_Target__name_add.Tag = "Voornaam"
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(451, 353)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(107, 18)
-        Me.Label26.TabIndex = 32
-        Me.Label26.Text = "Aantal kinderen"
         '
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(626, 171)
+        Me.Label19.Location = New System.Drawing.Point(576, 171)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(45, 18)
         Me.Label19.TabIndex = 10
@@ -1488,7 +1700,7 @@ Partial Class SPAS
         'Lbl_Target_Name
         '
         Me.Lbl_Target_Name.AutoSize = True
-        Me.Lbl_Target_Name.Location = New System.Drawing.Point(20, 187)
+        Me.Lbl_Target_Name.Location = New System.Drawing.Point(6, 187)
         Me.Lbl_Target_Name.Name = "Lbl_Target_Name"
         Me.Lbl_Target_Name.Size = New System.Drawing.Size(44, 18)
         Me.Lbl_Target_Name.TabIndex = 3
@@ -1496,7 +1708,7 @@ Partial Class SPAS
         '
         'Tbx_10_Target__benefit
         '
-        Me.Tbx_10_Target__benefit.Location = New System.Drawing.Point(542, 113)
+        Me.Tbx_10_Target__benefit.Location = New System.Drawing.Point(504, 115)
         Me.Tbx_10_Target__benefit.Name = "Tbx_10_Target__benefit"
         Me.Tbx_10_Target__benefit.Size = New System.Drawing.Size(62, 26)
         Me.Tbx_10_Target__benefit.TabIndex = 32
@@ -1505,7 +1717,7 @@ Partial Class SPAS
         'Dtp_00_Target__birthday
         '
         Me.Dtp_00_Target__birthday.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_00_Target__birthday.Location = New System.Drawing.Point(141, 249)
+        Me.Dtp_00_Target__birthday.Location = New System.Drawing.Point(147, 249)
         Me.Dtp_00_Target__birthday.Name = "Dtp_00_Target__birthday"
         Me.Dtp_00_Target__birthday.Size = New System.Drawing.Size(109, 26)
         Me.Dtp_00_Target__birthday.TabIndex = 10
@@ -1513,11 +1725,10 @@ Partial Class SPAS
         '
         'Lbl_Target_Total_Income
         '
-        Me.Lbl_Target_Total_Income.AutoSize = True
         Me.Lbl_Target_Total_Income.BackColor = System.Drawing.Color.White
         Me.Lbl_Target_Total_Income.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Lbl_Target_Total_Income.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Target_Total_Income.Location = New System.Drawing.Point(523, 264)
+        Me.Lbl_Target_Total_Income.Location = New System.Drawing.Point(487, 236)
         Me.Lbl_Target_Total_Income.MaximumSize = New System.Drawing.Size(89, 2)
         Me.Lbl_Target_Total_Income.MinimumSize = New System.Drawing.Size(80, 23)
         Me.Lbl_Target_Total_Income.Name = "Lbl_Target_Total_Income"
@@ -1528,16 +1739,16 @@ Partial Class SPAS
         '
         'Tbx_01_Target__name
         '
-        Me.Tbx_01_Target__name.Location = New System.Drawing.Point(141, 184)
+        Me.Tbx_01_Target__name.Location = New System.Drawing.Point(147, 184)
         Me.Tbx_01_Target__name.Name = "Tbx_01_Target__name"
-        Me.Tbx_01_Target__name.Size = New System.Drawing.Size(260, 26)
+        Me.Tbx_01_Target__name.Size = New System.Drawing.Size(233, 26)
         Me.Tbx_01_Target__name.TabIndex = 1
         Me.Tbx_01_Target__name.Tag = "Naam"
         '
         'Lbl_Target_BirthDay
         '
         Me.Lbl_Target_BirthDay.AutoSize = True
-        Me.Lbl_Target_BirthDay.Location = New System.Drawing.Point(18, 254)
+        Me.Lbl_Target_BirthDay.Location = New System.Drawing.Point(6, 254)
         Me.Lbl_Target_BirthDay.Name = "Lbl_Target_BirthDay"
         Me.Lbl_Target_BirthDay.Size = New System.Drawing.Size(107, 18)
         Me.Lbl_Target_BirthDay.TabIndex = 9
@@ -1545,7 +1756,7 @@ Partial Class SPAS
         '
         'Tbx_10_Target__otherincome
         '
-        Me.Tbx_10_Target__otherincome.Location = New System.Drawing.Point(542, 171)
+        Me.Tbx_10_Target__otherincome.Location = New System.Drawing.Point(504, 173)
         Me.Tbx_10_Target__otherincome.Name = "Tbx_10_Target__otherincome"
         Me.Tbx_10_Target__otherincome.Size = New System.Drawing.Size(62, 26)
         Me.Tbx_10_Target__otherincome.TabIndex = 34
@@ -1553,7 +1764,7 @@ Partial Class SPAS
         '
         'Tbx_01_Target__ttype
         '
-        Me.Tbx_01_Target__ttype.Location = New System.Drawing.Point(357, 107)
+        Me.Tbx_01_Target__ttype.Location = New System.Drawing.Point(330, 107)
         Me.Tbx_01_Target__ttype.Name = "Tbx_01_Target__ttype"
         Me.Tbx_01_Target__ttype.Size = New System.Drawing.Size(44, 26)
         Me.Tbx_01_Target__ttype.TabIndex = 12
@@ -1563,7 +1774,7 @@ Partial Class SPAS
         'Lbl_Target_Pension
         '
         Me.Lbl_Target_Pension.AutoSize = True
-        Me.Lbl_Target_Pension.Location = New System.Drawing.Point(452, 82)
+        Me.Lbl_Target_Pension.Location = New System.Drawing.Point(429, 84)
         Me.Lbl_Target_Pension.Name = "Lbl_Target_Pension"
         Me.Lbl_Target_Pension.Size = New System.Drawing.Size(66, 18)
         Me.Lbl_Target_Pension.TabIndex = 6
@@ -1572,11 +1783,11 @@ Partial Class SPAS
         'Lbl_Target_Description
         '
         Me.Lbl_Target_Description.AutoSize = True
-        Me.Lbl_Target_Description.Location = New System.Drawing.Point(20, 415)
+        Me.Lbl_Target_Description.Location = New System.Drawing.Point(6, 369)
         Me.Lbl_Target_Description.Name = "Lbl_Target_Description"
-        Me.Lbl_Target_Description.Size = New System.Drawing.Size(83, 18)
+        Me.Lbl_Target_Description.Size = New System.Drawing.Size(75, 18)
         Me.Lbl_Target_Description.TabIndex = 5
-        Me.Lbl_Target_Description.Text = "Beschrijving"
+        Me.Lbl_Target_Description.Text = "Toelichting"
         '
         'Lbl_Target_Type
         '
@@ -1589,22 +1800,11 @@ Partial Class SPAS
         '
         'Tbx_10_Target__pension
         '
-        Me.Tbx_10_Target__pension.Location = New System.Drawing.Point(542, 83)
+        Me.Tbx_10_Target__pension.Location = New System.Drawing.Point(504, 85)
         Me.Tbx_10_Target__pension.Name = "Tbx_10_Target__pension"
         Me.Tbx_10_Target__pension.Size = New System.Drawing.Size(62, 26)
         Me.Tbx_10_Target__pension.TabIndex = 31
         Me.Tbx_10_Target__pension.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Rbtn_Target_Institution
-        '
-        Me.Rbtn_Target_Institution.AutoSize = True
-        Me.Rbtn_Target_Institution.Location = New System.Drawing.Point(645, 323)
-        Me.Rbtn_Target_Institution.Name = "Rbtn_Target_Institution"
-        Me.Rbtn_Target_Institution.Size = New System.Drawing.Size(66, 22)
-        Me.Rbtn_Target_Institution.TabIndex = 21
-        Me.Rbtn_Target_Institution.TabStop = True
-        Me.Rbtn_Target_Institution.Text = "Tehuis"
-        Me.Rbtn_Target_Institution.UseVisualStyleBackColor = True
         '
         'Lbl_00_Target__reference
         '
@@ -1619,7 +1819,7 @@ Partial Class SPAS
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(626, 200)
+        Me.Label18.Location = New System.Drawing.Point(576, 200)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(78, 18)
         Me.Label18.TabIndex = 8
@@ -1628,7 +1828,7 @@ Partial Class SPAS
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(138, 7)
+        Me.Label23.Location = New System.Drawing.Point(144, 7)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(64, 18)
         Me.Label23.TabIndex = 15
@@ -1637,7 +1837,7 @@ Partial Class SPAS
         'Lbl_Target_Extra
         '
         Me.Lbl_Target_Extra.AutoSize = True
-        Me.Lbl_Target_Extra.Location = New System.Drawing.Point(452, 141)
+        Me.Lbl_Target_Extra.Location = New System.Drawing.Point(429, 143)
         Me.Lbl_Target_Extra.Name = "Lbl_Target_Extra"
         Me.Lbl_Target_Extra.Size = New System.Drawing.Size(56, 18)
         Me.Lbl_Target_Extra.TabIndex = 6
@@ -1657,46 +1857,24 @@ Partial Class SPAS
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(451, 265)
+        Me.Label13.Location = New System.Drawing.Point(429, 239)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(53, 18)
         Me.Label13.TabIndex = 12
         Me.Label13.Text = "Totalen"
         '
-        'Rbtn_Target_OtherHousing
-        '
-        Me.Rbtn_Target_OtherHousing.AutoSize = True
-        Me.Rbtn_Target_OtherHousing.Location = New System.Drawing.Point(715, 323)
-        Me.Rbtn_Target_OtherHousing.Name = "Rbtn_Target_OtherHousing"
-        Me.Rbtn_Target_OtherHousing.Size = New System.Drawing.Size(67, 22)
-        Me.Rbtn_Target_OtherHousing.TabIndex = 22
-        Me.Rbtn_Target_OtherHousing.TabStop = True
-        Me.Rbtn_Target_OtherHousing.Text = "Overig"
-        Me.Rbtn_Target_OtherHousing.UseVisualStyleBackColor = True
-        '
         'Tbx_00_Target__description
         '
-        Me.Tbx_00_Target__description.Location = New System.Drawing.Point(141, 415)
+        Me.Tbx_00_Target__description.Location = New System.Drawing.Point(9, 394)
         Me.Tbx_00_Target__description.Multiline = True
         Me.Tbx_00_Target__description.Name = "Tbx_00_Target__description"
         Me.Tbx_00_Target__description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.Tbx_00_Target__description.Size = New System.Drawing.Size(636, 72)
+        Me.Tbx_00_Target__description.Size = New System.Drawing.Size(371, 75)
         Me.Tbx_00_Target__description.TabIndex = 16
-        '
-        'Rbtn_Target_Alone
-        '
-        Me.Rbtn_Target_Alone.AutoSize = True
-        Me.Rbtn_Target_Alone.Location = New System.Drawing.Point(576, 323)
-        Me.Rbtn_Target_Alone.Name = "Rbtn_Target_Alone"
-        Me.Rbtn_Target_Alone.Size = New System.Drawing.Size(67, 22)
-        Me.Rbtn_Target_Alone.TabIndex = 20
-        Me.Rbtn_Target_Alone.TabStop = True
-        Me.Rbtn_Target_Alone.Text = "Alleen"
-        Me.Rbtn_Target_Alone.UseVisualStyleBackColor = True
         '
         'Tbx_10_Target__allowance
         '
-        Me.Tbx_10_Target__allowance.Location = New System.Drawing.Point(542, 142)
+        Me.Tbx_10_Target__allowance.Location = New System.Drawing.Point(504, 144)
         Me.Tbx_10_Target__allowance.Name = "Tbx_10_Target__allowance"
         Me.Tbx_10_Target__allowance.Size = New System.Drawing.Size(62, 26)
         Me.Tbx_10_Target__allowance.TabIndex = 33
@@ -1705,24 +1883,16 @@ Partial Class SPAS
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(626, 54)
+        Me.Label12.Location = New System.Drawing.Point(576, 54)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(58, 18)
         Me.Label12.TabIndex = 8
         Me.Label12.Text = "Voedsel"
         '
-        'Tbx_20_Target__childnearby
-        '
-        Me.Tbx_20_Target__childnearby.Location = New System.Drawing.Point(725, 380)
-        Me.Tbx_20_Target__childnearby.Name = "Tbx_20_Target__childnearby"
-        Me.Tbx_20_Target__childnearby.Size = New System.Drawing.Size(51, 26)
-        Me.Tbx_20_Target__childnearby.TabIndex = 24
-        Me.Tbx_20_Target__childnearby.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
         'Lbl_Target_Salary
         '
         Me.Lbl_Target_Salary.AutoSize = True
-        Me.Lbl_Target_Salary.Location = New System.Drawing.Point(452, 53)
+        Me.Lbl_Target_Salary.Location = New System.Drawing.Point(429, 55)
         Me.Lbl_Target_Salary.Name = "Lbl_Target_Salary"
         Me.Lbl_Target_Salary.Size = New System.Drawing.Size(48, 18)
         Me.Lbl_Target_Salary.TabIndex = 6
@@ -1730,34 +1900,16 @@ Partial Class SPAS
         '
         'Tbx_10_Target__income
         '
-        Me.Tbx_10_Target__income.Location = New System.Drawing.Point(542, 53)
+        Me.Tbx_10_Target__income.Location = New System.Drawing.Point(504, 55)
         Me.Tbx_10_Target__income.Name = "Tbx_10_Target__income"
-        Me.Tbx_10_Target__income.Size = New System.Drawing.Size(62, 26)
+        Me.Tbx_10_Target__income.Size = New System.Drawing.Size(61, 26)
         Me.Tbx_10_Target__income.TabIndex = 30
         Me.Tbx_10_Target__income.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(452, 381)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(127, 18)
-        Me.Label16.TabIndex = 26
-        Me.Label16.Text = "Kortste afstand (m)"
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(18, 314)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(65, 18)
-        Me.Label15.TabIndex = 21
-        Me.Label15.Text = "Postcode"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(626, 145)
+        Me.Label2.Location = New System.Drawing.Point(576, 145)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(50, 18)
         Me.Label2.TabIndex = 8
@@ -1767,7 +1919,7 @@ Partial Class SPAS
         '
         Me.Lbl_Target_Income.AutoSize = True
         Me.Lbl_Target_Income.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Target_Income.Location = New System.Drawing.Point(456, 26)
+        Me.Lbl_Target_Income.Location = New System.Drawing.Point(429, 28)
         Me.Lbl_Target_Income.Name = "Lbl_Target_Income"
         Me.Lbl_Target_Income.Size = New System.Drawing.Size(61, 18)
         Me.Lbl_Target_Income.TabIndex = 4
@@ -1775,15 +1927,15 @@ Partial Class SPAS
         '
         'Tbx_00_Target__zip
         '
-        Me.Tbx_00_Target__zip.Location = New System.Drawing.Point(141, 311)
+        Me.Tbx_00_Target__zip.Location = New System.Drawing.Point(147, 281)
         Me.Tbx_00_Target__zip.Name = "Tbx_00_Target__zip"
-        Me.Tbx_00_Target__zip.Size = New System.Drawing.Size(88, 26)
+        Me.Tbx_00_Target__zip.Size = New System.Drawing.Size(61, 26)
         Me.Tbx_00_Target__zip.TabIndex = 12
         '
         'Lbl_Target_Benefit
         '
         Me.Lbl_Target_Benefit.AutoSize = True
-        Me.Lbl_Target_Benefit.Location = New System.Drawing.Point(452, 112)
+        Me.Lbl_Target_Benefit.Location = New System.Drawing.Point(429, 114)
         Me.Lbl_Target_Benefit.Name = "Lbl_Target_Benefit"
         Me.Lbl_Target_Benefit.Size = New System.Drawing.Size(65, 18)
         Me.Lbl_Target_Benefit.TabIndex = 6
@@ -1792,7 +1944,7 @@ Partial Class SPAS
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(626, 116)
+        Me.Label17.Location = New System.Drawing.Point(576, 116)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(83, 18)
         Me.Label17.TabIndex = 8
@@ -1800,59 +1952,49 @@ Partial Class SPAS
         '
         'Tbx_00_Target__country
         '
-        Me.Tbx_00_Target__country.Location = New System.Drawing.Point(292, 343)
+        Me.Tbx_00_Target__country.Location = New System.Drawing.Point(290, 310)
         Me.Tbx_00_Target__country.Name = "Tbx_00_Target__country"
-        Me.Tbx_00_Target__country.Size = New System.Drawing.Size(109, 26)
+        Me.Tbx_00_Target__country.Size = New System.Drawing.Size(90, 26)
         Me.Tbx_00_Target__country.TabIndex = 14
         '
         'Lbl_Target_Otherincome
         '
         Me.Lbl_Target_Otherincome.AutoSize = True
-        Me.Lbl_Target_Otherincome.Location = New System.Drawing.Point(452, 171)
+        Me.Lbl_Target_Otherincome.Location = New System.Drawing.Point(429, 173)
         Me.Lbl_Target_Otherincome.Name = "Lbl_Target_Otherincome"
         Me.Lbl_Target_Otherincome.Size = New System.Drawing.Size(52, 18)
         Me.Lbl_Target_Otherincome.TabIndex = 6
         Me.Lbl_Target_Otherincome.Text = "Anders"
         '
-        'Lbl_Living
-        '
-        Me.Lbl_Living.AutoSize = True
-        Me.Lbl_Living.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Living.Location = New System.Drawing.Point(452, 300)
-        Me.Lbl_Living.Name = "Lbl_Living"
-        Me.Lbl_Living.Size = New System.Drawing.Size(115, 18)
-        Me.Lbl_Living.TabIndex = 23
-        Me.Lbl_Living.Text = "Omstandigheden"
-        '
         'Tbx_10_Target__rent
         '
-        Me.Tbx_10_Target__rent.Location = New System.Drawing.Point(716, 81)
+        Me.Tbx_10_Target__rent.Location = New System.Drawing.Point(662, 81)
         Me.Tbx_10_Target__rent.Name = "Tbx_10_Target__rent"
-        Me.Tbx_10_Target__rent.Size = New System.Drawing.Size(62, 26)
+        Me.Tbx_10_Target__rent.Size = New System.Drawing.Size(54, 26)
         Me.Tbx_10_Target__rent.TabIndex = 35
         Me.Tbx_10_Target__rent.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Lbl_Target_Address
         '
         Me.Lbl_Target_Address.AutoSize = True
-        Me.Lbl_Target_Address.Location = New System.Drawing.Point(18, 284)
+        Me.Lbl_Target_Address.Location = New System.Drawing.Point(6, 284)
         Me.Lbl_Target_Address.Name = "Lbl_Target_Address"
-        Me.Lbl_Target_Address.Size = New System.Drawing.Size(44, 18)
+        Me.Lbl_Target_Address.Size = New System.Drawing.Size(106, 18)
         Me.Lbl_Target_Address.TabIndex = 20
-        Me.Lbl_Target_Address.Text = "Adres"
+        Me.Lbl_Target_Address.Text = "Postcode/Adres"
         '
         'Tbx_10_Target__medicine
         '
-        Me.Tbx_10_Target__medicine.Location = New System.Drawing.Point(716, 199)
+        Me.Tbx_10_Target__medicine.Location = New System.Drawing.Point(662, 199)
         Me.Tbx_10_Target__medicine.Name = "Tbx_10_Target__medicine"
-        Me.Tbx_10_Target__medicine.Size = New System.Drawing.Size(62, 26)
+        Me.Tbx_10_Target__medicine.Size = New System.Drawing.Size(54, 26)
         Me.Tbx_10_Target__medicine.TabIndex = 40
         Me.Tbx_10_Target__medicine.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(626, 84)
+        Me.Label11.Location = New System.Drawing.Point(576, 84)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(38, 18)
         Me.Label11.TabIndex = 6
@@ -1860,15 +2002,15 @@ Partial Class SPAS
         '
         'Tbx_00_Target__address
         '
-        Me.Tbx_00_Target__address.Location = New System.Drawing.Point(141, 281)
+        Me.Tbx_00_Target__address.Location = New System.Drawing.Point(210, 281)
         Me.Tbx_00_Target__address.Name = "Tbx_00_Target__address"
-        Me.Tbx_00_Target__address.Size = New System.Drawing.Size(260, 26)
+        Me.Tbx_00_Target__address.Size = New System.Drawing.Size(170, 26)
         Me.Tbx_00_Target__address.TabIndex = 11
         '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(18, 349)
+        Me.Label14.Location = New System.Drawing.Point(6, 318)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(109, 18)
         Me.Label14.TabIndex = 24
@@ -1878,7 +2020,7 @@ Partial Class SPAS
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(626, 26)
+        Me.Label20.Location = New System.Drawing.Point(576, 26)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(64, 18)
         Me.Label20.TabIndex = 4
@@ -1886,32 +2028,32 @@ Partial Class SPAS
         '
         'Tbx_10_Target__food
         '
-        Me.Tbx_10_Target__food.Location = New System.Drawing.Point(716, 51)
+        Me.Tbx_10_Target__food.Location = New System.Drawing.Point(662, 51)
         Me.Tbx_10_Target__food.Name = "Tbx_10_Target__food"
-        Me.Tbx_10_Target__food.Size = New System.Drawing.Size(62, 26)
+        Me.Tbx_10_Target__food.Size = New System.Drawing.Size(54, 26)
         Me.Tbx_10_Target__food.TabIndex = 39
         Me.Tbx_10_Target__food.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Tbx_10_Target__heating
         '
-        Me.Tbx_10_Target__heating.Location = New System.Drawing.Point(716, 110)
+        Me.Tbx_10_Target__heating.Location = New System.Drawing.Point(662, 110)
         Me.Tbx_10_Target__heating.Name = "Tbx_10_Target__heating"
-        Me.Tbx_10_Target__heating.Size = New System.Drawing.Size(62, 26)
+        Me.Tbx_10_Target__heating.Size = New System.Drawing.Size(54, 26)
         Me.Tbx_10_Target__heating.TabIndex = 36
         Me.Tbx_10_Target__heating.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Tbx_00_Target__city
         '
-        Me.Tbx_00_Target__city.Location = New System.Drawing.Point(141, 343)
+        Me.Tbx_00_Target__city.Location = New System.Drawing.Point(147, 310)
         Me.Tbx_00_Target__city.Name = "Tbx_00_Target__city"
-        Me.Tbx_00_Target__city.Size = New System.Drawing.Size(145, 26)
+        Me.Tbx_00_Target__city.Size = New System.Drawing.Size(137, 26)
         Me.Tbx_00_Target__city.TabIndex = 13
         '
         'Tbx_10_Target__gaselectra
         '
-        Me.Tbx_10_Target__gaselectra.Location = New System.Drawing.Point(716, 140)
+        Me.Tbx_10_Target__gaselectra.Location = New System.Drawing.Point(662, 140)
         Me.Tbx_10_Target__gaselectra.Name = "Tbx_10_Target__gaselectra"
-        Me.Tbx_10_Target__gaselectra.Size = New System.Drawing.Size(62, 26)
+        Me.Tbx_10_Target__gaselectra.Size = New System.Drawing.Size(54, 26)
         Me.Tbx_10_Target__gaselectra.TabIndex = 37
         Me.Tbx_10_Target__gaselectra.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -1920,7 +2062,7 @@ Partial Class SPAS
         Me.Pic_Target__photo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Pic_Target__photo.Image = CType(resources.GetObject("Pic_Target__photo.Image"), System.Drawing.Image)
         Me.Pic_Target__photo.InitialImage = CType(resources.GetObject("Pic_Target__photo.InitialImage"), System.Drawing.Image)
-        Me.Pic_Target__photo.Location = New System.Drawing.Point(6, 8)
+        Me.Pic_Target__photo.Location = New System.Drawing.Point(6, 4)
         Me.Pic_Target__photo.Name = "Pic_Target__photo"
         Me.Pic_Target__photo.Size = New System.Drawing.Size(127, 146)
         Me.Pic_Target__photo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -1931,6 +2073,21 @@ Partial Class SPAS
         'Relation
         '
         Me.Relation.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Relation.Controls.Add(Me.Label60)
+        Me.Relation.Controls.Add(Me.Label59)
+        Me.Relation.Controls.Add(Me.Label58)
+        Me.Relation.Controls.Add(Me.Label57)
+        Me.Relation.Controls.Add(Me.Label56)
+        Me.Relation.Controls.Add(Me.Label22)
+        Me.Relation.Controls.Add(Me.Label15)
+        Me.Relation.Controls.Add(Me.Tbx_00_Relation__city)
+        Me.Relation.Controls.Add(Me.Tbx_00_Relation__zip)
+        Me.Relation.Controls.Add(Me.Tbx_00_Relation__phone)
+        Me.Relation.Controls.Add(Me.Tbx_00_Relation__address)
+        Me.Relation.Controls.Add(Me.Tbx_00_Relation__email)
+        Me.Relation.Controls.Add(Me.Tbx_01_relation__name)
+        Me.Relation.Controls.Add(Me.Tbx_01_Relation__name_add)
+        Me.Relation.Controls.Add(Me.Tbx_00_Relation__description)
         Me.Relation.Controls.Add(Me.Rbn_Relation_6)
         Me.Relation.Controls.Add(Me.Rbn_Relation_5)
         Me.Relation.Controls.Add(Me.Tbx_01_Relation__title)
@@ -1946,39 +2103,146 @@ Partial Class SPAS
         Me.Relation.Controls.Add(Me.Label66)
         Me.Relation.Controls.Add(Me.Label25)
         Me.Relation.Controls.Add(Me.Lbl_00_relation__reference)
-        Me.Relation.Controls.Add(Me.Tbx_00_Relation__description)
         Me.Relation.Controls.Add(Me.Label24)
         Me.Relation.Controls.Add(Me.Lbl_relation_pkid)
-        Me.Relation.Controls.Add(Me.Tbx_00_Relation__phone)
-        Me.Relation.Controls.Add(Me.Label56)
-        Me.Relation.Controls.Add(Me.Tbx_01_relation__name)
-        Me.Relation.Controls.Add(Me.Tbx_00_Relation__zip)
-        Me.Relation.Controls.Add(Me.Label57)
-        Me.Relation.Controls.Add(Me.Label58)
-        Me.Relation.Controls.Add(Me.Tbx_00_Relation__email)
-        Me.Relation.Controls.Add(Me.Tbx_00_Relation__address)
-        Me.Relation.Controls.Add(Me.Label59)
-        Me.Relation.Controls.Add(Me.Tbx_00_Relation__city)
         Me.Relation.Controls.Add(Me.Label69)
-        Me.Relation.Controls.Add(Me.Label60)
         Me.Relation.Controls.Add(Me.Label68)
         Me.Relation.Controls.Add(Me.Label67)
-        Me.Relation.Controls.Add(Me.Label62)
         Me.Relation.Controls.Add(Me.Label64)
-        Me.Relation.Controls.Add(Me.Label65)
         Me.Relation.Controls.Add(Me.Tbx_00_Relation__iban)
-        Me.Relation.Controls.Add(Me.Tbx_01_Relation__name_add)
         Me.Relation.Location = New System.Drawing.Point(4, 30)
         Me.Relation.Name = "Relation"
         Me.Relation.Padding = New System.Windows.Forms.Padding(3)
-        Me.Relation.Size = New System.Drawing.Size(781, 533)
+        Me.Relation.Size = New System.Drawing.Size(722, 516)
         Me.Relation.TabIndex = 3
         Me.Relation.Text = "Relatie"
+        '
+        'Label60
+        '
+        Me.Label60.AutoSize = True
+        Me.Label60.Location = New System.Drawing.Point(464, 196)
+        Me.Label60.Name = "Label60"
+        Me.Label60.Size = New System.Drawing.Size(75, 18)
+        Me.Label60.TabIndex = 96
+        Me.Label60.Text = "Toelichting"
+        '
+        'Label59
+        '
+        Me.Label59.AutoSize = True
+        Me.Label59.Location = New System.Drawing.Point(19, 354)
+        Me.Label59.Name = "Label59"
+        Me.Label59.Size = New System.Drawing.Size(108, 18)
+        Me.Label59.TabIndex = 95
+        Me.Label59.Text = "Postcode/Plaats"
+        '
+        'Label58
+        '
+        Me.Label58.AutoSize = True
+        Me.Label58.Location = New System.Drawing.Point(19, 324)
+        Me.Label58.Name = "Label58"
+        Me.Label58.Size = New System.Drawing.Size(44, 18)
+        Me.Label58.TabIndex = 94
+        Me.Label58.Text = "Adres"
+        '
+        'Label57
+        '
+        Me.Label57.AutoSize = True
+        Me.Label57.Location = New System.Drawing.Point(19, 294)
+        Me.Label57.Name = "Label57"
+        Me.Label57.Size = New System.Drawing.Size(63, 18)
+        Me.Label57.TabIndex = 93
+        Me.Label57.Text = "Telefoon"
+        '
+        'Label56
+        '
+        Me.Label56.AutoSize = True
+        Me.Label56.Location = New System.Drawing.Point(19, 264)
+        Me.Label56.Name = "Label56"
+        Me.Label56.Size = New System.Drawing.Size(42, 18)
+        Me.Label56.TabIndex = 92
+        Me.Label56.Text = "Email"
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(19, 234)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(71, 18)
+        Me.Label22.TabIndex = 91
+        Me.Label22.Text = "Voornaam"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(19, 204)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(83, 18)
+        Me.Label15.TabIndex = 90
+        Me.Label15.Text = "Achternaam"
+        '
+        'Tbx_00_Relation__city
+        '
+        Me.Tbx_00_Relation__city.Location = New System.Drawing.Point(250, 350)
+        Me.Tbx_00_Relation__city.Name = "Tbx_00_Relation__city"
+        Me.Tbx_00_Relation__city.Size = New System.Drawing.Size(149, 26)
+        Me.Tbx_00_Relation__city.TabIndex = 89
+        '
+        'Tbx_00_Relation__zip
+        '
+        Me.Tbx_00_Relation__zip.Location = New System.Drawing.Point(139, 350)
+        Me.Tbx_00_Relation__zip.Name = "Tbx_00_Relation__zip"
+        Me.Tbx_00_Relation__zip.Size = New System.Drawing.Size(100, 26)
+        Me.Tbx_00_Relation__zip.TabIndex = 88
+        '
+        'Tbx_00_Relation__phone
+        '
+        Me.Tbx_00_Relation__phone.Location = New System.Drawing.Point(139, 290)
+        Me.Tbx_00_Relation__phone.Name = "Tbx_00_Relation__phone"
+        Me.Tbx_00_Relation__phone.Size = New System.Drawing.Size(260, 26)
+        Me.Tbx_00_Relation__phone.TabIndex = 87
+        '
+        'Tbx_00_Relation__address
+        '
+        Me.Tbx_00_Relation__address.Location = New System.Drawing.Point(139, 320)
+        Me.Tbx_00_Relation__address.Name = "Tbx_00_Relation__address"
+        Me.Tbx_00_Relation__address.Size = New System.Drawing.Size(260, 26)
+        Me.Tbx_00_Relation__address.TabIndex = 86
+        '
+        'Tbx_00_Relation__email
+        '
+        Me.Tbx_00_Relation__email.Location = New System.Drawing.Point(139, 260)
+        Me.Tbx_00_Relation__email.Name = "Tbx_00_Relation__email"
+        Me.Tbx_00_Relation__email.Size = New System.Drawing.Size(260, 26)
+        Me.Tbx_00_Relation__email.TabIndex = 85
+        '
+        'Tbx_01_relation__name
+        '
+        Me.Tbx_01_relation__name.Location = New System.Drawing.Point(139, 200)
+        Me.Tbx_01_relation__name.Name = "Tbx_01_relation__name"
+        Me.Tbx_01_relation__name.Size = New System.Drawing.Size(260, 26)
+        Me.Tbx_01_relation__name.TabIndex = 84
+        Me.Tbx_01_relation__name.Tag = "Achternaam"
+        '
+        'Tbx_01_Relation__name_add
+        '
+        Me.Tbx_01_Relation__name_add.Location = New System.Drawing.Point(139, 230)
+        Me.Tbx_01_Relation__name_add.Name = "Tbx_01_Relation__name_add"
+        Me.Tbx_01_Relation__name_add.Size = New System.Drawing.Size(260, 26)
+        Me.Tbx_01_Relation__name_add.TabIndex = 83
+        Me.Tbx_01_Relation__name_add.Tag = "Voornaam"
+        '
+        'Tbx_00_Relation__description
+        '
+        Me.Tbx_00_Relation__description.Location = New System.Drawing.Point(467, 217)
+        Me.Tbx_00_Relation__description.Multiline = True
+        Me.Tbx_00_Relation__description.Name = "Tbx_00_Relation__description"
+        Me.Tbx_00_Relation__description.Size = New System.Drawing.Size(247, 159)
+        Me.Tbx_00_Relation__description.TabIndex = 82
         '
         'Rbn_Relation_6
         '
         Me.Rbn_Relation_6.AutoSize = True
-        Me.Rbn_Relation_6.Location = New System.Drawing.Point(199, 124)
+        Me.Rbn_Relation_6.Location = New System.Drawing.Point(240, 124)
         Me.Rbn_Relation_6.Margin = New System.Windows.Forms.Padding(2)
         Me.Rbn_Relation_6.Name = "Rbn_Relation_6"
         Me.Rbn_Relation_6.Size = New System.Drawing.Size(42, 22)
@@ -1990,7 +2254,7 @@ Partial Class SPAS
         'Rbn_Relation_5
         '
         Me.Rbn_Relation_5.AutoSize = True
-        Me.Rbn_Relation_5.Location = New System.Drawing.Point(145, 124)
+        Me.Rbn_Relation_5.Location = New System.Drawing.Point(145, 152)
         Me.Rbn_Relation_5.Margin = New System.Windows.Forms.Padding(2)
         Me.Rbn_Relation_5.Name = "Rbn_Relation_5"
         Me.Rbn_Relation_5.Size = New System.Drawing.Size(56, 22)
@@ -2006,11 +2270,12 @@ Partial Class SPAS
         Me.Tbx_01_Relation__title.Size = New System.Drawing.Size(90, 26)
         Me.Tbx_01_Relation__title.TabIndex = 77
         Me.Tbx_01_Relation__title.Tag = "Aanhef"
+        Me.Tbx_01_Relation__title.Visible = False
         '
         'Rbn_Relation_4
         '
         Me.Rbn_Relation_4.AutoSize = True
-        Me.Rbn_Relation_4.Location = New System.Drawing.Point(263, 124)
+        Me.Rbn_Relation_4.Location = New System.Drawing.Point(240, 152)
         Me.Rbn_Relation_4.Margin = New System.Windows.Forms.Padding(2)
         Me.Rbn_Relation_4.Name = "Rbn_Relation_4"
         Me.Rbn_Relation_4.Size = New System.Drawing.Size(59, 22)
@@ -2022,7 +2287,7 @@ Partial Class SPAS
         'Rbn_Relation_3
         '
         Me.Rbn_Relation_3.AutoSize = True
-        Me.Rbn_Relation_3.Location = New System.Drawing.Point(263, 96)
+        Me.Rbn_Relation_3.Location = New System.Drawing.Point(240, 96)
         Me.Rbn_Relation_3.Margin = New System.Windows.Forms.Padding(2)
         Me.Rbn_Relation_3.Name = "Rbn_Relation_3"
         Me.Rbn_Relation_3.Size = New System.Drawing.Size(104, 22)
@@ -2034,7 +2299,7 @@ Partial Class SPAS
         'Rbn_Relation_2
         '
         Me.Rbn_Relation_2.AutoSize = True
-        Me.Rbn_Relation_2.Location = New System.Drawing.Point(199, 96)
+        Me.Rbn_Relation_2.Location = New System.Drawing.Point(145, 124)
         Me.Rbn_Relation_2.Margin = New System.Windows.Forms.Padding(2)
         Me.Rbn_Relation_2.Name = "Rbn_Relation_2"
         Me.Rbn_Relation_2.Size = New System.Drawing.Size(60, 22)
@@ -2079,7 +2344,7 @@ Partial Class SPAS
         'Dtp_00_relation__date3
         '
         Me.Dtp_00_relation__date3.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_00_relation__date3.Location = New System.Drawing.Point(650, 151)
+        Me.Dtp_00_relation__date3.Location = New System.Drawing.Point(605, 151)
         Me.Dtp_00_relation__date3.Name = "Dtp_00_relation__date3"
         Me.Dtp_00_relation__date3.Size = New System.Drawing.Size(109, 26)
         Me.Dtp_00_relation__date3.TabIndex = 72
@@ -2088,7 +2353,7 @@ Partial Class SPAS
         'Dtp_00_relation__date2
         '
         Me.Dtp_00_relation__date2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_00_relation__date2.Location = New System.Drawing.Point(650, 120)
+        Me.Dtp_00_relation__date2.Location = New System.Drawing.Point(605, 120)
         Me.Dtp_00_relation__date2.Name = "Dtp_00_relation__date2"
         Me.Dtp_00_relation__date2.Size = New System.Drawing.Size(109, 26)
         Me.Dtp_00_relation__date2.TabIndex = 72
@@ -2097,7 +2362,7 @@ Partial Class SPAS
         'Dtp_00_relation__date1
         '
         Me.Dtp_00_relation__date1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_00_relation__date1.Location = New System.Drawing.Point(650, 88)
+        Me.Dtp_00_relation__date1.Location = New System.Drawing.Point(605, 88)
         Me.Dtp_00_relation__date1.Name = "Dtp_00_relation__date1"
         Me.Dtp_00_relation__date1.Size = New System.Drawing.Size(109, 26)
         Me.Dtp_00_relation__date1.TabIndex = 72
@@ -2107,7 +2372,7 @@ Partial Class SPAS
         '
         Me.Label66.AutoSize = True
         Me.Label66.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label66.Location = New System.Drawing.Point(509, 24)
+        Me.Label66.Location = New System.Drawing.Point(464, 24)
         Me.Label66.Name = "Label66"
         Me.Label66.Size = New System.Drawing.Size(212, 18)
         Me.Label66.TabIndex = 71
@@ -2132,17 +2397,6 @@ Partial Class SPAS
         Me.Lbl_00_relation__reference.TabIndex = 69
         Me.Lbl_00_relation__reference.Text = "Reference"
         '
-        'Tbx_00_Relation__description
-        '
-        Me.Tbx_00_Relation__description.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_00_Relation__description.Location = New System.Drawing.Point(145, 352)
-        Me.Tbx_00_Relation__description.Margin = New System.Windows.Forms.Padding(2)
-        Me.Tbx_00_Relation__description.Multiline = True
-        Me.Tbx_00_Relation__description.Name = "Tbx_00_Relation__description"
-        Me.Tbx_00_Relation__description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.Tbx_00_Relation__description.Size = New System.Drawing.Size(259, 111)
-        Me.Tbx_00_Relation__description.TabIndex = 56
-        '
         'Label24
         '
         Me.Label24.AutoSize = True
@@ -2162,109 +2416,19 @@ Partial Class SPAS
         Me.Lbl_relation_pkid.TabIndex = 67
         Me.Lbl_relation_pkid.Text = "id"
         '
-        'Tbx_00_Relation__phone
-        '
-        Me.Tbx_00_Relation__phone.AcceptsTab = True
-        Me.Tbx_00_Relation__phone.Location = New System.Drawing.Point(145, 250)
-        Me.Tbx_00_Relation__phone.Name = "Tbx_00_Relation__phone"
-        Me.Tbx_00_Relation__phone.Size = New System.Drawing.Size(259, 26)
-        Me.Tbx_00_Relation__phone.TabIndex = 51
-        '
-        'Label56
-        '
-        Me.Label56.AutoSize = True
-        Me.Label56.Location = New System.Drawing.Point(22, 317)
-        Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(108, 18)
-        Me.Label56.TabIndex = 58
-        Me.Label56.Text = "Postcode/Plaats"
-        '
-        'Tbx_01_relation__name
-        '
-        Me.Tbx_01_relation__name.Location = New System.Drawing.Point(145, 154)
-        Me.Tbx_01_relation__name.Name = "Tbx_01_relation__name"
-        Me.Tbx_01_relation__name.Size = New System.Drawing.Size(259, 26)
-        Me.Tbx_01_relation__name.TabIndex = 47
-        Me.Tbx_01_relation__name.Tag = "Achternaam"
-        '
-        'Tbx_00_Relation__zip
-        '
-        Me.Tbx_00_Relation__zip.Location = New System.Drawing.Point(145, 314)
-        Me.Tbx_00_Relation__zip.Name = "Tbx_00_Relation__zip"
-        Me.Tbx_00_Relation__zip.Size = New System.Drawing.Size(90, 26)
-        Me.Tbx_00_Relation__zip.TabIndex = 53
-        '
-        'Label57
-        '
-        Me.Label57.AutoSize = True
-        Me.Label57.Location = New System.Drawing.Point(22, 155)
-        Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(83, 18)
-        Me.Label57.TabIndex = 62
-        Me.Label57.Text = "Achternaam"
-        '
-        'Label58
-        '
-        Me.Label58.AutoSize = True
-        Me.Label58.Location = New System.Drawing.Point(22, 286)
-        Me.Label58.Name = "Label58"
-        Me.Label58.Size = New System.Drawing.Size(44, 18)
-        Me.Label58.TabIndex = 57
-        Me.Label58.Text = "Adres"
-        '
-        'Tbx_00_Relation__email
-        '
-        Me.Tbx_00_Relation__email.AcceptsTab = True
-        Me.Tbx_00_Relation__email.Location = New System.Drawing.Point(145, 218)
-        Me.Tbx_00_Relation__email.Name = "Tbx_00_Relation__email"
-        Me.Tbx_00_Relation__email.Size = New System.Drawing.Size(259, 26)
-        Me.Tbx_00_Relation__email.TabIndex = 50
-        '
-        'Tbx_00_Relation__address
-        '
-        Me.Tbx_00_Relation__address.Location = New System.Drawing.Point(145, 283)
-        Me.Tbx_00_Relation__address.Name = "Tbx_00_Relation__address"
-        Me.Tbx_00_Relation__address.Size = New System.Drawing.Size(259, 26)
-        Me.Tbx_00_Relation__address.TabIndex = 52
-        '
-        'Label59
-        '
-        Me.Label59.AutoSize = True
-        Me.Label59.Location = New System.Drawing.Point(22, 250)
-        Me.Label59.Name = "Label59"
-        Me.Label59.Size = New System.Drawing.Size(63, 18)
-        Me.Label59.TabIndex = 64
-        Me.Label59.Text = "Telefoon"
-        '
-        'Tbx_00_Relation__city
-        '
-        Me.Tbx_00_Relation__city.Location = New System.Drawing.Point(244, 314)
-        Me.Tbx_00_Relation__city.Name = "Tbx_00_Relation__city"
-        Me.Tbx_00_Relation__city.Size = New System.Drawing.Size(160, 26)
-        Me.Tbx_00_Relation__city.TabIndex = 54
-        '
         'Label69
         '
         Me.Label69.AutoSize = True
-        Me.Label69.Location = New System.Drawing.Point(509, 157)
+        Me.Label69.Location = New System.Drawing.Point(464, 157)
         Me.Label69.Name = "Label69"
-        Me.Label69.Size = New System.Drawing.Size(54, 18)
+        Me.Label69.Size = New System.Drawing.Size(49, 18)
         Me.Label69.TabIndex = 60
-        Me.Label69.Text = "Andere"
-        '
-        'Label60
-        '
-        Me.Label60.AutoSize = True
-        Me.Label60.Location = New System.Drawing.Point(22, 354)
-        Me.Label60.Name = "Label60"
-        Me.Label60.Size = New System.Drawing.Size(75, 18)
-        Me.Label60.TabIndex = 59
-        Me.Label60.Text = "Toelichting"
+        Me.Label69.Text = "Overig"
         '
         'Label68
         '
         Me.Label68.AutoSize = True
-        Me.Label68.Location = New System.Drawing.Point(509, 126)
+        Me.Label68.Location = New System.Drawing.Point(464, 126)
         Me.Label68.Name = "Label68"
         Me.Label68.Size = New System.Drawing.Size(131, 18)
         Me.Label68.TabIndex = 60
@@ -2273,54 +2437,28 @@ Partial Class SPAS
         'Label67
         '
         Me.Label67.AutoSize = True
-        Me.Label67.Location = New System.Drawing.Point(509, 94)
+        Me.Label67.Location = New System.Drawing.Point(464, 94)
         Me.Label67.Name = "Label67"
         Me.Label67.Size = New System.Drawing.Size(117, 18)
         Me.Label67.TabIndex = 60
         Me.Label67.Text = "Kindersponsoring"
         '
-        'Label62
-        '
-        Me.Label62.AutoSize = True
-        Me.Label62.Location = New System.Drawing.Point(22, 222)
-        Me.Label62.Name = "Label62"
-        Me.Label62.Size = New System.Drawing.Size(42, 18)
-        Me.Label62.TabIndex = 65
-        Me.Label62.Text = "Email"
-        '
         'Label64
         '
         Me.Label64.AutoSize = True
-        Me.Label64.Location = New System.Drawing.Point(509, 59)
+        Me.Label64.Location = New System.Drawing.Point(464, 59)
         Me.Label64.Name = "Label64"
         Me.Label64.Size = New System.Drawing.Size(39, 18)
         Me.Label64.TabIndex = 66
         Me.Label64.Text = "IBAN"
         '
-        'Label65
-        '
-        Me.Label65.AutoSize = True
-        Me.Label65.Location = New System.Drawing.Point(22, 189)
-        Me.Label65.Name = "Label65"
-        Me.Label65.Size = New System.Drawing.Size(71, 18)
-        Me.Label65.TabIndex = 63
-        Me.Label65.Text = "Voornaam"
-        '
         'Tbx_00_Relation__iban
         '
-        Me.Tbx_00_Relation__iban.Location = New System.Drawing.Point(569, 56)
+        Me.Tbx_00_Relation__iban.Location = New System.Drawing.Point(524, 56)
         Me.Tbx_00_Relation__iban.Name = "Tbx_00_Relation__iban"
         Me.Tbx_00_Relation__iban.Size = New System.Drawing.Size(190, 26)
         Me.Tbx_00_Relation__iban.TabIndex = 48
         Me.Tbx_00_Relation__iban.Tag = "IBAN"
-        '
-        'Tbx_01_Relation__name_add
-        '
-        Me.Tbx_01_Relation__name_add.Location = New System.Drawing.Point(145, 185)
-        Me.Tbx_01_Relation__name_add.Name = "Tbx_01_Relation__name_add"
-        Me.Tbx_01_Relation__name_add.Size = New System.Drawing.Size(259, 26)
-        Me.Tbx_01_Relation__name_add.TabIndex = 48
-        Me.Tbx_01_Relation__name_add.Tag = "Voornaam"
         '
         'CP
         '
@@ -2352,7 +2490,7 @@ Partial Class SPAS
         Me.CP.Location = New System.Drawing.Point(4, 30)
         Me.CP.Name = "CP"
         Me.CP.Padding = New System.Windows.Forms.Padding(3)
-        Me.CP.Size = New System.Drawing.Size(781, 533)
+        Me.CP.Size = New System.Drawing.Size(722, 516)
         Me.CP.TabIndex = 4
         Me.CP.Tag = "CP"
         Me.CP.Text = "Contactpersoon"
@@ -2372,12 +2510,12 @@ Partial Class SPAS
         'Tbx_00_cp__description
         '
         Me.Tbx_00_cp__description.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_00_cp__description.Location = New System.Drawing.Point(140, 441)
+        Me.Tbx_00_cp__description.Location = New System.Drawing.Point(418, 146)
         Me.Tbx_00_cp__description.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_cp__description.Multiline = True
         Me.Tbx_00_cp__description.Name = "Tbx_00_cp__description"
         Me.Tbx_00_cp__description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.Tbx_00_cp__description.Size = New System.Drawing.Size(259, 75)
+        Me.Tbx_00_cp__description.Size = New System.Drawing.Size(302, 283)
         Me.Tbx_00_cp__description.TabIndex = 10
         '
         'Cmx_01_cp__fk_bankacc_id
@@ -2499,7 +2637,7 @@ Partial Class SPAS
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(17, 441)
+        Me.Label21.Location = New System.Drawing.Point(415, 117)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(75, 18)
         Me.Label21.TabIndex = 37
@@ -2574,7 +2712,8 @@ Partial Class SPAS
         'Account
         '
         Me.Account.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.Account.Controls.Add(Me.Btn_Account_Startsaldi_All)
+        Me.Account.Controls.Add(Me.Cmx_01_account__fk_accgroup_id)
+        Me.Account.Controls.Add(Me.Lbl_Account_Doeltype)
         Me.Account.Controls.Add(Me.Lbl_20_Account__f_key)
         Me.Account.Controls.Add(Me.Lbl_Account_Budget_Difference)
         Me.Account.Controls.Add(Me.Label136)
@@ -2630,22 +2769,30 @@ Partial Class SPAS
         Me.Account.Location = New System.Drawing.Point(4, 30)
         Me.Account.Name = "Account"
         Me.Account.Padding = New System.Windows.Forms.Padding(3)
-        Me.Account.Size = New System.Drawing.Size(781, 533)
+        Me.Account.Size = New System.Drawing.Size(722, 516)
         Me.Account.TabIndex = 5
         Me.Account.Text = "Account"
         '
-        'Btn_Account_Startsaldi_All
+        'Cmx_01_account__fk_accgroup_id
         '
-        Me.Btn_Account_Startsaldi_All.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_Account_Startsaldi_All.Image = Global.SPAS.My.Resources.Resources.calculator_6_16_1_
-        Me.Btn_Account_Startsaldi_All.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Btn_Account_Startsaldi_All.Location = New System.Drawing.Point(500, 393)
-        Me.Btn_Account_Startsaldi_All.Name = "Btn_Account_Startsaldi_All"
-        Me.Btn_Account_Startsaldi_All.Size = New System.Drawing.Size(226, 46)
-        Me.Btn_Account_Startsaldi_All.TabIndex = 126
-        Me.Btn_Account_Startsaldi_All.Text = "Verwerk alle startsaldi"
-        Me.Btn_Account_Startsaldi_All.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Btn_Account_Startsaldi_All.UseVisualStyleBackColor = True
+        Me.Cmx_01_account__fk_accgroup_id.FormattingEnabled = True
+        Me.Cmx_01_account__fk_accgroup_id.Location = New System.Drawing.Point(280, 81)
+        Me.Cmx_01_account__fk_accgroup_id.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cmx_01_account__fk_accgroup_id.Name = "Cmx_01_account__fk_accgroup_id"
+        Me.Cmx_01_account__fk_accgroup_id.Size = New System.Drawing.Size(162, 26)
+        Me.Cmx_01_account__fk_accgroup_id.TabIndex = 128
+        Me.Cmx_01_account__fk_accgroup_id.Tag = "Accountgroep"
+        '
+        'Lbl_Account_Doeltype
+        '
+        Me.Lbl_Account_Doeltype.AutoSize = True
+        Me.Lbl_Account_Doeltype.ForeColor = System.Drawing.Color.Black
+        Me.Lbl_Account_Doeltype.Location = New System.Drawing.Point(300, 200)
+        Me.Lbl_Account_Doeltype.Name = "Lbl_Account_Doeltype"
+        Me.Lbl_Account_Doeltype.Size = New System.Drawing.Size(20, 18)
+        Me.Lbl_Account_Doeltype.TabIndex = 127
+        Me.Lbl_Account_Doeltype.Text = "id"
+        Me.Lbl_Account_Doeltype.Visible = False
         '
         'Lbl_20_Account__f_key
         '
@@ -2664,7 +2811,7 @@ Partial Class SPAS
         Me.Lbl_Account_Budget_Difference.Location = New System.Drawing.Point(657, 232)
         Me.Lbl_Account_Budget_Difference.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Lbl_Account_Budget_Difference.Name = "Lbl_Account_Budget_Difference"
-        Me.Lbl_Account_Budget_Difference.Size = New System.Drawing.Size(70, 24)
+        Me.Lbl_Account_Budget_Difference.Size = New System.Drawing.Size(59, 24)
         Me.Lbl_Account_Budget_Difference.TabIndex = 124
         Me.Lbl_Account_Budget_Difference.Text = "0"
         Me.Lbl_Account_Budget_Difference.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -2695,7 +2842,7 @@ Partial Class SPAS
         Me.Tbx_10_Account__b_nov.Location = New System.Drawing.Point(657, 168)
         Me.Tbx_10_Account__b_nov.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_nov.Name = "Tbx_10_Account__b_nov"
-        Me.Tbx_10_Account__b_nov.Size = New System.Drawing.Size(70, 26)
+        Me.Tbx_10_Account__b_nov.Size = New System.Drawing.Size(60, 26)
         Me.Tbx_10_Account__b_nov.TabIndex = 103
         Me.Tbx_10_Account__b_nov.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -2704,7 +2851,7 @@ Partial Class SPAS
         Me.Tbx_10_Account__b_dec.Location = New System.Drawing.Point(657, 197)
         Me.Tbx_10_Account__b_dec.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_dec.Name = "Tbx_10_Account__b_dec"
-        Me.Tbx_10_Account__b_dec.Size = New System.Drawing.Size(70, 26)
+        Me.Tbx_10_Account__b_dec.Size = New System.Drawing.Size(59, 26)
         Me.Tbx_10_Account__b_dec.TabIndex = 102
         Me.Tbx_10_Account__b_dec.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -2722,7 +2869,7 @@ Partial Class SPAS
         Me.Tbx_10_Account__b_oct.Location = New System.Drawing.Point(657, 139)
         Me.Tbx_10_Account__b_oct.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_oct.Name = "Tbx_10_Account__b_oct"
-        Me.Tbx_10_Account__b_oct.Size = New System.Drawing.Size(70, 26)
+        Me.Tbx_10_Account__b_oct.Size = New System.Drawing.Size(60, 26)
         Me.Tbx_10_Account__b_oct.TabIndex = 101
         Me.Tbx_10_Account__b_oct.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -2731,7 +2878,7 @@ Partial Class SPAS
         Me.Tbx_10_Account__b_aug.Location = New System.Drawing.Point(657, 81)
         Me.Tbx_10_Account__b_aug.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_aug.Name = "Tbx_10_Account__b_aug"
-        Me.Tbx_10_Account__b_aug.Size = New System.Drawing.Size(70, 26)
+        Me.Tbx_10_Account__b_aug.Size = New System.Drawing.Size(60, 26)
         Me.Tbx_10_Account__b_aug.TabIndex = 100
         Me.Tbx_10_Account__b_aug.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -2740,7 +2887,7 @@ Partial Class SPAS
         Me.Tbx_10_Account__b_sep.Location = New System.Drawing.Point(657, 109)
         Me.Tbx_10_Account__b_sep.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_sep.Name = "Tbx_10_Account__b_sep"
-        Me.Tbx_10_Account__b_sep.Size = New System.Drawing.Size(70, 26)
+        Me.Tbx_10_Account__b_sep.Size = New System.Drawing.Size(60, 26)
         Me.Tbx_10_Account__b_sep.TabIndex = 99
         Me.Tbx_10_Account__b_sep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -2793,7 +2940,7 @@ Partial Class SPAS
         Me.Tbx_10_Account__b_jul.Location = New System.Drawing.Point(657, 52)
         Me.Tbx_10_Account__b_jul.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_jul.Name = "Tbx_10_Account__b_jul"
-        Me.Tbx_10_Account__b_jul.Size = New System.Drawing.Size(70, 26)
+        Me.Tbx_10_Account__b_jul.Size = New System.Drawing.Size(60, 26)
         Me.Tbx_10_Account__b_jul.TabIndex = 98
         Me.Tbx_10_Account__b_jul.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -2825,7 +2972,7 @@ Partial Class SPAS
         Me.Cmx_00_Account__accgroup.Location = New System.Drawing.Point(140, 81)
         Me.Cmx_00_Account__accgroup.Margin = New System.Windows.Forms.Padding(2)
         Me.Cmx_00_Account__accgroup.Name = "Cmx_00_Account__accgroup"
-        Me.Cmx_00_Account__accgroup.Size = New System.Drawing.Size(259, 26)
+        Me.Cmx_00_Account__accgroup.Size = New System.Drawing.Size(122, 26)
         Me.Cmx_00_Account__accgroup.TabIndex = 34
         '
         'Tbx_10_Account__b_jun
@@ -2863,7 +3010,7 @@ Partial Class SPAS
         Me.Tbx_00_Account__searchword.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_Account__searchword.Multiline = True
         Me.Tbx_00_Account__searchword.Name = "Tbx_00_Account__searchword"
-        Me.Tbx_00_Account__searchword.Size = New System.Drawing.Size(259, 65)
+        Me.Tbx_00_Account__searchword.Size = New System.Drawing.Size(302, 65)
         Me.Tbx_00_Account__searchword.TabIndex = 8
         '
         'Tbx_10_Account__b_feb
@@ -2966,7 +3113,7 @@ Partial Class SPAS
         Me.Tbx_00_Account__description.Multiline = True
         Me.Tbx_00_Account__description.Name = "Tbx_00_Account__description"
         Me.Tbx_00_Account__description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.Tbx_00_Account__description.Size = New System.Drawing.Size(259, 152)
+        Me.Tbx_00_Account__description.Size = New System.Drawing.Size(302, 89)
         Me.Tbx_00_Account__description.TabIndex = 35
         '
         'Label112
@@ -2987,8 +3134,9 @@ Partial Class SPAS
         Me.Tbx_01_Account__name.Location = New System.Drawing.Point(140, 45)
         Me.Tbx_01_Account__name.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_01_Account__name.Name = "Tbx_01_Account__name"
-        Me.Tbx_01_Account__name.Size = New System.Drawing.Size(259, 23)
+        Me.Tbx_01_Account__name.Size = New System.Drawing.Size(302, 23)
         Me.Tbx_01_Account__name.TabIndex = 6
+        Me.Tbx_01_Account__name.Tag = "Naam"
         '
         'Label113
         '
@@ -3209,7 +3357,7 @@ Partial Class SPAS
         Me.Btn_Account_Budget_All.Location = New System.Drawing.Point(497, 338)
         Me.Btn_Account_Budget_All.Margin = New System.Windows.Forms.Padding(2)
         Me.Btn_Account_Budget_All.Name = "Btn_Account_Budget_All"
-        Me.Btn_Account_Budget_All.Size = New System.Drawing.Size(230, 45)
+        Me.Btn_Account_Budget_All.Size = New System.Drawing.Size(220, 45)
         Me.Btn_Account_Budget_All.TabIndex = 105
         Me.Btn_Account_Budget_All.Text = "Bereken budget voor alle doelen o.b.v. contract"
         Me.Btn_Account_Budget_All.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -3223,7 +3371,7 @@ Partial Class SPAS
         Me.Btn_Account_Budget_Id.Location = New System.Drawing.Point(496, 287)
         Me.Btn_Account_Budget_Id.Margin = New System.Windows.Forms.Padding(2)
         Me.Btn_Account_Budget_Id.Name = "Btn_Account_Budget_Id"
-        Me.Btn_Account_Budget_Id.Size = New System.Drawing.Size(231, 47)
+        Me.Btn_Account_Budget_Id.Size = New System.Drawing.Size(221, 47)
         Me.Btn_Account_Budget_Id.TabIndex = 104
         Me.Btn_Account_Budget_Id.Text = "Bereken budget voor dit doel o.b.v. contract"
         Me.Btn_Account_Budget_Id.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -3232,7 +3380,6 @@ Partial Class SPAS
         'BankAcc
         '
         Me.BankAcc.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.BankAcc.Controls.Add(Me.Btn_Bankacc_UpdateStartsaldi)
         Me.BankAcc.Controls.Add(Me.Label104)
         Me.BankAcc.Controls.Add(Me.Label105)
         Me.BankAcc.Controls.Add(Me.Cbx_00_BankAcc__active)
@@ -3258,22 +3405,9 @@ Partial Class SPAS
         Me.BankAcc.Location = New System.Drawing.Point(4, 30)
         Me.BankAcc.Name = "BankAcc"
         Me.BankAcc.Padding = New System.Windows.Forms.Padding(3)
-        Me.BankAcc.Size = New System.Drawing.Size(781, 533)
+        Me.BankAcc.Size = New System.Drawing.Size(722, 516)
         Me.BankAcc.TabIndex = 6
         Me.BankAcc.Text = "Bankrekening"
-        '
-        'Btn_Bankacc_UpdateStartsaldi
-        '
-        Me.Btn_Bankacc_UpdateStartsaldi.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_Bankacc_UpdateStartsaldi.Image = Global.SPAS.My.Resources.Resources.calculator_6_16_1_
-        Me.Btn_Bankacc_UpdateStartsaldi.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Btn_Bankacc_UpdateStartsaldi.Location = New System.Drawing.Point(265, 200)
-        Me.Btn_Bankacc_UpdateStartsaldi.Name = "Btn_Bankacc_UpdateStartsaldi"
-        Me.Btn_Bankacc_UpdateStartsaldi.Size = New System.Drawing.Size(134, 56)
-        Me.Btn_Bankacc_UpdateStartsaldi.TabIndex = 127
-        Me.Btn_Bankacc_UpdateStartsaldi.Text = "Verwerk alle startsaldi in Bank"
-        Me.Btn_Bankacc_UpdateStartsaldi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Btn_Bankacc_UpdateStartsaldi.UseVisualStyleBackColor = True
         '
         'Label104
         '
@@ -3282,9 +3416,9 @@ Partial Class SPAS
         Me.Label104.Location = New System.Drawing.Point(16, 270)
         Me.Label104.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label104.Name = "Label104"
-        Me.Label104.Size = New System.Drawing.Size(72, 18)
+        Me.Label104.Size = New System.Drawing.Size(80, 18)
         Me.Label104.TabIndex = 77
-        Me.Label104.Text = "Id bij bank"
+        Me.Label104.Text = "Incassant id"
         '
         'Label105
         '
@@ -3390,7 +3524,7 @@ Partial Class SPAS
         '
         Me.Label44.AutoSize = True
         Me.Label44.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label44.Location = New System.Drawing.Point(16, 333)
+        Me.Label44.Location = New System.Drawing.Point(415, 18)
         Me.Label44.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label44.Name = "Label44"
         Me.Label44.Size = New System.Drawing.Size(75, 18)
@@ -3430,12 +3564,12 @@ Partial Class SPAS
         'Tbx_00_BankAcc__description
         '
         Me.Tbx_00_BankAcc__description.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_00_BankAcc__description.Location = New System.Drawing.Point(140, 332)
+        Me.Tbx_00_BankAcc__description.Location = New System.Drawing.Point(418, 45)
         Me.Tbx_00_BankAcc__description.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_BankAcc__description.Multiline = True
         Me.Tbx_00_BankAcc__description.Name = "Tbx_00_BankAcc__description"
         Me.Tbx_00_BankAcc__description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.Tbx_00_BankAcc__description.Size = New System.Drawing.Size(259, 157)
+        Me.Tbx_00_BankAcc__description.Size = New System.Drawing.Size(297, 279)
         Me.Tbx_00_BankAcc__description.TabIndex = 20
         '
         'Tbx_01_BankAcc__accountno
@@ -3502,182 +3636,458 @@ Partial Class SPAS
         Me.Label40.TabIndex = 21
         Me.Label40.Text = "Startsaldo"
         '
-        'Btn_Basis_Save
+        'Accgroup
         '
-        Me.Btn_Basis_Save.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Basis_Save.Enabled = False
-        Me.Btn_Basis_Save.Image = Global.SPAS.My.Resources.Resources.Save_16x16
-        Me.Btn_Basis_Save.Location = New System.Drawing.Point(176, 549)
-        Me.Btn_Basis_Save.Name = "Btn_Basis_Save"
-        Me.Btn_Basis_Save.Size = New System.Drawing.Size(32, 32)
-        Me.Btn_Basis_Save.TabIndex = 1
-        Me.Btn_Basis_Save.UseVisualStyleBackColor = True
+        Me.Accgroup.Controls.Add(Me.Tbx_00_Accgroup__description)
+        Me.Accgroup.Controls.Add(Me.Label130)
+        Me.Accgroup.Controls.Add(Me.Tbx_00_Accgroup__subtype)
+        Me.Accgroup.Controls.Add(Me.Label137)
+        Me.Accgroup.Controls.Add(Me.Panel9)
+        Me.Accgroup.Controls.Add(Me.Cbx_00_accgroup__active)
+        Me.Accgroup.Controls.Add(Me.Label132)
+        Me.Accgroup.Controls.Add(Me.Lbl_accgroup_pkid)
+        Me.Accgroup.Controls.Add(Me.Label134)
+        Me.Accgroup.Controls.Add(Me.Label135)
+        Me.Accgroup.Controls.Add(Me.Tbx_01_Accgroup__name)
+        Me.Accgroup.Controls.Add(Me.Tbx_01_Accgroup__type)
+        Me.Accgroup.Location = New System.Drawing.Point(4, 30)
+        Me.Accgroup.Name = "Accgroup"
+        Me.Accgroup.Padding = New System.Windows.Forms.Padding(3)
+        Me.Accgroup.Size = New System.Drawing.Size(722, 516)
+        Me.Accgroup.TabIndex = 7
+        Me.Accgroup.Text = "Accountgroep"
         '
-        'Btn_Basis_Add
+        'Tbx_00_Accgroup__description
         '
-        Me.Btn_Basis_Add.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Basis_Add.Image = Global.SPAS.My.Resources.Resources.Add_16x16
-        Me.Btn_Basis_Add.Location = New System.Drawing.Point(211, 549)
-        Me.Btn_Basis_Add.Name = "Btn_Basis_Add"
-        Me.Btn_Basis_Add.Size = New System.Drawing.Size(32, 32)
-        Me.Btn_Basis_Add.TabIndex = 1
-        Me.Btn_Basis_Add.UseVisualStyleBackColor = True
+        Me.Tbx_00_Accgroup__description.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tbx_00_Accgroup__description.Location = New System.Drawing.Point(142, 194)
+        Me.Tbx_00_Accgroup__description.Margin = New System.Windows.Forms.Padding(2)
+        Me.Tbx_00_Accgroup__description.Multiline = True
+        Me.Tbx_00_Accgroup__description.Name = "Tbx_00_Accgroup__description"
+        Me.Tbx_00_Accgroup__description.Size = New System.Drawing.Size(302, 81)
+        Me.Tbx_00_Accgroup__description.TabIndex = 147
+        Me.Tbx_00_Accgroup__description.Tag = "Omschrijving"
         '
-        'Label22
+        'Label130
         '
-        Me.Label22.AutoSize = True
-        Me.Label22.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label22.Location = New System.Drawing.Point(11, 30)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(63, 18)
-        Me.Label22.TabIndex = 3
-        Me.Label22.Text = "Filter op "
+        Me.Label130.AutoSize = True
+        Me.Label130.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label130.Location = New System.Drawing.Point(32, 196)
+        Me.Label130.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label130.Name = "Label130"
+        Me.Label130.Size = New System.Drawing.Size(89, 18)
+        Me.Label130.TabIndex = 146
+        Me.Label130.Text = "Omschrijving"
         '
-        'Btn_Basis_Cancel
+        'Tbx_00_Accgroup__subtype
         '
-        Me.Btn_Basis_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Basis_Cancel.Enabled = False
-        Me.Btn_Basis_Cancel.Image = Global.SPAS.My.Resources.Resources.Cancel_16x16
-        Me.Btn_Basis_Cancel.Location = New System.Drawing.Point(141, 549)
-        Me.Btn_Basis_Cancel.Name = "Btn_Basis_Cancel"
-        Me.Btn_Basis_Cancel.Size = New System.Drawing.Size(32, 32)
-        Me.Btn_Basis_Cancel.TabIndex = 1
-        Me.Btn_Basis_Cancel.UseVisualStyleBackColor = True
+        Me.Tbx_00_Accgroup__subtype.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tbx_00_Accgroup__subtype.Location = New System.Drawing.Point(142, 155)
+        Me.Tbx_00_Accgroup__subtype.Margin = New System.Windows.Forms.Padding(2)
+        Me.Tbx_00_Accgroup__subtype.Name = "Tbx_00_Accgroup__subtype"
+        Me.Tbx_00_Accgroup__subtype.Size = New System.Drawing.Size(302, 23)
+        Me.Tbx_00_Accgroup__subtype.TabIndex = 145
+        Me.Tbx_00_Accgroup__subtype.Tag = "Subtype"
+        '
+        'Label137
+        '
+        Me.Label137.AutoSize = True
+        Me.Label137.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label137.Location = New System.Drawing.Point(32, 157)
+        Me.Label137.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label137.Name = "Label137"
+        Me.Label137.Size = New System.Drawing.Size(59, 18)
+        Me.Label137.TabIndex = 143
+        Me.Label137.Text = "Subtype"
+        '
+        'Panel9
+        '
+        Me.Panel9.Controls.Add(Me.Rbtn_accgroup_Income)
+        Me.Panel9.Controls.Add(Me.Rbtn_accgroup_transit)
+        Me.Panel9.Controls.Add(Me.Rbtn_accgroup_expense)
+        Me.Panel9.Location = New System.Drawing.Point(142, 74)
+        Me.Panel9.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel9.Name = "Panel9"
+        Me.Panel9.Size = New System.Drawing.Size(94, 70)
+        Me.Panel9.TabIndex = 139
+        '
+        'Rbtn_accgroup_Income
+        '
+        Me.Rbtn_accgroup_Income.AutoSize = True
+        Me.Rbtn_accgroup_Income.Location = New System.Drawing.Point(3, 0)
+        Me.Rbtn_accgroup_Income.Name = "Rbtn_accgroup_Income"
+        Me.Rbtn_accgroup_Income.Size = New System.Drawing.Size(91, 22)
+        Me.Rbtn_accgroup_Income.TabIndex = 26
+        Me.Rbtn_accgroup_Income.TabStop = True
+        Me.Rbtn_accgroup_Income.Text = "Inkomsten"
+        Me.Rbtn_accgroup_Income.UseVisualStyleBackColor = True
+        '
+        'Rbtn_accgroup_transit
+        '
+        Me.Rbtn_accgroup_transit.AutoSize = True
+        Me.Rbtn_accgroup_transit.Location = New System.Drawing.Point(3, 48)
+        Me.Rbtn_accgroup_transit.Name = "Rbtn_accgroup_transit"
+        Me.Rbtn_accgroup_transit.Size = New System.Drawing.Size(67, 22)
+        Me.Rbtn_accgroup_transit.TabIndex = 26
+        Me.Rbtn_accgroup_transit.TabStop = True
+        Me.Rbtn_accgroup_transit.Text = "Transit"
+        Me.Rbtn_accgroup_transit.UseVisualStyleBackColor = True
+        '
+        'Rbtn_accgroup_expense
+        '
+        Me.Rbtn_accgroup_expense.AutoSize = True
+        Me.Rbtn_accgroup_expense.Location = New System.Drawing.Point(3, 25)
+        Me.Rbtn_accgroup_expense.Name = "Rbtn_accgroup_expense"
+        Me.Rbtn_accgroup_expense.Size = New System.Drawing.Size(81, 22)
+        Me.Rbtn_accgroup_expense.TabIndex = 26
+        Me.Rbtn_accgroup_expense.TabStop = True
+        Me.Rbtn_accgroup_expense.Text = "Uitgaven"
+        Me.Rbtn_accgroup_expense.UseVisualStyleBackColor = True
+        '
+        'Cbx_00_accgroup__active
+        '
+        Me.Cbx_00_accgroup__active.AutoSize = True
+        Me.Cbx_00_accgroup__active.Checked = True
+        Me.Cbx_00_accgroup__active.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.Cbx_00_accgroup__active.Enabled = False
+        Me.Cbx_00_accgroup__active.Location = New System.Drawing.Point(336, 15)
+        Me.Cbx_00_accgroup__active.Name = "Cbx_00_accgroup__active"
+        Me.Cbx_00_accgroup__active.Size = New System.Drawing.Size(63, 22)
+        Me.Cbx_00_accgroup__active.TabIndex = 138
+        Me.Cbx_00_accgroup__active.Text = "Actief"
+        Me.Cbx_00_accgroup__active.UseVisualStyleBackColor = True
+        '
+        'Label132
+        '
+        Me.Label132.AutoSize = True
+        Me.Label132.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label132.Location = New System.Drawing.Point(32, 15)
+        Me.Label132.Name = "Label132"
+        Me.Label132.Size = New System.Drawing.Size(64, 18)
+        Me.Label132.TabIndex = 137
+        Me.Label132.Text = "Kenmerk"
+        '
+        'Lbl_accgroup_pkid
+        '
+        Me.Lbl_accgroup_pkid.AutoSize = True
+        Me.Lbl_accgroup_pkid.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Lbl_accgroup_pkid.Location = New System.Drawing.Point(142, 15)
+        Me.Lbl_accgroup_pkid.Name = "Lbl_accgroup_pkid"
+        Me.Lbl_accgroup_pkid.Size = New System.Drawing.Size(20, 18)
+        Me.Lbl_accgroup_pkid.TabIndex = 136
+        Me.Lbl_accgroup_pkid.Text = "id"
+        '
+        'Label134
+        '
+        Me.Label134.AutoSize = True
+        Me.Label134.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label134.Location = New System.Drawing.Point(31, 39)
+        Me.Label134.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label134.Name = "Label134"
+        Me.Label134.Size = New System.Drawing.Size(44, 18)
+        Me.Label134.TabIndex = 128
+        Me.Label134.Text = "Naam"
+        '
+        'Label135
+        '
+        Me.Label135.AutoSize = True
+        Me.Label135.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label135.Location = New System.Drawing.Point(31, 81)
+        Me.Label135.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label135.Name = "Label135"
+        Me.Label135.Size = New System.Drawing.Size(37, 18)
+        Me.Label135.TabIndex = 129
+        Me.Label135.Text = "Type"
+        '
+        'Tbx_01_Accgroup__name
+        '
+        Me.Tbx_01_Accgroup__name.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tbx_01_Accgroup__name.Location = New System.Drawing.Point(142, 39)
+        Me.Tbx_01_Accgroup__name.Margin = New System.Windows.Forms.Padding(2)
+        Me.Tbx_01_Accgroup__name.Name = "Tbx_01_Accgroup__name"
+        Me.Tbx_01_Accgroup__name.Size = New System.Drawing.Size(302, 23)
+        Me.Tbx_01_Accgroup__name.TabIndex = 130
+        Me.Tbx_01_Accgroup__name.Tag = "Naam"
+        '
+        'Tbx_01_Accgroup__type
+        '
+        Me.Tbx_01_Accgroup__type.Enabled = False
+        Me.Tbx_01_Accgroup__type.Location = New System.Drawing.Point(304, 73)
+        Me.Tbx_01_Accgroup__type.Margin = New System.Windows.Forms.Padding(2)
+        Me.Tbx_01_Accgroup__type.Name = "Tbx_01_Accgroup__type"
+        Me.Tbx_01_Accgroup__type.Size = New System.Drawing.Size(140, 26)
+        Me.Tbx_01_Accgroup__type.TabIndex = 131
+        Me.Tbx_01_Accgroup__type.Tag = "Accounttype"
         '
         'Tab_Bank
         '
         Me.Tab_Bank.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.Tab_Bank.Controls.Add(Me.Rbn_Bank_Other)
-        Me.Tab_Bank.Controls.Add(Me.Rbn_Bank_Extra)
-        Me.Tab_Bank.Controls.Add(Me.Rbn_Bank_Contract)
-        Me.Tab_Bank.Controls.Add(Me.Dgv_Bank_Account2)
-        Me.Tab_Bank.Controls.Add(Me.Label100)
-        Me.Tab_Bank.Controls.Add(Me.Dgv_Bank_Account)
-        Me.Tab_Bank.Controls.Add(Me.Tbx_Bank_Amount)
-        Me.Tab_Bank.Controls.Add(Me.Lbl_Bank_Saldo)
-        Me.Tab_Bank.Controls.Add(Me.Cmx_Bank_bankacc)
-        Me.Tab_Bank.Controls.Add(Me.Tbx_Bank_Code)
-        Me.Tab_Bank.Controls.Add(Me.Label76)
-        Me.Tab_Bank.Controls.Add(Me.Label73)
-        Me.Tab_Bank.Controls.Add(Me.Label72)
-        Me.Tab_Bank.Controls.Add(Me.Tbx_Bank_Relation_account)
-        Me.Tab_Bank.Controls.Add(Me.Tbx_Bank_Relation)
-        Me.Tab_Bank.Controls.Add(Me.CheckBox1)
-        Me.Tab_Bank.Controls.Add(Me.Tbx_Bank_Search)
-        Me.Tab_Bank.Controls.Add(Me.Label63)
-        Me.Tab_Bank.Controls.Add(Me.Btn_Bank_Split)
-        Me.Tab_Bank.Controls.Add(Me.Btn_Bank_Categorize)
-        Me.Tab_Bank.Controls.Add(Me.Btn_Bank_Folder)
-        Me.Tab_Bank.Controls.Add(Me.Btn_Bank_Save_Accounts)
-        Me.Tab_Bank.Controls.Add(Me.Btn_Bank_Add_Journal)
-        Me.Tab_Bank.Controls.Add(Me.Cmx_Bank_Account)
-        Me.Tab_Bank.Controls.Add(Me.Label6)
-        Me.Tab_Bank.Controls.Add(Me.Label8)
-        Me.Tab_Bank.Controls.Add(Me.Tbx_Bank_Description)
+        Me.Tab_Bank.Controls.Add(Me.Panel6)
         Me.Tab_Bank.Controls.Add(Me.Dgv_Bank)
-        Me.Tab_Bank.Controls.Add(Me.Btn_Bank_Download)
         Me.Tab_Bank.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tab_Bank.Location = New System.Drawing.Point(4, 28)
         Me.Tab_Bank.Margin = New System.Windows.Forms.Padding(2)
         Me.Tab_Bank.Name = "Tab_Bank"
         Me.Tab_Bank.Padding = New System.Windows.Forms.Padding(2)
-        Me.Tab_Bank.Size = New System.Drawing.Size(1107, 639)
+        Me.Tab_Bank.Size = New System.Drawing.Size(1022, 570)
         Me.Tab_Bank.TabIndex = 1
         Me.Tab_Bank.Text = "Bank   "
         '
-        'Rbn_Bank_Other
+        'Panel6
         '
-        Me.Rbn_Bank_Other.AutoSize = True
-        Me.Rbn_Bank_Other.Enabled = False
-        Me.Rbn_Bank_Other.Location = New System.Drawing.Point(229, 353)
-        Me.Rbn_Bank_Other.Margin = New System.Windows.Forms.Padding(2)
-        Me.Rbn_Bank_Other.Name = "Rbn_Bank_Other"
-        Me.Rbn_Bank_Other.Size = New System.Drawing.Size(71, 21)
-        Me.Rbn_Bank_Other.TabIndex = 46
-        Me.Rbn_Bank_Other.TabStop = True
-        Me.Rbn_Bank_Other.Text = "Anders"
-        Me.Rbn_Bank_Other.UseVisualStyleBackColor = True
+        Me.Panel6.Controls.Add(Me.Tbx_Bank_Afschrift)
+        Me.Panel6.Controls.Add(Me.Label148)
+        Me.Panel6.Controls.Add(Me.Btn_Bank_Type)
+        Me.Panel6.Controls.Add(Me.Cmx_Bank_bankacc)
+        Me.Panel6.Controls.Add(Me.Label63)
+        Me.Panel6.Controls.Add(Me.Dgv_Bank_Account)
+        Me.Panel6.Controls.Add(Me.Tbx_Bank_Search)
+        Me.Panel6.Controls.Add(Me.CheckBox1)
+        Me.Panel6.Controls.Add(Me.Btn_Bank_Download)
+        Me.Panel6.Controls.Add(Me.Tbx_Bank_Description)
+        Me.Panel6.Controls.Add(Me.Label8)
+        Me.Panel6.Controls.Add(Me.Dgv_Bank_Account2)
+        Me.Panel6.Controls.Add(Me.Label6)
+        Me.Panel6.Controls.Add(Me.Label100)
+        Me.Panel6.Controls.Add(Me.Cmx_Bank_Account)
+        Me.Panel6.Controls.Add(Me.Btn_Bank_Add_Journal)
+        Me.Panel6.Controls.Add(Me.Tbx_Bank_Amount)
+        Me.Panel6.Controls.Add(Me.Lbl_Bank_Saldo)
+        Me.Panel6.Controls.Add(Me.Btn_Bank_Folder)
+        Me.Panel6.Controls.Add(Me.Btn_Bank_Categorize)
+        Me.Panel6.Controls.Add(Me.Tbx_Bank_Code)
+        Me.Panel6.Controls.Add(Me.Btn_Bank_Split)
+        Me.Panel6.Controls.Add(Me.Label76)
+        Me.Panel6.Controls.Add(Me.Tbx_Bank_Relation)
+        Me.Panel6.Controls.Add(Me.Label73)
+        Me.Panel6.Controls.Add(Me.Tbx_Bank_Relation_account)
+        Me.Panel6.Controls.Add(Me.Label72)
+        Me.Panel6.Controls.Add(Me.Pan_Bank_jtype)
+        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel6.Location = New System.Drawing.Point(2, 2)
+        Me.Panel6.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(337, 566)
+        Me.Panel6.TabIndex = 47
         '
-        'Rbn_Bank_Extra
+        'Label150
         '
-        Me.Rbn_Bank_Extra.AutoSize = True
-        Me.Rbn_Bank_Extra.Enabled = False
-        Me.Rbn_Bank_Extra.Location = New System.Drawing.Point(144, 353)
-        Me.Rbn_Bank_Extra.Margin = New System.Windows.Forms.Padding(2)
-        Me.Rbn_Bank_Extra.Name = "Rbn_Bank_Extra"
-        Me.Rbn_Bank_Extra.Size = New System.Drawing.Size(81, 21)
-        Me.Rbn_Bank_Extra.TabIndex = 46
-        Me.Rbn_Bank_Extra.TabStop = True
-        Me.Rbn_Bank_Extra.Text = "Extra gift"
-        Me.Rbn_Bank_Extra.UseVisualStyleBackColor = True
+        Me.Label150.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Label150.AutoSize = True
+        Me.Label150.Font = New System.Drawing.Font("Arial Narrow", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label150.Location = New System.Drawing.Point(-4, 4)
+        Me.Label150.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label150.Name = "Label150"
+        Me.Label150.Size = New System.Drawing.Size(37, 20)
+        Me.Label150.TabIndex = 53
+        Me.Label150.Text = "Type"
         '
-        'Rbn_Bank_Contract
+        'Tbx_Bank_Afschrift
         '
-        Me.Rbn_Bank_Contract.AutoSize = True
-        Me.Rbn_Bank_Contract.Enabled = False
-        Me.Rbn_Bank_Contract.Location = New System.Drawing.Point(13, 353)
-        Me.Rbn_Bank_Contract.Margin = New System.Windows.Forms.Padding(2)
-        Me.Rbn_Bank_Contract.Name = "Rbn_Bank_Contract"
-        Me.Rbn_Bank_Contract.Size = New System.Drawing.Size(129, 21)
-        Me.Rbn_Bank_Contract.TabIndex = 46
-        Me.Rbn_Bank_Contract.TabStop = True
-        Me.Rbn_Bank_Contract.Text = "Contractbetaling"
-        Me.Rbn_Bank_Contract.UseVisualStyleBackColor = True
+        Me.Tbx_Bank_Afschrift.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Tbx_Bank_Afschrift.Location = New System.Drawing.Point(256, 119)
+        Me.Tbx_Bank_Afschrift.Margin = New System.Windows.Forms.Padding(2)
+        Me.Tbx_Bank_Afschrift.Name = "Tbx_Bank_Afschrift"
+        Me.Tbx_Bank_Afschrift.Size = New System.Drawing.Size(63, 23)
+        Me.Tbx_Bank_Afschrift.TabIndex = 48
+        '
+        'Label148
+        '
+        Me.Label148.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Label148.AutoSize = True
+        Me.Label148.Location = New System.Drawing.Point(193, 120)
+        Me.Label148.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label148.Name = "Label148"
+        Me.Label148.Size = New System.Drawing.Size(59, 17)
+        Me.Label148.TabIndex = 47
+        Me.Label148.Text = "Afschrift"
+        '
+        'Btn_Bank_Type
+        '
+        Me.Btn_Bank_Type.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Btn_Bank_Type.Font = New System.Drawing.Font("Arial Rounded MT Bold", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Btn_Bank_Type.ForeColor = System.Drawing.Color.Navy
+        Me.Btn_Bank_Type.Location = New System.Drawing.Point(302, 251)
+        Me.Btn_Bank_Type.Name = "Btn_Bank_Type"
+        Me.Btn_Bank_Type.Size = New System.Drawing.Size(25, 25)
+        Me.Btn_Bank_Type.TabIndex = 46
+        Me.Btn_Bank_Type.UseVisualStyleBackColor = True
+        Me.Btn_Bank_Type.Visible = False
+        '
+        'Cmx_Bank_bankacc
+        '
+        Me.Cmx_Bank_bankacc.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Cmx_Bank_bankacc.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Cmx_Bank_bankacc.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cmx_Bank_bankacc.FormattingEnabled = True
+        Me.Cmx_Bank_bankacc.Location = New System.Drawing.Point(7, 3)
+        Me.Cmx_Bank_bankacc.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cmx_Bank_bankacc.Name = "Cmx_Bank_bankacc"
+        Me.Cmx_Bank_bankacc.Size = New System.Drawing.Size(328, 26)
+        Me.Cmx_Bank_bankacc.TabIndex = 21
+        '
+        'Label63
+        '
+        Me.Label63.AutoSize = True
+        Me.Label63.Location = New System.Drawing.Point(22, 611)
+        Me.Label63.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label63.Name = "Label63"
+        Me.Label63.Size = New System.Drawing.Size(76, 17)
+        Me.Label63.TabIndex = 22
+        Me.Label63.Text = "Zoeken op"
+        Me.Label63.Visible = False
+        '
+        'Dgv_Bank_Account
+        '
+        Me.Dgv_Bank_Account.AllowUserToAddRows = False
+        Me.Dgv_Bank_Account.AllowUserToDeleteRows = False
+        DataGridViewCellStyle29.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Bank_Account.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle29
+        Me.Dgv_Bank_Account.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Dgv_Bank_Account.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.Dgv_Bank_Account.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.Dgv_Bank_Account.Location = New System.Drawing.Point(12, 333)
+        Me.Dgv_Bank_Account.Margin = New System.Windows.Forms.Padding(2)
+        Me.Dgv_Bank_Account.Name = "Dgv_Bank_Account"
+        Me.Dgv_Bank_Account.RowHeadersVisible = False
+        Me.Dgv_Bank_Account.RowHeadersWidth = 50
+        DataGridViewCellStyle30.Font = New System.Drawing.Font("Arial Narrow", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Bank_Account.RowsDefaultCellStyle = DataGridViewCellStyle30
+        Me.Dgv_Bank_Account.RowTemplate.Height = 20
+        Me.Dgv_Bank_Account.Size = New System.Drawing.Size(315, 229)
+        Me.Dgv_Bank_Account.TabIndex = 37
+        '
+        'Tbx_Bank_Search
+        '
+        Me.Tbx_Bank_Search.Location = New System.Drawing.Point(104, 611)
+        Me.Tbx_Bank_Search.Margin = New System.Windows.Forms.Padding(2)
+        Me.Tbx_Bank_Search.Name = "Tbx_Bank_Search"
+        Me.Tbx_Bank_Search.Size = New System.Drawing.Size(40, 23)
+        Me.Tbx_Bank_Search.TabIndex = 23
+        Me.Tbx_Bank_Search.Visible = False
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Enabled = False
+        Me.CheckBox1.Location = New System.Drawing.Point(7, 628)
+        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(141, 21)
+        Me.CheckBox1.TabIndex = 24
+        Me.CheckBox1.Text = "Alleen ongecateg."
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.CheckBox1.Visible = False
+        '
+        'Btn_Bank_Download
+        '
+        Me.Btn_Bank_Download.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Btn_Bank_Download.Image = Global.SPAS.My.Resources.Resources.Download_16x16
+        Me.Btn_Bank_Download.Location = New System.Drawing.Point(296, 141)
+        Me.Btn_Bank_Download.Margin = New System.Windows.Forms.Padding(2)
+        Me.Btn_Bank_Download.Name = "Btn_Bank_Download"
+        Me.Btn_Bank_Download.Size = New System.Drawing.Size(31, 32)
+        Me.Btn_Bank_Download.TabIndex = 2
+        Me.Btn_Bank_Download.UseVisualStyleBackColor = True
+        Me.Btn_Bank_Download.Visible = False
+        '
+        'Tbx_Bank_Description
+        '
+        Me.Tbx_Bank_Description.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Tbx_Bank_Description.ForeColor = System.Drawing.Color.Blue
+        Me.Tbx_Bank_Description.Location = New System.Drawing.Point(13, 169)
+        Me.Tbx_Bank_Description.Margin = New System.Windows.Forms.Padding(2)
+        Me.Tbx_Bank_Description.Multiline = True
+        Me.Tbx_Bank_Description.Name = "Tbx_Bank_Description"
+        Me.Tbx_Bank_Description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.Tbx_Bank_Description.Size = New System.Drawing.Size(315, 78)
+        Me.Tbx_Bank_Description.TabIndex = 15
+        '
+        'Label8
+        '
+        Me.Label8.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(10, 146)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(89, 17)
+        Me.Label8.TabIndex = 14
+        Me.Label8.Text = "Omschrijving"
         '
         'Dgv_Bank_Account2
         '
         Me.Dgv_Bank_Account2.AllowUserToAddRows = False
         Me.Dgv_Bank_Account2.AllowUserToDeleteRows = False
         Me.Dgv_Bank_Account2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Dgv_Bank_Account2.Location = New System.Drawing.Point(13, 558)
+        Me.Dgv_Bank_Account2.Location = New System.Drawing.Point(7, 590)
         Me.Dgv_Bank_Account2.Name = "Dgv_Bank_Account2"
         Me.Dgv_Bank_Account2.RowHeadersWidth = 82
         Me.Dgv_Bank_Account2.Size = New System.Drawing.Size(73, 18)
         Me.Dgv_Bank_Account2.TabIndex = 44
         Me.Dgv_Bank_Account2.Visible = False
         '
+        'Label6
+        '
+        Me.Label6.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(10, 120)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(41, 17)
+        Me.Label6.TabIndex = 10
+        Me.Label6.Text = "Code"
+        '
         'Label100
         '
+        Me.Label100.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label100.AutoSize = True
-        Me.Label100.Location = New System.Drawing.Point(10, 53)
+        Me.Label100.Location = New System.Drawing.Point(10, 38)
         Me.Label100.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label100.Name = "Label100"
         Me.Label100.Size = New System.Drawing.Size(93, 17)
         Me.Label100.TabIndex = 43
         Me.Label100.Text = "Actueel saldo"
         '
-        'Dgv_Bank_Account
+        'Cmx_Bank_Account
         '
-        Me.Dgv_Bank_Account.AllowUserToAddRows = False
-        Me.Dgv_Bank_Account.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Dgv_Bank_Account.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
-        Me.Dgv_Bank_Account.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.Dgv_Bank_Account.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Dgv_Bank_Account.Location = New System.Drawing.Point(12, 378)
-        Me.Dgv_Bank_Account.Margin = New System.Windows.Forms.Padding(2)
-        Me.Dgv_Bank_Account.Name = "Dgv_Bank_Account"
-        Me.Dgv_Bank_Account.RowHeadersVisible = False
-        Me.Dgv_Bank_Account.RowHeadersWidth = 50
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dgv_Bank_Account.RowsDefaultCellStyle = DataGridViewCellStyle2
-        Me.Dgv_Bank_Account.RowTemplate.Height = 20
-        Me.Dgv_Bank_Account.Size = New System.Drawing.Size(286, 172)
-        Me.Dgv_Bank_Account.TabIndex = 37
+        Me.Cmx_Bank_Account.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Cmx_Bank_Account.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.Cmx_Bank_Account.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.Cmx_Bank_Account.FormattingEnabled = True
+        Me.Cmx_Bank_Account.Location = New System.Drawing.Point(76, 305)
+        Me.Cmx_Bank_Account.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cmx_Bank_Account.Name = "Cmx_Bank_Account"
+        Me.Cmx_Bank_Account.Size = New System.Drawing.Size(176, 24)
+        Me.Cmx_Bank_Account.TabIndex = 32
+        '
+        'Btn_Bank_Add_Journal
+        '
+        Me.Btn_Bank_Add_Journal.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Btn_Bank_Add_Journal.Image = Global.SPAS.My.Resources.Resources.Add_16x16
+        Me.Btn_Bank_Add_Journal.Location = New System.Drawing.Point(262, 305)
+        Me.Btn_Bank_Add_Journal.Name = "Btn_Bank_Add_Journal"
+        Me.Btn_Bank_Add_Journal.Size = New System.Drawing.Size(32, 25)
+        Me.Btn_Bank_Add_Journal.TabIndex = 35
+        Me.Btn_Bank_Add_Journal.UseVisualStyleBackColor = True
         '
         'Tbx_Bank_Amount
         '
-        Me.Tbx_Bank_Amount.Location = New System.Drawing.Point(178, 324)
+        Me.Tbx_Bank_Amount.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Tbx_Bank_Amount.Location = New System.Drawing.Point(13, 258)
         Me.Tbx_Bank_Amount.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Bank_Amount.Name = "Tbx_Bank_Amount"
         Me.Tbx_Bank_Amount.Size = New System.Drawing.Size(52, 23)
-        Me.Tbx_Bank_Amount.TabIndex = 36
+        Me.Tbx_Bank_Amount.TabIndex = 34
         '
         'Lbl_Bank_Saldo
         '
+        Me.Lbl_Bank_Saldo.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Lbl_Bank_Saldo.AutoSize = True
         Me.Lbl_Bank_Saldo.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Bank_Saldo.Location = New System.Drawing.Point(119, 53)
+        Me.Lbl_Bank_Saldo.Location = New System.Drawing.Point(124, 36)
         Me.Lbl_Bank_Saldo.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Lbl_Bank_Saldo.Name = "Lbl_Bank_Saldo"
         Me.Lbl_Bank_Saldo.Size = New System.Drawing.Size(37, 19)
@@ -3685,379 +4095,232 @@ Partial Class SPAS
         Me.Lbl_Bank_Saldo.Text = "0,00"
         Me.Lbl_Bank_Saldo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Cmx_Bank_bankacc
+        'Btn_Bank_Folder
         '
-        Me.Cmx_Bank_bankacc.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Cmx_Bank_bankacc.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cmx_Bank_bankacc.FormattingEnabled = True
-        Me.Cmx_Bank_bankacc.Location = New System.Drawing.Point(8, 16)
-        Me.Cmx_Bank_bankacc.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cmx_Bank_bankacc.Name = "Cmx_Bank_bankacc"
-        Me.Cmx_Bank_bankacc.Size = New System.Drawing.Size(287, 27)
-        Me.Cmx_Bank_bankacc.TabIndex = 21
+        Me.Btn_Bank_Folder.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Btn_Bank_Folder.Image = CType(resources.GetObject("Btn_Bank_Folder.Image"), System.Drawing.Image)
+        Me.Btn_Bank_Folder.Location = New System.Drawing.Point(229, 165)
+        Me.Btn_Bank_Folder.Margin = New System.Windows.Forms.Padding(2)
+        Me.Btn_Bank_Folder.Name = "Btn_Bank_Folder"
+        Me.Btn_Bank_Folder.Size = New System.Drawing.Size(31, 32)
+        Me.Btn_Bank_Folder.TabIndex = 41
+        Me.Btn_Bank_Folder.UseVisualStyleBackColor = True
+        Me.Btn_Bank_Folder.Visible = False
+        '
+        'Btn_Bank_Categorize
+        '
+        Me.Btn_Bank_Categorize.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Btn_Bank_Categorize.Image = CType(resources.GetObject("Btn_Bank_Categorize.Image"), System.Drawing.Image)
+        Me.Btn_Bank_Categorize.Location = New System.Drawing.Point(194, 165)
+        Me.Btn_Bank_Categorize.Margin = New System.Windows.Forms.Padding(2)
+        Me.Btn_Bank_Categorize.Name = "Btn_Bank_Categorize"
+        Me.Btn_Bank_Categorize.Size = New System.Drawing.Size(31, 32)
+        Me.Btn_Bank_Categorize.TabIndex = 42
+        Me.Btn_Bank_Categorize.UseVisualStyleBackColor = True
+        Me.Btn_Bank_Categorize.Visible = False
         '
         'Tbx_Bank_Code
         '
-        Me.Tbx_Bank_Code.Location = New System.Drawing.Point(123, 136)
+        Me.Tbx_Bank_Code.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Tbx_Bank_Code.Location = New System.Drawing.Point(123, 119)
         Me.Tbx_Bank_Code.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Bank_Code.Name = "Tbx_Bank_Code"
         Me.Tbx_Bank_Code.Size = New System.Drawing.Size(63, 23)
         Me.Tbx_Bank_Code.TabIndex = 33
         '
+        'Btn_Bank_Split
+        '
+        Me.Btn_Bank_Split.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Btn_Bank_Split.Image = Global.SPAS.My.Resources.Resources.sharethis_16
+        Me.Btn_Bank_Split.Location = New System.Drawing.Point(206, 148)
+        Me.Btn_Bank_Split.Name = "Btn_Bank_Split"
+        Me.Btn_Bank_Split.Size = New System.Drawing.Size(32, 25)
+        Me.Btn_Bank_Split.TabIndex = 45
+        Me.Btn_Bank_Split.UseVisualStyleBackColor = True
+        Me.Btn_Bank_Split.Visible = False
+        '
         'Label76
         '
+        Me.Label76.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label76.AutoSize = True
-        Me.Label76.Location = New System.Drawing.Point(10, 298)
+        Me.Label76.Font = New System.Drawing.Font("Arial Narrow", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label76.Location = New System.Drawing.Point(9, 305)
         Me.Label76.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label76.Name = "Label76"
-        Me.Label76.Size = New System.Drawing.Size(179, 17)
+        Me.Label76.Size = New System.Drawing.Size(63, 20)
         Me.Label76.TabIndex = 30
-        Me.Label76.Text = "Kies categorie en bedrag..."
+        Me.Label76.Text = "Categorie"
+        '
+        'Tbx_Bank_Relation
+        '
+        Me.Tbx_Bank_Relation.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Tbx_Bank_Relation.Location = New System.Drawing.Point(123, 64)
+        Me.Tbx_Bank_Relation.Margin = New System.Windows.Forms.Padding(2)
+        Me.Tbx_Bank_Relation.Name = "Tbx_Bank_Relation"
+        Me.Tbx_Bank_Relation.Size = New System.Drawing.Size(205, 23)
+        Me.Tbx_Bank_Relation.TabIndex = 25
         '
         'Label73
         '
+        Me.Label73.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label73.AutoSize = True
-        Me.Label73.Location = New System.Drawing.Point(10, 84)
+        Me.Label73.Location = New System.Drawing.Point(10, 67)
         Me.Label73.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label73.Name = "Label73"
         Me.Label73.Size = New System.Drawing.Size(93, 17)
         Me.Label73.TabIndex = 28
         Me.Label73.Text = "Naam/Relatie"
         '
+        'Tbx_Bank_Relation_account
+        '
+        Me.Tbx_Bank_Relation_account.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Tbx_Bank_Relation_account.Location = New System.Drawing.Point(123, 92)
+        Me.Tbx_Bank_Relation_account.Margin = New System.Windows.Forms.Padding(2)
+        Me.Tbx_Bank_Relation_account.Name = "Tbx_Bank_Relation_account"
+        Me.Tbx_Bank_Relation_account.Size = New System.Drawing.Size(205, 23)
+        Me.Tbx_Bank_Relation_account.TabIndex = 26
+        '
         'Label72
         '
+        Me.Label72.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label72.AutoSize = True
-        Me.Label72.Location = New System.Drawing.Point(10, 111)
+        Me.Label72.Location = New System.Drawing.Point(10, 93)
         Me.Label72.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label72.Name = "Label72"
         Me.Label72.Size = New System.Drawing.Size(104, 17)
         Me.Label72.TabIndex = 27
         Me.Label72.Text = "Tegenrekening"
         '
-        'Tbx_Bank_Relation_account
+        'Pan_Bank_jtype
         '
-        Me.Tbx_Bank_Relation_account.Location = New System.Drawing.Point(123, 109)
-        Me.Tbx_Bank_Relation_account.Margin = New System.Windows.Forms.Padding(2)
-        Me.Tbx_Bank_Relation_account.Name = "Tbx_Bank_Relation_account"
-        Me.Tbx_Bank_Relation_account.Size = New System.Drawing.Size(175, 23)
-        Me.Tbx_Bank_Relation_account.TabIndex = 26
+        Me.Pan_Bank_jtype.Controls.Add(Me.Label150)
+        Me.Pan_Bank_jtype.Controls.Add(Me.Rbn_Bank_jtype_con)
+        Me.Pan_Bank_jtype.Controls.Add(Me.Rbn_Bank_jtype_int)
+        Me.Pan_Bank_jtype.Controls.Add(Me.Rbn_Bank_jtype_ext)
+        Me.Pan_Bank_jtype.Location = New System.Drawing.Point(13, 282)
+        Me.Pan_Bank_jtype.Name = "Pan_Bank_jtype"
+        Me.Pan_Bank_jtype.Size = New System.Drawing.Size(320, 24)
+        Me.Pan_Bank_jtype.TabIndex = 52
+        Me.Pan_Bank_jtype.Visible = False
         '
-        'Tbx_Bank_Relation
+        'Rbn_Bank_jtype_con
         '
-        Me.Tbx_Bank_Relation.Location = New System.Drawing.Point(123, 82)
-        Me.Tbx_Bank_Relation.Margin = New System.Windows.Forms.Padding(2)
-        Me.Tbx_Bank_Relation.Name = "Tbx_Bank_Relation"
-        Me.Tbx_Bank_Relation.Size = New System.Drawing.Size(175, 23)
-        Me.Tbx_Bank_Relation.TabIndex = 25
+        Me.Rbn_Bank_jtype_con.AutoSize = True
+        Me.Rbn_Bank_jtype_con.Location = New System.Drawing.Point(63, 3)
+        Me.Rbn_Bank_jtype_con.Name = "Rbn_Bank_jtype_con"
+        Me.Rbn_Bank_jtype_con.Size = New System.Drawing.Size(79, 21)
+        Me.Rbn_Bank_jtype_con.TabIndex = 49
+        Me.Rbn_Bank_jtype_con.TabStop = True
+        Me.Rbn_Bank_jtype_con.Text = "Contract"
+        Me.Rbn_Bank_jtype_con.UseVisualStyleBackColor = True
         '
-        'CheckBox1
+        'Rbn_Bank_jtype_int
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Enabled = False
-        Me.CheckBox1.Location = New System.Drawing.Point(577, 12)
-        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(2)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(141, 21)
-        Me.CheckBox1.TabIndex = 24
-        Me.CheckBox1.Text = "Alleen ongecateg."
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.Rbn_Bank_jtype_int.AutoSize = True
+        Me.Rbn_Bank_jtype_int.Location = New System.Drawing.Point(209, 3)
+        Me.Rbn_Bank_jtype_int.Name = "Rbn_Bank_jtype_int"
+        Me.Rbn_Bank_jtype_int.Size = New System.Drawing.Size(100, 21)
+        Me.Rbn_Bank_jtype_int.TabIndex = 51
+        Me.Rbn_Bank_jtype_int.TabStop = True
+        Me.Rbn_Bank_jtype_int.Text = "Anders (int)"
+        Me.Rbn_Bank_jtype_int.UseVisualStyleBackColor = True
         '
-        'Tbx_Bank_Search
+        'Rbn_Bank_jtype_ext
         '
-        Me.Tbx_Bank_Search.Location = New System.Drawing.Point(389, 10)
-        Me.Tbx_Bank_Search.Margin = New System.Windows.Forms.Padding(2)
-        Me.Tbx_Bank_Search.Name = "Tbx_Bank_Search"
-        Me.Tbx_Bank_Search.Size = New System.Drawing.Size(175, 23)
-        Me.Tbx_Bank_Search.TabIndex = 23
-        '
-        'Label63
-        '
-        Me.Label63.AutoSize = True
-        Me.Label63.Location = New System.Drawing.Point(309, 13)
-        Me.Label63.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label63.Name = "Label63"
-        Me.Label63.Size = New System.Drawing.Size(76, 17)
-        Me.Label63.TabIndex = 22
-        Me.Label63.Text = "Zoeken op"
-        '
-        'Btn_Bank_Split
-        '
-        Me.Btn_Bank_Split.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Bank_Split.Image = Global.SPAS.My.Resources.Resources.sharethis_16
-        Me.Btn_Bank_Split.Location = New System.Drawing.Point(268, 315)
-        Me.Btn_Bank_Split.Name = "Btn_Bank_Split"
-        Me.Btn_Bank_Split.Size = New System.Drawing.Size(32, 25)
-        Me.Btn_Bank_Split.TabIndex = 45
-        Me.Btn_Bank_Split.UseVisualStyleBackColor = True
-        '
-        'Btn_Bank_Categorize
-        '
-        Me.Btn_Bank_Categorize.Image = CType(resources.GetObject("Btn_Bank_Categorize.Image"), System.Drawing.Image)
-        Me.Btn_Bank_Categorize.Location = New System.Drawing.Point(158, 558)
-        Me.Btn_Bank_Categorize.Margin = New System.Windows.Forms.Padding(2)
-        Me.Btn_Bank_Categorize.Name = "Btn_Bank_Categorize"
-        Me.Btn_Bank_Categorize.Size = New System.Drawing.Size(31, 32)
-        Me.Btn_Bank_Categorize.TabIndex = 42
-        Me.Btn_Bank_Categorize.UseVisualStyleBackColor = True
-        '
-        'Btn_Bank_Folder
-        '
-        Me.Btn_Bank_Folder.Image = CType(resources.GetObject("Btn_Bank_Folder.Image"), System.Drawing.Image)
-        Me.Btn_Bank_Folder.Location = New System.Drawing.Point(194, 558)
-        Me.Btn_Bank_Folder.Margin = New System.Windows.Forms.Padding(2)
-        Me.Btn_Bank_Folder.Name = "Btn_Bank_Folder"
-        Me.Btn_Bank_Folder.Size = New System.Drawing.Size(31, 32)
-        Me.Btn_Bank_Folder.TabIndex = 41
-        Me.Btn_Bank_Folder.UseVisualStyleBackColor = True
-        '
-        'Btn_Bank_Save_Accounts
-        '
-        Me.Btn_Bank_Save_Accounts.Image = Global.SPAS.My.Resources.Resources.Save_16x16
-        Me.Btn_Bank_Save_Accounts.Location = New System.Drawing.Point(264, 558)
-        Me.Btn_Bank_Save_Accounts.Margin = New System.Windows.Forms.Padding(2)
-        Me.Btn_Bank_Save_Accounts.Name = "Btn_Bank_Save_Accounts"
-        Me.Btn_Bank_Save_Accounts.Size = New System.Drawing.Size(31, 32)
-        Me.Btn_Bank_Save_Accounts.TabIndex = 40
-        Me.Btn_Bank_Save_Accounts.UseVisualStyleBackColor = True
-        '
-        'Btn_Bank_Add_Journal
-        '
-        Me.Btn_Bank_Add_Journal.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Bank_Add_Journal.Image = Global.SPAS.My.Resources.Resources.Add_16x16
-        Me.Btn_Bank_Add_Journal.Location = New System.Drawing.Point(235, 315)
-        Me.Btn_Bank_Add_Journal.Name = "Btn_Bank_Add_Journal"
-        Me.Btn_Bank_Add_Journal.Size = New System.Drawing.Size(32, 25)
-        Me.Btn_Bank_Add_Journal.TabIndex = 35
-        Me.Btn_Bank_Add_Journal.UseVisualStyleBackColor = True
-        '
-        'Cmx_Bank_Account
-        '
-        Me.Cmx_Bank_Account.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.Cmx_Bank_Account.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.Cmx_Bank_Account.FormattingEnabled = True
-        Me.Cmx_Bank_Account.Location = New System.Drawing.Point(12, 324)
-        Me.Cmx_Bank_Account.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cmx_Bank_Account.Name = "Cmx_Bank_Account"
-        Me.Cmx_Bank_Account.Size = New System.Drawing.Size(162, 24)
-        Me.Cmx_Bank_Account.TabIndex = 19
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(10, 138)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(41, 17)
-        Me.Label6.TabIndex = 10
-        Me.Label6.Text = "Code"
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(10, 170)
-        Me.Label8.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(89, 17)
-        Me.Label8.TabIndex = 14
-        Me.Label8.Text = "Omschrijving"
-        '
-        'Tbx_Bank_Description
-        '
-        Me.Tbx_Bank_Description.ForeColor = System.Drawing.Color.Blue
-        Me.Tbx_Bank_Description.Location = New System.Drawing.Point(12, 189)
-        Me.Tbx_Bank_Description.Margin = New System.Windows.Forms.Padding(2)
-        Me.Tbx_Bank_Description.Multiline = True
-        Me.Tbx_Bank_Description.Name = "Tbx_Bank_Description"
-        Me.Tbx_Bank_Description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.Tbx_Bank_Description.Size = New System.Drawing.Size(285, 98)
-        Me.Tbx_Bank_Description.TabIndex = 15
+        Me.Rbn_Bank_jtype_ext.AutoSize = True
+        Me.Rbn_Bank_jtype_ext.Location = New System.Drawing.Point(145, 3)
+        Me.Rbn_Bank_jtype_ext.Name = "Rbn_Bank_jtype_ext"
+        Me.Rbn_Bank_jtype_ext.Size = New System.Drawing.Size(58, 21)
+        Me.Rbn_Bank_jtype_ext.TabIndex = 50
+        Me.Rbn_Bank_jtype_ext.TabStop = True
+        Me.Rbn_Bank_jtype_ext.Text = "Extra"
+        Me.Rbn_Bank_jtype_ext.UseVisualStyleBackColor = True
         '
         'Dgv_Bank
         '
         Me.Dgv_Bank.AllowUserToAddRows = False
         Me.Dgv_Bank.AllowUserToDeleteRows = False
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.NullValue = " -"
-        Me.Dgv_Bank.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle31.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        DataGridViewCellStyle31.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle31.NullValue = " -"
+        Me.Dgv_Bank.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle31
+        Me.Dgv_Bank.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Dgv_Bank.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle4.NullValue = "-"
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Dgv_Bank.DefaultCellStyle = DataGridViewCellStyle4
-        Me.Dgv_Bank.Location = New System.Drawing.Point(312, 40)
+        DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle32.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle32.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle32.NullValue = "-"
+        DataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Dgv_Bank.DefaultCellStyle = DataGridViewCellStyle32
+        Me.Dgv_Bank.Location = New System.Drawing.Point(340, 5)
         Me.Dgv_Bank.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Bank.MultiSelect = False
         Me.Dgv_Bank.Name = "Dgv_Bank"
         Me.Dgv_Bank.ReadOnly = True
         Me.Dgv_Bank.RowHeadersVisible = False
         Me.Dgv_Bank.RowHeadersWidth = 30
-        Me.Dgv_Bank.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Bank.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Bank.RowTemplate.Height = 20
         Me.Dgv_Bank.RowTemplate.ReadOnly = True
         Me.Dgv_Bank.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.Dgv_Bank.Size = New System.Drawing.Size(768, 550)
+        Me.Dgv_Bank.Size = New System.Drawing.Size(686, 560)
         Me.Dgv_Bank.TabIndex = 3
-        '
-        'Btn_Bank_Download
-        '
-        Me.Btn_Bank_Download.Image = Global.SPAS.My.Resources.Resources.Download_16x16
-        Me.Btn_Bank_Download.Location = New System.Drawing.Point(229, 558)
-        Me.Btn_Bank_Download.Margin = New System.Windows.Forms.Padding(2)
-        Me.Btn_Bank_Download.Name = "Btn_Bank_Download"
-        Me.Btn_Bank_Download.Size = New System.Drawing.Size(31, 32)
-        Me.Btn_Bank_Download.TabIndex = 2
-        Me.Btn_Bank_Download.UseVisualStyleBackColor = True
         '
         'Incasso
         '
         Me.Incasso.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.Incasso.Controls.Add(Me.Cmx_Incasso_Bankaccount)
-        Me.Incasso.Controls.Add(Me.Label145)
-        Me.Incasso.Controls.Add(Me.Lbl_Incasso_Error)
-        Me.Incasso.Controls.Add(Me.Rbn_Incasso_SEPA)
-        Me.Incasso.Controls.Add(Me.Rbn_Incasso_journal)
-        Me.Incasso.Controls.Add(Me.Label82)
-        Me.Incasso.Controls.Add(Me.Label79)
-        Me.Incasso.Controls.Add(Me.Btn_Incasso_Print)
-        Me.Incasso.Controls.Add(Me.Btn_Incasso_Delete)
-        Me.Incasso.Controls.Add(Me.Btn_Run_Incasso)
-        Me.Incasso.Controls.Add(Me.Lv_Incasso_Overview)
-        Me.Incasso.Controls.Add(Me.Lbl_Incasso_job_name)
-        Me.Incasso.Controls.Add(Me.Lbl_Incasso_Status)
-        Me.Incasso.Controls.Add(Me.Label94)
-        Me.Incasso.Controls.Add(Me.Label71)
-        Me.Incasso.Controls.Add(Me.Dtp_Incasso_end)
-        Me.Incasso.Controls.Add(Me.Label9)
-        Me.Incasso.Controls.Add(Me.Dtp_Incasso_start)
+        Me.Incasso.Controls.Add(Me.Panel3)
         Me.Incasso.Controls.Add(Me.Dgv_Incasso)
         Me.Incasso.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Incasso.Location = New System.Drawing.Point(4, 28)
         Me.Incasso.Margin = New System.Windows.Forms.Padding(2)
         Me.Incasso.Name = "Incasso"
         Me.Incasso.Padding = New System.Windows.Forms.Padding(2)
-        Me.Incasso.Size = New System.Drawing.Size(1107, 639)
+        Me.Incasso.Size = New System.Drawing.Size(1022, 570)
         Me.Incasso.TabIndex = 2
         Me.Incasso.Text = "Incasso   "
         '
-        'Cmx_Incasso_Bankaccount
+        'Panel3
         '
-        Me.Cmx_Incasso_Bankaccount.FormattingEnabled = True
-        Me.Cmx_Incasso_Bankaccount.Location = New System.Drawing.Point(112, 62)
-        Me.Cmx_Incasso_Bankaccount.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cmx_Incasso_Bankaccount.Name = "Cmx_Incasso_Bankaccount"
-        Me.Cmx_Incasso_Bankaccount.Size = New System.Drawing.Size(197, 24)
-        Me.Cmx_Incasso_Bankaccount.TabIndex = 79
+        Me.Panel3.Controls.Add(Me.Panel10)
+        Me.Panel3.Controls.Add(Me.Panel5)
+        Me.Panel3.Controls.Add(Me.Btn_Incasso_Export)
+        Me.Panel3.Controls.Add(Me.Btn_Incasso_Delete)
+        Me.Panel3.Controls.Add(Me.Btn_Run_Incasso)
+        Me.Panel3.Controls.Add(Me.Btn_Incasso_Print)
+        Me.Panel3.Controls.Add(Me.Dtp_Incasso_end)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel3.Location = New System.Drawing.Point(2, 2)
+        Me.Panel3.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(294, 566)
+        Me.Panel3.TabIndex = 100
         '
-        'Label145
+        'Panel10
         '
-        Me.Label145.AutoSize = True
-        Me.Label145.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label145.Location = New System.Drawing.Point(2, 63)
-        Me.Label145.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label145.Name = "Label145"
-        Me.Label145.Size = New System.Drawing.Size(108, 18)
-        Me.Label145.TabIndex = 78
-        Me.Label145.Text = "Incassorekening"
-        '
-        'Lbl_Incasso_Error
-        '
-        Me.Lbl_Incasso_Error.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Incasso_Error.ForeColor = System.Drawing.Color.Firebrick
-        Me.Lbl_Incasso_Error.Location = New System.Drawing.Point(15, 335)
-        Me.Lbl_Incasso_Error.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Incasso_Error.Name = "Lbl_Incasso_Error"
-        Me.Lbl_Incasso_Error.Size = New System.Drawing.Size(294, 171)
-        Me.Lbl_Incasso_Error.TabIndex = 77
-        Me.Lbl_Incasso_Error.Text = "Error"
-        '
-        'Rbn_Incasso_SEPA
-        '
-        Me.Rbn_Incasso_SEPA.AutoSize = True
-        Me.Rbn_Incasso_SEPA.Checked = True
-        Me.Rbn_Incasso_SEPA.Location = New System.Drawing.Point(105, 154)
-        Me.Rbn_Incasso_SEPA.Name = "Rbn_Incasso_SEPA"
-        Me.Rbn_Incasso_SEPA.Size = New System.Drawing.Size(62, 21)
-        Me.Rbn_Incasso_SEPA.TabIndex = 73
-        Me.Rbn_Incasso_SEPA.TabStop = True
-        Me.Rbn_Incasso_SEPA.Text = "SEPA"
-        Me.Rbn_Incasso_SEPA.UseVisualStyleBackColor = True
-        '
-        'Rbn_Incasso_journal
-        '
-        Me.Rbn_Incasso_journal.AutoSize = True
-        Me.Rbn_Incasso_journal.Location = New System.Drawing.Point(105, 178)
-        Me.Rbn_Incasso_journal.Name = "Rbn_Incasso_journal"
-        Me.Rbn_Incasso_journal.Size = New System.Drawing.Size(124, 21)
-        Me.Rbn_Incasso_journal.TabIndex = 73
-        Me.Rbn_Incasso_journal.Text = "Journaalposten"
-        Me.Rbn_Incasso_journal.UseVisualStyleBackColor = True
-        '
-        'Label82
-        '
-        Me.Label82.AutoSize = True
-        Me.Label82.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label82.Location = New System.Drawing.Point(3, 153)
-        Me.Label82.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label82.Name = "Label82"
-        Me.Label82.Size = New System.Drawing.Size(38, 18)
-        Me.Label82.TabIndex = 72
-        Me.Label82.Text = "Toon"
-        '
-        'Label79
-        '
-        Me.Label79.AutoSize = True
-        Me.Label79.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label79.Location = New System.Drawing.Point(3, 229)
-        Me.Label79.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label79.Name = "Label79"
-        Me.Label79.Size = New System.Drawing.Size(98, 18)
-        Me.Label79.TabIndex = 71
-        Me.Label79.Text = "Incassototalen"
-        '
-        'Btn_Incasso_Print
-        '
-        Me.Btn_Incasso_Print.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Incasso_Print.Image = CType(resources.GetObject("Btn_Incasso_Print.Image"), System.Drawing.Image)
-        Me.Btn_Incasso_Print.Location = New System.Drawing.Point(239, 599)
-        Me.Btn_Incasso_Print.Name = "Btn_Incasso_Print"
-        Me.Btn_Incasso_Print.Size = New System.Drawing.Size(32, 32)
-        Me.Btn_Incasso_Print.TabIndex = 76
-        Me.Btn_Incasso_Print.UseVisualStyleBackColor = True
-        '
-        'Btn_Incasso_Delete
-        '
-        Me.Btn_Incasso_Delete.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Btn_Incasso_Delete.Image = Global.SPAS.My.Resources.Resources.trash_2_161
-        Me.Btn_Incasso_Delete.Location = New System.Drawing.Point(201, 602)
-        Me.Btn_Incasso_Delete.Name = "Btn_Incasso_Delete"
-        Me.Btn_Incasso_Delete.Size = New System.Drawing.Size(32, 32)
-        Me.Btn_Incasso_Delete.TabIndex = 75
-        Me.Btn_Incasso_Delete.UseVisualStyleBackColor = True
-        '
-        'Btn_Run_Incasso
-        '
-        Me.Btn_Run_Incasso.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Run_Incasso.Image = CType(resources.GetObject("Btn_Run_Incasso.Image"), System.Drawing.Image)
-        Me.Btn_Run_Incasso.Location = New System.Drawing.Point(277, 599)
-        Me.Btn_Run_Incasso.Name = "Btn_Run_Incasso"
-        Me.Btn_Run_Incasso.Size = New System.Drawing.Size(32, 32)
-        Me.Btn_Run_Incasso.TabIndex = 74
-        Me.Btn_Run_Incasso.UseVisualStyleBackColor = True
+        Me.Panel10.Controls.Add(Me.Lv_Incasso_Overview)
+        Me.Panel10.Controls.Add(Me.Label79)
+        Me.Panel10.Controls.Add(Me.Lbl_Incasso_Error)
+        Me.Panel10.Location = New System.Drawing.Point(3, 205)
+        Me.Panel10.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel10.Name = "Panel10"
+        Me.Panel10.Size = New System.Drawing.Size(278, 286)
+        Me.Panel10.TabIndex = 103
         '
         'Lv_Incasso_Overview
         '
+        Me.Lv_Incasso_Overview.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Lv_Incasso_Overview.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Item, Me.Doel, Me.CP2})
         Me.Lv_Incasso_Overview.HideSelection = False
-        Me.Lv_Incasso_Overview.Location = New System.Drawing.Point(105, 229)
+        Me.Lv_Incasso_Overview.Location = New System.Drawing.Point(63, 24)
         Me.Lv_Incasso_Overview.Margin = New System.Windows.Forms.Padding(2)
         Me.Lv_Incasso_Overview.Name = "Lv_Incasso_Overview"
-        Me.Lv_Incasso_Overview.Size = New System.Drawing.Size(197, 94)
+        Me.Lv_Incasso_Overview.Size = New System.Drawing.Size(214, 125)
         Me.Lv_Incasso_Overview.TabIndex = 70
         Me.Lv_Incasso_Overview.UseCompatibleStateImageBehavior = False
         '
@@ -4074,106 +4337,261 @@ Partial Class SPAS
         '
         Me.CP2.Width = 100
         '
-        'Lbl_Incasso_job_name
+        'Label79
         '
-        Me.Lbl_Incasso_job_name.AutoSize = True
-        Me.Lbl_Incasso_job_name.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Incasso_job_name.Location = New System.Drawing.Point(102, 93)
-        Me.Lbl_Incasso_job_name.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Incasso_job_name.Name = "Lbl_Incasso_job_name"
-        Me.Lbl_Incasso_job_name.Size = New System.Drawing.Size(66, 18)
-        Me.Lbl_Incasso_job_name.TabIndex = 69
-        Me.Lbl_Incasso_job_name.Text = "Job naam"
+        Me.Label79.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Label79.AutoSize = True
+        Me.Label79.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label79.Location = New System.Drawing.Point(6, 24)
+        Me.Label79.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label79.Name = "Label79"
+        Me.Label79.Size = New System.Drawing.Size(54, 18)
+        Me.Label79.TabIndex = 71
+        Me.Label79.Text = "Totalen"
         '
-        'Lbl_Incasso_Status
+        'Lbl_Incasso_Error
         '
-        Me.Lbl_Incasso_Status.AutoSize = True
-        Me.Lbl_Incasso_Status.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Incasso_Status.Location = New System.Drawing.Point(102, 121)
-        Me.Lbl_Incasso_Status.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Incasso_Status.Name = "Lbl_Incasso_Status"
-        Me.Lbl_Incasso_Status.Size = New System.Drawing.Size(46, 18)
-        Me.Lbl_Incasso_Status.TabIndex = 69
-        Me.Lbl_Incasso_Status.Text = "Status"
+        Me.Lbl_Incasso_Error.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Lbl_Incasso_Error.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Lbl_Incasso_Error.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Incasso_Error.ForeColor = System.Drawing.Color.Firebrick
+        Me.Lbl_Incasso_Error.Location = New System.Drawing.Point(6, 151)
+        Me.Lbl_Incasso_Error.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Incasso_Error.Name = "Lbl_Incasso_Error"
+        Me.Lbl_Incasso_Error.Size = New System.Drawing.Size(269, 135)
+        Me.Lbl_Incasso_Error.TabIndex = 77
+        Me.Lbl_Incasso_Error.Text = "Error"
+        '
+        'Panel5
+        '
+        Me.Panel5.Controls.Add(Me.Dtp_Incasso_start)
+        Me.Panel5.Controls.Add(Me.Cmx_Incasso_Bankaccount)
+        Me.Panel5.Controls.Add(Me.Label9)
+        Me.Panel5.Controls.Add(Me.Rbn_Incasso_SEPA)
+        Me.Panel5.Controls.Add(Me.Label145)
+        Me.Panel5.Controls.Add(Me.Label94)
+        Me.Panel5.Controls.Add(Me.Rbn_Incasso_journal)
+        Me.Panel5.Controls.Add(Me.Label71)
+        Me.Panel5.Controls.Add(Me.Lbl_Incasso_Status)
+        Me.Panel5.Controls.Add(Me.Label82)
+        Me.Panel5.Controls.Add(Me.Lbl_Incasso_job_name)
+        Me.Panel5.Location = New System.Drawing.Point(3, 3)
+        Me.Panel5.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(282, 192)
+        Me.Panel5.TabIndex = 101
+        '
+        'Dtp_Incasso_start
+        '
+        Me.Dtp_Incasso_start.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Dtp_Incasso_start.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dtp_Incasso_start.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
+        Me.Dtp_Incasso_start.Font = New System.Drawing.Font("Calibri", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dtp_Incasso_start.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.Dtp_Incasso_start.Location = New System.Drawing.Point(83, 3)
+        Me.Dtp_Incasso_start.Name = "Dtp_Incasso_start"
+        Me.Dtp_Incasso_start.ShowUpDown = True
+        Me.Dtp_Incasso_start.Size = New System.Drawing.Size(187, 33)
+        Me.Dtp_Incasso_start.TabIndex = 65
+        Me.Dtp_Incasso_start.Value = New Date(2020, 1, 1, 0, 0, 0, 0)
+        '
+        'Cmx_Incasso_Bankaccount
+        '
+        Me.Cmx_Incasso_Bankaccount.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Cmx_Incasso_Bankaccount.FormattingEnabled = True
+        Me.Cmx_Incasso_Bankaccount.Location = New System.Drawing.Point(83, 45)
+        Me.Cmx_Incasso_Bankaccount.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cmx_Incasso_Bankaccount.Name = "Cmx_Incasso_Bankaccount"
+        Me.Cmx_Incasso_Bankaccount.Size = New System.Drawing.Size(187, 24)
+        Me.Cmx_Incasso_Bankaccount.TabIndex = 79
+        '
+        'Label9
+        '
+        Me.Label9.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(12, 12)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(50, 18)
+        Me.Label9.TabIndex = 66
+        Me.Label9.Text = "Maand"
+        '
+        'Rbn_Incasso_SEPA
+        '
+        Me.Rbn_Incasso_SEPA.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Rbn_Incasso_SEPA.AutoSize = True
+        Me.Rbn_Incasso_SEPA.Checked = True
+        Me.Rbn_Incasso_SEPA.Location = New System.Drawing.Point(90, 126)
+        Me.Rbn_Incasso_SEPA.Name = "Rbn_Incasso_SEPA"
+        Me.Rbn_Incasso_SEPA.Size = New System.Drawing.Size(62, 21)
+        Me.Rbn_Incasso_SEPA.TabIndex = 73
+        Me.Rbn_Incasso_SEPA.TabStop = True
+        Me.Rbn_Incasso_SEPA.Text = "SEPA"
+        Me.Rbn_Incasso_SEPA.UseVisualStyleBackColor = True
+        '
+        'Label145
+        '
+        Me.Label145.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Label145.AutoSize = True
+        Me.Label145.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label145.Location = New System.Drawing.Point(12, 45)
+        Me.Label145.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label145.Name = "Label145"
+        Me.Label145.Size = New System.Drawing.Size(66, 18)
+        Me.Label145.TabIndex = 78
+        Me.Label145.Text = "Rekening"
         '
         'Label94
         '
+        Me.Label94.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label94.AutoSize = True
         Me.Label94.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label94.Location = New System.Drawing.Point(3, 93)
+        Me.Label94.Location = New System.Drawing.Point(12, 72)
         Me.Label94.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label94.Name = "Label94"
         Me.Label94.Size = New System.Drawing.Size(66, 18)
         Me.Label94.TabIndex = 68
         Me.Label94.Text = "Job naam"
         '
+        'Rbn_Incasso_journal
+        '
+        Me.Rbn_Incasso_journal.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Rbn_Incasso_journal.AutoSize = True
+        Me.Rbn_Incasso_journal.Location = New System.Drawing.Point(90, 144)
+        Me.Rbn_Incasso_journal.Name = "Rbn_Incasso_journal"
+        Me.Rbn_Incasso_journal.Size = New System.Drawing.Size(124, 21)
+        Me.Rbn_Incasso_journal.TabIndex = 73
+        Me.Rbn_Incasso_journal.Text = "Journaalposten"
+        Me.Rbn_Incasso_journal.UseVisualStyleBackColor = True
+        '
         'Label71
         '
+        Me.Label71.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label71.AutoSize = True
         Me.Label71.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label71.Location = New System.Drawing.Point(3, 121)
+        Me.Label71.Location = New System.Drawing.Point(12, 101)
         Me.Label71.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label71.Name = "Label71"
         Me.Label71.Size = New System.Drawing.Size(46, 18)
         Me.Label71.TabIndex = 68
         Me.Label71.Text = "Status"
         '
+        'Lbl_Incasso_Status
+        '
+        Me.Lbl_Incasso_Status.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Lbl_Incasso_Status.AutoSize = True
+        Me.Lbl_Incasso_Status.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Incasso_Status.Location = New System.Drawing.Point(86, 101)
+        Me.Lbl_Incasso_Status.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Incasso_Status.Name = "Lbl_Incasso_Status"
+        Me.Lbl_Incasso_Status.Size = New System.Drawing.Size(46, 18)
+        Me.Lbl_Incasso_Status.TabIndex = 69
+        Me.Lbl_Incasso_Status.Text = "Status"
+        '
+        'Label82
+        '
+        Me.Label82.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Label82.AutoSize = True
+        Me.Label82.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label82.Location = New System.Drawing.Point(12, 126)
+        Me.Label82.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label82.Name = "Label82"
+        Me.Label82.Size = New System.Drawing.Size(38, 18)
+        Me.Label82.TabIndex = 72
+        Me.Label82.Text = "Toon"
+        '
+        'Lbl_Incasso_job_name
+        '
+        Me.Lbl_Incasso_job_name.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Lbl_Incasso_job_name.AutoSize = True
+        Me.Lbl_Incasso_job_name.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Incasso_job_name.Location = New System.Drawing.Point(86, 72)
+        Me.Lbl_Incasso_job_name.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Incasso_job_name.Name = "Lbl_Incasso_job_name"
+        Me.Lbl_Incasso_job_name.Size = New System.Drawing.Size(66, 18)
+        Me.Lbl_Incasso_job_name.TabIndex = 69
+        Me.Lbl_Incasso_job_name.Text = "Job naam"
+        '
+        'Btn_Incasso_Export
+        '
+        Me.Btn_Incasso_Export.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Btn_Incasso_Export.Image = Global.SPAS.My.Resources.Resources.Papirus_Team_Papirus_Apps_Ms_excel
+        Me.Btn_Incasso_Export.Location = New System.Drawing.Point(131, 525)
+        Me.Btn_Incasso_Export.Name = "Btn_Incasso_Export"
+        Me.Btn_Incasso_Export.Size = New System.Drawing.Size(31, 32)
+        Me.Btn_Incasso_Export.TabIndex = 99
+        Me.Btn_Incasso_Export.UseVisualStyleBackColor = True
+        Me.Btn_Incasso_Export.Visible = False
+        '
+        'Btn_Incasso_Delete
+        '
+        Me.Btn_Incasso_Delete.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Btn_Incasso_Delete.Image = Global.SPAS.My.Resources.Resources.trash_2_161
+        Me.Btn_Incasso_Delete.Location = New System.Drawing.Point(95, 525)
+        Me.Btn_Incasso_Delete.Name = "Btn_Incasso_Delete"
+        Me.Btn_Incasso_Delete.Size = New System.Drawing.Size(30, 32)
+        Me.Btn_Incasso_Delete.TabIndex = 75
+        Me.Btn_Incasso_Delete.UseVisualStyleBackColor = True
+        Me.Btn_Incasso_Delete.Visible = False
+        '
+        'Btn_Run_Incasso
+        '
+        Me.Btn_Run_Incasso.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Btn_Run_Incasso.Image = CType(resources.GetObject("Btn_Run_Incasso.Image"), System.Drawing.Image)
+        Me.Btn_Run_Incasso.Location = New System.Drawing.Point(206, 525)
+        Me.Btn_Run_Incasso.Name = "Btn_Run_Incasso"
+        Me.Btn_Run_Incasso.Size = New System.Drawing.Size(32, 32)
+        Me.Btn_Run_Incasso.TabIndex = 74
+        Me.Btn_Run_Incasso.UseVisualStyleBackColor = True
+        Me.Btn_Run_Incasso.Visible = False
+        '
+        'Btn_Incasso_Print
+        '
+        Me.Btn_Incasso_Print.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Btn_Incasso_Print.Image = Global.SPAS.My.Resources.Resources.Iynque_Flat_Ios7_Style_Documents_Xml
+        Me.Btn_Incasso_Print.Location = New System.Drawing.Point(168, 525)
+        Me.Btn_Incasso_Print.Name = "Btn_Incasso_Print"
+        Me.Btn_Incasso_Print.Size = New System.Drawing.Size(32, 32)
+        Me.Btn_Incasso_Print.TabIndex = 76
+        Me.Btn_Incasso_Print.UseVisualStyleBackColor = True
+        Me.Btn_Incasso_Print.Visible = False
+        '
         'Dtp_Incasso_end
         '
+        Me.Dtp_Incasso_end.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Dtp_Incasso_end.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
         Me.Dtp_Incasso_end.Enabled = False
         Me.Dtp_Incasso_end.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_Incasso_end.Location = New System.Drawing.Point(5, 290)
+        Me.Dtp_Incasso_end.Location = New System.Drawing.Point(12, 512)
         Me.Dtp_Incasso_end.Name = "Dtp_Incasso_end"
         Me.Dtp_Incasso_end.Size = New System.Drawing.Size(93, 23)
         Me.Dtp_Incasso_end.TabIndex = 67
         Me.Dtp_Incasso_end.Value = New Date(2999, 12, 31, 0, 0, 0, 0)
         Me.Dtp_Incasso_end.Visible = False
         '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(3, 29)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(95, 18)
-        Me.Label9.TabIndex = 66
-        Me.Label9.Text = "Incassomaand"
-        '
-        'Dtp_Incasso_start
-        '
-        Me.Dtp_Incasso_start.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dtp_Incasso_start.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
-        Me.Dtp_Incasso_start.Font = New System.Drawing.Font("Calibri", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dtp_Incasso_start.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_Incasso_start.Location = New System.Drawing.Point(112, 20)
-        Me.Dtp_Incasso_start.Name = "Dtp_Incasso_start"
-        Me.Dtp_Incasso_start.ShowUpDown = True
-        Me.Dtp_Incasso_start.Size = New System.Drawing.Size(197, 33)
-        Me.Dtp_Incasso_start.TabIndex = 65
-        Me.Dtp_Incasso_start.Value = New Date(2020, 1, 1, 0, 0, 0, 0)
-        '
         'Dgv_Incasso
         '
         Me.Dgv_Incasso.AllowUserToAddRows = False
         Me.Dgv_Incasso.AllowUserToDeleteRows = False
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.NullValue = " -"
-        Me.Dgv_Incasso.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
-        Me.Dgv_Incasso.Anchor = System.Windows.Forms.AnchorStyles.None
+        DataGridViewCellStyle33.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        DataGridViewCellStyle33.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle33.NullValue = " -"
+        Me.Dgv_Incasso.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle33
+        Me.Dgv_Incasso.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Dgv_Incasso.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle6.NullValue = "-"
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Dgv_Incasso.DefaultCellStyle = DataGridViewCellStyle6
-        Me.Dgv_Incasso.Location = New System.Drawing.Point(323, 16)
+        DataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle34.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle34.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle34.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle34.NullValue = "-"
+        DataGridViewCellStyle34.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle34.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Dgv_Incasso.DefaultCellStyle = DataGridViewCellStyle34
+        Me.Dgv_Incasso.Location = New System.Drawing.Point(300, 5)
         Me.Dgv_Incasso.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Incasso.MultiSelect = False
         Me.Dgv_Incasso.Name = "Dgv_Incasso"
@@ -4184,36 +4602,149 @@ Partial Class SPAS
         Me.Dgv_Incasso.RowTemplate.Height = 20
         Me.Dgv_Incasso.RowTemplate.ReadOnly = True
         Me.Dgv_Incasso.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.Dgv_Incasso.Size = New System.Drawing.Size(775, 604)
+        Me.Dgv_Incasso.Size = New System.Drawing.Size(726, 530)
         Me.Dgv_Incasso.TabIndex = 4
         '
         'Uitkering
         '
         Me.Uitkering.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.Uitkering.Controls.Add(Me.Lbl_Excasso_LastCalc)
-        Me.Uitkering.Controls.Add(Me.Lbl_Excasso_CPid)
-        Me.Uitkering.Controls.Add(Me.GroupBox4)
-        Me.Uitkering.Controls.Add(Me.Gbx_Excasso_Calculate)
-        Me.Uitkering.Controls.Add(Me.GroupBox1)
-        Me.Uitkering.Controls.Add(Me.Gbx_Excasso_Doeltype)
+        Me.Uitkering.Controls.Add(Me.Panel4)
         Me.Uitkering.Controls.Add(Me.Dgv_Excasso2)
-        Me.Uitkering.Controls.Add(Me.Btn_Excasso_Cancel)
-        Me.Uitkering.Controls.Add(Me.Btn_Excasso_Print)
-        Me.Uitkering.Controls.Add(Me.Btn_Excasso_Delete)
         Me.Uitkering.Controls.Add(Me.Btn_Excasso_Save)
+        Me.Uitkering.Controls.Add(Me.Btn_Excasso_Print)
+        Me.Uitkering.Controls.Add(Me.Btn_Excasso_Cancel)
+        Me.Uitkering.Controls.Add(Me.Btn_Excasso_Delete)
         Me.Uitkering.Location = New System.Drawing.Point(4, 28)
         Me.Uitkering.Margin = New System.Windows.Forms.Padding(2)
         Me.Uitkering.Name = "Uitkering"
         Me.Uitkering.Padding = New System.Windows.Forms.Padding(2)
-        Me.Uitkering.Size = New System.Drawing.Size(1107, 639)
+        Me.Uitkering.Size = New System.Drawing.Size(1022, 570)
         Me.Uitkering.TabIndex = 3
         Me.Uitkering.Text = "Uitkering   "
+        '
+        'Panel4
+        '
+        Me.Panel4.Controls.Add(Me.Gbx_Excasso_Doeltype)
+        Me.Panel4.Controls.Add(Me.GroupBox1)
+        Me.Panel4.Controls.Add(Me.Gbx_Excasso_Calculate)
+        Me.Panel4.Controls.Add(Me.GroupBox4)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel4.Location = New System.Drawing.Point(2, 2)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(294, 566)
+        Me.Panel4.TabIndex = 131
+        '
+        'Gbx_Excasso_Doeltype
+        '
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Label123)
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Tbx_Excasso_Exchange_rate)
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Label103)
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Btn_Excasso_Exchrate)
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Button8)
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Dtp_Excasso_Start)
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Btn_Excasso_Calculate_Exchrate)
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Lbl_Excasso_LastCalc)
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Lbl_Excasso_CPid)
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Btn_Excasso_Copy_to_clipboard)
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Label83)
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Cbx_Uitkering_Kind)
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Cbx_Uitkering_Oudere)
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Cbx_Uitkering_Overig)
+        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Cmx_Excasso_Select)
+        Me.Gbx_Excasso_Doeltype.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Gbx_Excasso_Doeltype.Location = New System.Drawing.Point(2, 2)
+        Me.Gbx_Excasso_Doeltype.Margin = New System.Windows.Forms.Padding(2)
+        Me.Gbx_Excasso_Doeltype.Name = "Gbx_Excasso_Doeltype"
+        Me.Gbx_Excasso_Doeltype.Padding = New System.Windows.Forms.Padding(2)
+        Me.Gbx_Excasso_Doeltype.Size = New System.Drawing.Size(288, 154)
+        Me.Gbx_Excasso_Doeltype.TabIndex = 112
+        Me.Gbx_Excasso_Doeltype.TabStop = False
+        Me.Gbx_Excasso_Doeltype.Text = "Selecteer"
+        '
+        'Label123
+        '
+        Me.Label123.AutoSize = True
+        Me.Label123.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label123.Location = New System.Drawing.Point(4, 51)
+        Me.Label123.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label123.Name = "Label123"
+        Me.Label123.Size = New System.Drawing.Size(65, 18)
+        Me.Label123.TabIndex = 132
+        Me.Label123.Text = "Doeltype"
+        '
+        'Tbx_Excasso_Exchange_rate
+        '
+        Me.Tbx_Excasso_Exchange_rate.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tbx_Excasso_Exchange_rate.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Tbx_Excasso_Exchange_rate.Location = New System.Drawing.Point(75, 118)
+        Me.Tbx_Excasso_Exchange_rate.Margin = New System.Windows.Forms.Padding(2)
+        Me.Tbx_Excasso_Exchange_rate.Name = "Tbx_Excasso_Exchange_rate"
+        Me.Tbx_Excasso_Exchange_rate.Size = New System.Drawing.Size(52, 25)
+        Me.Tbx_Excasso_Exchange_rate.TabIndex = 104
+        Me.Tbx_Excasso_Exchange_rate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label103
+        '
+        Me.Label103.AutoSize = True
+        Me.Label103.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label103.Location = New System.Drawing.Point(4, 123)
+        Me.Label103.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label103.Name = "Label103"
+        Me.Label103.Size = New System.Drawing.Size(73, 18)
+        Me.Label103.TabIndex = 103
+        Me.Label103.Text = "Koers MDL"
+        '
+        'Btn_Excasso_Exchrate
+        '
+        Me.Btn_Excasso_Exchrate.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Btn_Excasso_Exchrate.Enabled = False
+        Me.Btn_Excasso_Exchrate.Image = Global.SPAS.My.Resources.Resources.refresh_24
+        Me.Btn_Excasso_Exchrate.Location = New System.Drawing.Point(207, 114)
+        Me.Btn_Excasso_Exchrate.Name = "Btn_Excasso_Exchrate"
+        Me.Btn_Excasso_Exchrate.Size = New System.Drawing.Size(30, 30)
+        Me.Btn_Excasso_Exchrate.TabIndex = 113
+        Me.Btn_Excasso_Exchrate.UseVisualStyleBackColor = True
+        '
+        'Button8
+        '
+        Me.Button8.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Button8.Image = CType(resources.GetObject("Button8.Image"), System.Drawing.Image)
+        Me.Button8.Location = New System.Drawing.Point(171, 114)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Size = New System.Drawing.Size(30, 30)
+        Me.Button8.TabIndex = 105
+        Me.Button8.UseVisualStyleBackColor = True
+        '
+        'Dtp_Excasso_Start
+        '
+        Me.Dtp_Excasso_Start.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
+        Me.Dtp_Excasso_Start.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dtp_Excasso_Start.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.Dtp_Excasso_Start.Location = New System.Drawing.Point(75, 77)
+        Me.Dtp_Excasso_Start.Name = "Dtp_Excasso_Start"
+        Me.Dtp_Excasso_Start.Size = New System.Drawing.Size(94, 25)
+        Me.Dtp_Excasso_Start.TabIndex = 67
+        Me.Dtp_Excasso_Start.Value = New Date(2018, 1, 1, 0, 0, 0, 0)
+        '
+        'Btn_Excasso_Calculate_Exchrate
+        '
+        Me.Btn_Excasso_Calculate_Exchrate.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Btn_Excasso_Calculate_Exchrate.Enabled = False
+        Me.Btn_Excasso_Calculate_Exchrate.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Btn_Excasso_Calculate_Exchrate.Image = CType(resources.GetObject("Btn_Excasso_Calculate_Exchrate.Image"), System.Drawing.Image)
+        Me.Btn_Excasso_Calculate_Exchrate.Location = New System.Drawing.Point(133, 114)
+        Me.Btn_Excasso_Calculate_Exchrate.Name = "Btn_Excasso_Calculate_Exchrate"
+        Me.Btn_Excasso_Calculate_Exchrate.Size = New System.Drawing.Size(30, 30)
+        Me.Btn_Excasso_Calculate_Exchrate.TabIndex = 114
+        Me.Btn_Excasso_Calculate_Exchrate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Btn_Excasso_Calculate_Exchrate.UseVisualStyleBackColor = True
         '
         'Lbl_Excasso_LastCalc
         '
         Me.Lbl_Excasso_LastCalc.AutoSize = True
         Me.Lbl_Excasso_LastCalc.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_LastCalc.Location = New System.Drawing.Point(211, 2)
+        Me.Lbl_Excasso_LastCalc.Location = New System.Drawing.Point(119, 0)
         Me.Lbl_Excasso_LastCalc.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Lbl_Excasso_LastCalc.Name = "Lbl_Excasso_LastCalc"
         Me.Lbl_Excasso_LastCalc.Size = New System.Drawing.Size(15, 18)
@@ -4225,7 +4756,7 @@ Partial Class SPAS
         '
         Me.Lbl_Excasso_CPid.AutoSize = True
         Me.Lbl_Excasso_CPid.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_CPid.Location = New System.Drawing.Point(227, 2)
+        Me.Lbl_Excasso_CPid.Location = New System.Drawing.Point(80, 0)
         Me.Lbl_Excasso_CPid.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Lbl_Excasso_CPid.Name = "Lbl_Excasso_CPid"
         Me.Lbl_Excasso_CPid.Size = New System.Drawing.Size(39, 18)
@@ -4233,20 +4764,389 @@ Partial Class SPAS
         Me.Lbl_Excasso_CPid.Text = "Cp id"
         Me.Lbl_Excasso_CPid.Visible = False
         '
+        'Btn_Excasso_Copy_to_clipboard
+        '
+        Me.Btn_Excasso_Copy_to_clipboard.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Btn_Excasso_Copy_to_clipboard.Image = Global.SPAS.My.Resources.Resources.copy_24
+        Me.Btn_Excasso_Copy_to_clipboard.ImageAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.Btn_Excasso_Copy_to_clipboard.Location = New System.Drawing.Point(257, 19)
+        Me.Btn_Excasso_Copy_to_clipboard.Name = "Btn_Excasso_Copy_to_clipboard"
+        Me.Btn_Excasso_Copy_to_clipboard.Size = New System.Drawing.Size(30, 30)
+        Me.Btn_Excasso_Copy_to_clipboard.TabIndex = 131
+        Me.Btn_Excasso_Copy_to_clipboard.UseVisualStyleBackColor = True
+        '
+        'Label83
+        '
+        Me.Label83.AutoSize = True
+        Me.Label83.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label83.Location = New System.Drawing.Point(3, 82)
+        Me.Label83.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label83.Name = "Label83"
+        Me.Label83.Size = New System.Drawing.Size(52, 18)
+        Me.Label83.TabIndex = 68
+        Me.Label83.Text = "Datum "
+        '
+        'Cbx_Uitkering_Kind
+        '
+        Me.Cbx_Uitkering_Kind.AutoSize = True
+        Me.Cbx_Uitkering_Kind.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cbx_Uitkering_Kind.Location = New System.Drawing.Point(75, 50)
+        Me.Cbx_Uitkering_Kind.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cbx_Uitkering_Kind.Name = "Cbx_Uitkering_Kind"
+        Me.Cbx_Uitkering_Kind.Size = New System.Drawing.Size(55, 22)
+        Me.Cbx_Uitkering_Kind.TabIndex = 70
+        Me.Cbx_Uitkering_Kind.Text = "Kind"
+        Me.Cbx_Uitkering_Kind.UseVisualStyleBackColor = True
+        '
+        'Cbx_Uitkering_Oudere
+        '
+        Me.Cbx_Uitkering_Oudere.AutoSize = True
+        Me.Cbx_Uitkering_Oudere.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cbx_Uitkering_Oudere.Location = New System.Drawing.Point(138, 50)
+        Me.Cbx_Uitkering_Oudere.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cbx_Uitkering_Oudere.Name = "Cbx_Uitkering_Oudere"
+        Me.Cbx_Uitkering_Oudere.Size = New System.Drawing.Size(74, 22)
+        Me.Cbx_Uitkering_Oudere.TabIndex = 71
+        Me.Cbx_Uitkering_Oudere.Text = "Oudere"
+        Me.Cbx_Uitkering_Oudere.UseVisualStyleBackColor = True
+        '
+        'Cbx_Uitkering_Overig
+        '
+        Me.Cbx_Uitkering_Overig.AutoSize = True
+        Me.Cbx_Uitkering_Overig.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cbx_Uitkering_Overig.Location = New System.Drawing.Point(216, 50)
+        Me.Cbx_Uitkering_Overig.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cbx_Uitkering_Overig.Name = "Cbx_Uitkering_Overig"
+        Me.Cbx_Uitkering_Overig.Size = New System.Drawing.Size(68, 22)
+        Me.Cbx_Uitkering_Overig.TabIndex = 72
+        Me.Cbx_Uitkering_Overig.Text = "Overig"
+        Me.Cbx_Uitkering_Overig.UseVisualStyleBackColor = True
+        '
+        'Cmx_Excasso_Select
+        '
+        Me.Cmx_Excasso_Select.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.Cmx_Excasso_Select.FormattingEnabled = True
+        Me.Cmx_Excasso_Select.Location = New System.Drawing.Point(7, 19)
+        Me.Cmx_Excasso_Select.Name = "Cmx_Excasso_Select"
+        Me.Cmx_Excasso_Select.Size = New System.Drawing.Size(248, 25)
+        Me.Cmx_Excasso_Select.TabIndex = 113
+        Me.Cmx_Excasso_Select.Tag = "Contactpersoon"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.Pan_Excasso_preset)
+        Me.GroupBox1.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(2, 176)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
+        Me.GroupBox1.Size = New System.Drawing.Size(288, 66)
+        Me.GroupBox1.TabIndex = 116
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Vooraf in te vullen bedragen"
+        '
+        'Pan_Excasso_preset
+        '
+        Me.Pan_Excasso_preset.Controls.Add(Me.Rbn_uitkering_budget)
+        Me.Pan_Excasso_preset.Controls.Add(Me.Rbn_uitkering_saldo)
+        Me.Pan_Excasso_preset.Controls.Add(Me.Rbn_uitkering_nul)
+        Me.Pan_Excasso_preset.Location = New System.Drawing.Point(10, 23)
+        Me.Pan_Excasso_preset.Name = "Pan_Excasso_preset"
+        Me.Pan_Excasso_preset.Size = New System.Drawing.Size(269, 29)
+        Me.Pan_Excasso_preset.TabIndex = 134
+        '
+        'Rbn_uitkering_budget
+        '
+        Me.Rbn_uitkering_budget.AutoSize = True
+        Me.Rbn_uitkering_budget.Checked = True
+        Me.Rbn_uitkering_budget.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Rbn_uitkering_budget.Location = New System.Drawing.Point(3, 3)
+        Me.Rbn_uitkering_budget.Name = "Rbn_uitkering_budget"
+        Me.Rbn_uitkering_budget.Size = New System.Drawing.Size(53, 22)
+        Me.Rbn_uitkering_budget.TabIndex = 132
+        Me.Rbn_uitkering_budget.TabStop = True
+        Me.Rbn_uitkering_budget.Text = "Plan"
+        Me.Rbn_uitkering_budget.UseVisualStyleBackColor = True
+        '
+        'Rbn_uitkering_saldo
+        '
+        Me.Rbn_uitkering_saldo.AutoSize = True
+        Me.Rbn_uitkering_saldo.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Rbn_uitkering_saldo.Location = New System.Drawing.Point(84, 3)
+        Me.Rbn_uitkering_saldo.Name = "Rbn_uitkering_saldo"
+        Me.Rbn_uitkering_saldo.Size = New System.Drawing.Size(69, 22)
+        Me.Rbn_uitkering_saldo.TabIndex = 132
+        Me.Rbn_uitkering_saldo.Text = "Saldo's"
+        Me.Rbn_uitkering_saldo.UseVisualStyleBackColor = True
+        '
+        'Rbn_uitkering_nul
+        '
+        Me.Rbn_uitkering_nul.AutoSize = True
+        Me.Rbn_uitkering_nul.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Rbn_uitkering_nul.Location = New System.Drawing.Point(159, 3)
+        Me.Rbn_uitkering_nul.Name = "Rbn_uitkering_nul"
+        Me.Rbn_uitkering_nul.Size = New System.Drawing.Size(102, 22)
+        Me.Rbn_uitkering_nul.TabIndex = 132
+        Me.Rbn_uitkering_nul.Text = "Nulwaarden"
+        Me.Rbn_uitkering_nul.UseVisualStyleBackColor = True
+        '
+        'Gbx_Excasso_Calculate
+        '
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Label106)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Label127)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Items_Contract)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Items_Intern)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Intern)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Label107)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Extra)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Items_Extra)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Totalen)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Tot_Gen)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_CP_Totaal)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Contractwaarde)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Tot_Gen_MLD)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_CP_Totaal_MDL)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Totaal_MDL)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Label89)
+        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Totaal)
+        Me.Gbx_Excasso_Calculate.Enabled = False
+        Me.Gbx_Excasso_Calculate.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Gbx_Excasso_Calculate.Location = New System.Drawing.Point(2, 397)
+        Me.Gbx_Excasso_Calculate.Margin = New System.Windows.Forms.Padding(2)
+        Me.Gbx_Excasso_Calculate.Name = "Gbx_Excasso_Calculate"
+        Me.Gbx_Excasso_Calculate.Padding = New System.Windows.Forms.Padding(2)
+        Me.Gbx_Excasso_Calculate.Size = New System.Drawing.Size(288, 120)
+        Me.Gbx_Excasso_Calculate.TabIndex = 117
+        Me.Gbx_Excasso_Calculate.TabStop = False
+        Me.Gbx_Excasso_Calculate.Text = "Overzicht"
+        '
+        'Label106
+        '
+        Me.Label106.AutoSize = True
+        Me.Label106.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label106.Location = New System.Drawing.Point(176, 13)
+        Me.Label106.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label106.Name = "Label106"
+        Me.Label106.Size = New System.Drawing.Size(32, 18)
+        Me.Label106.TabIndex = 134
+        Me.Label106.Text = "EUR"
+        '
+        'Label127
+        '
+        Me.Label127.AutoSize = True
+        Me.Label127.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label127.Location = New System.Drawing.Point(233, 13)
+        Me.Label127.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label127.Name = "Label127"
+        Me.Label127.Size = New System.Drawing.Size(35, 18)
+        Me.Label127.TabIndex = 133
+        Me.Label127.Text = "MLD"
+        '
+        'Lbl_Excasso_Items_Contract
+        '
+        Me.Lbl_Excasso_Items_Contract.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Lbl_Excasso_Items_Contract.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_Items_Contract.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Lbl_Excasso_Items_Contract.Location = New System.Drawing.Point(127, 76)
+        Me.Lbl_Excasso_Items_Contract.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Excasso_Items_Contract.Name = "Lbl_Excasso_Items_Contract"
+        Me.Lbl_Excasso_Items_Contract.Size = New System.Drawing.Size(26, 16)
+        Me.Lbl_Excasso_Items_Contract.TabIndex = 119
+        Me.Lbl_Excasso_Items_Contract.Text = "0"
+        Me.Lbl_Excasso_Items_Contract.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Lbl_Excasso_Items_Contract.Visible = False
+        '
+        'Lbl_Excasso_Items_Intern
+        '
+        Me.Lbl_Excasso_Items_Intern.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Lbl_Excasso_Items_Intern.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_Items_Intern.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Lbl_Excasso_Items_Intern.Location = New System.Drawing.Point(113, 12)
+        Me.Lbl_Excasso_Items_Intern.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Excasso_Items_Intern.Name = "Lbl_Excasso_Items_Intern"
+        Me.Lbl_Excasso_Items_Intern.Size = New System.Drawing.Size(40, 16)
+        Me.Lbl_Excasso_Items_Intern.TabIndex = 117
+        Me.Lbl_Excasso_Items_Intern.Text = "0"
+        Me.Lbl_Excasso_Items_Intern.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Lbl_Excasso_Items_Intern.Visible = False
+        '
+        'Lbl_Excasso_Intern
+        '
+        Me.Lbl_Excasso_Intern.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Lbl_Excasso_Intern.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_Intern.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Lbl_Excasso_Intern.Location = New System.Drawing.Point(113, 60)
+        Me.Lbl_Excasso_Intern.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Excasso_Intern.Name = "Lbl_Excasso_Intern"
+        Me.Lbl_Excasso_Intern.Size = New System.Drawing.Size(40, 16)
+        Me.Lbl_Excasso_Intern.TabIndex = 76
+        Me.Lbl_Excasso_Intern.Text = "0"
+        Me.Lbl_Excasso_Intern.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Lbl_Excasso_Intern.Visible = False
+        '
+        'Label107
+        '
+        Me.Label107.AutoSize = True
+        Me.Label107.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label107.Location = New System.Drawing.Point(15, 93)
+        Me.Label107.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label107.Name = "Label107"
+        Me.Label107.Size = New System.Drawing.Size(133, 18)
+        Me.Label107.TabIndex = 132
+        Me.Label107.Text = "Eindtotaal formulier"
+        '
+        'Lbl_Excasso_Extra
+        '
+        Me.Lbl_Excasso_Extra.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Lbl_Excasso_Extra.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_Extra.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Lbl_Excasso_Extra.Location = New System.Drawing.Point(113, 44)
+        Me.Lbl_Excasso_Extra.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Excasso_Extra.Name = "Lbl_Excasso_Extra"
+        Me.Lbl_Excasso_Extra.Size = New System.Drawing.Size(40, 16)
+        Me.Lbl_Excasso_Extra.TabIndex = 76
+        Me.Lbl_Excasso_Extra.Text = "0"
+        Me.Lbl_Excasso_Extra.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Lbl_Excasso_Extra.Visible = False
+        '
+        'Lbl_Excasso_Items_Extra
+        '
+        Me.Lbl_Excasso_Items_Extra.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Lbl_Excasso_Items_Extra.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_Items_Extra.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Lbl_Excasso_Items_Extra.Location = New System.Drawing.Point(83, 12)
+        Me.Lbl_Excasso_Items_Extra.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Excasso_Items_Extra.Name = "Lbl_Excasso_Items_Extra"
+        Me.Lbl_Excasso_Items_Extra.Size = New System.Drawing.Size(26, 19)
+        Me.Lbl_Excasso_Items_Extra.TabIndex = 118
+        Me.Lbl_Excasso_Items_Extra.Text = "0"
+        Me.Lbl_Excasso_Items_Extra.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Lbl_Excasso_Items_Extra.Visible = False
+        '
+        'Lbl_Excasso_Totalen
+        '
+        Me.Lbl_Excasso_Totalen.AutoSize = True
+        Me.Lbl_Excasso_Totalen.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_Totalen.Location = New System.Drawing.Point(15, 66)
+        Me.Lbl_Excasso_Totalen.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Excasso_Totalen.Name = "Lbl_Excasso_Totalen"
+        Me.Lbl_Excasso_Totalen.Size = New System.Drawing.Size(99, 18)
+        Me.Lbl_Excasso_Totalen.TabIndex = 94
+        Me.Lbl_Excasso_Totalen.Text = "CP-vergoeding"
+        '
+        'Lbl_Excasso_Tot_Gen
+        '
+        Me.Lbl_Excasso_Tot_Gen.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Lbl_Excasso_Tot_Gen.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_Tot_Gen.Location = New System.Drawing.Point(165, 90)
+        Me.Lbl_Excasso_Tot_Gen.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Excasso_Tot_Gen.Name = "Lbl_Excasso_Tot_Gen"
+        Me.Lbl_Excasso_Tot_Gen.Size = New System.Drawing.Size(52, 24)
+        Me.Lbl_Excasso_Tot_Gen.TabIndex = 115
+        Me.Lbl_Excasso_Tot_Gen.Text = "0"
+        Me.Lbl_Excasso_Tot_Gen.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Lbl_Excasso_CP_Totaal
+        '
+        Me.Lbl_Excasso_CP_Totaal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Lbl_Excasso_CP_Totaal.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_CP_Totaal.ForeColor = System.Drawing.Color.SeaGreen
+        Me.Lbl_Excasso_CP_Totaal.Location = New System.Drawing.Point(165, 63)
+        Me.Lbl_Excasso_CP_Totaal.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Excasso_CP_Totaal.Name = "Lbl_Excasso_CP_Totaal"
+        Me.Lbl_Excasso_CP_Totaal.Size = New System.Drawing.Size(52, 23)
+        Me.Lbl_Excasso_CP_Totaal.TabIndex = 123
+        Me.Lbl_Excasso_CP_Totaal.Text = "0"
+        Me.Lbl_Excasso_CP_Totaal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Lbl_Excasso_Contractwaarde
+        '
+        Me.Lbl_Excasso_Contractwaarde.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Lbl_Excasso_Contractwaarde.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_Contractwaarde.ForeColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Lbl_Excasso_Contractwaarde.Location = New System.Drawing.Point(110, 28)
+        Me.Lbl_Excasso_Contractwaarde.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Excasso_Contractwaarde.Name = "Lbl_Excasso_Contractwaarde"
+        Me.Lbl_Excasso_Contractwaarde.Size = New System.Drawing.Size(40, 16)
+        Me.Lbl_Excasso_Contractwaarde.TabIndex = 78
+        Me.Lbl_Excasso_Contractwaarde.Text = "0"
+        Me.Lbl_Excasso_Contractwaarde.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Lbl_Excasso_Contractwaarde.Visible = False
+        '
+        'Lbl_Excasso_Tot_Gen_MLD
+        '
+        Me.Lbl_Excasso_Tot_Gen_MLD.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Lbl_Excasso_Tot_Gen_MLD.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_Tot_Gen_MLD.Location = New System.Drawing.Point(221, 90)
+        Me.Lbl_Excasso_Tot_Gen_MLD.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Excasso_Tot_Gen_MLD.Name = "Lbl_Excasso_Tot_Gen_MLD"
+        Me.Lbl_Excasso_Tot_Gen_MLD.Size = New System.Drawing.Size(63, 24)
+        Me.Lbl_Excasso_Tot_Gen_MLD.TabIndex = 115
+        Me.Lbl_Excasso_Tot_Gen_MLD.Text = "0"
+        Me.Lbl_Excasso_Tot_Gen_MLD.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Lbl_Excasso_CP_Totaal_MDL
+        '
+        Me.Lbl_Excasso_CP_Totaal_MDL.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Lbl_Excasso_CP_Totaal_MDL.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_CP_Totaal_MDL.Location = New System.Drawing.Point(221, 63)
+        Me.Lbl_Excasso_CP_Totaal_MDL.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Excasso_CP_Totaal_MDL.Name = "Lbl_Excasso_CP_Totaal_MDL"
+        Me.Lbl_Excasso_CP_Totaal_MDL.Size = New System.Drawing.Size(63, 24)
+        Me.Lbl_Excasso_CP_Totaal_MDL.TabIndex = 115
+        Me.Lbl_Excasso_CP_Totaal_MDL.Text = "0"
+        Me.Lbl_Excasso_CP_Totaal_MDL.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Lbl_Excasso_Totaal_MDL
+        '
+        Me.Lbl_Excasso_Totaal_MDL.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Lbl_Excasso_Totaal_MDL.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_Totaal_MDL.Location = New System.Drawing.Point(221, 34)
+        Me.Lbl_Excasso_Totaal_MDL.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Excasso_Totaal_MDL.Name = "Lbl_Excasso_Totaal_MDL"
+        Me.Lbl_Excasso_Totaal_MDL.Size = New System.Drawing.Size(63, 24)
+        Me.Lbl_Excasso_Totaal_MDL.TabIndex = 115
+        Me.Lbl_Excasso_Totaal_MDL.Text = "0"
+        Me.Lbl_Excasso_Totaal_MDL.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label89
+        '
+        Me.Label89.AutoSize = True
+        Me.Label89.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label89.Location = New System.Drawing.Point(15, 37)
+        Me.Label89.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label89.Name = "Label89"
+        Me.Label89.Size = New System.Drawing.Size(81, 18)
+        Me.Label89.TabIndex = 120
+        Me.Label89.Text = "Uit te keren"
+        '
+        'Lbl_Excasso_Totaal
+        '
+        Me.Lbl_Excasso_Totaal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Lbl_Excasso_Totaal.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_Totaal.Location = New System.Drawing.Point(165, 34)
+        Me.Lbl_Excasso_Totaal.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Excasso_Totaal.Name = "Lbl_Excasso_Totaal"
+        Me.Lbl_Excasso_Totaal.Size = New System.Drawing.Size(52, 24)
+        Me.Lbl_Excasso_Totaal.TabIndex = 115
+        Me.Lbl_Excasso_Totaal.Text = "0"
+        Me.Lbl_Excasso_Totaal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'GroupBox4
         '
+        Me.GroupBox4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.GroupBox4.Controls.Add(Me.Label99)
         Me.GroupBox4.Controls.Add(Me.Lbl_Excasso_Contract)
         Me.GroupBox4.Controls.Add(Me.Tbx_Excasso_CP1)
         Me.GroupBox4.Controls.Add(Me.Label86)
         Me.GroupBox4.Controls.Add(Me.Tbx_Excasso_Norm1)
         Me.GroupBox4.Controls.Add(Me.Btn_Excasso_CP_Calculate)
-        Me.GroupBox4.Controls.Add(Me.Lbl_Excasso_Totalen)
         Me.GroupBox4.Controls.Add(Me.Tbx_Excasso_CP2)
         Me.GroupBox4.Controls.Add(Me.Btn_Excasso_Base1)
-        Me.GroupBox4.Controls.Add(Me.Lbl_Excasso_CP_Totaal)
         Me.GroupBox4.Controls.Add(Me.Btn_Excasso_Base2)
         Me.GroupBox4.Controls.Add(Me.Btn_Excasso_Base3)
+        Me.GroupBox4.Controls.Add(Me.Label98)
+        Me.GroupBox4.Controls.Add(Me.Lbl_Excasso_Items_Totaal)
         Me.GroupBox4.Controls.Add(Me.Lbl_Excasso_Extr)
         Me.GroupBox4.Controls.Add(Me.Label139)
         Me.GroupBox4.Controls.Add(Me.Tbx_Excasso_Norm3)
@@ -4254,11 +5154,11 @@ Partial Class SPAS
         Me.GroupBox4.Controls.Add(Me.Tbx_Excasso_CP3)
         Me.GroupBox4.Controls.Add(Me.Lbl_Excasso_Internal)
         Me.GroupBox4.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox4.Location = New System.Drawing.Point(10, 447)
+        Me.GroupBox4.Location = New System.Drawing.Point(2, 255)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox4.Size = New System.Drawing.Size(288, 138)
+        Me.GroupBox4.Size = New System.Drawing.Size(288, 119)
         Me.GroupBox4.TabIndex = 117
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Bepaling CP vergoeding"
@@ -4267,7 +5167,7 @@ Partial Class SPAS
         '
         Me.Label99.AutoSize = True
         Me.Label99.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label99.Location = New System.Drawing.Point(224, 46)
+        Me.Label99.Location = New System.Drawing.Point(193, 46)
         Me.Label99.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label99.Name = "Label99"
         Me.Label99.Size = New System.Drawing.Size(15, 18)
@@ -4278,22 +5178,22 @@ Partial Class SPAS
         '
         Me.Lbl_Excasso_Contract.AutoSize = True
         Me.Lbl_Excasso_Contract.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_Contract.Location = New System.Drawing.Point(4, 20)
+        Me.Lbl_Excasso_Contract.Location = New System.Drawing.Point(6, 20)
         Me.Lbl_Excasso_Contract.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Lbl_Excasso_Contract.Name = "Lbl_Excasso_Contract"
-        Me.Lbl_Excasso_Contract.Size = New System.Drawing.Size(76, 18)
+        Me.Lbl_Excasso_Contract.Size = New System.Drawing.Size(60, 18)
         Me.Lbl_Excasso_Contract.TabIndex = 124
-        Me.Lbl_Excasso_Contract.Text = "Contracten"
+        Me.Lbl_Excasso_Contract.Text = "Contract"
         '
         'Tbx_Excasso_CP1
         '
         Me.Tbx_Excasso_CP1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Tbx_Excasso_CP1.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Excasso_CP1.ForeColor = System.Drawing.Color.Blue
-        Me.Tbx_Excasso_CP1.Location = New System.Drawing.Point(243, 20)
+        Me.Tbx_Excasso_CP1.Location = New System.Drawing.Point(212, 22)
         Me.Tbx_Excasso_CP1.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Excasso_CP1.Name = "Tbx_Excasso_CP1"
-        Me.Tbx_Excasso_CP1.Size = New System.Drawing.Size(32, 18)
+        Me.Tbx_Excasso_CP1.Size = New System.Drawing.Size(26, 18)
         Me.Tbx_Excasso_CP1.TabIndex = 80
         Me.Tbx_Excasso_CP1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -4301,7 +5201,7 @@ Partial Class SPAS
         '
         Me.Label86.AutoSize = True
         Me.Label86.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label86.Location = New System.Drawing.Point(226, 71)
+        Me.Label86.Location = New System.Drawing.Point(193, 71)
         Me.Label86.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label86.Name = "Label86"
         Me.Label86.Size = New System.Drawing.Size(15, 18)
@@ -4313,10 +5213,10 @@ Partial Class SPAS
         Me.Tbx_Excasso_Norm1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Tbx_Excasso_Norm1.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Excasso_Norm1.ForeColor = System.Drawing.Color.Blue
-        Me.Tbx_Excasso_Norm1.Location = New System.Drawing.Point(166, 20)
+        Me.Tbx_Excasso_Norm1.Location = New System.Drawing.Point(143, 22)
         Me.Tbx_Excasso_Norm1.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Excasso_Norm1.Name = "Tbx_Excasso_Norm1"
-        Me.Tbx_Excasso_Norm1.Size = New System.Drawing.Size(30, 18)
+        Me.Tbx_Excasso_Norm1.Size = New System.Drawing.Size(24, 18)
         Me.Tbx_Excasso_Norm1.TabIndex = 83
         Me.Tbx_Excasso_Norm1.Text = "4"
         Me.Tbx_Excasso_Norm1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -4327,84 +5227,90 @@ Partial Class SPAS
         Me.Btn_Excasso_CP_Calculate.Enabled = False
         Me.Btn_Excasso_CP_Calculate.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Btn_Excasso_CP_Calculate.Image = CType(resources.GetObject("Btn_Excasso_CP_Calculate.Image"), System.Drawing.Image)
-        Me.Btn_Excasso_CP_Calculate.Location = New System.Drawing.Point(240, 97)
+        Me.Btn_Excasso_CP_Calculate.Location = New System.Drawing.Point(246, 50)
         Me.Btn_Excasso_CP_Calculate.Name = "Btn_Excasso_CP_Calculate"
         Me.Btn_Excasso_CP_Calculate.Size = New System.Drawing.Size(35, 36)
         Me.Btn_Excasso_CP_Calculate.TabIndex = 114
         Me.Btn_Excasso_CP_Calculate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Btn_Excasso_CP_Calculate.UseVisualStyleBackColor = True
         '
-        'Lbl_Excasso_Totalen
-        '
-        Me.Lbl_Excasso_Totalen.AutoSize = True
-        Me.Lbl_Excasso_Totalen.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_Totalen.Location = New System.Drawing.Point(4, 107)
-        Me.Lbl_Excasso_Totalen.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Excasso_Totalen.Name = "Lbl_Excasso_Totalen"
-        Me.Lbl_Excasso_Totalen.Size = New System.Drawing.Size(103, 18)
-        Me.Lbl_Excasso_Totalen.TabIndex = 94
-        Me.Lbl_Excasso_Totalen.Text = "CP-vergoeding:"
-        '
         'Tbx_Excasso_CP2
         '
         Me.Tbx_Excasso_CP2.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Tbx_Excasso_CP2.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Excasso_CP2.ForeColor = System.Drawing.Color.Blue
-        Me.Tbx_Excasso_CP2.Location = New System.Drawing.Point(243, 45)
+        Me.Tbx_Excasso_CP2.Location = New System.Drawing.Point(212, 46)
         Me.Tbx_Excasso_CP2.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Excasso_CP2.Name = "Tbx_Excasso_CP2"
-        Me.Tbx_Excasso_CP2.Size = New System.Drawing.Size(32, 18)
+        Me.Tbx_Excasso_CP2.Size = New System.Drawing.Size(26, 18)
         Me.Tbx_Excasso_CP2.TabIndex = 80
         Me.Tbx_Excasso_CP2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Btn_Excasso_Base1
         '
-        Me.Btn_Excasso_Base1.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Btn_Excasso_Base1.FlatAppearance.BorderSize = 0
+        Me.Btn_Excasso_Base1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Btn_Excasso_Base1.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Btn_Excasso_Base1.ForeColor = System.Drawing.Color.Blue
-        Me.Btn_Excasso_Base1.Location = New System.Drawing.Point(201, 16)
+        Me.Btn_Excasso_Base1.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Btn_Excasso_Base1.Location = New System.Drawing.Point(170, 18)
         Me.Btn_Excasso_Base1.Margin = New System.Windows.Forms.Padding(2)
         Me.Btn_Excasso_Base1.Name = "Btn_Excasso_Base1"
-        Me.Btn_Excasso_Base1.Size = New System.Drawing.Size(22, 22)
+        Me.Btn_Excasso_Base1.Size = New System.Drawing.Size(22, 34)
         Me.Btn_Excasso_Base1.TabIndex = 116
         Me.Btn_Excasso_Base1.Text = "€"
+        Me.Btn_Excasso_Base1.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Btn_Excasso_Base1.UseVisualStyleBackColor = True
-        '
-        'Lbl_Excasso_CP_Totaal
-        '
-        Me.Lbl_Excasso_CP_Totaal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Excasso_CP_Totaal.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_CP_Totaal.ForeColor = System.Drawing.Color.SeaGreen
-        Me.Lbl_Excasso_CP_Totaal.Location = New System.Drawing.Point(166, 104)
-        Me.Lbl_Excasso_CP_Totaal.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Excasso_CP_Totaal.Name = "Lbl_Excasso_CP_Totaal"
-        Me.Lbl_Excasso_CP_Totaal.Size = New System.Drawing.Size(57, 23)
-        Me.Lbl_Excasso_CP_Totaal.TabIndex = 123
-        Me.Lbl_Excasso_CP_Totaal.Text = "0"
-        Me.Lbl_Excasso_CP_Totaal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Btn_Excasso_Base2
         '
-        Me.Btn_Excasso_Base2.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Btn_Excasso_Base2.FlatAppearance.BorderSize = 0
+        Me.Btn_Excasso_Base2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Btn_Excasso_Base2.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Btn_Excasso_Base2.ForeColor = System.Drawing.Color.Blue
-        Me.Btn_Excasso_Base2.Location = New System.Drawing.Point(201, 42)
+        Me.Btn_Excasso_Base2.Location = New System.Drawing.Point(170, 42)
         Me.Btn_Excasso_Base2.Margin = New System.Windows.Forms.Padding(2)
         Me.Btn_Excasso_Base2.Name = "Btn_Excasso_Base2"
-        Me.Btn_Excasso_Base2.Size = New System.Drawing.Size(22, 22)
+        Me.Btn_Excasso_Base2.Size = New System.Drawing.Size(22, 29)
         Me.Btn_Excasso_Base2.TabIndex = 116
         Me.Btn_Excasso_Base2.Text = "€"
         Me.Btn_Excasso_Base2.UseVisualStyleBackColor = True
         '
         'Btn_Excasso_Base3
         '
-        Me.Btn_Excasso_Base3.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Btn_Excasso_Base3.FlatAppearance.BorderSize = 0
+        Me.Btn_Excasso_Base3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Btn_Excasso_Base3.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Btn_Excasso_Base3.ForeColor = System.Drawing.Color.Blue
-        Me.Btn_Excasso_Base3.Location = New System.Drawing.Point(201, 67)
+        Me.Btn_Excasso_Base3.Location = New System.Drawing.Point(170, 66)
         Me.Btn_Excasso_Base3.Margin = New System.Windows.Forms.Padding(2)
         Me.Btn_Excasso_Base3.Name = "Btn_Excasso_Base3"
-        Me.Btn_Excasso_Base3.Size = New System.Drawing.Size(22, 22)
+        Me.Btn_Excasso_Base3.Size = New System.Drawing.Size(22, 26)
         Me.Btn_Excasso_Base3.TabIndex = 116
         Me.Btn_Excasso_Base3.Text = "€"
         Me.Btn_Excasso_Base3.UseVisualStyleBackColor = True
+        '
+        'Label98
+        '
+        Me.Label98.AutoSize = True
+        Me.Label98.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label98.Location = New System.Drawing.Point(6, 95)
+        Me.Label98.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label98.Name = "Label98"
+        Me.Label98.Size = New System.Drawing.Size(139, 18)
+        Me.Label98.TabIndex = 132
+        Me.Label98.Text = "Aantal begunstigden:"
+        '
+        'Lbl_Excasso_Items_Totaal
+        '
+        Me.Lbl_Excasso_Items_Totaal.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_Items_Totaal.Location = New System.Drawing.Point(142, 95)
+        Me.Lbl_Excasso_Items_Totaal.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Excasso_Items_Totaal.Name = "Lbl_Excasso_Items_Totaal"
+        Me.Lbl_Excasso_Items_Totaal.Size = New System.Drawing.Size(36, 21)
+        Me.Lbl_Excasso_Items_Totaal.TabIndex = 76
+        Me.Lbl_Excasso_Items_Totaal.Text = "0"
+        Me.Lbl_Excasso_Items_Totaal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Lbl_Excasso_Extr
         '
@@ -4421,7 +5327,7 @@ Partial Class SPAS
         '
         Me.Label139.AutoSize = True
         Me.Label139.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label139.Location = New System.Drawing.Point(224, 21)
+        Me.Label139.Location = New System.Drawing.Point(193, 22)
         Me.Label139.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(15, 18)
@@ -4433,10 +5339,10 @@ Partial Class SPAS
         Me.Tbx_Excasso_Norm3.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Tbx_Excasso_Norm3.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Excasso_Norm3.ForeColor = System.Drawing.Color.Blue
-        Me.Tbx_Excasso_Norm3.Location = New System.Drawing.Point(166, 71)
+        Me.Tbx_Excasso_Norm3.Location = New System.Drawing.Point(143, 71)
         Me.Tbx_Excasso_Norm3.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Excasso_Norm3.Name = "Tbx_Excasso_Norm3"
-        Me.Tbx_Excasso_Norm3.Size = New System.Drawing.Size(30, 18)
+        Me.Tbx_Excasso_Norm3.Size = New System.Drawing.Size(24, 18)
         Me.Tbx_Excasso_Norm3.TabIndex = 84
         Me.Tbx_Excasso_Norm3.Text = "3"
         Me.Tbx_Excasso_Norm3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -4446,10 +5352,10 @@ Partial Class SPAS
         Me.Tbx_Excasso_Norm2.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Tbx_Excasso_Norm2.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Excasso_Norm2.ForeColor = System.Drawing.Color.Blue
-        Me.Tbx_Excasso_Norm2.Location = New System.Drawing.Point(166, 46)
+        Me.Tbx_Excasso_Norm2.Location = New System.Drawing.Point(143, 46)
         Me.Tbx_Excasso_Norm2.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Excasso_Norm2.Name = "Tbx_Excasso_Norm2"
-        Me.Tbx_Excasso_Norm2.Size = New System.Drawing.Size(30, 18)
+        Me.Tbx_Excasso_Norm2.Size = New System.Drawing.Size(24, 18)
         Me.Tbx_Excasso_Norm2.TabIndex = 82
         Me.Tbx_Excasso_Norm2.Text = "3"
         Me.Tbx_Excasso_Norm2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -4459,10 +5365,10 @@ Partial Class SPAS
         Me.Tbx_Excasso_CP3.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Tbx_Excasso_CP3.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Excasso_CP3.ForeColor = System.Drawing.Color.Blue
-        Me.Tbx_Excasso_CP3.Location = New System.Drawing.Point(243, 71)
+        Me.Tbx_Excasso_CP3.Location = New System.Drawing.Point(212, 71)
         Me.Tbx_Excasso_CP3.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Excasso_CP3.Name = "Tbx_Excasso_CP3"
-        Me.Tbx_Excasso_CP3.Size = New System.Drawing.Size(32, 18)
+        Me.Tbx_Excasso_CP3.Size = New System.Drawing.Size(26, 18)
         Me.Tbx_Excasso_CP3.TabIndex = 80
         Me.Tbx_Excasso_CP3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -4477,1122 +5383,389 @@ Partial Class SPAS
         Me.Lbl_Excasso_Internal.TabIndex = 78
         Me.Lbl_Excasso_Internal.Text = "Fondsuitkeringen"
         '
-        'Gbx_Excasso_Calculate
-        '
-        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Btn_Excasso_Nullvalues)
-        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Btn_Excasso_Act_Saldo)
-        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Items_Intern)
-        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Btn_Excasso_Maandbudget)
-        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Items_Contract)
-        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Items_Extra)
-        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Contractwaarde)
-        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Extra)
-        Me.Gbx_Excasso_Calculate.Controls.Add(Me.Lbl_Excasso_Intern)
-        Me.Gbx_Excasso_Calculate.Enabled = False
-        Me.Gbx_Excasso_Calculate.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Gbx_Excasso_Calculate.Location = New System.Drawing.Point(10, 302)
-        Me.Gbx_Excasso_Calculate.Margin = New System.Windows.Forms.Padding(2)
-        Me.Gbx_Excasso_Calculate.Name = "Gbx_Excasso_Calculate"
-        Me.Gbx_Excasso_Calculate.Padding = New System.Windows.Forms.Padding(2)
-        Me.Gbx_Excasso_Calculate.Size = New System.Drawing.Size(288, 124)
-        Me.Gbx_Excasso_Calculate.TabIndex = 117
-        Me.Gbx_Excasso_Calculate.TabStop = False
-        Me.Gbx_Excasso_Calculate.Text = "Berekening uitkeringsbedragen o.b.v."
-        '
-        'Btn_Excasso_Nullvalues
-        '
-        Me.Btn_Excasso_Nullvalues.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Excasso_Nullvalues.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_Excasso_Nullvalues.Image = Global.SPAS.My.Resources.Resources.calculator_6_16_1_
-        Me.Btn_Excasso_Nullvalues.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Btn_Excasso_Nullvalues.Location = New System.Drawing.Point(19, 88)
-        Me.Btn_Excasso_Nullvalues.Name = "Btn_Excasso_Nullvalues"
-        Me.Btn_Excasso_Nullvalues.Size = New System.Drawing.Size(172, 26)
-        Me.Btn_Excasso_Nullvalues.TabIndex = 131
-        Me.Btn_Excasso_Nullvalues.Text = "Zet alles op 0"
-        Me.Btn_Excasso_Nullvalues.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Btn_Excasso_Nullvalues.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.Btn_Excasso_Nullvalues.UseVisualStyleBackColor = True
-        '
-        'Btn_Excasso_Act_Saldo
-        '
-        Me.Btn_Excasso_Act_Saldo.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Excasso_Act_Saldo.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_Excasso_Act_Saldo.Image = Global.SPAS.My.Resources.Resources.calculator_6_16_1_
-        Me.Btn_Excasso_Act_Saldo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Btn_Excasso_Act_Saldo.Location = New System.Drawing.Point(19, 56)
-        Me.Btn_Excasso_Act_Saldo.Name = "Btn_Excasso_Act_Saldo"
-        Me.Btn_Excasso_Act_Saldo.Size = New System.Drawing.Size(172, 26)
-        Me.Btn_Excasso_Act_Saldo.TabIndex = 130
-        Me.Btn_Excasso_Act_Saldo.Text = "Actuele saldo's"
-        Me.Btn_Excasso_Act_Saldo.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Btn_Excasso_Act_Saldo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.Btn_Excasso_Act_Saldo.UseVisualStyleBackColor = True
-        '
-        'Lbl_Excasso_Items_Intern
-        '
-        Me.Lbl_Excasso_Items_Intern.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Excasso_Items_Intern.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_Items_Intern.Location = New System.Drawing.Point(201, 88)
-        Me.Lbl_Excasso_Items_Intern.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Excasso_Items_Intern.Name = "Lbl_Excasso_Items_Intern"
-        Me.Lbl_Excasso_Items_Intern.Size = New System.Drawing.Size(40, 23)
-        Me.Lbl_Excasso_Items_Intern.TabIndex = 117
-        Me.Lbl_Excasso_Items_Intern.Text = "0"
-        Me.Lbl_Excasso_Items_Intern.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.Lbl_Excasso_Items_Intern.Visible = False
-        '
-        'Btn_Excasso_Maandbudget
-        '
-        Me.Btn_Excasso_Maandbudget.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Excasso_Maandbudget.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_Excasso_Maandbudget.Image = Global.SPAS.My.Resources.Resources.calculator_6_16_1_
-        Me.Btn_Excasso_Maandbudget.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Btn_Excasso_Maandbudget.Location = New System.Drawing.Point(19, 23)
-        Me.Btn_Excasso_Maandbudget.Name = "Btn_Excasso_Maandbudget"
-        Me.Btn_Excasso_Maandbudget.Size = New System.Drawing.Size(172, 26)
-        Me.Btn_Excasso_Maandbudget.TabIndex = 129
-        Me.Btn_Excasso_Maandbudget.Text = "Saldo's maandbudget"
-        Me.Btn_Excasso_Maandbudget.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Btn_Excasso_Maandbudget.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.Btn_Excasso_Maandbudget.UseVisualStyleBackColor = True
-        '
-        'Lbl_Excasso_Items_Contract
-        '
-        Me.Lbl_Excasso_Items_Contract.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Excasso_Items_Contract.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_Items_Contract.Location = New System.Drawing.Point(201, 23)
-        Me.Lbl_Excasso_Items_Contract.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Excasso_Items_Contract.Name = "Lbl_Excasso_Items_Contract"
-        Me.Lbl_Excasso_Items_Contract.Size = New System.Drawing.Size(40, 26)
-        Me.Lbl_Excasso_Items_Contract.TabIndex = 119
-        Me.Lbl_Excasso_Items_Contract.Text = "0"
-        Me.Lbl_Excasso_Items_Contract.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.Lbl_Excasso_Items_Contract.Visible = False
-        '
-        'Lbl_Excasso_Items_Extra
-        '
-        Me.Lbl_Excasso_Items_Extra.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Excasso_Items_Extra.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_Items_Extra.Location = New System.Drawing.Point(201, 56)
-        Me.Lbl_Excasso_Items_Extra.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Excasso_Items_Extra.Name = "Lbl_Excasso_Items_Extra"
-        Me.Lbl_Excasso_Items_Extra.Size = New System.Drawing.Size(40, 23)
-        Me.Lbl_Excasso_Items_Extra.TabIndex = 118
-        Me.Lbl_Excasso_Items_Extra.Text = "0"
-        Me.Lbl_Excasso_Items_Extra.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.Lbl_Excasso_Items_Extra.Visible = False
-        '
-        'Lbl_Excasso_Contractwaarde
-        '
-        Me.Lbl_Excasso_Contractwaarde.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Excasso_Contractwaarde.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_Contractwaarde.Location = New System.Drawing.Point(242, 23)
-        Me.Lbl_Excasso_Contractwaarde.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Excasso_Contractwaarde.Name = "Lbl_Excasso_Contractwaarde"
-        Me.Lbl_Excasso_Contractwaarde.Size = New System.Drawing.Size(40, 26)
-        Me.Lbl_Excasso_Contractwaarde.TabIndex = 78
-        Me.Lbl_Excasso_Contractwaarde.Text = "0"
-        Me.Lbl_Excasso_Contractwaarde.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Lbl_Excasso_Contractwaarde.Visible = False
-        '
-        'Lbl_Excasso_Extra
-        '
-        Me.Lbl_Excasso_Extra.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Excasso_Extra.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_Extra.Location = New System.Drawing.Point(242, 56)
-        Me.Lbl_Excasso_Extra.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Excasso_Extra.Name = "Lbl_Excasso_Extra"
-        Me.Lbl_Excasso_Extra.Size = New System.Drawing.Size(40, 23)
-        Me.Lbl_Excasso_Extra.TabIndex = 76
-        Me.Lbl_Excasso_Extra.Text = "0"
-        Me.Lbl_Excasso_Extra.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Lbl_Excasso_Extra.Visible = False
-        '
-        'Lbl_Excasso_Intern
-        '
-        Me.Lbl_Excasso_Intern.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Excasso_Intern.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_Intern.Location = New System.Drawing.Point(242, 88)
-        Me.Lbl_Excasso_Intern.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Excasso_Intern.Name = "Lbl_Excasso_Intern"
-        Me.Lbl_Excasso_Intern.Size = New System.Drawing.Size(40, 23)
-        Me.Lbl_Excasso_Intern.TabIndex = 76
-        Me.Lbl_Excasso_Intern.Text = "0"
-        Me.Lbl_Excasso_Intern.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Lbl_Excasso_Intern.Visible = False
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.Dtp_Excasso_Start)
-        Me.GroupBox1.Controls.Add(Me.Label103)
-        Me.GroupBox1.Controls.Add(Me.Tbx_Excasso_Exchange_rate)
-        Me.GroupBox1.Controls.Add(Me.Label83)
-        Me.GroupBox1.Controls.Add(Me.Button8)
-        Me.GroupBox1.Controls.Add(Me.Btn_Excasso_Calculate_Exchrate)
-        Me.GroupBox1.Controls.Add(Me.Btn_Excasso_Exchrate)
-        Me.GroupBox1.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(10, 200)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Size = New System.Drawing.Size(288, 98)
-        Me.GroupBox1.TabIndex = 116
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Datum en wisselkoers"
-        '
-        'Dtp_Excasso_Start
-        '
-        Me.Dtp_Excasso_Start.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
-        Me.Dtp_Excasso_Start.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dtp_Excasso_Start.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_Excasso_Start.Location = New System.Drawing.Point(96, 23)
-        Me.Dtp_Excasso_Start.Name = "Dtp_Excasso_Start"
-        Me.Dtp_Excasso_Start.Size = New System.Drawing.Size(126, 25)
-        Me.Dtp_Excasso_Start.TabIndex = 67
-        Me.Dtp_Excasso_Start.Value = New Date(2018, 1, 1, 0, 0, 0, 0)
-        '
-        'Label103
-        '
-        Me.Label103.AutoSize = True
-        Me.Label103.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label103.Location = New System.Drawing.Point(6, 62)
-        Me.Label103.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label103.Name = "Label103"
-        Me.Label103.Size = New System.Drawing.Size(82, 18)
-        Me.Label103.TabIndex = 103
-        Me.Label103.Text = "Wisselkoers"
-        '
-        'Tbx_Excasso_Exchange_rate
-        '
-        Me.Tbx_Excasso_Exchange_rate.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_Excasso_Exchange_rate.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Tbx_Excasso_Exchange_rate.Location = New System.Drawing.Point(96, 60)
-        Me.Tbx_Excasso_Exchange_rate.Margin = New System.Windows.Forms.Padding(2)
-        Me.Tbx_Excasso_Exchange_rate.Name = "Tbx_Excasso_Exchange_rate"
-        Me.Tbx_Excasso_Exchange_rate.Size = New System.Drawing.Size(52, 25)
-        Me.Tbx_Excasso_Exchange_rate.TabIndex = 104
-        Me.Tbx_Excasso_Exchange_rate.Text = "20,0"
-        Me.Tbx_Excasso_Exchange_rate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label83
-        '
-        Me.Label83.AutoSize = True
-        Me.Label83.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label83.Location = New System.Drawing.Point(6, 27)
-        Me.Label83.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label83.Name = "Label83"
-        Me.Label83.Size = New System.Drawing.Size(52, 18)
-        Me.Label83.TabIndex = 68
-        Me.Label83.Text = "Datum "
-        '
-        'Button8
-        '
-        Me.Button8.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Button8.Image = CType(resources.GetObject("Button8.Image"), System.Drawing.Image)
-        Me.Button8.Location = New System.Drawing.Point(203, 57)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(35, 36)
-        Me.Button8.TabIndex = 105
-        Me.Button8.UseVisualStyleBackColor = True
-        '
-        'Btn_Excasso_Calculate_Exchrate
-        '
-        Me.Btn_Excasso_Calculate_Exchrate.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Excasso_Calculate_Exchrate.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_Excasso_Calculate_Exchrate.Image = CType(resources.GetObject("Btn_Excasso_Calculate_Exchrate.Image"), System.Drawing.Image)
-        Me.Btn_Excasso_Calculate_Exchrate.Location = New System.Drawing.Point(164, 57)
-        Me.Btn_Excasso_Calculate_Exchrate.Name = "Btn_Excasso_Calculate_Exchrate"
-        Me.Btn_Excasso_Calculate_Exchrate.Size = New System.Drawing.Size(35, 36)
-        Me.Btn_Excasso_Calculate_Exchrate.TabIndex = 114
-        Me.Btn_Excasso_Calculate_Exchrate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Btn_Excasso_Calculate_Exchrate.UseVisualStyleBackColor = True
-        '
-        'Btn_Excasso_Exchrate
-        '
-        Me.Btn_Excasso_Exchrate.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Excasso_Exchrate.Enabled = False
-        Me.Btn_Excasso_Exchrate.Image = Global.SPAS.My.Resources.Resources.refresh_24
-        Me.Btn_Excasso_Exchrate.Location = New System.Drawing.Point(243, 57)
-        Me.Btn_Excasso_Exchrate.Name = "Btn_Excasso_Exchrate"
-        Me.Btn_Excasso_Exchrate.Size = New System.Drawing.Size(35, 36)
-        Me.Btn_Excasso_Exchrate.TabIndex = 113
-        Me.Btn_Excasso_Exchrate.UseVisualStyleBackColor = True
-        '
-        'Gbx_Excasso_Doeltype
-        '
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Label127)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Btn_Excasso_FormRefresh)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Btn_Excasso_Copy_to_clipboard)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Cbx_Uitkering_Kind)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Label107)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Label98)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Cbx_Uitkering_Oudere)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Lbl_Excasso_Tot_Gen_MLD)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Lbl_Excasso_Totaal_MDL)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Label89)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Lbl_Excasso_Tot_Gen)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Lbl_Excasso_Totaal)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Label118)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Cbx_Uitkering_Overig)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Lbl_Excasso_Items_Totaal)
-        Me.Gbx_Excasso_Doeltype.Controls.Add(Me.Cmx_Excasso_Select)
-        Me.Gbx_Excasso_Doeltype.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Gbx_Excasso_Doeltype.Location = New System.Drawing.Point(10, 4)
-        Me.Gbx_Excasso_Doeltype.Margin = New System.Windows.Forms.Padding(2)
-        Me.Gbx_Excasso_Doeltype.Name = "Gbx_Excasso_Doeltype"
-        Me.Gbx_Excasso_Doeltype.Padding = New System.Windows.Forms.Padding(2)
-        Me.Gbx_Excasso_Doeltype.Size = New System.Drawing.Size(288, 192)
-        Me.Gbx_Excasso_Doeltype.TabIndex = 112
-        Me.Gbx_Excasso_Doeltype.TabStop = False
-        Me.Gbx_Excasso_Doeltype.Text = "Selecteer"
-        '
-        'Label127
-        '
-        Me.Label127.AutoSize = True
-        Me.Label127.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label127.Location = New System.Drawing.Point(237, 108)
-        Me.Label127.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(35, 18)
-        Me.Label127.TabIndex = 133
-        Me.Label127.Text = "MLD"
-        '
-        'Btn_Excasso_FormRefresh
-        '
-        Me.Btn_Excasso_FormRefresh.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Excasso_FormRefresh.Image = Global.SPAS.My.Resources.Resources.refresh_24
-        Me.Btn_Excasso_FormRefresh.Location = New System.Drawing.Point(207, 50)
-        Me.Btn_Excasso_FormRefresh.Name = "Btn_Excasso_FormRefresh"
-        Me.Btn_Excasso_FormRefresh.Size = New System.Drawing.Size(35, 36)
-        Me.Btn_Excasso_FormRefresh.TabIndex = 115
-        Me.Btn_Excasso_FormRefresh.UseVisualStyleBackColor = True
-        '
-        'Btn_Excasso_Copy_to_clipboard
-        '
-        Me.Btn_Excasso_Copy_to_clipboard.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Excasso_Copy_to_clipboard.Image = Global.SPAS.My.Resources.Resources.copy_24
-        Me.Btn_Excasso_Copy_to_clipboard.Location = New System.Drawing.Point(249, 50)
-        Me.Btn_Excasso_Copy_to_clipboard.Name = "Btn_Excasso_Copy_to_clipboard"
-        Me.Btn_Excasso_Copy_to_clipboard.Size = New System.Drawing.Size(35, 36)
-        Me.Btn_Excasso_Copy_to_clipboard.TabIndex = 131
-        Me.Btn_Excasso_Copy_to_clipboard.UseVisualStyleBackColor = True
-        '
-        'Cbx_Uitkering_Kind
-        '
-        Me.Cbx_Uitkering_Kind.AutoSize = True
-        Me.Cbx_Uitkering_Kind.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Uitkering_Kind.Location = New System.Drawing.Point(9, 106)
-        Me.Cbx_Uitkering_Kind.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cbx_Uitkering_Kind.Name = "Cbx_Uitkering_Kind"
-        Me.Cbx_Uitkering_Kind.Size = New System.Drawing.Size(55, 22)
-        Me.Cbx_Uitkering_Kind.TabIndex = 70
-        Me.Cbx_Uitkering_Kind.Text = "Kind"
-        Me.Cbx_Uitkering_Kind.UseVisualStyleBackColor = True
-        '
-        'Label107
-        '
-        Me.Label107.AutoSize = True
-        Me.Label107.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label107.Location = New System.Drawing.Point(100, 158)
-        Me.Label107.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label107.Name = "Label107"
-        Me.Label107.Size = New System.Drawing.Size(39, 18)
-        Me.Label107.TabIndex = 132
-        Me.Label107.Text = "Alles"
-        '
-        'Label98
-        '
-        Me.Label98.AutoSize = True
-        Me.Label98.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label98.Location = New System.Drawing.Point(100, 134)
-        Me.Label98.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label98.Name = "Label98"
-        Me.Label98.Size = New System.Drawing.Size(60, 18)
-        Me.Label98.TabIndex = 132
-        Me.Label98.Text = "Contract"
-        '
-        'Cbx_Uitkering_Oudere
-        '
-        Me.Cbx_Uitkering_Oudere.AutoSize = True
-        Me.Cbx_Uitkering_Oudere.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Uitkering_Oudere.Location = New System.Drawing.Point(9, 132)
-        Me.Cbx_Uitkering_Oudere.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cbx_Uitkering_Oudere.Name = "Cbx_Uitkering_Oudere"
-        Me.Cbx_Uitkering_Oudere.Size = New System.Drawing.Size(74, 22)
-        Me.Cbx_Uitkering_Oudere.TabIndex = 71
-        Me.Cbx_Uitkering_Oudere.Text = "Oudere"
-        Me.Cbx_Uitkering_Oudere.UseVisualStyleBackColor = True
-        '
-        'Lbl_Excasso_Tot_Gen_MLD
-        '
-        Me.Lbl_Excasso_Tot_Gen_MLD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Excasso_Tot_Gen_MLD.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_Tot_Gen_MLD.Location = New System.Drawing.Point(221, 158)
-        Me.Lbl_Excasso_Tot_Gen_MLD.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Excasso_Tot_Gen_MLD.Name = "Lbl_Excasso_Tot_Gen_MLD"
-        Me.Lbl_Excasso_Tot_Gen_MLD.Size = New System.Drawing.Size(63, 24)
-        Me.Lbl_Excasso_Tot_Gen_MLD.TabIndex = 115
-        Me.Lbl_Excasso_Tot_Gen_MLD.Text = "0"
-        Me.Lbl_Excasso_Tot_Gen_MLD.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Lbl_Excasso_Totaal_MDL
-        '
-        Me.Lbl_Excasso_Totaal_MDL.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Excasso_Totaal_MDL.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_Totaal_MDL.Location = New System.Drawing.Point(221, 131)
-        Me.Lbl_Excasso_Totaal_MDL.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Excasso_Totaal_MDL.Name = "Lbl_Excasso_Totaal_MDL"
-        Me.Lbl_Excasso_Totaal_MDL.Size = New System.Drawing.Size(63, 24)
-        Me.Lbl_Excasso_Totaal_MDL.TabIndex = 115
-        Me.Lbl_Excasso_Totaal_MDL.Text = "0"
-        Me.Lbl_Excasso_Totaal_MDL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label89
-        '
-        Me.Label89.AutoSize = True
-        Me.Label89.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label89.Location = New System.Drawing.Point(100, 108)
-        Me.Label89.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label89.Name = "Label89"
-        Me.Label89.Size = New System.Drawing.Size(55, 18)
-        Me.Label89.TabIndex = 120
-        Me.Label89.Text = "Posten:"
-        '
-        'Lbl_Excasso_Tot_Gen
-        '
-        Me.Lbl_Excasso_Tot_Gen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Excasso_Tot_Gen.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_Tot_Gen.Location = New System.Drawing.Point(164, 158)
-        Me.Lbl_Excasso_Tot_Gen.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Excasso_Tot_Gen.Name = "Lbl_Excasso_Tot_Gen"
-        Me.Lbl_Excasso_Tot_Gen.Size = New System.Drawing.Size(52, 24)
-        Me.Lbl_Excasso_Tot_Gen.TabIndex = 115
-        Me.Lbl_Excasso_Tot_Gen.Text = "0"
-        Me.Lbl_Excasso_Tot_Gen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Lbl_Excasso_Totaal
-        '
-        Me.Lbl_Excasso_Totaal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Excasso_Totaal.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_Totaal.Location = New System.Drawing.Point(164, 131)
-        Me.Lbl_Excasso_Totaal.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Excasso_Totaal.Name = "Lbl_Excasso_Totaal"
-        Me.Lbl_Excasso_Totaal.Size = New System.Drawing.Size(52, 24)
-        Me.Lbl_Excasso_Totaal.TabIndex = 115
-        Me.Lbl_Excasso_Totaal.Text = "0"
-        Me.Lbl_Excasso_Totaal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label118
-        '
-        Me.Label118.AutoSize = True
-        Me.Label118.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label118.Location = New System.Drawing.Point(6, 86)
-        Me.Label118.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label118.Name = "Label118"
-        Me.Label118.Size = New System.Drawing.Size(68, 18)
-        Me.Label118.TabIndex = 116
-        Me.Label118.Text = "Doeltype "
-        '
-        'Cbx_Uitkering_Overig
-        '
-        Me.Cbx_Uitkering_Overig.AutoSize = True
-        Me.Cbx_Uitkering_Overig.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Uitkering_Overig.Location = New System.Drawing.Point(9, 158)
-        Me.Cbx_Uitkering_Overig.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cbx_Uitkering_Overig.Name = "Cbx_Uitkering_Overig"
-        Me.Cbx_Uitkering_Overig.Size = New System.Drawing.Size(68, 22)
-        Me.Cbx_Uitkering_Overig.TabIndex = 72
-        Me.Cbx_Uitkering_Overig.Text = "Overig"
-        Me.Cbx_Uitkering_Overig.UseVisualStyleBackColor = True
-        '
-        'Lbl_Excasso_Items_Totaal
-        '
-        Me.Lbl_Excasso_Items_Totaal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Excasso_Items_Totaal.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_Items_Totaal.Location = New System.Drawing.Point(164, 105)
-        Me.Lbl_Excasso_Items_Totaal.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Excasso_Items_Totaal.Name = "Lbl_Excasso_Items_Totaal"
-        Me.Lbl_Excasso_Items_Totaal.Size = New System.Drawing.Size(52, 24)
-        Me.Lbl_Excasso_Items_Totaal.TabIndex = 76
-        Me.Lbl_Excasso_Items_Totaal.Text = "0"
-        Me.Lbl_Excasso_Items_Totaal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Cmx_Excasso_Select
-        '
-        Me.Cmx_Excasso_Select.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.Cmx_Excasso_Select.FormattingEnabled = True
-        Me.Cmx_Excasso_Select.Location = New System.Drawing.Point(7, 19)
-        Me.Cmx_Excasso_Select.Name = "Cmx_Excasso_Select"
-        Me.Cmx_Excasso_Select.Size = New System.Drawing.Size(276, 25)
-        Me.Cmx_Excasso_Select.TabIndex = 113
-        Me.Cmx_Excasso_Select.Tag = "Contactpersoon"
-        '
         'Dgv_Excasso2
         '
         Me.Dgv_Excasso2.AllowUserToAddRows = False
         Me.Dgv_Excasso2.AllowUserToDeleteRows = False
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Dgv_Excasso2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle7
-        Me.Dgv_Excasso2.Anchor = System.Windows.Forms.AnchorStyles.None
+        DataGridViewCellStyle35.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Excasso2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle35
+        Me.Dgv_Excasso2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Dgv_Excasso2.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Dgv_Excasso2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Dgv_Excasso2.Location = New System.Drawing.Point(307, 9)
+        DataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle36.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle36.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle36.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle36.Format = "#.##"
+        DataGridViewCellStyle36.NullValue = """"""
+        DataGridViewCellStyle36.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle36.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Dgv_Excasso2.DefaultCellStyle = DataGridViewCellStyle36
+        Me.Dgv_Excasso2.Location = New System.Drawing.Point(300, 5)
         Me.Dgv_Excasso2.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Excasso2.Name = "Dgv_Excasso2"
         Me.Dgv_Excasso2.RowHeadersVisible = False
         Me.Dgv_Excasso2.RowHeadersWidth = 50
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dgv_Excasso2.RowsDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle37.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Excasso2.RowsDefaultCellStyle = DataGridViewCellStyle37
         Me.Dgv_Excasso2.RowTemplate.Height = 20
-        Me.Dgv_Excasso2.Size = New System.Drawing.Size(796, 634)
+        Me.Dgv_Excasso2.Size = New System.Drawing.Size(726, 560)
         Me.Dgv_Excasso2.TabIndex = 73
+        '
+        'Btn_Excasso_Save
+        '
+        Me.Btn_Excasso_Save.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Btn_Excasso_Save.Image = CType(resources.GetObject("Btn_Excasso_Save.Image"), System.Drawing.Image)
+        Me.Btn_Excasso_Save.Location = New System.Drawing.Point(430, 568)
+        Me.Btn_Excasso_Save.Name = "Btn_Excasso_Save"
+        Me.Btn_Excasso_Save.Size = New System.Drawing.Size(35, 36)
+        Me.Btn_Excasso_Save.TabIndex = 96
+        Me.Btn_Excasso_Save.UseVisualStyleBackColor = True
+        '
+        'Btn_Excasso_Print
+        '
+        Me.Btn_Excasso_Print.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Btn_Excasso_Print.Image = CType(resources.GetObject("Btn_Excasso_Print.Image"), System.Drawing.Image)
+        Me.Btn_Excasso_Print.Location = New System.Drawing.Point(388, 568)
+        Me.Btn_Excasso_Print.Name = "Btn_Excasso_Print"
+        Me.Btn_Excasso_Print.Size = New System.Drawing.Size(35, 36)
+        Me.Btn_Excasso_Print.TabIndex = 98
+        Me.Btn_Excasso_Print.UseVisualStyleBackColor = True
         '
         'Btn_Excasso_Cancel
         '
         Me.Btn_Excasso_Cancel.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Btn_Excasso_Cancel.Enabled = False
         Me.Btn_Excasso_Cancel.Image = Global.SPAS.My.Resources.Resources.Cancel_16x16
-        Me.Btn_Excasso_Cancel.Location = New System.Drawing.Point(144, 598)
+        Me.Btn_Excasso_Cancel.Location = New System.Drawing.Point(306, 568)
         Me.Btn_Excasso_Cancel.Name = "Btn_Excasso_Cancel"
         Me.Btn_Excasso_Cancel.Size = New System.Drawing.Size(35, 36)
         Me.Btn_Excasso_Cancel.TabIndex = 115
         Me.Btn_Excasso_Cancel.UseVisualStyleBackColor = True
         '
-        'Btn_Excasso_Print
-        '
-        Me.Btn_Excasso_Print.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Btn_Excasso_Print.Image = CType(resources.GetObject("Btn_Excasso_Print.Image"), System.Drawing.Image)
-        Me.Btn_Excasso_Print.Location = New System.Drawing.Point(226, 598)
-        Me.Btn_Excasso_Print.Name = "Btn_Excasso_Print"
-        Me.Btn_Excasso_Print.Size = New System.Drawing.Size(35, 36)
-        Me.Btn_Excasso_Print.TabIndex = 98
-        Me.Btn_Excasso_Print.UseVisualStyleBackColor = True
-        '
         'Btn_Excasso_Delete
         '
         Me.Btn_Excasso_Delete.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Btn_Excasso_Delete.Image = Global.SPAS.My.Resources.Resources.trash_2_161
-        Me.Btn_Excasso_Delete.Location = New System.Drawing.Point(185, 598)
+        Me.Btn_Excasso_Delete.Location = New System.Drawing.Point(348, 568)
         Me.Btn_Excasso_Delete.Name = "Btn_Excasso_Delete"
         Me.Btn_Excasso_Delete.Size = New System.Drawing.Size(35, 36)
         Me.Btn_Excasso_Delete.TabIndex = 97
         Me.Btn_Excasso_Delete.UseVisualStyleBackColor = True
         '
-        'Btn_Excasso_Save
-        '
-        Me.Btn_Excasso_Save.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Btn_Excasso_Save.Image = CType(resources.GetObject("Btn_Excasso_Save.Image"), System.Drawing.Image)
-        Me.Btn_Excasso_Save.Location = New System.Drawing.Point(267, 598)
-        Me.Btn_Excasso_Save.Name = "Btn_Excasso_Save"
-        Me.Btn_Excasso_Save.Size = New System.Drawing.Size(35, 36)
-        Me.Btn_Excasso_Save.TabIndex = 96
-        Me.Btn_Excasso_Save.UseVisualStyleBackColor = True
-        '
         'Intern
         '
         Me.Intern.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.Intern.Controls.Add(Me.Lbl_Journal_Status)
-        Me.Intern.Controls.Add(Me.Cbx_Journal_Status_Verwerkt)
-        Me.Intern.Controls.Add(Me.Cbx_Journal_Status_Open)
-        Me.Intern.Controls.Add(Me.Btn_Journal_Intern)
-        Me.Intern.Controls.Add(Me.Chbx_Journal_Inactive)
-        Me.Intern.Controls.Add(Me.Cbx_Journal_DeSelect_All)
-        Me.Intern.Controls.Add(Me.Cbx_Journal_Select_All)
-        Me.Intern.Controls.Add(Me.Lbl_Boeking_Selecteer)
-        Me.Intern.Controls.Add(Me.Lbl_Journal_Filter)
-        Me.Intern.Controls.Add(Me.Tbx_Journal_Filter)
-        Me.Intern.Controls.Add(Me.Dgv_Journal_items)
-        Me.Intern.Controls.Add(Me.Lv_Journal_List)
-        Me.Intern.Controls.Add(Me.Gbx_Journal_Totals)
-        Me.Intern.Controls.Add(Me.Gbx_Boekingen_Overboeking)
-        Me.Intern.Controls.Add(Me.Cmx_Journal_List)
+        Me.Intern.Controls.Add(Me.Label147)
+        Me.Intern.Controls.Add(Me.Tbx_Journnal_Jname)
+        Me.Intern.Controls.Add(Me.Label146)
+        Me.Intern.Controls.Add(Me.TC_Boeking)
+        Me.Intern.Controls.Add(Me.Panel2)
         Me.Intern.Location = New System.Drawing.Point(4, 28)
         Me.Intern.Margin = New System.Windows.Forms.Padding(2)
         Me.Intern.Name = "Intern"
         Me.Intern.Padding = New System.Windows.Forms.Padding(2)
-        Me.Intern.Size = New System.Drawing.Size(1107, 639)
+        Me.Intern.Size = New System.Drawing.Size(1022, 570)
         Me.Intern.TabIndex = 4
         Me.Intern.Text = "Boekingen"
         '
-        'Lbl_Journal_Status
+        'Label147
         '
-        Me.Lbl_Journal_Status.AutoSize = True
-        Me.Lbl_Journal_Status.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Journal_Status.Location = New System.Drawing.Point(536, 611)
-        Me.Lbl_Journal_Status.Name = "Lbl_Journal_Status"
-        Me.Lbl_Journal_Status.Size = New System.Drawing.Size(46, 18)
-        Me.Lbl_Journal_Status.TabIndex = 136
-        Me.Lbl_Journal_Status.Text = "Status"
+        Me.Label147.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label147.Location = New System.Drawing.Point(948, 11)
+        Me.Label147.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label147.Name = "Label147"
+        Me.Label147.Size = New System.Drawing.Size(70, 21)
+        Me.Label147.TabIndex = 140
+        Me.Label147.Text = "0"
+        Me.Label147.Visible = False
         '
-        'Cbx_Journal_Status_Verwerkt
+        'Tbx_Journnal_Jname
         '
-        Me.Cbx_Journal_Status_Verwerkt.AutoSize = True
-        Me.Cbx_Journal_Status_Verwerkt.Checked = True
-        Me.Cbx_Journal_Status_Verwerkt.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.Cbx_Journal_Status_Verwerkt.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Journal_Status_Verwerkt.Location = New System.Drawing.Point(660, 611)
-        Me.Cbx_Journal_Status_Verwerkt.Name = "Cbx_Journal_Status_Verwerkt"
-        Me.Cbx_Journal_Status_Verwerkt.Size = New System.Drawing.Size(84, 22)
-        Me.Cbx_Journal_Status_Verwerkt.TabIndex = 135
-        Me.Cbx_Journal_Status_Verwerkt.Text = "Verwerkt"
-        Me.Cbx_Journal_Status_Verwerkt.UseVisualStyleBackColor = True
+        Me.Tbx_Journnal_Jname.BackColor = System.Drawing.SystemColors.InactiveBorder
+        Me.Tbx_Journnal_Jname.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tbx_Journnal_Jname.Location = New System.Drawing.Point(261, 5)
+        Me.Tbx_Journnal_Jname.Name = "Tbx_Journnal_Jname"
+        Me.Tbx_Journnal_Jname.Size = New System.Drawing.Size(631, 26)
+        Me.Tbx_Journnal_Jname.TabIndex = 139
         '
-        'Cbx_Journal_Status_Open
+        'Label146
         '
-        Me.Cbx_Journal_Status_Open.AutoSize = True
-        Me.Cbx_Journal_Status_Open.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Journal_Status_Open.Location = New System.Drawing.Point(590, 611)
-        Me.Cbx_Journal_Status_Open.Name = "Cbx_Journal_Status_Open"
-        Me.Cbx_Journal_Status_Open.Size = New System.Drawing.Size(61, 22)
-        Me.Cbx_Journal_Status_Open.TabIndex = 134
-        Me.Cbx_Journal_Status_Open.Text = "Open"
-        Me.Cbx_Journal_Status_Open.UseVisualStyleBackColor = True
+        Me.Label146.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label146.Location = New System.Drawing.Point(897, 12)
+        Me.Label146.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label146.Name = "Label146"
+        Me.Label146.Size = New System.Drawing.Size(47, 19)
+        Me.Label146.TabIndex = 138
+        Me.Label146.Text = "Saldo"
+        Me.Label146.Visible = False
         '
-        'Btn_Journal_Intern
+        'TC_Boeking
         '
-        Me.Btn_Journal_Intern.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_Journal_Intern.Location = New System.Drawing.Point(16, 3)
-        Me.Btn_Journal_Intern.Name = "Btn_Journal_Intern"
-        Me.Btn_Journal_Intern.Size = New System.Drawing.Size(226, 24)
-        Me.Btn_Journal_Intern.TabIndex = 133
-        Me.Btn_Journal_Intern.Text = "Interne overboeking"
-        Me.Btn_Journal_Intern.UseVisualStyleBackColor = True
+        Me.TC_Boeking.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TC_Boeking.Controls.Add(Me.Boekingen)
+        Me.TC_Boeking.Controls.Add(Me.Overboekingen)
+        Me.TC_Boeking.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TC_Boeking.Location = New System.Drawing.Point(257, 31)
+        Me.TC_Boeking.Margin = New System.Windows.Forms.Padding(2)
+        Me.TC_Boeking.Name = "TC_Boeking"
+        Me.TC_Boeking.SelectedIndex = 0
+        Me.TC_Boeking.Size = New System.Drawing.Size(777, 537)
+        Me.TC_Boeking.TabIndex = 136
         '
-        'Chbx_Journal_Inactive
+        'Boekingen
         '
-        Me.Chbx_Journal_Inactive.AutoSize = True
-        Me.Chbx_Journal_Inactive.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Chbx_Journal_Inactive.Location = New System.Drawing.Point(400, 611)
-        Me.Chbx_Journal_Inactive.Margin = New System.Windows.Forms.Padding(2)
-        Me.Chbx_Journal_Inactive.Name = "Chbx_Journal_Inactive"
-        Me.Chbx_Journal_Inactive.Size = New System.Drawing.Size(102, 22)
-        Me.Chbx_Journal_Inactive.TabIndex = 132
-        Me.Chbx_Journal_Inactive.Text = "incl. inactief"
-        Me.Chbx_Journal_Inactive.UseVisualStyleBackColor = True
+        Me.Boekingen.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Boekingen.Controls.Add(Me.Tbx_Journal_Descr)
+        Me.Boekingen.Controls.Add(Me.Dgv_Journal_items)
+        Me.Boekingen.Location = New System.Drawing.Point(4, 28)
+        Me.Boekingen.Margin = New System.Windows.Forms.Padding(2)
+        Me.Boekingen.Name = "Boekingen"
+        Me.Boekingen.Padding = New System.Windows.Forms.Padding(2)
+        Me.Boekingen.Size = New System.Drawing.Size(769, 505)
+        Me.Boekingen.TabIndex = 0
+        Me.Boekingen.Text = "Boekingen"
         '
-        'Cbx_Journal_DeSelect_All
+        'Tbx_Journal_Descr
         '
-        Me.Cbx_Journal_DeSelect_All.AutoSize = True
-        Me.Cbx_Journal_DeSelect_All.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Journal_DeSelect_All.Location = New System.Drawing.Point(340, 611)
-        Me.Cbx_Journal_DeSelect_All.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cbx_Journal_DeSelect_All.Name = "Cbx_Journal_DeSelect_All"
-        Me.Cbx_Journal_DeSelect_All.Size = New System.Drawing.Size(60, 22)
-        Me.Cbx_Journal_DeSelect_All.TabIndex = 131
-        Me.Cbx_Journal_DeSelect_All.Text = "Geen"
-        Me.Cbx_Journal_DeSelect_All.UseVisualStyleBackColor = True
-        '
-        'Cbx_Journal_Select_All
-        '
-        Me.Cbx_Journal_Select_All.AutoSize = True
-        Me.Cbx_Journal_Select_All.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Journal_Select_All.Location = New System.Drawing.Point(276, 611)
-        Me.Cbx_Journal_Select_All.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cbx_Journal_Select_All.Name = "Cbx_Journal_Select_All"
-        Me.Cbx_Journal_Select_All.Size = New System.Drawing.Size(52, 22)
-        Me.Cbx_Journal_Select_All.TabIndex = 131
-        Me.Cbx_Journal_Select_All.Text = "Alle"
-        Me.Cbx_Journal_Select_All.UseVisualStyleBackColor = True
-        '
-        'Lbl_Boeking_Selecteer
-        '
-        Me.Lbl_Boeking_Selecteer.AutoSize = True
-        Me.Lbl_Boeking_Selecteer.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Boeking_Selecteer.Location = New System.Drawing.Point(276, 30)
-        Me.Lbl_Boeking_Selecteer.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Boeking_Selecteer.Name = "Lbl_Boeking_Selecteer"
-        Me.Lbl_Boeking_Selecteer.Size = New System.Drawing.Size(67, 18)
-        Me.Lbl_Boeking_Selecteer.TabIndex = 127
-        Me.Lbl_Boeking_Selecteer.Text = "Selecteer"
-        '
-        'Lbl_Journal_Filter
-        '
-        Me.Lbl_Journal_Filter.AutoSize = True
-        Me.Lbl_Journal_Filter.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Journal_Filter.Location = New System.Drawing.Point(276, 56)
-        Me.Lbl_Journal_Filter.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Journal_Filter.Name = "Lbl_Journal_Filter"
-        Me.Lbl_Journal_Filter.Size = New System.Drawing.Size(60, 18)
-        Me.Lbl_Journal_Filter.TabIndex = 126
-        Me.Lbl_Journal_Filter.Text = "Filter op"
-        '
-        'Tbx_Journal_Filter
-        '
-        Me.Tbx_Journal_Filter.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_Journal_Filter.Location = New System.Drawing.Point(354, 56)
-        Me.Tbx_Journal_Filter.Margin = New System.Windows.Forms.Padding(2)
-        Me.Tbx_Journal_Filter.Name = "Tbx_Journal_Filter"
-        Me.Tbx_Journal_Filter.Size = New System.Drawing.Size(148, 25)
-        Me.Tbx_Journal_Filter.TabIndex = 57
+        Me.Tbx_Journal_Descr.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Tbx_Journal_Descr.Location = New System.Drawing.Point(3, 452)
+        Me.Tbx_Journal_Descr.Multiline = True
+        Me.Tbx_Journal_Descr.Name = "Tbx_Journal_Descr"
+        Me.Tbx_Journal_Descr.Size = New System.Drawing.Size(758, 48)
+        Me.Tbx_Journal_Descr.TabIndex = 59
         '
         'Dgv_Journal_items
         '
         Me.Dgv_Journal_items.AllowUserToAddRows = False
         Me.Dgv_Journal_items.AllowUserToDeleteRows = False
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.NullValue = " -"
-        Me.Dgv_Journal_items.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
-        Me.Dgv_Journal_items.Anchor = System.Windows.Forms.AnchorStyles.None
+        DataGridViewCellStyle38.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        DataGridViewCellStyle38.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle38.NullValue = " -"
+        DataGridViewCellStyle38.SelectionForeColor = System.Drawing.Color.Black
+        Me.Dgv_Journal_items.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle38
+        Me.Dgv_Journal_items.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Dgv_Journal_items.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle10.NullValue = "-"
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Dgv_Journal_items.DefaultCellStyle = DataGridViewCellStyle10
-        Me.Dgv_Journal_items.Location = New System.Drawing.Point(536, 80)
+        DataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle39.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle39.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle39.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle39.NullValue = "-"
+        DataGridViewCellStyle39.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle39.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle39.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Dgv_Journal_items.DefaultCellStyle = DataGridViewCellStyle39
+        Me.Dgv_Journal_items.Location = New System.Drawing.Point(2, 4)
         Me.Dgv_Journal_items.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Journal_items.MultiSelect = False
         Me.Dgv_Journal_items.Name = "Dgv_Journal_items"
         Me.Dgv_Journal_items.ReadOnly = True
         Me.Dgv_Journal_items.RowHeadersVisible = False
         Me.Dgv_Journal_items.RowHeadersWidth = 30
-        Me.Dgv_Journal_items.RowTemplate.DefaultCellStyle.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Journal_items.RowTemplate.Height = 20
         Me.Dgv_Journal_items.RowTemplate.ReadOnly = True
         Me.Dgv_Journal_items.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.Dgv_Journal_items.Size = New System.Drawing.Size(562, 521)
-        Me.Dgv_Journal_items.TabIndex = 56
+        Me.Dgv_Journal_items.Size = New System.Drawing.Size(759, 443)
+        Me.Dgv_Journal_items.TabIndex = 58
         '
-        'Lv_Journal_List
+        'Overboekingen
         '
-        Me.Lv_Journal_List.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Lv_Journal_List.CheckBoxes = True
-        Me.Lv_Journal_List.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
-        Me.Lv_Journal_List.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lv_Journal_List.FullRowSelect = True
-        Me.Lv_Journal_List.HideSelection = False
-        Me.Lv_Journal_List.Location = New System.Drawing.Point(277, 80)
-        Me.Lv_Journal_List.Margin = New System.Windows.Forms.Padding(2)
-        Me.Lv_Journal_List.Name = "Lv_Journal_List"
-        Me.Lv_Journal_List.Size = New System.Drawing.Size(225, 521)
-        Me.Lv_Journal_List.TabIndex = 54
-        Me.Lv_Journal_List.UseCompatibleStateImageBehavior = False
+        Me.Overboekingen.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Overboekingen.Controls.Add(Me.Panel8)
+        Me.Overboekingen.Controls.Add(Me.Panel7)
+        Me.Overboekingen.Location = New System.Drawing.Point(4, 28)
+        Me.Overboekingen.Margin = New System.Windows.Forms.Padding(2)
+        Me.Overboekingen.Name = "Overboekingen"
+        Me.Overboekingen.Padding = New System.Windows.Forms.Padding(2)
+        Me.Overboekingen.Size = New System.Drawing.Size(769, 505)
+        Me.Overboekingen.TabIndex = 1
+        Me.Overboekingen.Text = "Overboekingen"
         '
-        'ColumnHeader1
+        'Panel8
         '
-        Me.ColumnHeader1.Width = 0
+        Me.Panel8.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Panel8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel8.Controls.Add(Me.Rbn_Journal_Extra)
+        Me.Panel8.Controls.Add(Me.Tbx_Journal_Name)
+        Me.Panel8.Controls.Add(Me.Label126)
+        Me.Panel8.Controls.Add(Me.Rbn_Journal_Contract)
+        Me.Panel8.Controls.Add(Me.Rbn_Journal_Intern)
+        Me.Panel8.Controls.Add(Me.Label54)
+        Me.Panel8.Controls.Add(Me.Btn_Journal_Intern_Save)
+        Me.Panel8.Controls.Add(Me.Btn_Journal_Recalculate)
+        Me.Panel8.Controls.Add(Me.Btn_Journals_Cancel)
+        Me.Panel8.Controls.Add(Me.Btn_Select_Bulk)
+        Me.Panel8.Controls.Add(Me.Label121)
+        Me.Panel8.Controls.Add(Me.Dtp_Journal_intern)
+        Me.Panel8.Controls.Add(Me.Dgv_Journal_Intern)
+        Me.Panel8.Controls.Add(Me.Label128)
+        Me.Panel8.Controls.Add(Me.Label125)
+        Me.Panel8.Controls.Add(Me.Tbx_Journal_Description)
+        Me.Panel8.Location = New System.Drawing.Point(10, 90)
+        Me.Panel8.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel8.Name = "Panel8"
+        Me.Panel8.Size = New System.Drawing.Size(717, 423)
+        Me.Panel8.TabIndex = 50
         '
-        'ColumnHeader2
+        'Rbn_Journal_Extra
         '
-        Me.ColumnHeader2.Text = "Naam"
-        Me.ColumnHeader2.Width = 200
+        Me.Rbn_Journal_Extra.AutoSize = True
+        Me.Rbn_Journal_Extra.Location = New System.Drawing.Point(562, 79)
+        Me.Rbn_Journal_Extra.Name = "Rbn_Journal_Extra"
+        Me.Rbn_Journal_Extra.Size = New System.Drawing.Size(125, 23)
+        Me.Rbn_Journal_Extra.TabIndex = 138
+        Me.Rbn_Journal_Extra.Text = "Extra gift (corr)"
+        Me.Rbn_Journal_Extra.UseVisualStyleBackColor = True
         '
-        'Gbx_Journal_Totals
+        'Tbx_Journal_Name
         '
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Lbl_Journal_Sum_Amt_Start)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Label137)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Label133)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Label134)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Label135)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Label131)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Label132)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Lbl_Journal_Sum_Amt_Out)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Lbl_Journal_Sum_Amt_Saldo)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Lbl_Journal_Sum_Amt_In)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Lbl_Journal_Sum_Item_Saldo)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Label126)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Lbl_Journal_Sum_Item_In)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Lbl_Journal_Sum_Item_Out)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Label124)
-        Me.Gbx_Journal_Totals.Controls.Add(Me.Label123)
-        Me.Gbx_Journal_Totals.Location = New System.Drawing.Point(536, 17)
-        Me.Gbx_Journal_Totals.Margin = New System.Windows.Forms.Padding(2)
-        Me.Gbx_Journal_Totals.Name = "Gbx_Journal_Totals"
-        Me.Gbx_Journal_Totals.Padding = New System.Windows.Forms.Padding(2)
-        Me.Gbx_Journal_Totals.Size = New System.Drawing.Size(562, 63)
-        Me.Gbx_Journal_Totals.TabIndex = 52
-        Me.Gbx_Journal_Totals.TabStop = False
-        '
-        'Lbl_Journal_Sum_Amt_Start
-        '
-        Me.Lbl_Journal_Sum_Amt_Start.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Journal_Sum_Amt_Start.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Journal_Sum_Amt_Start.Location = New System.Drawing.Point(58, 35)
-        Me.Lbl_Journal_Sum_Amt_Start.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Journal_Sum_Amt_Start.Name = "Lbl_Journal_Sum_Amt_Start"
-        Me.Lbl_Journal_Sum_Amt_Start.Size = New System.Drawing.Size(72, 21)
-        Me.Lbl_Journal_Sum_Amt_Start.TabIndex = 127
-        Me.Lbl_Journal_Sum_Amt_Start.Text = "0"
-        Me.Lbl_Journal_Sum_Amt_Start.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label137
-        '
-        Me.Label137.AutoSize = True
-        Me.Label137.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label137.Location = New System.Drawing.Point(54, 15)
-        Me.Label137.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(70, 18)
-        Me.Label137.TabIndex = 126
-        Me.Label137.Text = "Startsaldo"
-        '
-        'Label133
-        '
-        Me.Label133.AutoSize = True
-        Me.Label133.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label133.Location = New System.Drawing.Point(509, 14)
-        Me.Label133.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label133.Name = "Label133"
-        Me.Label133.Size = New System.Drawing.Size(45, 18)
-        Me.Label133.TabIndex = 125
-        Me.Label133.Text = "Totaal"
-        '
-        'Label134
-        '
-        Me.Label134.AutoSize = True
-        Me.Label134.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label134.Location = New System.Drawing.Point(480, 14)
-        Me.Label134.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(22, 18)
-        Me.Label134.TabIndex = 123
-        Me.Label134.Text = "Af"
-        '
-        'Label135
-        '
-        Me.Label135.AutoSize = True
-        Me.Label135.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label135.Location = New System.Drawing.Point(438, 14)
-        Me.Label135.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label135.Name = "Label135"
-        Me.Label135.Size = New System.Drawing.Size(24, 18)
-        Me.Label135.TabIndex = 124
-        Me.Label135.Text = "Bij"
-        '
-        'Label131
-        '
-        Me.Label131.AutoSize = True
-        Me.Label131.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label131.Location = New System.Drawing.Point(4, 35)
-        Me.Label131.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label131.Name = "Label131"
-        Me.Label131.Size = New System.Drawing.Size(51, 18)
-        Me.Label131.TabIndex = 122
-        Me.Label131.Text = "Bedrag"
-        '
-        'Label132
-        '
-        Me.Label132.AutoSize = True
-        Me.Label132.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label132.Location = New System.Drawing.Point(378, 35)
-        Me.Label132.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label132.Name = "Label132"
-        Me.Label132.Size = New System.Drawing.Size(48, 18)
-        Me.Label132.TabIndex = 121
-        Me.Label132.Text = "Aantal"
-        '
-        'Lbl_Journal_Sum_Amt_Out
-        '
-        Me.Lbl_Journal_Sum_Amt_Out.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Journal_Sum_Amt_Out.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Journal_Sum_Amt_Out.Location = New System.Drawing.Point(215, 34)
-        Me.Lbl_Journal_Sum_Amt_Out.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Journal_Sum_Amt_Out.Name = "Lbl_Journal_Sum_Amt_Out"
-        Me.Lbl_Journal_Sum_Amt_Out.Size = New System.Drawing.Size(72, 21)
-        Me.Lbl_Journal_Sum_Amt_Out.TabIndex = 55
-        Me.Lbl_Journal_Sum_Amt_Out.Text = "0"
-        Me.Lbl_Journal_Sum_Amt_Out.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Lbl_Journal_Sum_Amt_Saldo
-        '
-        Me.Lbl_Journal_Sum_Amt_Saldo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Journal_Sum_Amt_Saldo.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Journal_Sum_Amt_Saldo.Location = New System.Drawing.Point(295, 34)
-        Me.Lbl_Journal_Sum_Amt_Saldo.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Journal_Sum_Amt_Saldo.Name = "Lbl_Journal_Sum_Amt_Saldo"
-        Me.Lbl_Journal_Sum_Amt_Saldo.Size = New System.Drawing.Size(72, 21)
-        Me.Lbl_Journal_Sum_Amt_Saldo.TabIndex = 56
-        Me.Lbl_Journal_Sum_Amt_Saldo.Text = "0"
-        Me.Lbl_Journal_Sum_Amt_Saldo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Lbl_Journal_Sum_Amt_In
-        '
-        Me.Lbl_Journal_Sum_Amt_In.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Journal_Sum_Amt_In.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Journal_Sum_Amt_In.Location = New System.Drawing.Point(136, 35)
-        Me.Lbl_Journal_Sum_Amt_In.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Journal_Sum_Amt_In.Name = "Lbl_Journal_Sum_Amt_In"
-        Me.Lbl_Journal_Sum_Amt_In.Size = New System.Drawing.Size(72, 21)
-        Me.Lbl_Journal_Sum_Amt_In.TabIndex = 54
-        Me.Lbl_Journal_Sum_Amt_In.Text = "0"
-        Me.Lbl_Journal_Sum_Amt_In.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Lbl_Journal_Sum_Item_Saldo
-        '
-        Me.Lbl_Journal_Sum_Item_Saldo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Journal_Sum_Item_Saldo.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Journal_Sum_Item_Saldo.Location = New System.Drawing.Point(513, 35)
-        Me.Lbl_Journal_Sum_Item_Saldo.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Journal_Sum_Item_Saldo.Name = "Lbl_Journal_Sum_Item_Saldo"
-        Me.Lbl_Journal_Sum_Item_Saldo.Size = New System.Drawing.Size(40, 21)
-        Me.Lbl_Journal_Sum_Item_Saldo.TabIndex = 53
-        Me.Lbl_Journal_Sum_Item_Saldo.Text = "0"
-        Me.Lbl_Journal_Sum_Item_Saldo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Tbx_Journal_Name.Location = New System.Drawing.Point(387, 142)
+        Me.Tbx_Journal_Name.Name = "Tbx_Journal_Name"
+        Me.Tbx_Journal_Name.Size = New System.Drawing.Size(324, 27)
+        Me.Tbx_Journal_Name.TabIndex = 137
         '
         'Label126
         '
         Me.Label126.AutoSize = True
         Me.Label126.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label126.Location = New System.Drawing.Point(292, 14)
+        Me.Label126.Location = New System.Drawing.Point(308, 147)
         Me.Label126.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(84, 18)
-        Me.Label126.TabIndex = 52
-        Me.Label126.Text = "Huidig saldo"
+        Me.Label126.Size = New System.Drawing.Size(36, 18)
+        Me.Label126.TabIndex = 136
+        Me.Label126.Text = "Titel"
         '
-        'Lbl_Journal_Sum_Item_In
+        'Rbn_Journal_Contract
         '
-        Me.Lbl_Journal_Sum_Item_In.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Journal_Sum_Item_In.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Journal_Sum_Item_In.Location = New System.Drawing.Point(429, 35)
-        Me.Lbl_Journal_Sum_Item_In.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Journal_Sum_Item_In.Name = "Lbl_Journal_Sum_Item_In"
-        Me.Lbl_Journal_Sum_Item_In.Size = New System.Drawing.Size(40, 21)
-        Me.Lbl_Journal_Sum_Item_In.TabIndex = 50
-        Me.Lbl_Journal_Sum_Item_In.Text = "0"
-        Me.Lbl_Journal_Sum_Item_In.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Rbn_Journal_Contract.AutoSize = True
+        Me.Rbn_Journal_Contract.Location = New System.Drawing.Point(474, 79)
+        Me.Rbn_Journal_Contract.Name = "Rbn_Journal_Contract"
+        Me.Rbn_Journal_Contract.Size = New System.Drawing.Size(82, 23)
+        Me.Rbn_Journal_Contract.TabIndex = 135
+        Me.Rbn_Journal_Contract.Text = "Contract"
+        Me.Rbn_Journal_Contract.UseVisualStyleBackColor = True
         '
-        'Lbl_Journal_Sum_Item_Out
+        'Rbn_Journal_Intern
         '
-        Me.Lbl_Journal_Sum_Item_Out.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Journal_Sum_Item_Out.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Journal_Sum_Item_Out.Location = New System.Drawing.Point(471, 35)
-        Me.Lbl_Journal_Sum_Item_Out.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Journal_Sum_Item_Out.Name = "Lbl_Journal_Sum_Item_Out"
-        Me.Lbl_Journal_Sum_Item_Out.Size = New System.Drawing.Size(40, 21)
-        Me.Lbl_Journal_Sum_Item_Out.TabIndex = 50
-        Me.Lbl_Journal_Sum_Item_Out.Text = "0"
-        Me.Lbl_Journal_Sum_Item_Out.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Rbn_Journal_Intern.AutoSize = True
+        Me.Rbn_Journal_Intern.Checked = True
+        Me.Rbn_Journal_Intern.Location = New System.Drawing.Point(403, 79)
+        Me.Rbn_Journal_Intern.Name = "Rbn_Journal_Intern"
+        Me.Rbn_Journal_Intern.Size = New System.Drawing.Size(65, 23)
+        Me.Rbn_Journal_Intern.TabIndex = 134
+        Me.Rbn_Journal_Intern.TabStop = True
+        Me.Rbn_Journal_Intern.Text = "Intern"
+        Me.Rbn_Journal_Intern.UseVisualStyleBackColor = True
         '
-        'Label124
+        'Label54
         '
-        Me.Label124.AutoSize = True
-        Me.Label124.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label124.Location = New System.Drawing.Point(238, 15)
-        Me.Label124.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label124.Name = "Label124"
-        Me.Label124.Size = New System.Drawing.Size(22, 18)
-        Me.Label124.TabIndex = 51
-        Me.Label124.Text = "Af"
+        Me.Label54.AutoSize = True
+        Me.Label54.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label54.Location = New System.Drawing.Point(308, 83)
+        Me.Label54.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label54.Name = "Label54"
+        Me.Label54.Size = New System.Drawing.Size(90, 18)
+        Me.Label54.TabIndex = 133
+        Me.Label54.Text = "Boekingsoort"
         '
-        'Label123
+        'Btn_Journal_Intern_Save
         '
-        Me.Label123.AutoSize = True
-        Me.Label123.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label123.Location = New System.Drawing.Point(160, 15)
-        Me.Label123.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label123.Name = "Label123"
-        Me.Label123.Size = New System.Drawing.Size(24, 18)
-        Me.Label123.TabIndex = 51
-        Me.Label123.Text = "Bij"
-        '
-        'Gbx_Boekingen_Overboeking
-        '
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Lbl_Journal_Source_Restamt)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Btn_Journal_Recalculate)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Label129)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Label121)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Lbl_Journal_Source_Name)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Lbl_Journal_Source_id)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Dtp_Journal_intern)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Label128)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Tbx_Journal_Description)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Btn_Journal_Add_Source)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Lbl_Journal_Source_Saldo)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Label125)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Label95)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Btn_Select_Bulk)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Dgv_Journal_Intern)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Btn_Journal_Intern_Save)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Tbx_Journal_Source_Amt)
-        Me.Gbx_Boekingen_Overboeking.Controls.Add(Me.Btn_Journals_Cancel)
-        Me.Gbx_Boekingen_Overboeking.Location = New System.Drawing.Point(16, 32)
-        Me.Gbx_Boekingen_Overboeking.Margin = New System.Windows.Forms.Padding(2)
-        Me.Gbx_Boekingen_Overboeking.Name = "Gbx_Boekingen_Overboeking"
-        Me.Gbx_Boekingen_Overboeking.Padding = New System.Windows.Forms.Padding(2)
-        Me.Gbx_Boekingen_Overboeking.Size = New System.Drawing.Size(226, 597)
-        Me.Gbx_Boekingen_Overboeking.TabIndex = 48
-        Me.Gbx_Boekingen_Overboeking.TabStop = False
-        '
-        'Lbl_Journal_Source_Restamt
-        '
-        Me.Lbl_Journal_Source_Restamt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Journal_Source_Restamt.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Journal_Source_Restamt.Location = New System.Drawing.Point(140, 381)
-        Me.Lbl_Journal_Source_Restamt.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Journal_Source_Restamt.Name = "Lbl_Journal_Source_Restamt"
-        Me.Lbl_Journal_Source_Restamt.Size = New System.Drawing.Size(75, 24)
-        Me.Lbl_Journal_Source_Restamt.TabIndex = 132
-        Me.Lbl_Journal_Source_Restamt.Text = "0"
-        Me.Lbl_Journal_Source_Restamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Btn_Journal_Intern_Save.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Btn_Journal_Intern_Save.Image = Global.SPAS.My.Resources.Resources.Save_16x16
+        Me.Btn_Journal_Intern_Save.Location = New System.Drawing.Point(639, 5)
+        Me.Btn_Journal_Intern_Save.Margin = New System.Windows.Forms.Padding(2)
+        Me.Btn_Journal_Intern_Save.Name = "Btn_Journal_Intern_Save"
+        Me.Btn_Journal_Intern_Save.Size = New System.Drawing.Size(31, 32)
+        Me.Btn_Journal_Intern_Save.TabIndex = 46
+        Me.Btn_Journal_Intern_Save.UseVisualStyleBackColor = True
+        Me.Btn_Journal_Intern_Save.Visible = False
         '
         'Btn_Journal_Recalculate
         '
-        Me.Btn_Journal_Recalculate.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Btn_Journal_Recalculate.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Btn_Journal_Recalculate.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Btn_Journal_Recalculate.Image = Global.SPAS.My.Resources.Resources.divide_16
-        Me.Btn_Journal_Recalculate.Location = New System.Drawing.Point(121, 561)
+        Me.Btn_Journal_Recalculate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Btn_Journal_Recalculate.Location = New System.Drawing.Point(387, 38)
         Me.Btn_Journal_Recalculate.Name = "Btn_Journal_Recalculate"
-        Me.Btn_Journal_Recalculate.Size = New System.Drawing.Size(31, 32)
+        Me.Btn_Journal_Recalculate.Size = New System.Drawing.Size(316, 35)
         Me.Btn_Journal_Recalculate.TabIndex = 131
+        Me.Btn_Journal_Recalculate.Text = "Verdeel bedrag  gelijkelijk over alle doelen"
+        Me.Btn_Journal_Recalculate.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Btn_Journal_Recalculate.UseVisualStyleBackColor = True
         '
-        'Label129
+        'Btn_Journals_Cancel
         '
-        Me.Label129.AutoSize = True
-        Me.Label129.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label129.Location = New System.Drawing.Point(6, 383)
-        Me.Label129.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label129.Name = "Label129"
-        Me.Label129.Size = New System.Drawing.Size(108, 18)
-        Me.Label129.TabIndex = 130
-        Me.Label129.Text = "Nog te verdelen"
+        Me.Btn_Journals_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Btn_Journals_Cancel.Image = Global.SPAS.My.Resources.Resources.Cancel_16x16
+        Me.Btn_Journals_Cancel.Location = New System.Drawing.Point(672, 5)
+        Me.Btn_Journals_Cancel.Name = "Btn_Journals_Cancel"
+        Me.Btn_Journals_Cancel.Size = New System.Drawing.Size(31, 32)
+        Me.Btn_Journals_Cancel.TabIndex = 43
+        Me.Btn_Journals_Cancel.UseVisualStyleBackColor = True
+        Me.Btn_Journals_Cancel.Visible = False
+        '
+        'Btn_Select_Bulk
+        '
+        Me.Btn_Select_Bulk.Image = Global.SPAS.My.Resources.Resources.arrow_31_24
+        Me.Btn_Select_Bulk.Location = New System.Drawing.Point(8, -1)
+        Me.Btn_Select_Bulk.Name = "Btn_Select_Bulk"
+        Me.Btn_Select_Bulk.Size = New System.Drawing.Size(31, 32)
+        Me.Btn_Select_Bulk.TabIndex = 50
+        Me.Btn_Select_Bulk.UseVisualStyleBackColor = True
         '
         'Label121
         '
         Me.Label121.AutoSize = True
         Me.Label121.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label121.Location = New System.Drawing.Point(6, 155)
+        Me.Label121.Location = New System.Drawing.Point(46, 5)
         Me.Label121.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label121.Name = "Label121"
         Me.Label121.Size = New System.Drawing.Size(101, 18)
         Me.Label121.TabIndex = 129
         Me.Label121.Text = "Doelaccount(s)"
         '
-        'Lbl_Journal_Source_Name
-        '
-        Me.Lbl_Journal_Source_Name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Journal_Source_Name.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Journal_Source_Name.Location = New System.Drawing.Point(8, 100)
-        Me.Lbl_Journal_Source_Name.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Journal_Source_Name.Name = "Lbl_Journal_Source_Name"
-        Me.Lbl_Journal_Source_Name.Size = New System.Drawing.Size(142, 24)
-        Me.Lbl_Journal_Source_Name.TabIndex = 128
-        Me.Lbl_Journal_Source_Name.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Lbl_Journal_Source_id
-        '
-        Me.Lbl_Journal_Source_id.AutoSize = True
-        Me.Lbl_Journal_Source_id.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Journal_Source_id.Location = New System.Drawing.Point(122, 79)
-        Me.Lbl_Journal_Source_id.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Journal_Source_id.Name = "Lbl_Journal_Source_id"
-        Me.Lbl_Journal_Source_id.Size = New System.Drawing.Size(37, 18)
-        Me.Lbl_Journal_Source_id.TabIndex = 127
-        Me.Lbl_Journal_Source_id.Text = "ac.id"
-        Me.Lbl_Journal_Source_id.Visible = False
-        '
         'Dtp_Journal_intern
         '
         Me.Dtp_Journal_intern.CalendarFont = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dtp_Journal_intern.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dtp_Journal_intern.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_Journal_intern.Location = New System.Drawing.Point(106, 517)
+        Me.Dtp_Journal_intern.Location = New System.Drawing.Point(387, 112)
         Me.Dtp_Journal_intern.Margin = New System.Windows.Forms.Padding(2)
         Me.Dtp_Journal_intern.Name = "Dtp_Journal_intern"
         Me.Dtp_Journal_intern.Size = New System.Drawing.Size(110, 25)
         Me.Dtp_Journal_intern.TabIndex = 124
         Me.Dtp_Journal_intern.Value = New Date(2020, 7, 4, 0, 0, 0, 0)
         '
-        'Label128
-        '
-        Me.Label128.AutoSize = True
-        Me.Label128.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label128.Location = New System.Drawing.Point(3, 517)
-        Me.Label128.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(49, 18)
-        Me.Label128.TabIndex = 124
-        Me.Label128.Text = "Datum"
-        '
-        'Tbx_Journal_Description
-        '
-        Me.Tbx_Journal_Description.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_Journal_Description.Location = New System.Drawing.Point(4, 444)
-        Me.Tbx_Journal_Description.Margin = New System.Windows.Forms.Padding(2)
-        Me.Tbx_Journal_Description.Multiline = True
-        Me.Tbx_Journal_Description.Name = "Tbx_Journal_Description"
-        Me.Tbx_Journal_Description.Size = New System.Drawing.Size(213, 68)
-        Me.Tbx_Journal_Description.TabIndex = 52
-        '
-        'Btn_Journal_Add_Source
-        '
-        Me.Btn_Journal_Add_Source.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Journal_Add_Source.Image = CType(resources.GetObject("Btn_Journal_Add_Source.Image"), System.Drawing.Image)
-        Me.Btn_Journal_Add_Source.Location = New System.Drawing.Point(186, 63)
-        Me.Btn_Journal_Add_Source.Name = "Btn_Journal_Add_Source"
-        Me.Btn_Journal_Add_Source.Size = New System.Drawing.Size(31, 32)
-        Me.Btn_Journal_Add_Source.TabIndex = 127
-        Me.Btn_Journal_Add_Source.UseVisualStyleBackColor = True
-        '
-        'Lbl_Journal_Source_Saldo
-        '
-        Me.Lbl_Journal_Source_Saldo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Lbl_Journal_Source_Saldo.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Journal_Source_Saldo.Location = New System.Drawing.Point(28, 40)
-        Me.Lbl_Journal_Source_Saldo.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Lbl_Journal_Source_Saldo.Name = "Lbl_Journal_Source_Saldo"
-        Me.Lbl_Journal_Source_Saldo.Size = New System.Drawing.Size(64, 24)
-        Me.Lbl_Journal_Source_Saldo.TabIndex = 123
-        Me.Lbl_Journal_Source_Saldo.Text = "0"
-        Me.Lbl_Journal_Source_Saldo.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Lbl_Journal_Source_Saldo.Visible = False
-        '
-        'Label125
-        '
-        Me.Label125.AutoSize = True
-        Me.Label125.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label125.Location = New System.Drawing.Point(6, 423)
-        Me.Label125.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label125.Name = "Label125"
-        Me.Label125.Size = New System.Drawing.Size(75, 18)
-        Me.Label125.TabIndex = 52
-        Me.Label125.Text = "Toelichting"
-        '
-        'Label95
-        '
-        Me.Label95.AutoSize = True
-        Me.Label95.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label95.Location = New System.Drawing.Point(6, 79)
-        Me.Label95.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label95.Name = "Label95"
-        Me.Label95.Size = New System.Drawing.Size(85, 18)
-        Me.Label95.TabIndex = 8
-        Me.Label95.Text = "Bronaccount"
-        '
-        'Btn_Select_Bulk
-        '
-        Me.Btn_Select_Bulk.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Select_Bulk.Image = CType(resources.GetObject("Btn_Select_Bulk.Image"), System.Drawing.Image)
-        Me.Btn_Select_Bulk.Location = New System.Drawing.Point(186, 146)
-        Me.Btn_Select_Bulk.Name = "Btn_Select_Bulk"
-        Me.Btn_Select_Bulk.Size = New System.Drawing.Size(31, 32)
-        Me.Btn_Select_Bulk.TabIndex = 50
-        Me.Btn_Select_Bulk.UseVisualStyleBackColor = True
-        '
         'Dgv_Journal_Intern
         '
         Me.Dgv_Journal_Intern.AllowUserToAddRows = False
         Me.Dgv_Journal_Intern.AllowUserToDeleteRows = False
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Dgv_Journal_Intern.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle40.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Journal_Intern.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle40
+        Me.Dgv_Journal_Intern.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Dgv_Journal_Intern.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Dgv_Journal_Intern.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.Dgv_Journal_Intern.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.id1, Me.Accnt, Me.Amt1})
-        Me.Dgv_Journal_Intern.Location = New System.Drawing.Point(8, 182)
+        Me.Dgv_Journal_Intern.Location = New System.Drawing.Point(50, 37)
         Me.Dgv_Journal_Intern.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Journal_Intern.Name = "Dgv_Journal_Intern"
         Me.Dgv_Journal_Intern.RowHeadersVisible = False
         Me.Dgv_Journal_Intern.RowHeadersWidth = 50
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dgv_Journal_Intern.RowsDefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle41.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Journal_Intern.RowsDefaultCellStyle = DataGridViewCellStyle41
         Me.Dgv_Journal_Intern.RowTemplate.Height = 20
-        Me.Dgv_Journal_Intern.Size = New System.Drawing.Size(206, 186)
+        Me.Dgv_Journal_Intern.Size = New System.Drawing.Size(236, 376)
         Me.Dgv_Journal_Intern.TabIndex = 45
         '
         'id1
@@ -5616,36 +5789,330 @@ Partial Class SPAS
         Me.Amt1.Name = "Amt1"
         Me.Amt1.Width = 200
         '
-        'Btn_Journal_Intern_Save
+        'Label128
         '
-        Me.Btn_Journal_Intern_Save.Image = Global.SPAS.My.Resources.Resources.Save_16x16
-        Me.Btn_Journal_Intern_Save.Location = New System.Drawing.Point(191, 561)
-        Me.Btn_Journal_Intern_Save.Margin = New System.Windows.Forms.Padding(2)
-        Me.Btn_Journal_Intern_Save.Name = "Btn_Journal_Intern_Save"
-        Me.Btn_Journal_Intern_Save.Size = New System.Drawing.Size(31, 32)
-        Me.Btn_Journal_Intern_Save.TabIndex = 46
-        Me.Btn_Journal_Intern_Save.UseVisualStyleBackColor = True
+        Me.Label128.AutoSize = True
+        Me.Label128.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label128.Location = New System.Drawing.Point(308, 118)
+        Me.Label128.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label128.Name = "Label128"
+        Me.Label128.Size = New System.Drawing.Size(49, 18)
+        Me.Label128.TabIndex = 124
+        Me.Label128.Text = "Datum"
+        '
+        'Label125
+        '
+        Me.Label125.AutoSize = True
+        Me.Label125.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label125.Location = New System.Drawing.Point(308, 176)
+        Me.Label125.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label125.Name = "Label125"
+        Me.Label125.Size = New System.Drawing.Size(75, 18)
+        Me.Label125.TabIndex = 52
+        Me.Label125.Text = "Toelichting"
+        '
+        'Tbx_Journal_Description
+        '
+        Me.Tbx_Journal_Description.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Tbx_Journal_Description.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tbx_Journal_Description.Location = New System.Drawing.Point(387, 176)
+        Me.Tbx_Journal_Description.Margin = New System.Windows.Forms.Padding(2)
+        Me.Tbx_Journal_Description.Multiline = True
+        Me.Tbx_Journal_Description.Name = "Tbx_Journal_Description"
+        Me.Tbx_Journal_Description.Size = New System.Drawing.Size(324, 215)
+        Me.Tbx_Journal_Description.TabIndex = 52
+        '
+        'Panel7
+        '
+        Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel7.Controls.Add(Me.Label26)
+        Me.Panel7.Controls.Add(Me.Btn_Journal_Add_Source)
+        Me.Panel7.Controls.Add(Me.Label95)
+        Me.Panel7.Controls.Add(Me.Lbl_Journal_Source_Name)
+        Me.Panel7.Controls.Add(Me.Tbx_Journal_Source_Amt)
+        Me.Panel7.Controls.Add(Me.Lbl_Journal_Source_Saldo)
+        Me.Panel7.Controls.Add(Me.Lbl_Journal_Source_Restamt)
+        Me.Panel7.Controls.Add(Me.Lbl_Journal_Source_id)
+        Me.Panel7.Controls.Add(Me.Label129)
+        Me.Panel7.Location = New System.Drawing.Point(10, 8)
+        Me.Panel7.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel7.Name = "Panel7"
+        Me.Panel7.Size = New System.Drawing.Size(717, 78)
+        Me.Panel7.TabIndex = 49
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label26.Location = New System.Drawing.Point(198, 12)
+        Me.Label26.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(51, 18)
+        Me.Label26.TabIndex = 131
+        Me.Label26.Text = "Bedrag"
+        '
+        'Btn_Journal_Add_Source
+        '
+        Me.Btn_Journal_Add_Source.Image = Global.SPAS.My.Resources.Resources.arrow_31_24
+        Me.Btn_Journal_Add_Source.Location = New System.Drawing.Point(8, 3)
+        Me.Btn_Journal_Add_Source.Name = "Btn_Journal_Add_Source"
+        Me.Btn_Journal_Add_Source.Size = New System.Drawing.Size(31, 32)
+        Me.Btn_Journal_Add_Source.TabIndex = 127
+        Me.Btn_Journal_Add_Source.UseVisualStyleBackColor = True
+        '
+        'Label95
+        '
+        Me.Label95.AutoSize = True
+        Me.Label95.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label95.Location = New System.Drawing.Point(46, 9)
+        Me.Label95.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label95.Name = "Label95"
+        Me.Label95.Size = New System.Drawing.Size(85, 18)
+        Me.Label95.TabIndex = 8
+        Me.Label95.Text = "Bronaccount"
+        '
+        'Lbl_Journal_Source_Name
+        '
+        Me.Lbl_Journal_Source_Name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Lbl_Journal_Source_Name.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Journal_Source_Name.Location = New System.Drawing.Point(50, 37)
+        Me.Lbl_Journal_Source_Name.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Journal_Source_Name.Name = "Lbl_Journal_Source_Name"
+        Me.Lbl_Journal_Source_Name.Size = New System.Drawing.Size(142, 24)
+        Me.Lbl_Journal_Source_Name.TabIndex = 128
+        Me.Lbl_Journal_Source_Name.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Tbx_Journal_Source_Amt
         '
         Me.Tbx_Journal_Source_Amt.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Journal_Source_Amt.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.Tbx_Journal_Source_Amt.Location = New System.Drawing.Point(152, 100)
+        Me.Tbx_Journal_Source_Amt.Location = New System.Drawing.Point(201, 38)
         Me.Tbx_Journal_Source_Amt.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Journal_Source_Amt.Name = "Tbx_Journal_Source_Amt"
-        Me.Tbx_Journal_Source_Amt.Size = New System.Drawing.Size(64, 25)
+        Me.Tbx_Journal_Source_Amt.Size = New System.Drawing.Size(85, 25)
         Me.Tbx_Journal_Source_Amt.TabIndex = 44
         Me.Tbx_Journal_Source_Amt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'Btn_Journals_Cancel
+        'Lbl_Journal_Source_Saldo
         '
-        Me.Btn_Journals_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Journals_Cancel.Image = Global.SPAS.My.Resources.Resources.Cancel_16x16
-        Me.Btn_Journals_Cancel.Location = New System.Drawing.Point(155, 561)
-        Me.Btn_Journals_Cancel.Name = "Btn_Journals_Cancel"
-        Me.Btn_Journals_Cancel.Size = New System.Drawing.Size(31, 32)
-        Me.Btn_Journals_Cancel.TabIndex = 43
-        Me.Btn_Journals_Cancel.UseVisualStyleBackColor = True
+        Me.Lbl_Journal_Source_Saldo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Lbl_Journal_Source_Saldo.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Journal_Source_Saldo.Location = New System.Drawing.Point(465, 12)
+        Me.Lbl_Journal_Source_Saldo.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Journal_Source_Saldo.Name = "Lbl_Journal_Source_Saldo"
+        Me.Lbl_Journal_Source_Saldo.Size = New System.Drawing.Size(34, 24)
+        Me.Lbl_Journal_Source_Saldo.TabIndex = 123
+        Me.Lbl_Journal_Source_Saldo.Text = "0"
+        Me.Lbl_Journal_Source_Saldo.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Lbl_Journal_Source_Saldo.Visible = False
+        '
+        'Lbl_Journal_Source_Restamt
+        '
+        Me.Lbl_Journal_Source_Restamt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Lbl_Journal_Source_Restamt.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Journal_Source_Restamt.Location = New System.Drawing.Point(304, 41)
+        Me.Lbl_Journal_Source_Restamt.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Journal_Source_Restamt.Name = "Lbl_Journal_Source_Restamt"
+        Me.Lbl_Journal_Source_Restamt.Size = New System.Drawing.Size(75, 24)
+        Me.Lbl_Journal_Source_Restamt.TabIndex = 132
+        Me.Lbl_Journal_Source_Restamt.Text = "0"
+        Me.Lbl_Journal_Source_Restamt.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Lbl_Journal_Source_id
+        '
+        Me.Lbl_Journal_Source_id.AutoSize = True
+        Me.Lbl_Journal_Source_id.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Journal_Source_id.Location = New System.Drawing.Point(462, 41)
+        Me.Lbl_Journal_Source_id.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Journal_Source_id.Name = "Lbl_Journal_Source_id"
+        Me.Lbl_Journal_Source_id.Size = New System.Drawing.Size(37, 18)
+        Me.Lbl_Journal_Source_id.TabIndex = 127
+        Me.Lbl_Journal_Source_id.Text = "ac.id"
+        Me.Lbl_Journal_Source_id.Visible = False
+        '
+        'Label129
+        '
+        Me.Label129.AutoSize = True
+        Me.Label129.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label129.Location = New System.Drawing.Point(301, 12)
+        Me.Label129.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label129.Name = "Label129"
+        Me.Label129.Size = New System.Drawing.Size(108, 18)
+        Me.Label129.TabIndex = 130
+        Me.Label129.Text = "Nog te verdelen"
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.Label149)
+        Me.Panel2.Controls.Add(Me.Cbx_Journal_Saldo_Open)
+        Me.Panel2.Controls.Add(Me.Label124)
+        Me.Panel2.Controls.Add(Me.Cbx_Journal_Status_Verwerkt)
+        Me.Panel2.Controls.Add(Me.Lbl_Journal_Status)
+        Me.Panel2.Controls.Add(Me.Cbx_Journal_Status_Open)
+        Me.Panel2.Controls.Add(Me.Cbx_Journal_Select_All)
+        Me.Panel2.Controls.Add(Me.Cbx_Journal_DeSelect_All)
+        Me.Panel2.Controls.Add(Me.Lbl_Boeking_Selecteer)
+        Me.Panel2.Controls.Add(Me.Tbx_Journal_Filter)
+        Me.Panel2.Controls.Add(Me.Lv_Journal_List)
+        Me.Panel2.Controls.Add(Me.Chbx_Journal_Inactive)
+        Me.Panel2.Controls.Add(Me.Cmx_Journal_List)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel2.Location = New System.Drawing.Point(2, 2)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(2)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(255, 566)
+        Me.Panel2.TabIndex = 134
+        '
+        'Label149
+        '
+        Me.Label149.AutoSize = True
+        Me.Label149.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label149.Location = New System.Drawing.Point(9, 66)
+        Me.Label149.Name = "Label149"
+        Me.Label149.Size = New System.Drawing.Size(38, 14)
+        Me.Label149.TabIndex = 139
+        Me.Label149.Text = "Saldo"
+        '
+        'Cbx_Journal_Saldo_Open
+        '
+        Me.Cbx_Journal_Saldo_Open.AutoSize = True
+        Me.Cbx_Journal_Saldo_Open.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cbx_Journal_Saldo_Open.Location = New System.Drawing.Point(63, 66)
+        Me.Cbx_Journal_Saldo_Open.Name = "Cbx_Journal_Saldo_Open"
+        Me.Cbx_Journal_Saldo_Open.Size = New System.Drawing.Size(70, 18)
+        Me.Cbx_Journal_Saldo_Open.TabIndex = 138
+        Me.Cbx_Journal_Saldo_Open.Text = "Niet nul"
+        Me.Cbx_Journal_Saldo_Open.UseVisualStyleBackColor = True
+        '
+        'Label124
+        '
+        Me.Label124.AutoSize = True
+        Me.Label124.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label124.Location = New System.Drawing.Point(8, 29)
+        Me.Label124.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label124.Name = "Label124"
+        Me.Label124.Size = New System.Drawing.Size(38, 18)
+        Me.Label124.TabIndex = 137
+        Me.Label124.Text = "Toon"
+        '
+        'Cbx_Journal_Status_Verwerkt
+        '
+        Me.Cbx_Journal_Status_Verwerkt.AutoSize = True
+        Me.Cbx_Journal_Status_Verwerkt.Checked = True
+        Me.Cbx_Journal_Status_Verwerkt.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.Cbx_Journal_Status_Verwerkt.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cbx_Journal_Status_Verwerkt.Location = New System.Drawing.Point(122, 48)
+        Me.Cbx_Journal_Status_Verwerkt.Name = "Cbx_Journal_Status_Verwerkt"
+        Me.Cbx_Journal_Status_Verwerkt.Size = New System.Drawing.Size(73, 18)
+        Me.Cbx_Journal_Status_Verwerkt.TabIndex = 135
+        Me.Cbx_Journal_Status_Verwerkt.Text = "Verwerkt"
+        Me.Cbx_Journal_Status_Verwerkt.UseVisualStyleBackColor = True
+        '
+        'Lbl_Journal_Status
+        '
+        Me.Lbl_Journal_Status.AutoSize = True
+        Me.Lbl_Journal_Status.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Journal_Status.Location = New System.Drawing.Point(9, 49)
+        Me.Lbl_Journal_Status.Name = "Lbl_Journal_Status"
+        Me.Lbl_Journal_Status.Size = New System.Drawing.Size(41, 14)
+        Me.Lbl_Journal_Status.TabIndex = 136
+        Me.Lbl_Journal_Status.Text = "Status"
+        '
+        'Cbx_Journal_Status_Open
+        '
+        Me.Cbx_Journal_Status_Open.AutoSize = True
+        Me.Cbx_Journal_Status_Open.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cbx_Journal_Status_Open.Location = New System.Drawing.Point(63, 48)
+        Me.Cbx_Journal_Status_Open.Name = "Cbx_Journal_Status_Open"
+        Me.Cbx_Journal_Status_Open.Size = New System.Drawing.Size(55, 18)
+        Me.Cbx_Journal_Status_Open.TabIndex = 134
+        Me.Cbx_Journal_Status_Open.Text = "Open"
+        Me.Cbx_Journal_Status_Open.UseVisualStyleBackColor = True
+        '
+        'Cbx_Journal_Select_All
+        '
+        Me.Cbx_Journal_Select_All.AutoSize = True
+        Me.Cbx_Journal_Select_All.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cbx_Journal_Select_All.Location = New System.Drawing.Point(64, 29)
+        Me.Cbx_Journal_Select_All.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cbx_Journal_Select_All.Name = "Cbx_Journal_Select_All"
+        Me.Cbx_Journal_Select_All.Size = New System.Drawing.Size(54, 18)
+        Me.Cbx_Journal_Select_All.TabIndex = 131
+        Me.Cbx_Journal_Select_All.Text = "Alles"
+        Me.Cbx_Journal_Select_All.UseVisualStyleBackColor = True
+        '
+        'Cbx_Journal_DeSelect_All
+        '
+        Me.Cbx_Journal_DeSelect_All.AutoSize = True
+        Me.Cbx_Journal_DeSelect_All.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cbx_Journal_DeSelect_All.Location = New System.Drawing.Point(122, 29)
+        Me.Cbx_Journal_DeSelect_All.Margin = New System.Windows.Forms.Padding(2)
+        Me.Cbx_Journal_DeSelect_All.Name = "Cbx_Journal_DeSelect_All"
+        Me.Cbx_Journal_DeSelect_All.Size = New System.Drawing.Size(55, 18)
+        Me.Cbx_Journal_DeSelect_All.TabIndex = 131
+        Me.Cbx_Journal_DeSelect_All.Text = "Niets"
+        Me.Cbx_Journal_DeSelect_All.UseVisualStyleBackColor = True
+        '
+        'Lbl_Boeking_Selecteer
+        '
+        Me.Lbl_Boeking_Selecteer.AutoSize = True
+        Me.Lbl_Boeking_Selecteer.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Boeking_Selecteer.Location = New System.Drawing.Point(7, 3)
+        Me.Lbl_Boeking_Selecteer.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Lbl_Boeking_Selecteer.Name = "Lbl_Boeking_Selecteer"
+        Me.Lbl_Boeking_Selecteer.Size = New System.Drawing.Size(70, 17)
+        Me.Lbl_Boeking_Selecteer.TabIndex = 127
+        Me.Lbl_Boeking_Selecteer.Text = "Selecteer"
+        '
+        'Tbx_Journal_Filter
+        '
+        Me.Tbx_Journal_Filter.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tbx_Journal_Filter.Location = New System.Drawing.Point(200, 44)
+        Me.Tbx_Journal_Filter.Margin = New System.Windows.Forms.Padding(2)
+        Me.Tbx_Journal_Filter.Name = "Tbx_Journal_Filter"
+        Me.Tbx_Journal_Filter.Size = New System.Drawing.Size(18, 25)
+        Me.Tbx_Journal_Filter.TabIndex = 57
+        Me.Tbx_Journal_Filter.Visible = False
+        '
+        'Lv_Journal_List
+        '
+        Me.Lv_Journal_List.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Lv_Journal_List.CheckBoxes = True
+        Me.Lv_Journal_List.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
+        Me.Lv_Journal_List.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lv_Journal_List.FullRowSelect = True
+        Me.Lv_Journal_List.HideSelection = False
+        Me.Lv_Journal_List.Location = New System.Drawing.Point(7, 95)
+        Me.Lv_Journal_List.Margin = New System.Windows.Forms.Padding(2)
+        Me.Lv_Journal_List.Name = "Lv_Journal_List"
+        Me.Lv_Journal_List.Size = New System.Drawing.Size(228, 468)
+        Me.Lv_Journal_List.TabIndex = 54
+        Me.Lv_Journal_List.UseCompatibleStateImageBehavior = False
+        '
+        'ColumnHeader1
+        '
+        Me.ColumnHeader1.Width = 0
+        '
+        'ColumnHeader2
+        '
+        Me.ColumnHeader2.Text = "Naam"
+        Me.ColumnHeader2.Width = 200
+        '
+        'Chbx_Journal_Inactive
+        '
+        Me.Chbx_Journal_Inactive.AutoSize = True
+        Me.Chbx_Journal_Inactive.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Chbx_Journal_Inactive.Location = New System.Drawing.Point(181, 29)
+        Me.Chbx_Journal_Inactive.Margin = New System.Windows.Forms.Padding(2)
+        Me.Chbx_Journal_Inactive.Name = "Chbx_Journal_Inactive"
+        Me.Chbx_Journal_Inactive.Size = New System.Drawing.Size(73, 18)
+        Me.Chbx_Journal_Inactive.TabIndex = 132
+        Me.Chbx_Journal_Inactive.Text = "+inactief"
+        Me.Chbx_Journal_Inactive.UseVisualStyleBackColor = True
         '
         'Cmx_Journal_List
         '
@@ -5653,78 +6120,353 @@ Partial Class SPAS
         Me.Cmx_Journal_List.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.Cmx_Journal_List.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cmx_Journal_List.FormattingEnabled = True
-        Me.Cmx_Journal_List.Items.AddRange(New Object() {"Alle accounts", "Kind", "Oudere", "Overig", "Categoriën", "CP", "Journaalnaam", "Accountgroep"})
-        Me.Cmx_Journal_List.Location = New System.Drawing.Point(354, 28)
+        Me.Cmx_Journal_List.Items.AddRange(New Object() {"Alle accounts", "Kind", "Oudere", "Overig", "Categoriën", "CP", "Journaalnaam", "Relaties"})
+        Me.Cmx_Journal_List.Location = New System.Drawing.Point(78, 2)
         Me.Cmx_Journal_List.Margin = New System.Windows.Forms.Padding(2)
         Me.Cmx_Journal_List.Name = "Cmx_Journal_List"
-        Me.Cmx_Journal_List.Size = New System.Drawing.Size(148, 25)
+        Me.Cmx_Journal_List.Size = New System.Drawing.Size(175, 25)
         Me.Cmx_Journal_List.TabIndex = 47
         '
         'Tab_Rapportage
         '
-        Me.Tab_Rapportage.Controls.Add(Me.Btn_Rapportage_Ververs)
-        Me.Tab_Rapportage.Controls.Add(Me.Dgv_Rapportage)
+        Me.Tab_Rapportage.Controls.Add(Me.TC_Rapportage)
         Me.Tab_Rapportage.Location = New System.Drawing.Point(4, 28)
         Me.Tab_Rapportage.Margin = New System.Windows.Forms.Padding(2)
         Me.Tab_Rapportage.Name = "Tab_Rapportage"
         Me.Tab_Rapportage.Padding = New System.Windows.Forms.Padding(2)
-        Me.Tab_Rapportage.Size = New System.Drawing.Size(1107, 639)
+        Me.Tab_Rapportage.Size = New System.Drawing.Size(1022, 570)
         Me.Tab_Rapportage.TabIndex = 5
         Me.Tab_Rapportage.Text = "Rapportage "
         Me.Tab_Rapportage.UseVisualStyleBackColor = True
         '
-        'Btn_Rapportage_Ververs
+        'TC_Rapportage
         '
-        Me.Btn_Rapportage_Ververs.Image = Global.SPAS.My.Resources.Resources.Refresh_16x16
-        Me.Btn_Rapportage_Ververs.Location = New System.Drawing.Point(21, 29)
-        Me.Btn_Rapportage_Ververs.Name = "Btn_Rapportage_Ververs"
-        Me.Btn_Rapportage_Ververs.Size = New System.Drawing.Size(43, 40)
-        Me.Btn_Rapportage_Ververs.TabIndex = 115
-        Me.Btn_Rapportage_Ververs.UseVisualStyleBackColor = True
+        Me.TC_Rapportage.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TC_Rapportage.Controls.Add(Me.Journaal)
+        Me.TC_Rapportage.Controls.Add(Me.Bank)
+        Me.TC_Rapportage.Controls.Add(Me.Details)
+        Me.TC_Rapportage.Controls.Add(Me.TC_Controles)
+        Me.TC_Rapportage.Controls.Add(Me.Overhead)
+        Me.TC_Rapportage.Controls.Add(Me.TC_Boekingen)
+        Me.TC_Rapportage.Controls.Add(Me.Jaarafsluiting)
+        Me.TC_Rapportage.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TC_Rapportage.Location = New System.Drawing.Point(16, 5)
+        Me.TC_Rapportage.Name = "TC_Rapportage"
+        Me.TC_Rapportage.SelectedIndex = 0
+        Me.TC_Rapportage.Size = New System.Drawing.Size(1010, 559)
+        Me.TC_Rapportage.TabIndex = 117
+        '
+        'Journaal
+        '
+        Me.Journaal.Controls.Add(Me.Dgv_Rapportage_Overzicht)
+        Me.Journaal.Location = New System.Drawing.Point(4, 28)
+        Me.Journaal.Name = "Journaal"
+        Me.Journaal.Padding = New System.Windows.Forms.Padding(3)
+        Me.Journaal.Size = New System.Drawing.Size(1002, 527)
+        Me.Journaal.TabIndex = 1
+        Me.Journaal.Tag = "report_overzicht"
+        Me.Journaal.Text = "Overzicht"
+        Me.Journaal.UseVisualStyleBackColor = True
+        '
+        'Dgv_Rapportage_Overzicht
+        '
+        Me.Dgv_Rapportage_Overzicht.AllowUserToAddRows = False
+        Me.Dgv_Rapportage_Overzicht.AllowUserToDeleteRows = False
+        DataGridViewCellStyle42.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Rapportage_Overzicht.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle42
+        Me.Dgv_Rapportage_Overzicht.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Dgv_Rapportage_Overzicht.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.Dgv_Rapportage_Overzicht.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.Dgv_Rapportage_Overzicht.Location = New System.Drawing.Point(5, 6)
+        Me.Dgv_Rapportage_Overzicht.Margin = New System.Windows.Forms.Padding(2)
+        Me.Dgv_Rapportage_Overzicht.Name = "Dgv_Rapportage_Overzicht"
+        Me.Dgv_Rapportage_Overzicht.RowHeadersVisible = False
+        Me.Dgv_Rapportage_Overzicht.RowHeadersWidth = 50
+        DataGridViewCellStyle43.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Rapportage_Overzicht.RowsDefaultCellStyle = DataGridViewCellStyle43
+        Me.Dgv_Rapportage_Overzicht.RowTemplate.Height = 20
+        Me.Dgv_Rapportage_Overzicht.Size = New System.Drawing.Size(994, 499)
+        Me.Dgv_Rapportage_Overzicht.TabIndex = 76
+        '
+        'Bank
+        '
+        Me.Bank.Controls.Add(Me.Dgv_Rapportage)
+        Me.Bank.Location = New System.Drawing.Point(4, 28)
+        Me.Bank.Name = "Bank"
+        Me.Bank.Padding = New System.Windows.Forms.Padding(3)
+        Me.Bank.Size = New System.Drawing.Size(1002, 527)
+        Me.Bank.TabIndex = 0
+        Me.Bank.Tag = "report_bank_overview"
+        Me.Bank.Text = "Bank"
+        Me.Bank.UseVisualStyleBackColor = True
         '
         'Dgv_Rapportage
         '
         Me.Dgv_Rapportage.AllowUserToAddRows = False
         Me.Dgv_Rapportage.AllowUserToDeleteRows = False
-        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Dgv_Rapportage.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle44.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Rapportage.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle44
+        Me.Dgv_Rapportage.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Dgv_Rapportage.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Dgv_Rapportage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Dgv_Rapportage.Location = New System.Drawing.Point(85, 29)
+        Me.Dgv_Rapportage.Location = New System.Drawing.Point(5, 6)
         Me.Dgv_Rapportage.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Rapportage.Name = "Dgv_Rapportage"
         Me.Dgv_Rapportage.RowHeadersVisible = False
         Me.Dgv_Rapportage.RowHeadersWidth = 50
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dgv_Rapportage.RowsDefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle45.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Rapportage.RowsDefaultCellStyle = DataGridViewCellStyle45
         Me.Dgv_Rapportage.RowTemplate.Height = 20
-        Me.Dgv_Rapportage.Size = New System.Drawing.Size(982, 589)
-        Me.Dgv_Rapportage.TabIndex = 74
+        Me.Dgv_Rapportage.Size = New System.Drawing.Size(975, 499)
+        Me.Dgv_Rapportage.TabIndex = 75
+        '
+        'Details
+        '
+        Me.Details.Controls.Add(Me.Dgv_Rapportage_Details)
+        Me.Details.Location = New System.Drawing.Point(4, 28)
+        Me.Details.Name = "Details"
+        Me.Details.Padding = New System.Windows.Forms.Padding(3)
+        Me.Details.Size = New System.Drawing.Size(1002, 527)
+        Me.Details.TabIndex = 2
+        Me.Details.Tag = "report_bank_analysis"
+        Me.Details.Text = "Details ING rekeningen"
+        Me.Details.UseVisualStyleBackColor = True
+        '
+        'Dgv_Rapportage_Details
+        '
+        DataGridViewCellStyle46.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Rapportage_Details.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle46
+        Me.Dgv_Rapportage_Details.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Dgv_Rapportage_Details.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.Dgv_Rapportage_Details.Location = New System.Drawing.Point(6, 6)
+        Me.Dgv_Rapportage_Details.Name = "Dgv_Rapportage_Details"
+        Me.Dgv_Rapportage_Details.RowHeadersVisible = False
+        Me.Dgv_Rapportage_Details.RowHeadersWidth = 82
+        Me.Dgv_Rapportage_Details.RowsDefaultCellStyle = DataGridViewCellStyle45
+        Me.Dgv_Rapportage_Details.RowTemplate.Height = 20
+        Me.Dgv_Rapportage_Details.Size = New System.Drawing.Size(974, 497)
+        Me.Dgv_Rapportage_Details.TabIndex = 0
+        '
+        'TC_Controles
+        '
+        Me.TC_Controles.Controls.Add(Me.Cmx_Report5)
+        Me.TC_Controles.Controls.Add(Me.Dgv_Report_5)
+        Me.TC_Controles.Location = New System.Drawing.Point(4, 28)
+        Me.TC_Controles.Name = "TC_Controles"
+        Me.TC_Controles.Padding = New System.Windows.Forms.Padding(3)
+        Me.TC_Controles.Size = New System.Drawing.Size(1002, 527)
+        Me.TC_Controles.TabIndex = 4
+        Me.TC_Controles.Tag = "report_collection1"
+        Me.TC_Controles.Text = "Controles"
+        Me.TC_Controles.UseVisualStyleBackColor = True
+        '
+        'Cmx_Report5
+        '
+        Me.Cmx_Report5.FormattingEnabled = True
+        Me.Cmx_Report5.Location = New System.Drawing.Point(10, 20)
+        Me.Cmx_Report5.Name = "Cmx_Report5"
+        Me.Cmx_Report5.Size = New System.Drawing.Size(213, 27)
+        Me.Cmx_Report5.TabIndex = 3
+        '
+        'Dgv_Report_5
+        '
+        DataGridViewCellStyle47.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Report_5.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle47
+        Me.Dgv_Report_5.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Dgv_Report_5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.Dgv_Report_5.Location = New System.Drawing.Point(10, 53)
+        Me.Dgv_Report_5.Name = "Dgv_Report_5"
+        Me.Dgv_Report_5.RowHeadersVisible = False
+        Me.Dgv_Report_5.RowHeadersWidth = 82
+        DataGridViewCellStyle48.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Report_5.RowsDefaultCellStyle = DataGridViewCellStyle48
+        Me.Dgv_Report_5.RowTemplate.Height = 20
+        Me.Dgv_Report_5.Size = New System.Drawing.Size(972, 465)
+        Me.Dgv_Report_5.TabIndex = 1
+        '
+        'Overhead
+        '
+        Me.Overhead.Controls.Add(Me.Dgv_Report_7)
+        Me.Overhead.Location = New System.Drawing.Point(4, 28)
+        Me.Overhead.Name = "Overhead"
+        Me.Overhead.Padding = New System.Windows.Forms.Padding(3)
+        Me.Overhead.Size = New System.Drawing.Size(1002, 527)
+        Me.Overhead.TabIndex = 6
+        Me.Overhead.Tag = "report_collection2"
+        Me.Overhead.Text = "Overhead"
+        Me.Overhead.UseVisualStyleBackColor = True
+        '
+        'Dgv_Report_7
+        '
+        Me.Dgv_Report_7.AllowUserToAddRows = False
+        Me.Dgv_Report_7.AllowUserToDeleteRows = False
+        Me.Dgv_Report_7.AllowUserToOrderColumns = True
+        DataGridViewCellStyle49.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Report_7.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle49
+        Me.Dgv_Report_7.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Dgv_Report_7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.Dgv_Report_7.Location = New System.Drawing.Point(3, 6)
+        Me.Dgv_Report_7.Name = "Dgv_Report_7"
+        Me.Dgv_Report_7.ReadOnly = True
+        Me.Dgv_Report_7.RowHeadersVisible = False
+        Me.Dgv_Report_7.RowHeadersWidth = 82
+        DataGridViewCellStyle50.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Report_7.RowsDefaultCellStyle = DataGridViewCellStyle50
+        Me.Dgv_Report_7.RowTemplate.Height = 20
+        Me.Dgv_Report_7.Size = New System.Drawing.Size(996, 512)
+        Me.Dgv_Report_7.TabIndex = 2
+        Me.ToolTip1.SetToolTip(Me.Dgv_Report_7, "Dubbelklik voor detailboekingen")
+        '
+        'TC_Boekingen
+        '
+        Me.TC_Boekingen.Controls.Add(Me.Tbx_Report6_Add)
+        Me.TC_Boekingen.Controls.Add(Me.Dgv_Report_6)
+        Me.TC_Boekingen.Location = New System.Drawing.Point(4, 28)
+        Me.TC_Boekingen.Name = "TC_Boekingen"
+        Me.TC_Boekingen.Padding = New System.Windows.Forms.Padding(3)
+        Me.TC_Boekingen.Size = New System.Drawing.Size(1002, 527)
+        Me.TC_Boekingen.TabIndex = 5
+        Me.TC_Boekingen.Tag = "report_bookings"
+        Me.TC_Boekingen.Text = "Boekingen"
+        Me.TC_Boekingen.UseVisualStyleBackColor = True
+        '
+        'Tbx_Report6_Add
+        '
+        Me.Tbx_Report6_Add.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Tbx_Report6_Add.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Tbx_Report6_Add.Location = New System.Drawing.Point(3, 443)
+        Me.Tbx_Report6_Add.Multiline = True
+        Me.Tbx_Report6_Add.Name = "Tbx_Report6_Add"
+        Me.Tbx_Report6_Add.Size = New System.Drawing.Size(993, 78)
+        Me.Tbx_Report6_Add.TabIndex = 60
+        '
+        'Dgv_Report_6
+        '
+        DataGridViewCellStyle51.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Report_6.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle51
+        Me.Dgv_Report_6.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Dgv_Report_6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.Dgv_Report_6.Location = New System.Drawing.Point(0, 6)
+        Me.Dgv_Report_6.Name = "Dgv_Report_6"
+        Me.Dgv_Report_6.RowHeadersVisible = False
+        Me.Dgv_Report_6.RowHeadersWidth = 82
+        DataGridViewCellStyle52.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Report_6.RowsDefaultCellStyle = DataGridViewCellStyle52
+        Me.Dgv_Report_6.RowTemplate.Height = 20
+        Me.Dgv_Report_6.Size = New System.Drawing.Size(994, 430)
+        Me.Dgv_Report_6.TabIndex = 2
+        '
+        'Jaarafsluiting
+        '
+        Me.Jaarafsluiting.Controls.Add(Me.Lbl_Report_total)
+        Me.Jaarafsluiting.Controls.Add(Me.Label108)
+        Me.Jaarafsluiting.Controls.Add(Me.Btn_Report_YearEnd_Post)
+        Me.Jaarafsluiting.Controls.Add(Me.Btn_Report_YearEnd_Show)
+        Me.Jaarafsluiting.Controls.Add(Me.Dgv_Report_Year_Closing)
+        Me.Jaarafsluiting.Location = New System.Drawing.Point(4, 28)
+        Me.Jaarafsluiting.Margin = New System.Windows.Forms.Padding(2)
+        Me.Jaarafsluiting.Name = "Jaarafsluiting"
+        Me.Jaarafsluiting.Padding = New System.Windows.Forms.Padding(2)
+        Me.Jaarafsluiting.Size = New System.Drawing.Size(1002, 527)
+        Me.Jaarafsluiting.TabIndex = 3
+        Me.Jaarafsluiting.Tag = "report_closing"
+        Me.Jaarafsluiting.Text = "Jaarafsluiting"
+        Me.Jaarafsluiting.UseVisualStyleBackColor = True
+        '
+        'Lbl_Report_total
+        '
+        Me.Lbl_Report_total.AutoSize = True
+        Me.Lbl_Report_total.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Lbl_Report_total.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Lbl_Report_total.Location = New System.Drawing.Point(10, 30)
+        Me.Lbl_Report_total.Name = "Lbl_Report_total"
+        Me.Lbl_Report_total.Size = New System.Drawing.Size(70, 21)
+        Me.Lbl_Report_total.TabIndex = 84
+        Me.Lbl_Report_total.Text = "Label124"
+        Me.Lbl_Report_total.Visible = False
+        '
+        'Label108
+        '
+        Me.Label108.AutoSize = True
+        Me.Label108.Location = New System.Drawing.Point(10, 5)
+        Me.Label108.Name = "Label108"
+        Me.Label108.Size = New System.Drawing.Size(158, 19)
+        Me.Label108.TabIndex = 83
+        Me.Label108.Text = "Transport volgend jaar:"
+        '
+        'Btn_Report_YearEnd_Post
+        '
+        Me.Btn_Report_YearEnd_Post.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Btn_Report_YearEnd_Post.Location = New System.Drawing.Point(10, 60)
+        Me.Btn_Report_YearEnd_Post.Margin = New System.Windows.Forms.Padding(2)
+        Me.Btn_Report_YearEnd_Post.Name = "Btn_Report_YearEnd_Post"
+        Me.Btn_Report_YearEnd_Post.Size = New System.Drawing.Size(168, 61)
+        Me.Btn_Report_YearEnd_Post.TabIndex = 81
+        Me.Btn_Report_YearEnd_Post.Text = "Voer jaarafsluiting uit"
+        Me.Btn_Report_YearEnd_Post.UseVisualStyleBackColor = True
+        Me.Btn_Report_YearEnd_Post.Visible = False
+        '
+        'Btn_Report_YearEnd_Show
+        '
+        Me.Btn_Report_YearEnd_Show.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Btn_Report_YearEnd_Show.Location = New System.Drawing.Point(10, 396)
+        Me.Btn_Report_YearEnd_Show.Margin = New System.Windows.Forms.Padding(2)
+        Me.Btn_Report_YearEnd_Show.Name = "Btn_Report_YearEnd_Show"
+        Me.Btn_Report_YearEnd_Show.Size = New System.Drawing.Size(168, 46)
+        Me.Btn_Report_YearEnd_Show.TabIndex = 78
+        Me.Btn_Report_YearEnd_Show.Text = "Toon posten met startsaldo"
+        Me.Btn_Report_YearEnd_Show.UseVisualStyleBackColor = True
+        Me.Btn_Report_YearEnd_Show.Visible = False
+        '
+        'Dgv_Report_Year_Closing
+        '
+        Me.Dgv_Report_Year_Closing.AllowUserToAddRows = False
+        Me.Dgv_Report_Year_Closing.AllowUserToDeleteRows = False
+        DataGridViewCellStyle53.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Report_Year_Closing.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle53
+        Me.Dgv_Report_Year_Closing.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Dgv_Report_Year_Closing.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.Dgv_Report_Year_Closing.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.Dgv_Report_Year_Closing.Location = New System.Drawing.Point(196, 5)
+        Me.Dgv_Report_Year_Closing.Margin = New System.Windows.Forms.Padding(2)
+        Me.Dgv_Report_Year_Closing.Name = "Dgv_Report_Year_Closing"
+        Me.Dgv_Report_Year_Closing.RowHeadersVisible = False
+        Me.Dgv_Report_Year_Closing.RowHeadersWidth = 50
+        DataGridViewCellStyle54.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Report_Year_Closing.RowsDefaultCellStyle = DataGridViewCellStyle54
+        Me.Dgv_Report_Year_Closing.RowTemplate.Height = 20
+        Me.Dgv_Report_Year_Closing.Size = New System.Drawing.Size(799, 515)
+        Me.Dgv_Report_Year_Closing.TabIndex = 77
         '
         'Instellingen
         '
         Me.Instellingen.BackColor = System.Drawing.Color.Transparent
-        Me.Instellingen.Controls.Add(Me.Btn_Settings_Save)
         Me.Instellingen.Controls.Add(Me.GroupBox5)
         Me.Instellingen.Controls.Add(Me.GroupBox3)
-        Me.Instellingen.Controls.Add(Me.Btn_Settings_Cancel)
         Me.Instellingen.Location = New System.Drawing.Point(4, 28)
         Me.Instellingen.Margin = New System.Windows.Forms.Padding(2)
         Me.Instellingen.Name = "Instellingen"
         Me.Instellingen.Padding = New System.Windows.Forms.Padding(2)
-        Me.Instellingen.Size = New System.Drawing.Size(1107, 639)
+        Me.Instellingen.Size = New System.Drawing.Size(1022, 570)
         Me.Instellingen.TabIndex = 6
         Me.Instellingen.Text = "Instellingen   "
-        '
-        'Btn_Settings_Save
-        '
-        Me.Btn_Settings_Save.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Settings_Save.Image = Global.SPAS.My.Resources.Resources.Save_16x16
-        Me.Btn_Settings_Save.Location = New System.Drawing.Point(959, 288)
-        Me.Btn_Settings_Save.Name = "Btn_Settings_Save"
-        Me.Btn_Settings_Save.Size = New System.Drawing.Size(32, 32)
-        Me.Btn_Settings_Save.TabIndex = 4
-        Me.Btn_Settings_Save.UseVisualStyleBackColor = True
         '
         'GroupBox5
         '
@@ -5859,6 +6601,10 @@ Partial Class SPAS
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.Cmx_Settings_Saldosteun)
+        Me.GroupBox3.Controls.Add(Me.Cmx_Settings_Transitoria)
+        Me.GroupBox3.Controls.Add(Me.Label133)
+        Me.GroupBox3.Controls.Add(Me.Label131)
         Me.GroupBox3.Controls.Add(Me.Cmx_Settings_Banktransactiekosten)
         Me.GroupBox3.Controls.Add(Me.Label102)
         Me.GroupBox3.Controls.Add(Me.Cmx_Settings_Bankkosten)
@@ -5871,26 +6617,65 @@ Partial Class SPAS
         Me.GroupBox3.Controls.Add(Me.Label119)
         Me.GroupBox3.Controls.Add(Me.Cmx_Settings_Overhead)
         Me.GroupBox3.Controls.Add(Me.Label116)
-        Me.GroupBox3.Location = New System.Drawing.Point(5, 27)
+        Me.GroupBox3.Location = New System.Drawing.Point(5, 5)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(371, 262)
+        Me.GroupBox3.Size = New System.Drawing.Size(371, 321)
         Me.GroupBox3.TabIndex = 1
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Standaard journaalrekeningen"
         '
+        'Cmx_Settings_Saldosteun
+        '
+        Me.Cmx_Settings_Saldosteun.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cmx_Settings_Saldosteun.FormattingEnabled = True
+        Me.Cmx_Settings_Saldosteun.Location = New System.Drawing.Point(169, 255)
+        Me.Cmx_Settings_Saldosteun.Name = "Cmx_Settings_Saldosteun"
+        Me.Cmx_Settings_Saldosteun.Size = New System.Drawing.Size(196, 26)
+        Me.Cmx_Settings_Saldosteun.TabIndex = 10
+        '
+        'Cmx_Settings_Transitoria
+        '
+        Me.Cmx_Settings_Transitoria.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cmx_Settings_Transitoria.FormattingEnabled = True
+        Me.Cmx_Settings_Transitoria.Location = New System.Drawing.Point(169, 223)
+        Me.Cmx_Settings_Transitoria.Name = "Cmx_Settings_Transitoria"
+        Me.Cmx_Settings_Transitoria.Size = New System.Drawing.Size(196, 26)
+        Me.Cmx_Settings_Transitoria.TabIndex = 10
+        '
+        'Label133
+        '
+        Me.Label133.AutoSize = True
+        Me.Label133.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label133.Location = New System.Drawing.Point(6, 257)
+        Me.Label133.Name = "Label133"
+        Me.Label133.Size = New System.Drawing.Size(80, 19)
+        Me.Label133.TabIndex = 9
+        Me.Label133.Text = "Saldosteun"
+        '
+        'Label131
+        '
+        Me.Label131.AutoSize = True
+        Me.Label131.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label131.Location = New System.Drawing.Point(6, 225)
+        Me.Label131.Name = "Label131"
+        Me.Label131.Size = New System.Drawing.Size(78, 19)
+        Me.Label131.TabIndex = 9
+        Me.Label131.Text = "Transitoria"
+        '
         'Cmx_Settings_Banktransactiekosten
         '
+        Me.Cmx_Settings_Banktransactiekosten.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cmx_Settings_Banktransactiekosten.FormattingEnabled = True
-        Me.Cmx_Settings_Banktransactiekosten.Location = New System.Drawing.Point(169, 210)
+        Me.Cmx_Settings_Banktransactiekosten.Location = New System.Drawing.Point(169, 191)
         Me.Cmx_Settings_Banktransactiekosten.Name = "Cmx_Settings_Banktransactiekosten"
-        Me.Cmx_Settings_Banktransactiekosten.Size = New System.Drawing.Size(196, 27)
+        Me.Cmx_Settings_Banktransactiekosten.Size = New System.Drawing.Size(196, 26)
         Me.Cmx_Settings_Banktransactiekosten.TabIndex = 8
         '
         'Label102
         '
         Me.Label102.AutoSize = True
         Me.Label102.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label102.Location = New System.Drawing.Point(14, 105)
+        Me.Label102.Location = New System.Drawing.Point(6, 96)
         Me.Label102.Name = "Label102"
         Me.Label102.Size = New System.Drawing.Size(134, 19)
         Me.Label102.TabIndex = 7
@@ -5898,17 +6683,18 @@ Partial Class SPAS
         '
         'Cmx_Settings_Bankkosten
         '
+        Me.Cmx_Settings_Bankkosten.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cmx_Settings_Bankkosten.FormattingEnabled = True
-        Me.Cmx_Settings_Bankkosten.Location = New System.Drawing.Point(169, 174)
+        Me.Cmx_Settings_Bankkosten.Location = New System.Drawing.Point(169, 158)
         Me.Cmx_Settings_Bankkosten.Name = "Cmx_Settings_Bankkosten"
-        Me.Cmx_Settings_Bankkosten.Size = New System.Drawing.Size(196, 27)
+        Me.Cmx_Settings_Bankkosten.Size = New System.Drawing.Size(196, 26)
         Me.Cmx_Settings_Bankkosten.TabIndex = 6
         '
         'Label97
         '
         Me.Label97.AutoSize = True
         Me.Label97.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label97.Location = New System.Drawing.Point(14, 177)
+        Me.Label97.Location = New System.Drawing.Point(6, 160)
         Me.Label97.Name = "Label97"
         Me.Label97.Size = New System.Drawing.Size(83, 19)
         Me.Label97.TabIndex = 5
@@ -5916,25 +6702,27 @@ Partial Class SPAS
         '
         'Cmx_Settings_ExchangeRate
         '
+        Me.Cmx_Settings_ExchangeRate.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cmx_Settings_ExchangeRate.FormattingEnabled = True
-        Me.Cmx_Settings_ExchangeRate.Location = New System.Drawing.Point(169, 138)
+        Me.Cmx_Settings_ExchangeRate.Location = New System.Drawing.Point(169, 126)
         Me.Cmx_Settings_ExchangeRate.Name = "Cmx_Settings_ExchangeRate"
-        Me.Cmx_Settings_ExchangeRate.Size = New System.Drawing.Size(196, 27)
+        Me.Cmx_Settings_ExchangeRate.Size = New System.Drawing.Size(196, 26)
         Me.Cmx_Settings_ExchangeRate.TabIndex = 4
         '
         'Cmx_Settings_No_Cat
         '
+        Me.Cmx_Settings_No_Cat.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cmx_Settings_No_Cat.FormattingEnabled = True
-        Me.Cmx_Settings_No_Cat.Location = New System.Drawing.Point(169, 66)
+        Me.Cmx_Settings_No_Cat.Location = New System.Drawing.Point(169, 62)
         Me.Cmx_Settings_No_Cat.Name = "Cmx_Settings_No_Cat"
-        Me.Cmx_Settings_No_Cat.Size = New System.Drawing.Size(196, 27)
+        Me.Cmx_Settings_No_Cat.Size = New System.Drawing.Size(196, 26)
         Me.Cmx_Settings_No_Cat.TabIndex = 4
         '
         'Label120
         '
         Me.Label120.AutoSize = True
         Me.Label120.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label120.Location = New System.Drawing.Point(14, 141)
+        Me.Label120.Location = New System.Drawing.Point(6, 128)
         Me.Label120.Name = "Label120"
         Me.Label120.Size = New System.Drawing.Size(137, 19)
         Me.Label120.TabIndex = 3
@@ -5944,7 +6732,7 @@ Partial Class SPAS
         '
         Me.Label117.AutoSize = True
         Me.Label117.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label117.Location = New System.Drawing.Point(17, 69)
+        Me.Label117.Location = New System.Drawing.Point(6, 64)
         Me.Label117.Name = "Label117"
         Me.Label117.Size = New System.Drawing.Size(145, 19)
         Me.Label117.TabIndex = 3
@@ -5952,17 +6740,18 @@ Partial Class SPAS
         '
         'Cmx_Settings_Euro_Account
         '
+        Me.Cmx_Settings_Euro_Account.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cmx_Settings_Euro_Account.FormattingEnabled = True
-        Me.Cmx_Settings_Euro_Account.Location = New System.Drawing.Point(169, 102)
+        Me.Cmx_Settings_Euro_Account.Location = New System.Drawing.Point(169, 94)
         Me.Cmx_Settings_Euro_Account.Name = "Cmx_Settings_Euro_Account"
-        Me.Cmx_Settings_Euro_Account.Size = New System.Drawing.Size(196, 27)
+        Me.Cmx_Settings_Euro_Account.Size = New System.Drawing.Size(196, 26)
         Me.Cmx_Settings_Euro_Account.TabIndex = 2
         '
         'Label119
         '
         Me.Label119.AutoSize = True
         Me.Label119.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label119.Location = New System.Drawing.Point(14, 213)
+        Me.Label119.Location = New System.Drawing.Point(6, 193)
         Me.Label119.Name = "Label119"
         Me.Label119.Size = New System.Drawing.Size(148, 19)
         Me.Label119.TabIndex = 0
@@ -5970,60 +6759,72 @@ Partial Class SPAS
         '
         'Cmx_Settings_Overhead
         '
+        Me.Cmx_Settings_Overhead.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cmx_Settings_Overhead.FormattingEnabled = True
         Me.Cmx_Settings_Overhead.Location = New System.Drawing.Point(169, 30)
         Me.Cmx_Settings_Overhead.Name = "Cmx_Settings_Overhead"
-        Me.Cmx_Settings_Overhead.Size = New System.Drawing.Size(196, 27)
+        Me.Cmx_Settings_Overhead.Size = New System.Drawing.Size(196, 26)
         Me.Cmx_Settings_Overhead.TabIndex = 2
         '
         'Label116
         '
         Me.Label116.AutoSize = True
         Me.Label116.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label116.Location = New System.Drawing.Point(17, 33)
+        Me.Label116.Location = New System.Drawing.Point(6, 32)
         Me.Label116.Name = "Label116"
         Me.Label116.Size = New System.Drawing.Size(72, 19)
         Me.Label116.TabIndex = 0
         Me.Label116.Text = "Overhead"
         '
-        'Btn_Settings_Cancel
-        '
-        Me.Btn_Settings_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Btn_Settings_Cancel.Image = Global.SPAS.My.Resources.Resources.Cancel_16x16
-        Me.Btn_Settings_Cancel.Location = New System.Drawing.Point(924, 288)
-        Me.Btn_Settings_Cancel.Name = "Btn_Settings_Cancel"
-        Me.Btn_Settings_Cancel.Size = New System.Drawing.Size(32, 32)
-        Me.Btn_Settings_Cancel.TabIndex = 5
-        Me.Btn_Settings_Cancel.UseVisualStyleBackColor = True
-        '
         'TabPage8
         '
         Me.TabPage8.BackColor = System.Drawing.SystemColors.Control
-        Me.TabPage8.Controls.Add(Me.Btn_Beheer_YearClose)
+        Me.TabPage8.Controls.Add(Me.Button1)
+        Me.TabPage8.Controls.Add(Me.Dgv_Test)
         Me.TabPage8.Controls.Add(Me.Dgv_Mgnt_Tables)
         Me.TabPage8.Controls.Add(Me.Label61)
         Me.TabPage8.Location = New System.Drawing.Point(4, 28)
         Me.TabPage8.Margin = New System.Windows.Forms.Padding(2)
         Me.TabPage8.Name = "TabPage8"
         Me.TabPage8.Padding = New System.Windows.Forms.Padding(2)
-        Me.TabPage8.Size = New System.Drawing.Size(1107, 639)
+        Me.TabPage8.Size = New System.Drawing.Size(1022, 570)
         Me.TabPage8.TabIndex = 7
         Me.TabPage8.Text = "Beheer   "
         '
-        'Btn_Beheer_YearClose
+        'Button1
         '
-        Me.Btn_Beheer_YearClose.Location = New System.Drawing.Point(33, 350)
-        Me.Btn_Beheer_YearClose.Name = "Btn_Beheer_YearClose"
-        Me.Btn_Beheer_YearClose.Size = New System.Drawing.Size(168, 30)
-        Me.Btn_Beheer_YearClose.TabIndex = 3
-        Me.Btn_Beheer_YearClose.Text = "Jaarafsluiting"
-        Me.Btn_Beheer_YearClose.UseVisualStyleBackColor = True
+        Me.Button1.Location = New System.Drawing.Point(505, 392)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(92, 49)
+        Me.Button1.TabIndex = 4
+        Me.Button1.Text = "Test"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Dgv_Test
+        '
+        DataGridViewCellStyle55.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Test.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle55
+        Me.Dgv_Test.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.Dgv_Test.Location = New System.Drawing.Point(411, 65)
+        Me.Dgv_Test.Name = "Dgv_Test"
+        Me.Dgv_Test.RowHeadersVisible = False
+        Me.Dgv_Test.RowHeadersWidth = 82
+        Me.Dgv_Test.Size = New System.Drawing.Size(583, 253)
+        Me.Dgv_Test.TabIndex = 3
         '
         'Dgv_Mgnt_Tables
         '
         Me.Dgv_Mgnt_Tables.AllowUserToAddRows = False
         Me.Dgv_Mgnt_Tables.AllowUserToDeleteRows = False
         Me.Dgv_Mgnt_Tables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle56.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle56.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle56.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle56.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle56.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle56.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle56.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Dgv_Mgnt_Tables.DefaultCellStyle = DataGridViewCellStyle56
         Me.Dgv_Mgnt_Tables.Location = New System.Drawing.Point(27, 63)
         Me.Dgv_Mgnt_Tables.Name = "Dgv_Mgnt_Tables"
         Me.Dgv_Mgnt_Tables.ReadOnly = True
@@ -6040,102 +6841,134 @@ Partial Class SPAS
         Me.Label61.TabIndex = 0
         Me.Label61.Text = "Inhoud database"
         '
-        'Label78
-        '
-        Me.Label78.AutoSize = True
-        Me.Label78.Location = New System.Drawing.Point(178, 7)
-        Me.Label78.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label78.Name = "Label78"
-        Me.Label78.Size = New System.Drawing.Size(65, 13)
-        Me.Label78.TabIndex = 31
-        Me.Label78.Text = "Huidig saldo"
-        '
         'MenuStrip1
         '
-        Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BestandToolStripMenuItem})
+        Me.MenuStrip1.BackColor = System.Drawing.Color.GreenYellow
+        Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuAdd, Me.MenuSave, Me.MenuCancel, Me.MenuDelete, Me.Cbx_LifeCycle, Me.Menu_Print, Me.MenuCategoriseer, Me.Menu_Export, Me.MenuBanktransactie, Me.MenuUploadAlles, Me.ToolStripTextBox1, Me.MenuFilter, Me.Searchbox, Me.ZoekenToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(3, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1138, 24)
+        Me.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
+        Me.MenuStrip1.ShowItemToolTips = True
+        Me.MenuStrip1.Size = New System.Drawing.Size(1030, 26)
+        Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'BestandToolStripMenuItem
+        'MenuAdd
         '
-        Me.BestandToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NieuwToolStripMenuItem, Me.OpenToolStripMenuItem, Me.TestToolStripMenuItem})
-        Me.BestandToolStripMenuItem.Name = "BestandToolStripMenuItem"
-        Me.BestandToolStripMenuItem.Size = New System.Drawing.Size(66, 22)
-        Me.BestandToolStripMenuItem.Text = "Inloggen"
+        Me.MenuAdd.Image = Global.SPAS.My.Resources.Resources.Add_16x16
+        Me.MenuAdd.Name = "MenuAdd"
+        Me.MenuAdd.Size = New System.Drawing.Size(32, 24)
         '
-        'NieuwToolStripMenuItem
+        'MenuSave
         '
-        Me.NieuwToolStripMenuItem.Name = "NieuwToolStripMenuItem"
-        Me.NieuwToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.NieuwToolStripMenuItem.Text = "Productie"
+        Me.MenuSave.Enabled = False
+        Me.MenuSave.Image = Global.SPAS.My.Resources.Resources.Save_48x48
+        Me.MenuSave.Name = "MenuSave"
+        Me.MenuSave.Size = New System.Drawing.Size(32, 24)
         '
-        'OpenToolStripMenuItem
+        'MenuCancel
         '
-        Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.OpenToolStripMenuItem.Text = "Acceptatie"
+        Me.MenuCancel.Enabled = False
+        Me.MenuCancel.Image = Global.SPAS.My.Resources.Resources.Cancel_32x32
+        Me.MenuCancel.Name = "MenuCancel"
+        Me.MenuCancel.Size = New System.Drawing.Size(32, 24)
         '
-        'TestToolStripMenuItem
+        'MenuDelete
         '
-        Me.TestToolStripMenuItem.Name = "TestToolStripMenuItem"
-        Me.TestToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
-        Me.TestToolStripMenuItem.Text = "Test"
+        Me.MenuDelete.Image = Global.SPAS.My.Resources.Resources.trash_2_24
+        Me.MenuDelete.Name = "MenuDelete"
+        Me.MenuDelete.Size = New System.Drawing.Size(32, 24)
         '
-        'Button4
+        'Cbx_LifeCycle
         '
-        Me.Button4.Location = New System.Drawing.Point(51, 0)
-        Me.Button4.Margin = New System.Windows.Forms.Padding(2)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(33, 20)
-        Me.Button4.TabIndex = 2
-        Me.Button4.Text = "test"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.Cbx_LifeCycle.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.Cbx_LifeCycle.Items.AddRange(New Object() {"Actief", "Inactief", "Beide"})
+        Me.Cbx_LifeCycle.Name = "Cbx_LifeCycle"
+        Me.Cbx_LifeCycle.Size = New System.Drawing.Size(75, 24)
+        Me.Cbx_LifeCycle.Text = "Actief"
         '
-        'Chbx_test
+        'Menu_Print
         '
-        Me.Chbx_test.AutoSize = True
-        Me.Chbx_test.Location = New System.Drawing.Point(0, 3)
-        Me.Chbx_test.Margin = New System.Windows.Forms.Padding(2)
-        Me.Chbx_test.Name = "Chbx_test"
-        Me.Chbx_test.Size = New System.Drawing.Size(47, 17)
-        Me.Chbx_test.TabIndex = 3
-        Me.Chbx_test.Text = "Test"
-        Me.Chbx_test.UseVisualStyleBackColor = True
+        Me.Menu_Print.Image = CType(resources.GetObject("Menu_Print.Image"), System.Drawing.Image)
+        Me.Menu_Print.Name = "Menu_Print"
+        Me.Menu_Print.Size = New System.Drawing.Size(32, 24)
+        Me.Menu_Print.Visible = False
+        '
+        'MenuCategoriseer
+        '
+        Me.MenuCategoriseer.Image = Global.SPAS.My.Resources.Resources.bookmark_3_16
+        Me.MenuCategoriseer.Name = "MenuCategoriseer"
+        Me.MenuCategoriseer.Size = New System.Drawing.Size(32, 24)
+        Me.MenuCategoriseer.Visible = False
+        '
+        'Menu_Export
+        '
+        Me.Menu_Export.Image = Global.SPAS.My.Resources.Resources.excel_3_16
+        Me.Menu_Export.Name = "Menu_Export"
+        Me.Menu_Export.Size = New System.Drawing.Size(32, 24)
+        Me.Menu_Export.Visible = False
+        '
+        'MenuBanktransactie
+        '
+        Me.MenuBanktransactie.Image = Global.SPAS.My.Resources.Resources.Upload_32x32
+        Me.MenuBanktransactie.Name = "MenuBanktransactie"
+        Me.MenuBanktransactie.Size = New System.Drawing.Size(32, 24)
+        Me.MenuBanktransactie.Visible = False
+        '
+        'MenuUploadAlles
+        '
+        Me.MenuUploadAlles.Image = Global.SPAS.My.Resources.Resources.Folder_32x32
+        Me.MenuUploadAlles.Name = "MenuUploadAlles"
+        Me.MenuUploadAlles.Size = New System.Drawing.Size(32, 24)
+        Me.MenuUploadAlles.Visible = False
+        '
+        'ToolStripTextBox1
+        '
+        Me.ToolStripTextBox1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.ToolStripTextBox1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.ToolStripTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.ToolStripTextBox1.Enabled = False
+        Me.ToolStripTextBox1.Name = "ToolStripTextBox1"
+        Me.ToolStripTextBox1.Size = New System.Drawing.Size(45, 24)
+        Me.ToolStripTextBox1.Text = "Status "
+        Me.ToolStripTextBox1.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'MenuFilter
+        '
+        Me.MenuFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.MenuFilter.Image = Global.SPAS.My.Resources.Resources.hiclipart_com
+        Me.MenuFilter.Name = "MenuFilter"
+        Me.MenuFilter.Size = New System.Drawing.Size(32, 24)
+        '
+        'Searchbox
+        '
+        Me.Searchbox.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.Searchbox.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Searchbox.Name = "Searchbox"
+        Me.Searchbox.Size = New System.Drawing.Size(152, 24)
+        Me.Searchbox.ToolTipText = "Zoeken in tabel"
+        '
+        'ZoekenToolStripMenuItem
+        '
+        Me.ZoekenToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.ZoekenToolStripMenuItem.Enabled = False
+        Me.ZoekenToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ZoekenToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.ZoekenToolStripMenuItem.Name = "ZoekenToolStripMenuItem"
+        Me.ZoekenToolStripMenuItem.Size = New System.Drawing.Size(118, 24)
+        Me.ZoekenToolStripMenuItem.Text = "Zoeken/filteren op"
         '
         'OpenFileDialog1
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(88, 0)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(2)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(44, 20)
-        Me.Button3.TabIndex = 32
-        Me.Button3.Text = "reset"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
         'SaveFileDialog1
         '
         Me.SaveFileDialog1.DefaultExt = "pdf"
         Me.SaveFileDialog1.Title = "Kies locatie pdf-bestand"
-        '
-        'Pan_Test
-        '
-        Me.Pan_Test.Controls.Add(Me.Button3)
-        Me.Pan_Test.Controls.Add(Me.Button4)
-        Me.Pan_Test.Controls.Add(Me.Chbx_test)
-        Me.Pan_Test.Location = New System.Drawing.Point(982, 22)
-        Me.Pan_Test.Margin = New System.Windows.Forms.Padding(2)
-        Me.Pan_Test.Name = "Pan_Test"
-        Me.Pan_Test.Size = New System.Drawing.Size(144, 20)
-        Me.Pan_Test.TabIndex = 33
         '
         'ToolTip1
         '
@@ -6144,85 +6977,119 @@ Partial Class SPAS
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(1138, 722)
-        Me.Controls.Add(Me.Pan_Test)
+        Me.BackColor = System.Drawing.Color.YellowGreen
+        Me.ClientSize = New System.Drawing.Size(1030, 632)
         Me.Controls.Add(Me.TC_Main)
         Me.Controls.Add(Me.MenuStrip1)
-        Me.Controls.Add(Me.Label78)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "SPAS"
         Me.Text = "SPAS"
         Me.TC_Main.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
-        Me.TabPage1.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
         Me.TC_Object.ResumeLayout(False)
         Me.Contract.ResumeLayout(False)
-        Me.Contract.PerformLayout()
+        Me.Contract.PerformLayout
+        Me.Pan_Test.ResumeLayout(False)
+        Me.Pan_Test.PerformLayout
         Me.Pan_Contract_Date_New.ResumeLayout(False)
-        Me.Pan_Contract_Date_New.PerformLayout()
+        Me.Pan_Contract_Date_New.PerformLayout
         Me.Pan_contract_select_target.ResumeLayout(False)
-        Me.Pan_contract_select_target.PerformLayout()
-        CType(Me.Pic_Contract_Target_photo, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Pan_contract_select_target.PerformLayout
+        CType(Me.Pic_Contract_Target_photo, System.ComponentModel.ISupportInitialize).EndInit
         Me.target.ResumeLayout(False)
-        Me.target.PerformLayout()
+        Me.target.PerformLayout
         Me.Pan_Target.ResumeLayout(False)
-        Me.Pan_Target.PerformLayout()
-        CType(Me.Pic_Target__photo, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Pan_Target.PerformLayout
+        CType(Me.Pic_Target__photo, System.ComponentModel.ISupportInitialize).EndInit
         Me.Relation.ResumeLayout(False)
-        Me.Relation.PerformLayout()
+        Me.Relation.PerformLayout
         Me.CP.ResumeLayout(False)
-        Me.CP.PerformLayout()
-        CType(Me.Pic_cp__photo, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.CP.PerformLayout
+        CType(Me.Pic_cp__photo, System.ComponentModel.ISupportInitialize).EndInit
         Me.Account.ResumeLayout(False)
-        Me.Account.PerformLayout()
+        Me.Account.PerformLayout
         Me.Pan_account.ResumeLayout(False)
-        Me.Pan_account.PerformLayout()
+        Me.Pan_account.PerformLayout
         Me.BankAcc.ResumeLayout(False)
-        Me.BankAcc.PerformLayout()
+        Me.BankAcc.PerformLayout
+        Me.Accgroup.ResumeLayout(False)
+        Me.Accgroup.PerformLayout
+        Me.Panel9.ResumeLayout(False)
+        Me.Panel9.PerformLayout
         Me.Tab_Bank.ResumeLayout(False)
-        Me.Tab_Bank.PerformLayout()
-        CType(Me.Dgv_Bank_Account2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Dgv_Bank_Account, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Dgv_Bank, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel6.ResumeLayout(False)
+        Me.Panel6.PerformLayout
+        CType(Me.Dgv_Bank_Account, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.Dgv_Bank_Account2, System.ComponentModel.ISupportInitialize).EndInit
+        Me.Pan_Bank_jtype.ResumeLayout(False)
+        Me.Pan_Bank_jtype.PerformLayout
+        CType(Me.Dgv_Bank, System.ComponentModel.ISupportInitialize).EndInit
         Me.Incasso.ResumeLayout(False)
-        Me.Incasso.PerformLayout()
-        CType(Me.Dgv_Incasso, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel10.ResumeLayout(False)
+        Me.Panel10.PerformLayout
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel5.PerformLayout
+        CType(Me.Dgv_Incasso, System.ComponentModel.ISupportInitialize).EndInit
         Me.Uitkering.ResumeLayout(False)
-        Me.Uitkering.PerformLayout()
-        Me.GroupBox4.ResumeLayout(False)
-        Me.GroupBox4.PerformLayout()
-        Me.Gbx_Excasso_Calculate.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.Panel4.ResumeLayout(False)
         Me.Gbx_Excasso_Doeltype.ResumeLayout(False)
-        Me.Gbx_Excasso_Doeltype.PerformLayout()
-        CType(Me.Dgv_Excasso2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Gbx_Excasso_Doeltype.PerformLayout
+        Me.GroupBox1.ResumeLayout(False)
+        Me.Pan_Excasso_preset.ResumeLayout(False)
+        Me.Pan_Excasso_preset.PerformLayout
+        Me.Gbx_Excasso_Calculate.ResumeLayout(False)
+        Me.Gbx_Excasso_Calculate.PerformLayout
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout
+        CType(Me.Dgv_Excasso2, System.ComponentModel.ISupportInitialize).EndInit
         Me.Intern.ResumeLayout(False)
-        Me.Intern.PerformLayout()
-        CType(Me.Dgv_Journal_items, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Gbx_Journal_Totals.ResumeLayout(False)
-        Me.Gbx_Journal_Totals.PerformLayout()
-        Me.Gbx_Boekingen_Overboeking.ResumeLayout(False)
-        Me.Gbx_Boekingen_Overboeking.PerformLayout()
-        CType(Me.Dgv_Journal_Intern, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Intern.PerformLayout
+        Me.TC_Boeking.ResumeLayout(False)
+        Me.Boekingen.ResumeLayout(False)
+        Me.Boekingen.PerformLayout
+        CType(Me.Dgv_Journal_items, System.ComponentModel.ISupportInitialize).EndInit
+        Me.Overboekingen.ResumeLayout(False)
+        Me.Panel8.ResumeLayout(False)
+        Me.Panel8.PerformLayout
+        CType(Me.Dgv_Journal_Intern, System.ComponentModel.ISupportInitialize).EndInit
+        Me.Panel7.ResumeLayout(False)
+        Me.Panel7.PerformLayout
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout
         Me.Tab_Rapportage.ResumeLayout(False)
-        CType(Me.Dgv_Rapportage, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TC_Rapportage.ResumeLayout(False)
+        Me.Journaal.ResumeLayout(False)
+        CType(Me.Dgv_Rapportage_Overzicht, System.ComponentModel.ISupportInitialize).EndInit
+        Me.Bank.ResumeLayout(False)
+        CType(Me.Dgv_Rapportage, System.ComponentModel.ISupportInitialize).EndInit
+        Me.Details.ResumeLayout(False)
+        CType(Me.Dgv_Rapportage_Details, System.ComponentModel.ISupportInitialize).EndInit
+        Me.TC_Controles.ResumeLayout(False)
+        CType(Me.Dgv_Report_5, System.ComponentModel.ISupportInitialize).EndInit
+        Me.Overhead.ResumeLayout(False)
+        CType(Me.Dgv_Report_7, System.ComponentModel.ISupportInitialize).EndInit
+        Me.TC_Boekingen.ResumeLayout(False)
+        Me.TC_Boekingen.PerformLayout
+        CType(Me.Dgv_Report_6, System.ComponentModel.ISupportInitialize).EndInit
+        Me.Jaarafsluiting.ResumeLayout(False)
+        Me.Jaarafsluiting.PerformLayout
+        CType(Me.Dgv_Report_Year_Closing, System.ComponentModel.ISupportInitialize).EndInit
         Me.Instellingen.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
-        Me.GroupBox5.PerformLayout()
+        Me.GroupBox5.PerformLayout
         Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
+        Me.GroupBox3.PerformLayout
         Me.TabPage8.ResumeLayout(False)
-        Me.TabPage8.PerformLayout()
-        CType(Me.Dgv_Mgnt_Tables, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage8.PerformLayout
+        CType(Me.Dgv_Test, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.Dgv_Mgnt_Tables, System.ComponentModel.ISupportInitialize).EndInit
         Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
-        Me.Pan_Test.ResumeLayout(False)
-        Me.Pan_Test.PerformLayout()
+        Me.MenuStrip1.PerformLayout
         Me.ResumeLayout(False)
-        Me.PerformLayout()
+        Me.PerformLayout
 
     End Sub
 
@@ -6235,9 +7102,6 @@ Partial Class SPAS
     Friend WithEvents Tab_Rapportage As TabPage
     Friend WithEvents Instellingen As TabPage
     Friend WithEvents MenuStrip1 As MenuStrip
-    Friend WithEvents BestandToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents NieuwToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents OpenToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Tbx_Bank_Description As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents Label6 As Label
@@ -6308,24 +7172,13 @@ Partial Class SPAS
     Friend WithEvents Lbl_Target_pkid As Label
     Friend WithEvents Label23 As Label
     Friend WithEvents Lbl_00_Target__reference As Label
-    Friend WithEvents Tbx_Basis_Filter As TextBox
-    Friend WithEvents Label22 As Label
     Friend WithEvents Lbx_Basis As ListBox
-    Friend WithEvents Tbx_20_Target__children As TextBox
-    Friend WithEvents Label26 As Label
-    Friend WithEvents Rbtn_Target_Institution As RadioButton
-    Friend WithEvents Rbtn_Target_OtherHousing As RadioButton
-    Friend WithEvents Rbtn_Target_Alone As RadioButton
-    Friend WithEvents Label16 As Label
-    Friend WithEvents Lbl_Living As Label
     Friend WithEvents Label14 As Label
-    Friend WithEvents Tbx_20_Target__childnearby As TextBox
     Friend WithEvents Tbx_00_Target__city As TextBox
     Friend WithEvents Tbx_00_Target__address As TextBox
     Friend WithEvents Lbl_Target_Address As Label
     Friend WithEvents Tbx_00_Target__country As TextBox
     Friend WithEvents Tbx_00_Target__zip As TextBox
-    Friend WithEvents Label15 As Label
     Friend WithEvents Lbl_Target_Total_Expenses As Label
     Friend WithEvents Lbl_Target_Total_Income As Label
     Friend WithEvents Label2 As Label
@@ -6391,28 +7244,12 @@ Partial Class SPAS
     Friend WithEvents Cmx_01_cp__fk_bankacc_id As ComboBox
     Friend WithEvents Tbx_00_cp__description As TextBox
     Friend WithEvents Label21 As Label
-    Friend WithEvents Label54 As Label
     Friend WithEvents Label55 As Label
     Friend WithEvents Label28 As Label
-    Friend WithEvents Tbx_00_Relation__description As TextBox
     Friend WithEvents Label24 As Label
     Friend WithEvents Lbl_relation_pkid As Label
-    Friend WithEvents Tbx_00_Relation__phone As TextBox
-    Friend WithEvents Label56 As Label
-    Friend WithEvents Tbx_01_relation__name As TextBox
-    Friend WithEvents Tbx_00_Relation__zip As TextBox
-    Friend WithEvents Label57 As Label
-    Friend WithEvents Label58 As Label
-    Friend WithEvents Tbx_00_Relation__email As TextBox
-    Friend WithEvents Tbx_00_Relation__address As TextBox
-    Friend WithEvents Label59 As Label
-    Friend WithEvents Tbx_00_Relation__city As TextBox
-    Friend WithEvents Label60 As Label
-    Friend WithEvents Label62 As Label
     Friend WithEvents Label64 As Label
-    Friend WithEvents Label65 As Label
     Friend WithEvents Tbx_00_Relation__iban As TextBox
-    Friend WithEvents Tbx_01_Relation__name_add As TextBox
     Friend WithEvents Lbl_00_relation__reference As Label
     Friend WithEvents Label25 As Label
     Friend WithEvents Dtp_00_relation__date3 As DateTimePicker
@@ -6448,9 +7285,6 @@ Partial Class SPAS
     Friend WithEvents Cbx_00_cp__active As CheckBox
     Friend WithEvents Cbx_00_Account__active As CheckBox
     Friend WithEvents Cbx_00_BankAcc__active As CheckBox
-    Friend WithEvents Rbn_contract_all As RadioButton
-    Friend WithEvents Rbn_contract_inactive As RadioButton
-    Friend WithEvents Rbn_contract_active As RadioButton
     Friend WithEvents Pan_Contract_Date_New As Panel
     Friend WithEvents Lbl_contract_mach_datum As Label
     Friend WithEvents Lbl_contract_macht_kenm As Label
@@ -6473,12 +7307,10 @@ Partial Class SPAS
     Friend WithEvents Label63 As Label
     Friend WithEvents Label76 As Label
     Friend WithEvents Lbl_Bank_Saldo As Label
-    Friend WithEvents Label78 As Label
     Friend WithEvents Tbx_Bank_Code As TextBox
     Friend WithEvents Btn_Bank_Add_Journal As Button
     Friend WithEvents Dgv_Bank_Account As DataGridView
     Friend WithEvents Tbx_Bank_Amount As TextBox
-    Friend WithEvents Btn_Bank_Save_Accounts As Button
     Friend WithEvents Button3 As Button
     Friend WithEvents Tbx_01_Relation__title As TextBox
     Friend WithEvents Rbn_Relation_4 As RadioButton
@@ -6551,7 +7383,6 @@ Partial Class SPAS
     Friend WithEvents Lbl_Excasso_Contractwaarde As Label
     Friend WithEvents Gbx_Excasso_Doeltype As GroupBox
     Friend WithEvents Btn_Excasso_Exchrate As Button
-    Friend WithEvents Dgv_Rapportage As DataGridView
     Friend WithEvents Label95 As Label
     Friend WithEvents Btn_Excasso_CP_Calculate As Button
     Friend WithEvents Lbl_Excasso_Totaal As Label
@@ -6560,30 +7391,16 @@ Partial Class SPAS
     Friend WithEvents Lbl_Excasso_Items_Contract As Label
     Friend WithEvents Lbl_Excasso_CP_Totaal As Label
     Friend WithEvents Label122 As Label
-    Friend WithEvents Gbx_Boekingen_Overboeking As GroupBox
     Friend WithEvents Dgv_Journal_Intern As DataGridView
     Friend WithEvents Tbx_Journal_Source_Amt As TextBox
     Friend WithEvents Cmx_Journal_List As ComboBox
     Friend WithEvents Btn_Journal_Intern_Save As Button
     Friend WithEvents Btn_Journals_Cancel As Button
     Friend WithEvents Btn_Select_Bulk As Button
-    Friend WithEvents Gbx_Journal_Totals As GroupBox
-    Friend WithEvents Label131 As Label
-    Friend WithEvents Label132 As Label
-    Friend WithEvents Lbl_Journal_Sum_Amt_Saldo As Label
-    Friend WithEvents Lbl_Journal_Sum_Amt_In As Label
-    Friend WithEvents Lbl_Journal_Sum_Amt_Out As Label
-    Friend WithEvents Lbl_Journal_Sum_Item_Saldo As Label
-    Friend WithEvents Label126 As Label
-    Friend WithEvents Lbl_Journal_Sum_Item_In As Label
-    Friend WithEvents Lbl_Journal_Sum_Item_Out As Label
-    Friend WithEvents Label124 As Label
-    Friend WithEvents Label123 As Label
     Friend WithEvents Lv_Journal_List As ListView
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents Label125 As Label
-    Friend WithEvents Dgv_Journal_items As DataGridView
     Friend WithEvents Dtp_Journal_intern As DateTimePicker
     Friend WithEvents Label128 As Label
     Friend WithEvents Tbx_Journal_Description As TextBox
@@ -6593,14 +7410,8 @@ Partial Class SPAS
     Friend WithEvents id1 As DataGridViewTextBoxColumn
     Friend WithEvents Accnt As DataGridViewTextBoxColumn
     Friend WithEvents Amt1 As DataGridViewTextBoxColumn
-    Friend WithEvents Lbl_Journal_Filter As Label
     Friend WithEvents Tbx_Journal_Filter As TextBox
     Friend WithEvents Lbl_Boeking_Selecteer As Label
-    Friend WithEvents Label133 As Label
-    Friend WithEvents Label134 As Label
-    Friend WithEvents Label135 As Label
-    Friend WithEvents Lbl_Journal_Sum_Amt_Start As Label
-    Friend WithEvents Label137 As Label
     Friend WithEvents Tbx_10_Account__startsaldo As TextBox
     Friend WithEvents Btn_Account_Budget_All As Button
     Friend WithEvents Btn_Account_Budget_Id As Button
@@ -6629,7 +7440,6 @@ Partial Class SPAS
     Friend WithEvents Label101 As Label
     Friend WithEvents Lbl_Account_Budget_Difference As Label
     Friend WithEvents Label136 As Label
-    Friend WithEvents Label118 As Label
     Friend WithEvents Lbl_Excasso_CPid As Label
     Friend WithEvents Btn_Excasso_Base1 As Button
     Friend WithEvents Lbl_Excasso_Contract As Label
@@ -6641,9 +7451,6 @@ Partial Class SPAS
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents Gbx_Excasso_Calculate As GroupBox
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents Btn_Excasso_Maandbudget As Button
-    Friend WithEvents Btn_Excasso_Nullvalues As Button
-    Friend WithEvents Btn_Excasso_Act_Saldo As Button
     Friend WithEvents Lbl_Excasso_LastCalc As Label
     Friend WithEvents Label98 As Label
     Friend WithEvents Label89 As Label
@@ -6685,37 +7492,153 @@ Partial Class SPAS
     Friend WithEvents Rbn_Relation_5 As RadioButton
     Friend WithEvents Label61 As Label
     Friend WithEvents Dgv_Mgnt_Tables As DataGridView
-    Friend WithEvents Btn_Basis_Delete As Button
     Friend WithEvents Pan_Test As Panel
     Friend WithEvents Tbx_00_Target__living As TextBox
     Friend WithEvents Lbl_20_Account__f_key As Label
     Friend WithEvents Label96 As Label
     Friend WithEvents Lbl_Contract_tgt As Label
     Friend WithEvents Btn_Excasso_Calculate_Exchrate As Button
-    Friend WithEvents TestToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents Btn_Beheer_YearClose As Button
     Friend WithEvents Btn_Bank_Split As Button
     Friend WithEvents Rbn_Bank_Extra As RadioButton
-    Friend WithEvents Rbn_Bank_Contract As RadioButton
-    Friend WithEvents Rbn_Bank_Other As RadioButton
     Friend WithEvents Cmx_Settings_Banktransactiekosten As ComboBox
     Friend WithEvents Label102 As Label
     Friend WithEvents Cmx_Settings_Bankkosten As ComboBox
     Friend WithEvents Label97 As Label
-    Friend WithEvents Btn_Account_Startsaldi_All As Button
     Friend WithEvents Label107 As Label
     Friend WithEvents Lbl_Excasso_Totaal_MDL As Label
-    Friend WithEvents Btn_Bankacc_UpdateStartsaldi As Button
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents Btn_Settings_Save As Button
-    Friend WithEvents Btn_Settings_Cancel As Button
-    Friend WithEvents Btn_Rapportage_Ververs As Button
-    Friend WithEvents Btn_Journal_Intern As Button
     Friend WithEvents Cbx_Journal_Status_Verwerkt As CheckBox
     Friend WithEvents Cbx_Journal_Status_Open As CheckBox
     Friend WithEvents Lbl_Journal_Status As Label
-    Friend WithEvents Label127 As Label
-    Friend WithEvents Btn_Excasso_FormRefresh As Button
     Friend WithEvents Lbl_Excasso_Tot_Gen_MLD As Label
     Friend WithEvents Lbl_Excasso_Tot_Gen As Label
+    Friend WithEvents Label106 As Label
+    Friend WithEvents Label127 As Label
+    Friend WithEvents Lbl_Excasso_CP_Totaal_MDL As Label
+    Friend WithEvents Label118 As Label
+    Friend WithEvents Btn_Incasso_Export As Button
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents Panel5 As Panel
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents ZoekenToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Searchbox As ToolStripTextBox
+    Friend WithEvents MenuFilter As ToolStripMenuItem
+    Friend WithEvents TC_Boeking As TabControl
+    Friend WithEvents Boekingen As TabPage
+    Friend WithEvents Dgv_Journal_items As DataGridView
+    Friend WithEvents Overboekingen As TabPage
+    Friend WithEvents ToolStripTextBox1 As ToolStripTextBox
+    Friend WithEvents Cbx_LifeCycle As ToolStripComboBox
+    Friend WithEvents Panel8 As Panel
+    Friend WithEvents Panel7 As Panel
+    Friend WithEvents MenuDelete As ToolStripMenuItem
+    Friend WithEvents Menu_Print As ToolStripMenuItem
+    Friend WithEvents Menu_Export As ToolStripMenuItem
+    Friend WithEvents MenuCancel As ToolStripMenuItem
+    Friend WithEvents MenuAdd As ToolStripMenuItem
+    Friend WithEvents MenuSave As ToolStripMenuItem
+    Friend WithEvents MenuBanktransactie As ToolStripMenuItem
+    Friend WithEvents MenuUploadAlles As ToolStripMenuItem
+    Friend WithEvents MenuCategoriseer As ToolStripMenuItem
+    Friend WithEvents Rbn_Bank_Contract As RadioButton
+    Friend WithEvents Panel10 As Panel
+    Friend WithEvents Btn_Bank_Type As Button
+    Friend WithEvents Tbx_00_Relation__email As TextBox
+    Friend WithEvents Tbx_01_relation__name As TextBox
+    Friend WithEvents Tbx_01_Relation__name_add As TextBox
+    Friend WithEvents Tbx_00_Relation__description As TextBox
+    Friend WithEvents Tbx_20_Target__childnearby As TextBox
+    Friend WithEvents Tbx_20_Target__children As TextBox
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Rbtn_Target_Alone As RadioButton
+    Friend WithEvents Rbtn_Target_Institution As RadioButton
+    Friend WithEvents Rbtn_Target_OtherHousing As RadioButton
+    Friend WithEvents Label78 As Label
+    Friend WithEvents Label65 As Label
+    Friend WithEvents Label62 As Label
+    Friend WithEvents Label60 As Label
+    Friend WithEvents Label59 As Label
+    Friend WithEvents Label58 As Label
+    Friend WithEvents Label57 As Label
+    Friend WithEvents Label56 As Label
+    Friend WithEvents Label22 As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Tbx_00_Relation__city As TextBox
+    Friend WithEvents Tbx_00_Relation__zip As TextBox
+    Friend WithEvents Tbx_00_Relation__phone As TextBox
+    Friend WithEvents Tbx_00_Relation__address As TextBox
+    Friend WithEvents Label26 As Label
+    Friend WithEvents Rbn_uitkering_nul As RadioButton
+    Friend WithEvents Rbn_uitkering_saldo As RadioButton
+    Friend WithEvents Rbn_uitkering_budget As RadioButton
+    Friend WithEvents Pan_Excasso_preset As Panel
+    Friend WithEvents Label123 As Label
+    Friend WithEvents Lbl_Account_Doeltype As Label
+    Friend WithEvents TC_Rapportage As TabControl
+    Friend WithEvents Bank As TabPage
+    Friend WithEvents Journaal As TabPage
+    Friend WithEvents Dgv_Rapportage As DataGridView
+    Friend WithEvents Details As TabPage
+    Friend WithEvents Dgv_Rapportage_Details As DataGridView
+    Friend WithEvents Dgv_Rapportage_Overzicht As DataGridView
+    Friend WithEvents Jaarafsluiting As TabPage
+    Friend WithEvents Dgv_Report_Year_Closing As DataGridView
+    Friend WithEvents Btn_Report_YearEnd_Show As Button
+    Friend WithEvents Btn_Report_YearEnd_Post As Button
+    Friend WithEvents Rbn_Journal_Contract As RadioButton
+    Friend WithEvents Rbn_Journal_Intern As RadioButton
+    Friend WithEvents Label54 As Label
+    Friend WithEvents Lbl_Report_total As Label
+    Friend WithEvents Label108 As Label
+    Friend WithEvents TC_Controles As TabPage
+    Friend WithEvents Dgv_Report_5 As DataGridView
+    Friend WithEvents TC_Boekingen As TabPage
+    Friend WithEvents Dgv_Report_6 As DataGridView
+    Friend WithEvents Overhead As TabPage
+    Friend WithEvents Dgv_Report_7 As DataGridView
+    Friend WithEvents Label124 As Label
+    Friend WithEvents Tbx_Journal_Name As TextBox
+    Friend WithEvents Label126 As Label
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Dgv_Test As DataGridView
+    Friend WithEvents Accgroup As TabPage
+    Friend WithEvents Panel9 As Panel
+    Friend WithEvents Rbtn_accgroup_Income As RadioButton
+    Friend WithEvents Rbtn_accgroup_transit As RadioButton
+    Friend WithEvents Rbtn_accgroup_expense As RadioButton
+    Friend WithEvents Cbx_00_accgroup__active As CheckBox
+    Friend WithEvents Label132 As Label
+    Friend WithEvents Lbl_accgroup_pkid As Label
+    Friend WithEvents Label134 As Label
+    Friend WithEvents Label135 As Label
+    Friend WithEvents Tbx_01_Accgroup__name As TextBox
+    Friend WithEvents Tbx_01_Accgroup__type As TextBox
+    Friend WithEvents Tbx_00_Accgroup__description As TextBox
+    Friend WithEvents Label130 As Label
+    Friend WithEvents Tbx_00_Accgroup__subtype As TextBox
+    Friend WithEvents Label137 As Label
+    Friend WithEvents Cmx_01_account__fk_accgroup_id As ComboBox
+    Friend WithEvents Cmx_Settings_Transitoria As ComboBox
+    Friend WithEvents Label131 As Label
+    Friend WithEvents Cmx_Settings_Saldosteun As ComboBox
+    Friend WithEvents Label133 As Label
+    Friend WithEvents Label147 As Label
+    Friend WithEvents Tbx_Journnal_Jname As TextBox
+    Friend WithEvents Label146 As Label
+    Friend WithEvents Tbx_Journal_Descr As TextBox
+    Friend WithEvents Tbx_Report6_Add As TextBox
+    Friend WithEvents Tbx_Bank_Afschrift As TextBox
+    Friend WithEvents Label148 As Label
+    Friend WithEvents Label149 As Label
+    Friend WithEvents Cbx_Journal_Saldo_Open As CheckBox
+    Friend WithEvents Rbn_Journal_Extra As RadioButton
+    Friend WithEvents Cmx_Report5 As ComboBox
+    Friend WithEvents Rbn_Bank_jtype_int As RadioButton
+    Friend WithEvents Rbn_Bank_jtype_ext As RadioButton
+    Friend WithEvents Rbn_Bank_jtype_con As RadioButton
+    Friend WithEvents Pan_Bank_jtype As Panel
+    Friend WithEvents Label150 As Label
 End Class
