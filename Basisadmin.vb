@@ -180,7 +180,7 @@ Module Basisadmin
                             FROM " & fk_tbl & " WHERE id='" & fk_id & "'")
                         End If
                     Else
-                        ctl.Text = dst.Tables(0).Rows(0)(col)
+                        ctl.Text = dst.Tables(0).Rows(0)(col).ToString
                     End If
                     'MsgBox(ctl.Text)
                 ElseIf TypeOf ctl Is DateTimePicker Then
@@ -540,7 +540,7 @@ Module Basisadmin
                 name = QuerySQL(SQLstr)
                 Dim accgroup As String
                 'Dim tt As String = QuerySQL("SELECT ttype " & tbl & " WHERE id=" & new_id)
-                accgroup = IIf(SPAS.Tbx_01_Target__ttype.Text = "Kind", "Kindersponsoring", IIf(SPAS.Tbx_01_Target__ttype.Text = "Oudere", "Ouderensponsoring", "Incidentele hulp"))
+                accgroup = IIf(SPAS.Tbx_01_Target__ttype.Text = "Kind", "Kindersponsoring", IIf(SPAS.Tbx_01_Target__ttype.Text = "Oudere", "Ouderensponsoring", "Noodhulp"))
                 '@@@ tijdelijke oplossing, moet geparametriseerd worden
                 Create_Account(tbtxt.ToLower, name, accgroup, new_id)
         End Select
@@ -656,8 +656,8 @@ Module Basisadmin
 
     Sub Create_Account(ByVal source As String, name As String, accgroup As String, fk As Integer)
 
-        Dim SQLstr As String = "INSERT INTO account(name,source,f_key,type,accgroup,searchword,description,active) 
-                                VALUES('" & name & "','" & source & "','" & fk & "','Uitgaven','" & accgroup & "','','',true)"
+        Dim SQLstr As String = "INSERT INTO account(name,source,f_key,active, fk_accgroup_id) 
+                                VALUES('" & name & "','" & source & "','" & fk & "',true, (select id from accgroup where name='" & accgroup & "'))"
         RunSQL(SQLstr, "NULL", "")
 
     End Sub

@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.Text.RegularExpressions
 Imports Npgsql
+Imports NpgsqlTypes
 
 Module DataManagement
     Public connection As NpgsqlConnection
@@ -60,7 +61,58 @@ connstart:
 
         End Try
     End Sub
+    Public Sub RunSQL2(ByVal sql As String, p1 As String, p2 As String, msg As String)
+        Try
+            Connect(sql)
 
+            Dim cmd As New NpgsqlCommand
+            cmd.Parameters.Add(":id", NpgsqlDbType.Text).Value = p1
+            cmd.Parameters.Add(":type", NpgsqlDbType.Text).Value = p2
+
+            cmd.Connection = connection
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = sql
+            cmd.ExecuteNonQuery()
+            cmd.Dispose()
+            connection.Close()
+
+        Catch ex As Exception
+            Dim e1 As Integer = ex.ToString.IndexOf("UNIQUE constraint failed")
+            If e1 > 0 Then MessageBox.Show("Name already exists.") Else MsgBox("RunSQL error while running procedure " & msg & vbCrLf & vbCrLf & Left(ex.ToString, 1000))
+            Clipboard.Clear()
+            Clipboard.SetText(sql)
+
+        End Try
+    End Sub
+    Sub Load_Datagridview2(ByVal dgv As DataGridView, sql As String, p1 As String, errmsg As String)
+
+        dgv.DataSource = Nothing
+        Connect(sql)
+
+        'cmd.Parameters.Add(":type", NpgsqlDbType.Text).Value = p2
+
+        Dim ds = New DataSet
+        Dim da = New NpgsqlDataAdapter()
+        Dim ItemColl(1000) As String
+        Dim col As New DataGridViewTextBoxColumn
+
+        dgv.CellBorderStyle = DataGridViewCellBorderStyle.None
+        'dgv.Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+        Try
+
+            da.SelectCommand = New NpgsqlCommand(sql, connection)
+            da.SelectCommand.Parameters.Add(":id", NpgsqlDbType.Text).Value = p1
+            da.Fill(ds, sql)
+            dgv.DataSource = ds.Tables(sql)
+            ds.Tables.Add()
+
+        Catch ex As Exception
+            MsgBox("er is een fout opgetreden in de datagridview, module: " & errmsg & vbCrLf & vbCrLf & ex.ToString)
+        End Try
+        connection.Close()
+
+    End Sub
     Public Sub Load_Listbox(ByVal ls As ListBox, SQLstr As String)
         Connect(SQLstr)
         Dim da = New NpgsqlDataAdapter(SQLstr, connection)
@@ -122,6 +174,8 @@ connstart:
         End Try
 
     End Sub
+
+
     Sub Collect_bankdata(ByVal sql As String)
         Try
             Connect(sql)

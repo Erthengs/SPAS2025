@@ -1,4 +1,7 @@
 ﻿Imports System.IO
+Imports Npgsql
+Imports NpgsqlTypes
+
 Public Class SPAS
     Private Const V As Boolean = False
     Private PreviousTab As Integer
@@ -447,21 +450,21 @@ Public Class SPAS
 
 
     Private Sub Rbtn_Income_CheckedChanged(sender As Object, e As EventArgs) Handles Rbtn_Account_Income.CheckedChanged
-        If MenuSave.Enabled Then Tbx_01_Account__type.Text = Rbtn_Account_Income.Text
+        If MenuSave.Enabled Then Tbx_00_Account__type.Text = Rbtn_Account_Income.Text
     End Sub
 
     Private Sub Rbtn_Account_Transit_CheckedChanged(sender As Object, e As EventArgs) Handles Rbtn_Account_Transit.CheckedChanged
-        If MenuSave.Enabled Then Tbx_01_Account__type.Text = Rbtn_Account_Transit.Text
+        If MenuSave.Enabled Then Tbx_00_Account__type.Text = Rbtn_Account_Transit.Text
     End Sub
 
     Private Sub Rbtn_Account_Expense_CheckedChanged(sender As Object, e As EventArgs) Handles Rbtn_Account_Expense.CheckedChanged
-        If MenuSave.Enabled Then Tbx_01_Account__type.Text = Rbtn_Account_Expense.Text
+        If MenuSave.Enabled Then Tbx_00_Account__type.Text = Rbtn_Account_Expense.Text
     End Sub
 
-    Private Sub Tbx_Account__type_TextChanged(sender As Object, e As EventArgs) Handles Tbx_01_Account__type.TextChanged
-        Rbtn_Account_Expense.Checked = Tbx_01_Account__type.Text = "Uitgaven"
-        Rbtn_Account_Income.Checked = Tbx_01_Account__type.Text = "Inkomsten"
-        Rbtn_Account_Transit.Checked = Tbx_01_Account__type.Text = "Transit"
+    Private Sub Tbx_Account__type_TextChanged(sender As Object, e As EventArgs) Handles Tbx_00_Account__type.TextChanged
+        Rbtn_Account_Expense.Checked = Tbx_00_Account__type.Text = "Uitgaven"
+        Rbtn_Account_Income.Checked = Tbx_00_Account__type.Text = "Inkomsten"
+        Rbtn_Account_Transit.Checked = Tbx_00_Account__type.Text = "Transit"
     End Sub
     Private Sub Tbx_BankAcc__accountno_Leave(sender As Object, e As EventArgs) Handles Tbx_01_BankAcc__accountno.Leave
         If Tbx_01_BankAcc__accountno.Text = "" Then Exit Sub
@@ -3141,6 +3144,10 @@ end as e_intern,
     Function n20(value)
         If IsDBNull(value) Then Return 0
 
+    End Function
+
+    Function n2s(value)
+        If IsDBNull(value) Then Return ""
 
     End Function
 
@@ -3163,6 +3170,18 @@ end as e_intern,
     End Sub
 
     Private Sub Dgv_Bank_Account_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Bank_Account.CellContentClick
+
+    End Sub
+
+    Private Sub Button1_Click_3(sender As Object, e As EventArgs) Handles Testbutton.Click
+
+        'Dim Sql As String = "insert into settings(label,value) values (:id, :type)"
+        'RunSQL2(Sql, "testlabel", "testvalue", "testmsg")
+
+        MsgBox(sender.ToString)
+        Dim Sql As String = "select * from settings where label=:id"
+        Load_Datagridview2(Dgv_Test, Sql, "testlabel", sender.ToString)
+
 
     End Sub
 End Class

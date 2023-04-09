@@ -121,7 +121,7 @@ Partial Class Login
         '
         Me.Cmx_Login_Database.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cmx_Login_Database.FormattingEnabled = True
-        Me.Cmx_Login_Database.Items.AddRange(New Object() {"Productie", "Acceptatie", "Test", "SPAS-2021", "SPAS-2022"})
+        Me.Cmx_Login_Database.Items.AddRange(New Object() {"Productie", "Acceptatie", "Test"})
         Me.Cmx_Login_Database.Location = New System.Drawing.Point(168, 128)
         Me.Cmx_Login_Database.Name = "Cmx_Login_Database"
         Me.Cmx_Login_Database.Size = New System.Drawing.Size(180, 23)

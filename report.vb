@@ -134,7 +134,7 @@ Module report
         sum(b.credit) AS Bij,
         sum(b.debit) AS Af,
         sum(b.credit) - sum(b.debit) + (( SELECT bc.startbalance FROM bankacc bc WHERE b.iban::text = bc.accountno)) AS ActueelSaldo
-        FROM bank b   GROUP BY b.iban
+        FROM bank b GROUP BY b.iban
         --union  select '18', null, NULL, null,null, NULL, null
         UNION select 19, 'Banksaldi totaal'::text AS account, null,
         (SELECT sum(bc.startbalance) AS sum FROM bankacc bc) AS startsaldo,
