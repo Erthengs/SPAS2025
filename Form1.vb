@@ -53,6 +53,8 @@ Public Class SPAS
         Load_Combobox(Cmx_00_Contract__fk_account_id, "id", "name", "SELECT id, CONCAT(id, ' ',name) As name FROM account 
                                           WHERE active=TRUE AND source='cat' AND type = 'Inkomsten' ORDER BY name")
         Load_Combobox(Cmx_01_account__fk_accgroup_id, "id", "name", "SELECT id, name FROM accgroup WHERE active=True ORDER BY name")
+        Load_Combobox(Cmx_Report_Year, "date_part", "date_part", "select distinct(extract(year from date)) from journal_archive ja 
+                                        union select distinct(extract(year from date)) from journal order by date_part desc")
         'Clipboard.Clear()
         'Clipboard.SetText("SELECT id, CONCAT(name, ', ', name_add) as name FROM target WHERE active=TRUE ORDER BY name")
         If Me.Dgv_Mgnt_Tables.Rows(8).Cells(1).Value > 0 Then
@@ -62,7 +64,7 @@ Public Class SPAS
         '@@@ hier gaat iets fout
         Fill_Cmx_Excasso_Select_Combined()
         'fill other account comboboxes based on Cmx_Bank_Account -later to be added
-
+        'Cmx_Report_Year.Text = CInt(QuerySQL("select min(extract (year from date)) from journal"))
     End Sub
     Private Sub TC_Object_Click(sender As Object, e As EventArgs) Handles TC_Object.Click
         'If Edit_Mode Or Add_Mode Then
@@ -462,9 +464,9 @@ Public Class SPAS
     End Sub
 
     Private Sub Tbx_Account__type_TextChanged(sender As Object, e As EventArgs) Handles Tbx_00_Account__type.TextChanged
-        Rbtn_Account_Expense.Checked = Tbx_00_Account__type.Text = "Uitgaven"
-        Rbtn_Account_Income.Checked = Tbx_00_Account__type.Text = "Inkomsten"
-        Rbtn_Account_Transit.Checked = Tbx_00_Account__type.Text = "Transit"
+        Rbtn_Account_Income.Checked = Tbx_00_Account__type.Text = "Generiek (fonds)"
+        Rbtn_Account_Expense.Checked = Tbx_00_Account__type.Text = "Specifiek (doel)"
+        Rbtn_Account_Transit.Checked = Tbx_00_Account__type.Text = "Anders"
     End Sub
     Private Sub Tbx_BankAcc__accountno_Leave(sender As Object, e As EventArgs) Handles Tbx_01_BankAcc__accountno.Leave
         If Tbx_01_BankAcc__accountno.Text = "" Then Exit Sub
@@ -779,7 +781,7 @@ Public Class SPAS
         Tbx_00_Target__address.Enter, Tbx_00_Target__city.Enter, Tbx_00_Target__country.EnabledChanged, Tbx_00_Target__country.Enter,
         Tbx_00_Target__description.Enter, Tbx_01_CP__name.Enter, Tbx_01_CP__name_add.Enter,
         Tbx_01_BankAcc__accountno.Enter, Tbx_01_BankAcc__name.Enter, Tbx_01_BankAcc__owner.Enter,
-        Tbx_10_BankAcc__startbalance.Enter,
+        Tbx_BankAcc_startbalance.Enter,
         Tbx_01_Account__name.Enter, Cmx_00_Account__accgroup.Enter, Cmx_01_account__fk_accgroup_id.Enter,
         Tbx_10_Account__b_jan.Enter, Tbx_10_Account__b_feb.Enter, Tbx_10_Account__b_mar.Enter, Tbx_10_Account__b_apr.Enter, Tbx_10_Account__b_may.Enter, Tbx_10_Account__b_jun.Enter,
         Tbx_10_Account__b_jul.Enter, Tbx_10_Account__b_aug.Enter, Tbx_10_Account__b_sep.Enter, Tbx_10_Account__b_oct.Enter, Tbx_10_Account__b_nov.Enter, Tbx_10_Account__b_dec.Enter,
@@ -826,7 +828,7 @@ Public Class SPAS
     End Sub
 
     Private Sub Tbx_BankAcc__owner_TextChanged(sender As Object, e As EventArgs) Handles Tbx_01_BankAcc__owner.TextChanged,
-Tbx_00_BankAcc__id2.TextChanged, Tbx_00_BankAcc__bic.TextChanged, Tbx_10_BankAcc__startbalance.TextChanged,
+Tbx_00_BankAcc__id2.TextChanged, Tbx_00_BankAcc__bic.TextChanged, Tbx_BankAcc_startbalance.TextChanged,
 Tbx_00_BankAcc__description.TextChanged, Cbx_00_BankAcc__income.CheckedChanged, Chx_00_BankAcc__expense.CheckedChanged,
 Cmx_01_BankAcc__currency.SelectedIndexChanged, Cmx_01_cp__fk_bankacc_id.SelectedIndexChanged,
 Cmx_01_account__fk_accgroup_id.SelectedIndexChanged,
@@ -1192,9 +1194,7 @@ fin:
     Private Sub Tbx_Excasso_Exchange_rate_Enter(sender As Object, e As EventArgs) Handles Tbx_Excasso_Exchange_rate.Enter
         Btn_Excasso_Exchrate.Enabled = True
     End Sub
-    Private Sub Cmx_Journal_List_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmx_Journal_List.SelectedIndexChanged
-        Fill_Cmx_Journal_List()
-    End Sub
+
 
     Private Sub Btn_Select_Bulk_Click(sender As Object, e As EventArgs) Handles Btn_Select_Bulk.Click
         Select_Target_Account()
@@ -1221,9 +1221,7 @@ fin:
 
 
     End Sub
-    Private Sub Chbx_Journal_Inactive_CheckedChanged(sender As Object, e As EventArgs) Handles Chbx_Journal_Inactive.CheckedChanged
-        Fill_Cmx_Journal_List()
-    End Sub
+
 
     Private Sub Cbx_Journal_DeSelect_All_Click(sender As Object, e As EventArgs) Handles Cbx_Journal_DeSelect_All.Click
         Cbx_Journal_Select_All.Checked = False
@@ -1280,7 +1278,7 @@ fin:
     End Sub
 
     Private Sub Lv_Journal_List_DoubleClick(sender As Object, e As EventArgs) Handles Lv_Journal_List.DoubleClick
-
+        Exit Sub
         Dim i As Integer = Me.Dgv_Journal_items.CurrentRow.Index
         Dim name As String = Me.Dgv_Journal_items.Rows(i).Cells(1).Value
 
@@ -2191,7 +2189,7 @@ fin:
                     Dim id = Dgv_Journal_items.SelectedCells(10).Value
                     RunSQL("Update Journal Set description='" & Tbx_Journal_Descr.Text & "' Where id='" & id & "'", "NULL", "Tbx_Journal_Descr_Leave")
                     Load_Datagridview(Me.Dgv_Journal_items, Create_Journal_SQL, "Lv_Journal_List_Click")
-                    Me.Tbx_Journnal_Jname.Text = Me.Dgv_Journal_items.Rows(0).Cells(1).Value
+                    Me.Tbx_.Text = Me.Dgv_Journal_items.Rows(0).Cells(1).Value
                     Me.Tbx_Journal_Descr.Text = Me.Dgv_Journal_items.Rows(0).Cells(4).Value
                     MenuSave.Enabled = False
 
@@ -2288,6 +2286,7 @@ fin:
         End Select
     End Sub
     Sub ShowButtons()
+
         Dim i = TC_Main.SelectedIndex
         MenuBanktransactie.Visible = (i = 1)
         MenuUploadAlles.Visible = (i = 1)
@@ -2299,11 +2298,11 @@ fin:
         MenuSave.Visible = (i = 0 Or i = 2 Or i = 3 Or i = 4 Or i = 6)
         MenuAdd.Visible = (i = 0)
         MenuCancel.Visible = (i = 0 Or i = 3 Or (i = 4 And TC_Boeking.SelectedIndex = 1)) Or i = 6
-        ZoekenToolStripMenuItem.Visible = (i <> 2)
-        Searchbox.Visible = (i <> 2)
-        MenuFilter.Visible = (i <> 2)
-        ToolStripTextBox1.Visible = (i <> 1 And i <> 2)
-        Cbx_LifeCycle.Visible = (i <> 1 And i <> 2)
+        ZoekenToolStripMenuItem.Visible = (i < 2 Or i = 4)
+        Searchbox.Visible = ZoekenToolStripMenuItem.Visible
+        MenuFilter.Visible = ZoekenToolStripMenuItem.Visible
+        ToolStripTextBox1.Visible = (i <> 1 Or i = 4)
+        Cbx_LifeCycle.Visible = ToolStripTextBox1.Visible
         MenuAdd.Visible = IIf(InStr(Text, "(ALLEEN LEZEN)") = 0, MenuAdd.Visible, False)
         MenuSave.Visible = IIf(InStr(Text, "(ALLEEN LEZEN)") = 0, MenuSave.Visible, False)
         MenuDelete.Visible = IIf(InStr(Text, "(ALLEEN LEZEN)") = 0, MenuDelete.Visible, False)
@@ -2311,12 +2310,17 @@ fin:
     End Sub
     Private Sub TC_Main_Click(sender As Object, e As EventArgs) Handles TC_Main.Click
 
+
+
+
         Select Case TC_Main.SelectedIndex
 
             Case 0
-                Manage_Buttons_Target(True, True, True, False, False, "TC_Main_SelectedIndexChanged")
-            Case 1  'bank
 
+                Manage_Buttons_Target(True, True, True, False, False, "TC_Main_SelectedIndexChanged")
+                If Searchbox.Text <> "" Then Load_Table()
+            Case 1  'bank
+                Searchbox.Text = ""
                 Manage_Buttons_Target(False, True, False, False, False, "TC_Main_SelectedIndexChanged")
                 ''Fill_bank_transactions("TC_Main.SelectedIndex")
                 'Format_dvg_bank_journal()
@@ -2343,6 +2347,7 @@ fin:
                 End If
 
             Case 3
+
                 MenuSave.Enabled = True
                 MenuCancel.Enabled = True
                 MenuDelete.Enabled = True
@@ -2482,10 +2487,10 @@ fin:
     End Sub
 
 
-    Private Sub Cbx_Journal_Status_Click(sender As Object, e As EventArgs) Handles Cbx_Journal_Status_Open.Click, Cbx_Journal_Status_Verwerkt.Click
+    Private Sub Cbx_Journal_Status_Click(sender As Object, e As EventArgs) Handles Cbx_Journal_Status_Open.Click, Cbx_Journal_Status_Verwerkt.Click,
+            Cbx_Journal_Saldo_Open.Click, Cmx_Journal_List.SelectedIndexChanged, Chbx_Journal_Inactive.CheckedChanged
         Fill_Cmx_Journal_List()
     End Sub
-
 
     Sub Get_New_Excasso_Data2()  'roept de excassoquery aan
 
@@ -2988,36 +2993,21 @@ end as e_intern,
     End Sub
 
     Private Sub Btn_Report_YearEnd_Post_Click(sender As Object, e As EventArgs) Handles Btn_Report_YearEnd_Post.Click
-        Dim jaar As String = QuerySQL("select min(extract(year from date)) from journal")
-        Dim sql As String
-        Dim jaarnu = Date.Now.Year
-
-        If MsgBox("Door het jaar af te sluiten worden er beginsaldoposten gemaakt voor het jaar " & jaarnu &
-                  " en worden alle posten uit het jaar " & jaar & " verwijderd. Hiervoor moet eerst een backup worden gemaakt met de naam: " & vbCr & vbCr &
-                  "SPAS-" & jaar & vbCr & vbCr &
-                  "Is er een backup gemaakt van de database 'SPAS (Productie)?", vbYesNo) = vbNo Then Exit Sub
-        If MsgBox("Wilt u het jaar " & jaar & " afsluiten? Deze actie kan niet meer teruggedraaid worden.", vbYesNo) = vbNo Then Exit Sub
-
-        If QuerySQL("select count(*) from journal where extract(year from date) = (select min(extract(year from date)) from journal) and status != 'Verwerkt'") > 0 Then
-            MsgBox("Er zijn nog openstaande boekingen in " & jaar & ". Jaarafsluiting is nog niet mogelijk. ")
-            Exit Sub
-        End If
+        '----------- uitvoeren controles
+        Dim errMsg = "De volgende punten moeten nog worden opgelost:"
+        Dim openpost = QuerySQL("select Count(*) from journal where status !='Verwerkt' and extract(year from date)=" & report_year)
+        Dim vierkant = QuerySQL("select (select sum(amt1) from journal where status='Verwerkt')- (select sum(credit) -sum(debit) from bank)")
+        Dim geencat = QuerySQL("select count(*) from journal where fk_account=" & nocat)
+        If openpost > 0 Then errMsg &= vbCr & "- Er zijn nog " & openpost & " niet verwerkte journaaltransacties. "
+        If vierkant <> 0 Then errMsg &= vbCr & "- Totaalsaldo's van banktransacties en journaalposten komen niet overeen."
+        If geencat <> 0 Then errMsg &= vbCr & "- Er zijn nog " & geencat & " ongecategoriseerde posten."
+        If CDec(Lbl_Report_total.Text) < 0 Then errMsg &= vbCr & "- De uitgaven en overhead is nog niet goed verdisconteerd."
+        MsgBox(errMsg)
 
 
-        sql = "
-        -- insert journal entries with start balances --
-        insert into journal(description,amt1,name,date,status,source,fk_account)
-        select description, amount, name, date::date, status, type, fk_account from startsaldo;
-        -- delete old journal entries --
-        delete from journal where extract(year from date) = (select min(extract(year from date)) from journal) and status = 'Verwerkt';
-        -- update bank saldo --
-        update bankacc ba set startbalance = startbalance + (select sum(b.credit) - sum(b.debit) from bank b where b.iban = ba.accountno 
-        and extract(year from date) = (select min(extract(year from date)) from bank));
-        -- delete old bank transactions --
-        delete from bank where extract(year from date) = (select min(extract(year from date)) from bank);
-        "
-        RunSQL(sql, "NULL", "Btn_Report_YearEnd_Post")
-
+        'follow up
+        If errMsg <> "De volgende punten moeten nog worden opgelost:" Then Exit Sub
+        If MsgBox("Wilt u het jaar " & report_year & " definitief afsluiten? Dit kan niet meer worden teruggedraaid!", vbYesNo) = vbNo Then Exit Sub
 
     End Sub
 
@@ -3063,9 +3053,6 @@ end as e_intern,
         MenuSave.Enabled = True
     End Sub
 
-    Private Sub Cbx_Uitkering_Kind_CheckedChanged(sender As Object, e As EventArgs) Handles Cbx_Uitkering_Kind.CheckedChanged
-
-    End Sub
 
     Private Sub Dgv_Report_6_Click(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Report_6.CellContentClick
         Dim jid As String = Me.Dgv_Report_6.Rows(Me.Dgv_Report_6.CurrentRow.Index).Cells(9).Value
@@ -3081,8 +3068,7 @@ end as e_intern,
                 Left Join relation r on r.id = j.fk_relation
                 Left Join account a on a.id = j.fk_account
             where j.id = " & jid
-        Clipboard.Clear()
-        Clipboard.SetText(s)
+        ToClipboard(s, True)
         Collect_data(s)
 
         Me.Tbx_Report6_Add.Text = "[JOURNAAL]   id: <" & dst.Tables(0).Rows(0)(0) & ">  bron: <" & Trim(dst.Tables(0).Rows(0)(1)) & ">  status: <" & Trim(dst.Tables(0).Rows(0)(2)) _
@@ -3095,11 +3081,6 @@ end as e_intern,
     End Sub
 
 
-
-
-    Private Sub Lbx_Report5_Click(sender As Object, e As EventArgs)
-        MsgBox("hallo")
-    End Sub
 
     Private Sub Cmx_Report5_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmx_Report5.SelectedIndexChanged ',
         'Cmx_Report5.TextChanged, Cmx_Report5.SelectedValueChanged, Cmx_Report5.Click
@@ -3148,41 +3129,37 @@ end as e_intern,
 
     Function n2s(value)
         If IsDBNull(value) Then Return ""
-
     End Function
-
-    Private Sub Cmx_Bank_Account_TextChanged(sender As Object, e As EventArgs) Handles Cmx_Bank_Account.TextChanged
-
-    End Sub
-
-
 
     Private Sub Cmx_Bank_Account_SelectedValueChanged(sender As Object, e As EventArgs) Handles Cmx_Bank_Account.SelectedValueChanged
         'MsgBox("selectedvalue")
-    End Sub
-
-    Private Sub Cmx_Bank_Account_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmx_Bank_Account.SelectedIndexChanged
-
     End Sub
 
     Private Sub Rbn_Bank_jtype_con_CheckedChanged(sender As Object, e As EventArgs) Handles Rbn_Bank_jtype_con.CheckedChanged, Rbn_Bank_jtype_ext.CheckedChanged, Rbn_Bank_jtype_int.CheckedChanged
         Btn_Bank_Add_Journal.Enabled = True
     End Sub
 
-    Private Sub Dgv_Bank_Account_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Bank_Account.CellContentClick
-
-    End Sub
 
     Private Sub Button1_Click_3(sender As Object, e As EventArgs) Handles Testbutton.Click
-
-        'Dim Sql As String = "insert into settings(label,value) values (:id, :type)"
-        'RunSQL2(Sql, "testlabel", "testvalue", "testmsg")
 
         MsgBox(sender.ToString)
         Dim Sql As String = "select * from settings where label=:id"
         Load_Datagridview2(Dgv_Test, Sql, "testlabel", sender.ToString)
 
+    End Sub
+
+    Private Sub Cmx_Report_Year_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmx_Report_Year.SelectedIndexChanged
+        If TC_Main.SelectedIndex = 5 Then Report_overview()
+    End Sub
+
+
+    Public Sub ToClipboard(t As String, v As Boolean)
+        If Strings.Right(connect_string, 4) = "PROD" Or v = False Then Exit Sub
+        Clipboard.Clear()
+        Clipboard.SetText(t)
 
     End Sub
+
+
 End Class
 

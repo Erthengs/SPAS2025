@@ -1,9 +1,47 @@
 ﻿Imports System.Windows.Forms.VisualStyles
+Imports Microsoft.EntityFrameworkCore.Metadata
 
 Module report
+    Function Report_table(report_year)
+        If CInt(report_year) >= CInt(QuerySQL("select min(extract (year from date)) from journal")) Then
+            Return "journal"
+
+        Else
+            Return "journal_archive"
+        End If
+
+    End Function
+    Function Bank_table(report_year)
+        If CInt(report_year) >= CInt(QuerySQL("select min(extract (year from date)) from journal")) Then
+            Return "bank"
+        Else
+            Return "bank_archive"
+        End If
+    End Function
+
+
     Sub Report_overview()
+        report_year = SPAS.Cmx_Report_Year.Text
+
+        Dim jtable, btable, yearcheck_j2 As String
+        jtable = Report_table(report_year)
+        btable = Bank_table(report_year)
+        yearcheck_j2 = "and extract(year from date)=" & report_year
+        Dim tabname As String
+        For x = 0 To 1
+            tabname = SPAS.TC_Rapportage.TabPages(x).Text
+            If InStr(1, tabname, " (") > 0 Then SPAS.TC_Rapportage.TabPages(x).Text = Trim(Strings.Left(tabname, InStr(1, tabname, " (")))
+            SPAS.TC_Rapportage.TabPages(x).Text &= " (" & report_year & ")"
+
+
+        Next x
+
+
 
         Dim sqlstr As String = ""
+        Dim select_j2 = "select sum(amt1) from " & jtable & " j2 left join account a2 on a2.id = j2.fk_account where a2.fk_accgroup_id = a.fk_accgroup_id and j2.status != 'Open' "
+        Dim select_j = "select sum(amt1) from " & jtable & " j left join account a on a.id = j.fk_account where extract(year from j.date)=" & report_year & " and status != 'Open' and a.fk_accgroup_id in (select id from accgroup where type = '"
+        Dim select_sum = "(select sum(amt1) from " & jtable & " j left join account a2 on a2.id = j.fk_account where extract(year from j.date)=" & report_year
         Dim un As String = ""
         Dim gtype() As String = {"Inkomsten", "Uitgaven", "Transit"}
         Dim rl As Integer = 0
@@ -12,38 +50,38 @@ Module report
 
             un = IIf(i > 0, "union ", "")
             sqlstr &= un &
-        "	select " & rl & ", '" & gtype(i) & "', null, null, null, null, null, null, null 
+        "	select " & rl & ", '" & gtype(i) & "', null, null, null, null, null, null
             union select " & rl + 1 & ", ag.name
-            ,(select sum(amt1) from journal j2 left join account a2 on a2.id = j2.fk_account where a2.fk_accgroup_id = a.fk_accgroup_id and j2.status != 'Open' and j2.source = 'Closing')
-            ,(select sum(amt1) from journal j2 left join account a2 on a2.id = j2.fk_account where a2.fk_accgroup_id = a.fk_accgroup_id and j2.status != 'Open' and j2.source = 'Incasso')
-            ,(select sum(amt1) from journal j2 left join account a2 on a2.id = j2.fk_account where a2.fk_accgroup_id = a.fk_accgroup_id and j2.status != 'Open' and j2.source = 'Bank')
-            ,(select sum(amt1) from journal j2 left join account a2 on a2.id = j2.fk_account where a2.fk_accgroup_id = a.fk_accgroup_id and j2.status != 'Open' and j2.source = 'Intern')
-            ,(select sum(amt1) from journal j2 left join account a2 on a2.id = j2.fk_account where a2.fk_accgroup_id = a.fk_accgroup_id and j2.status != 'Open' and j2.source = 'Uitkering')
-            ,(select sum(amt1) from journal j2 left join account a2 on a2.id = j2.fk_account where a2.fk_accgroup_id = a.fk_accgroup_id and j2.status != 'Open'),null
-            from journal j left join account a on a.id = fk_account left join accgroup ag on ag.id = a.fk_accgroup_id
-            where status != 'Open' and ag.type = '" & gtype(i) & "' group by ag.name, a.fk_accgroup_id
-            --having (select sum(amt1) from journal j2 left join account a2 on a2.id = j2.fk_account where a2.fk_accgroup_id = a.fk_accgroup_id) != '0.00'
+            ,(" & select_j2 & yearcheck_j2 & " and j2.source = 'Closing')
+            ,(" & select_j2 & yearcheck_j2 & " and j2.source = 'Incasso')
+            ,(" & select_j2 & yearcheck_j2 & " and j2.source = 'Bank')
+            ,(" & select_j2 & yearcheck_j2 & " and j2.source = 'Intern')
+            ,(" & select_j2 & yearcheck_j2 & " and j2.source = 'Uitkering')
+            ,(" & select_j2 & yearcheck_j2 & ")
+            from " & jtable & " j left join account a on a.id = fk_account left join accgroup ag on ag.id = a.fk_accgroup_id
+            where status != 'Open' and ag.type = '" & gtype(i) & "' and extract(year from date)=" & CInt(report_year) & " group by ag.name, a.fk_accgroup_id
+            --having (select sum(amt1) from " & jtable & " j2 left join account a2 on a2.id = j2.fk_account where a2.fk_accgroup_id = a.fk_accgroup_id) != '0.00'
             union select " & rl + 2 & ", 'Totaal' 
-            ,(select sum(amt1) from journal j left join account a on a.id = j.fk_account where status != 'Open' and a.fk_accgroup_id in (select id from accgroup where type = '" & gtype(i) & "') and j.source = 'Closing')
-            ,(select sum(amt1) from journal j left join account a on a.id = j.fk_account where status != 'Open' and a.fk_accgroup_id in (select id from accgroup where type = '" & gtype(i) & "') and j.source = 'Incasso')
-            ,(select sum(amt1) from journal j left join account a on a.id = j.fk_account where status != 'Open' and a.fk_accgroup_id in (select id from accgroup where type = '" & gtype(i) & "') and j.source = 'Bank')
-            ,(select sum(amt1) from journal j left join account a on a.id = j.fk_account where status != 'Open' and a.fk_accgroup_id in (select id from accgroup where type = '" & gtype(i) & "') and j.source = 'Intern')
-            ,(select sum(amt1) from journal j left join account a on a.id = j.fk_account where status != 'Open' and a.fk_accgroup_id in (select id from accgroup where type = '" & gtype(i) & "') and j.source = 'Uitkering')
-            ,(select sum(amt1) from journal j left join account a on a.id = j.fk_account where status != 'Open' and a.fk_accgroup_id in (select id from accgroup where type = '" & gtype(i) & "') and j.status != 'Open'),null
-            union select " & rl + 3 & ", null, null, null, null, null, null, null,null "
+            ,(" & select_j & gtype(i) & "') and j.source = 'Closing')
+            ,(" & select_j & gtype(i) & "') and j.source = 'Incasso')
+            ,(" & select_j & gtype(i) & "') and j.source = 'Bank')
+            ,(" & select_j & gtype(i) & "') and j.source = 'Intern')
+            ,(" & select_j & gtype(i) & "') and j.source = 'Uitkering')
+            ,(" & select_j & gtype(i) & "') and j.status != 'Open')
+            union select " & rl + 3 & ", null, null, null, null, null, null, null "
             rl = rl + 4
         Next i
 
         sqlstr &= "
-            --union select 12, null, null, null, null, null, null, null,null 
+            --union select 12, null, null, null, null, null, null, null 
             union select 12, 'Totaal generaal' 
-            ,(select sum(amt1) from journal j left join account a2 on a2.id = j.fk_account where j.source = 'Closing' and status != 'Open')
-            ,(select sum(amt1) from journal j left join account a2 on a2.id = j.fk_account where j.source = 'Incasso' and status != 'Open')
-            ,(select sum(amt1) from journal j left join account a2 on a2.id = j.fk_account where j.source = 'Bank' and status != 'Open')
-            ,(select sum(amt1) from journal j left join account a2 on a2.id = j.fk_account where j.source = 'Intern' and status != 'Open')
-            ,(select sum(amt1) from journal j left join account a2 on a2.id = j.fk_account where j.source = 'Uitkering' and status != 'Open')
-            ,(select sum(amt1) from journal j left join account a2 on a2.id = j.fk_account where j.status != 'Open')
-            ,null  
+            ," & select_sum & " and j.source = 'Closing' and status != 'Open')
+            ," & select_sum & " and j.source = 'Incasso' and status != 'Open')
+            ," & select_sum & " and j.source = 'Bank' and status != 'Open')
+            ," & select_sum & " and j.source = 'Intern' and status != 'Open')
+            ," & select_sum & " and j.source = 'Uitkering' and status != 'Open')
+            ," & select_sum & " and j.status != 'Open')
+
         "
         Clipboard.Clear()
         Clipboard.SetText(sqlstr)
@@ -61,15 +99,13 @@ Module report
                 .Columns(5).HeaderText = "Interne boekingen"
                 .Columns(6).HeaderText = "Uitkering"
                 .Columns(7).HeaderText = "Saldo 31/12"
-                .Columns(8).HeaderText = "Saldo 1/1 nieuw jaar"
                 .Columns(1).Width = 230
 
-                For k = 2 To 8
+                For k = 2 To 7
                     .Columns(k).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                    .Columns(k).Width = 100
+                    .Columns(k).Width = 120
                     .Columns(k).DefaultCellStyle.Format = "N2"
                     .Columns(k).ReadOnly = True
-
                 Next
                 Dim spc As Integer
                 For r = 0 To .Rows.Count - 1
@@ -78,10 +114,11 @@ Module report
                         .Rows(r).DefaultCellStyle.ForeColor = Color.Blue
                         .Rows(r).DefaultCellStyle.Font = New Font("Calibri", 12, FontStyle.Bold)
                         If spc = 12 Then
-                            .Rows(r).DefaultCellStyle.BackColor = Color.Yellow
+                            .Rows(r).DefaultCellStyle.BackColor = IIf(btable = "bank_archive", Color.Silver, Color.Yellow)
+
                         End If
                         If spc = 0 Or spc = 4 Or spc = 8 Then
-                            .Rows(r).DefaultCellStyle.BackColor = Color.PaleGreen
+                            .Rows(r).DefaultCellStyle.BackColor = IIf(btable = "bank_archive", Color.Gainsboro, Color.PaleGreen)
                         End If
 
                     End If
@@ -111,8 +148,8 @@ Module report
         'MsgBox(accgroup & " " & source & " " & bedrag)
 
         Dim sql As String = "select j.date, a.name,j.amt1,j.name, j.type, j.description, j.iban,  ag.name,  j.fk_bank, j.id 
-                             from journal j left join account a on a.id = j.fk_account  left join accgroup ag on ag.id = a.fk_accgroup_id
-                             where j.source='" & source & "' and ag.name='" & accgroup & "' and j.status != 'Open' order by j.date desc"
+                             from " & Report_table(report_year) & " j left join account a on a.id = j.fk_account  left join accgroup ag on ag.id = a.fk_accgroup_id
+                             where extract(year from j.date)=" & report_year & "and j.source='" & source & "' and ag.name='" & accgroup & "' and j.status != 'Open' order by j.date desc"
 
         Clipboard.Clear()
         Clipboard.SetText(sql)
@@ -126,43 +163,47 @@ Module report
 
 
     Sub Report_Bank_overview()
+
+        Dim yearcheck = " and b2.iban = ba.accountno and extract(year from date)=" & report_year
         Dim sql As String = "
-        select 0, 'BANKREKENINGEN', null, NULL, null,null, NULL      
-        UNION  SELECT '1',(SELECT'Bankrekening '::text || bc.name AS name FROM bankacc bc  WHERE b.iban::text = bc.accountno) AS account,
-        ( SELECT bc.accountno FROM bankacc bc WHERE b.iban::text = bc.accountno) AS account_detail,
-        ( SELECT bc.startbalance FROM bankacc bc WHERE b.iban::text = bc.accountno) AS startsaldo,
-        sum(b.credit) AS Bij,
-        sum(b.debit) AS Af,
-        sum(b.credit) - sum(b.debit) + (( SELECT bc.startbalance FROM bankacc bc WHERE b.iban::text = bc.accountno)) AS ActueelSaldo
-        FROM bank b GROUP BY b.iban
-        --union  select '18', null, NULL, null,null, NULL, null
-        UNION select 19, 'Banksaldi totaal'::text AS account, null,
-        (SELECT sum(bc.startbalance) AS sum FROM bankacc bc) AS startsaldo,
-        sum(bank.credit) AS Bij,
-        sum(bank.debit) AS Af,
-        (( SELECT sum(bc.startbalance) AS sum FROM bankacc bc)) +
-            CASE
-                WHEN sum(bank.credit) IS NULL THEN 0::money ELSE sum(bank.credit)
-            END -
-            CASE
-                WHEN sum(bank.debit) IS NULL THEN 0::money ELSE sum(bank.debit)
-            END AS ActueelSaldo
-        FROM bank
-        union select 20,  null, NULL, null,null, NULL, null                     
-        union select 30, 'BANK/INTERNE BOEKINGEN', '', NULL, null,null, NULL 
-        union select 30, 'bron', 'doel', null,null,null,null 
-        union select 32, b.iban, b.iban2,null, sum(debit), sum(credit), sum(debit) - sum(credit) from bank b 
-        where iban2 in (select accountno from bankacc where expense = True)
-        and iban in (select accountno from bankacc where expense = False)
-        group by iban, iban2
-        union select 39,'Totaal', null, null, sum(debit), sum(credit), sum(debit) - sum(credit) as totaal from bank b 
-        where iban2 in (select accountno from bankacc where expense = True) and iban in (select accountno from bankacc where expense = False)
+        select 0, 'BANKREKENINGEN', null, null, null,null, null,null,null   
+        union select 1, b.iban,ba.name,
+        (select credit-debit from " & Bank_table(report_year) & " b2 where name = '_startsaldo_'" & yearcheck & "),  
+        (select sum(credit) from " & Bank_table(report_year) & " b2 where name != '_startsaldo_'" & yearcheck & "),
+        (select sum(debit) from " & Bank_table(report_year) & " b2 where name != '_startsaldo_'" & yearcheck & "),
+        (select sum(credit)-sum(debit) from " & Bank_table(report_year) & " b2 where b2.iban = ba.accountno and extract(year from date)=" & report_year & "),
+        (select sum(credit)-sum(debit) from " & Bank_table(report_year) & " b2 where b2.iban = ba.accountno and extract(year from date)=" & report_year & "and iban2 in (select accountno from bankacc)),
+        (select sum(credit)-sum(debit) from " & Bank_table(report_year) & " b2 where name != '_startsaldo_'" & yearcheck & ")
+        from " & Bank_table(report_year) & " b left join bankacc ba on b.iban=ba.accountno 
+        union 
+        select 2,'Banksaldi totalen', null,  
+        (select sum(credit)-sum(debit) from " & Bank_table(report_year) & " b2 where name = '_startsaldo_' and extract(year from date)=" & report_year & "),  
+        (select sum(credit) from " & Bank_table(report_year) & " b2 where name != '_startsaldo_' and extract(year from date)=" & report_year & "),  
+        (select sum(debit) from " & Bank_table(report_year) & " b2 where name != '_startsaldo_' and extract(year from date)=" & report_year & "),
+        (select sum(credit)-sum(debit) from " & Bank_table(report_year) & " b2  where extract(year from date)=" & report_year & "),
+        (select sum(credit)-sum(debit) from " & Bank_table(report_year) & " b2 where iban2 in (select accountno from bankacc) and extract(year from date)=" & report_year & "),
+        (select sum(credit)-sum(debit) from " & Bank_table(report_year) & " b2 where name != '_startsaldo_' and extract(year from date)=" & report_year & ")
+        from " & Bank_table(report_year) & " b 
+
+
+        --union select 20,  null, NULL, null,null, NULL, null                     
+        --union select 30, 'BANK/INTERNE BOEKINGEN', '', NULL, null,null, NULL 
+        --union select 30, 'bron', 'doel', null,null,null,null 
+        --union select 32, b.iban, b.iban2,null, sum(debit), sum(credit), sum(debit) - sum(credit) from bank b 
+        --where iban2 in (select accountno from bankacc where expense = True)
+        --and iban in (select accountno from bankacc where expense = False)
+        --group by iban, iban2
+        --union select 39,'Totaal', null, null, sum(debit), sum(credit), sum(debit) - sum(credit) as totaal from bank b 
+        --where iban2 in (select accountno from bankacc where expense = True) and iban in (select accountno from bankacc where expense = False)
 "
+        SPAS.ToClipboard(sql, True)
 
         Load_Datagridview(SPAS.Dgv_Rapportage, sql, "rapportagefout Report_Bank_overview")
+
+
         For r = 0 To SPAS.Dgv_Rapportage.Rows.Count - 1
-            Select Case SPAS.Dgv_Rapportage.Rows(r).Cells(0).Value
-                Case 0, 19, 30, 39
+            Select Case r
+                Case 0, 6 ', 30, 39
                     SPAS.Dgv_Rapportage.Rows(r).DefaultCellStyle.ForeColor = Color.Blue
                     SPAS.Dgv_Rapportage.Rows(r).DefaultCellStyle.Font = New Font("Calibri", 12, FontStyle.Bold)
                 Case Else
@@ -179,15 +220,18 @@ Module report
                 .Columns(4).HeaderText = "Bij"
                 .Columns(5).HeaderText = "Af"
                 .Columns(6).HeaderText = "Saldo"
-                .Columns(1).Width = 270
+                .Columns(7).HeaderText = "Interne overboeking"
+                .Columns(8).HeaderText = "Mutatie"
+                .Columns(1).Width = 200
                 .Columns(2).Width = 200
 
-                For k = 3 To 6
+                For k = 3 To 8
                     .Columns(k).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                     .Columns(k).Width = 100
                     .Columns(k).DefaultCellStyle.Format = "N2"
                     .Columns(k).ReadOnly = False
                 Next
+
 
             End With
         Catch
@@ -367,101 +411,137 @@ Module report
     End Sub
     Sub Report_Closing()
 
+        Dim saldo_date_start As String = "'Startsaldo 1-1-" & report_year + 1 & "' as name,'" & report_year + 1 & "-01-01' as date,'Verwerkt',"
+        Dim tables As String = "journal j left join account a on a.id=j.fk_account left join accgroup g on g.id= a.fk_accgroup_id "
         Dim sql2 As String = ""
         Dim sql3 = "INSERT INTO journal(name, date, status, amt1, description, source, fk_account, type) VALUES" & vbCrLf
         Dim sql1 As String
         sql1 = "
-drop table if exists postings;
-select 'Startsaldo 1-1-2023' as name, '2023-01-01'as date, 'Verwerkt' as Status, sum(amt1) as amt1, 'Startsaldo '||a.name as Description, 'Opening' as source, fk_account, 'Internal' as type  
-into temp table postings
-from journal j
-left join account a on a.id=j.fk_account
-left join accgroup g on g.id= a.fk_accgroup_id 
-where g.type != 'Uitgaven'
-group by a.name, j.fk_account
-having sum(amt1) !=0::money
-union
-select 'Startsaldo 1-1-2023' as name, '2023-01-01' as date, 'Verwerkt' as Status, sum(amt1) as amt1, 'Totaal uitgaven' as Description, 'Opening' as source, null as fk_account, 'Internal' as type  
-from journal j
-left join account a on a.id=j.fk_account
-left join accgroup g on g.id= a.fk_accgroup_id 
-where g.type = 'Uitgaven'
-union 
-select b.iban,  '2023-01-01', 'Bank', sum(b.credit-b.debit) + (select startbalance from bankacc a where a.accountno = b.iban), null, null, 99999, null
-from bank b
-group by iban;
+    drop table if exists postings;
+    select a.type as acnttype, " & saldo_date_start & " 
+    'Startsaldo '||a.name as Description, 'Closing' as source, fk_account, j.type as jrntype, sum(amt1) as amt1, null As Verrekening, null As Eindtotaal 
+    into temp table postings
+    from " & tables & "
+    where a.type = 'Specifiek (doel)' and extract (year from date)=2023 --g.type = 'Inkomsten' and j.status != 'Open' and
+    group by a.type, a.name, j.fk_account, j.type
+    having sum(amt1) !=0::money
+    --order by a.type
+    ------------------------------------------------------------------------------------------------------------
+    -- 2 haal de totaal van de kosten op
 
-update postings set amt1 = (select amt1 from postings where fk_account=439)::money + (select amt1 from postings where fk_account is not distinct from null)::money + '0.35'
-where fk_account=439;
-update postings set amt1 = (select amt1 from postings where fk_account=701)::money + (select amt1 from postings where fk_account =439)::money
-where fk_account=701;
-delete from postings  where fk_account=439;
-delete from postings where fk_account is not distinct from null;
+    union ------------------uitgaven
+    select 'Uitgaven'," & saldo_date_start & "
+    'Totaal uitgaven', 'Closing',null, null,
+    (select sum(amt1) from  " & tables & " where extract (year from date)=2023 and g.type = 'Uitgaven' and j.status != 'Open'), 
+    null As Verrekening, null As Eindtotaal 
+
+    union ----------------------------overhead
+    select 'Generiek (overhead)', 'Startsaldo 1-1-2024', '2024-01-01','Verwerkt',
+    'Overhead', 'Closing',null, null,
+     (select sum(amt1) from  " & tables & " where a.type = 'Anders' and g.type != 'Uitgaven' and g.name = 'Overhead'),
+     null As Verrekening, null As Eindtotaal 
 
 
---select sum(amt1) from postings;
-select * from postings
+    union----- fondsen--------------------------
+    select a.type as acnttype, " & saldo_date_start & " 
+    'Startsaldo '||a.name as Description, 'Closing' as source, fk_account, null,sum(amt1) as amt1, null As Verrekening, null As Eindtotaal 
+    from " & tables & "
+    where  extract (year from date)=2023 and a.type = 'Generiek (fonds)' and j.status != 'Open' and g.type = 'Inkomsten'
+    group by a.type, a.name, j.fk_account
+    having sum(amt1) !='0'::money
+
+    union ----------------------------transit
+
+    select 'Transit', " & saldo_date_start & "
+    'Startsaldo '||a.name as Description, 'Closing' as source, fk_account, null,sum(amt1) as amt1, null As Verrekening, null As Eindtotaal 
+    from " & tables & "
+    where extract (year from date)=2023  and j.status != 'Open' and g.type = 'Transit'
+    group by a.type, a.name, j.fk_account
+    having sum(amt1) !='0'::money
+    order by acnttype;
+
+
+    select * from postings
 "
 
         'RunSQL(sql1, "NULL", "Report_Closing")
-
+        SPAS.ToClipboard(sql1, True)
         Load_Datagridview(SPAS.Dgv_Report_Year_Closing, sql1, "Report_Closing")
-
-        Dim amt As String
         For r = 0 To SPAS.Dgv_Report_Year_Closing.Rows.Count - 1
-            amt = Replace(SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(3).Value, ".", "")
-            amt = Replace(amt, ",", ".")
-            If SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(2).Value = "Bank" Then
-                sql2 = sql2 & "UPDATE bankacc SET startbalance='" & amt & "' WHERE accountno='" & SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(0).Value & "';" & vbCrLf
-            Else
-                sql3 = sql3 & "('" & SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(0).Value & "','" &
-                SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(1).Value & "','" &
-                SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(2).Value & "','" &
-                amt & "','" &
-                SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(4).Value & "','" &
-                SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(5).Value & "','" &
-                SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(6).Value & "','" &
-                SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(7).Value & "')," & vbCrLf
+            If SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(1).Value = "Transitoria" Then
             End If
 
+        Next r
+
+
+
+
+        Dim amt = 0.00
+        Dim af As Integer = 0
+        For r = 0 To SPAS.Dgv_Report_Year_Closing.Rows.Count - 1
+            'amt = Replace(SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(3).Value, ".", "")
+            'amt = Replace(amt, ",", ".")
+            If InStr(SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(5).Value, "Startsaldo Algemeen,Fonds") Then af = r
+
+            If InStr(SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(0).Value, "v") > 0 Then 'oVerhead, uitgaVen
+                SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(9).Value = Format(SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(8).Value, "N2")
+                SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(10).Value = 0
+                amt += SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(9).Value
+            Else
+                SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(9).Value = 0
+                SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(10).Value = Format(SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(8).Value, "N2")
+            End If
         Next
+        SPAS.Dgv_Report_Year_Closing.Rows(af).Cells(9).Value = amt
+        SPAS.Dgv_Report_Year_Closing.Rows(af).Cells(10).Value = Format(SPAS.Dgv_Report_Year_Closing.Rows(af).Cells(10).Value + amt - 30000, "N2")
+        SPAS.Lbl_Report_total.Text = SPAS.Dgv_Report_Year_Closing.Rows(af).Cells(10).Value
 
-        Clipboard.Clear()
-        Clipboard.SetText(sql2 & Strings.Left(sql3, Strings.Len(sql3) - 3) & ";")
-        MsgBox(sql2 & Strings.Left(sql3, Strings.Len(sql3) - 3) & ";" & vbCrLf & vbCrLf & " is gekopieerd naar het klembord.")
-
-        Exit Sub
-
-        SPAS.Lbl_Report_total.Text = QuerySQL("select sum(amt1) from journal 
-            where status != 'Open' and extract(year from date) = (select extract(year from min(date)) from journal)")
 
         Try
             With SPAS.Dgv_Report_Year_Closing
-                .Columns(0).HeaderText = "Omschrijving"
-                .Columns(1).HeaderText = "Bedrag"
-                .Columns(2).HeaderText = "Journaalnaam"
-                .Columns(3).HeaderText = "Boekdatum"
-                .Columns(4).HeaderText = "Status"
-                .Columns(5).HeaderText = "Bron"
-                .Columns(6).HeaderText = "Ac.nr"
-                .Columns(7).HeaderText = "Ac.groep"
-                .Columns(0).Width = 230
-                .Columns(2).Visible = False
 
-                For k = 1 To 6
-                    .Columns(k).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                    .Columns(k).Width = 90
-                    .Columns(k).DefaultCellStyle.Format = "N2"
+
+
+                .Columns(0).HeaderText = "Type"
+                .Columns(0).Width = 135
+                .Columns(1).Visible = False
+                .Columns(2).Visible = False
+                .Columns(3).Visible = False
+                .Columns(4).HeaderText = "Omschrijving"
+                .Columns(4).Width = 300
+                .Columns(5).Visible = False
+                .Columns(6).HeaderText = "Accnt"
+                .Columns(7).HeaderText = "Journaltype"
+                .Columns(8).HeaderText = "Bedrag"
+                .Columns(9).HeaderText = "Verrekenen"
+                .Columns(10).HeaderText = "Overdracht"
+                .Columns(10).DefaultCellStyle.ForeColor = Color.DarkGreen
+                .Columns(10).DefaultCellStyle.Format = "N2"
+
+                For k = 0 To 10
                     .Columns(k).ReadOnly = True
+                    If k > 7 Then
+                        .Columns(k).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                        .Columns(k).DefaultCellStyle.Format = "N2"
+                    End If
                 Next
 
             End With
         Catch ex As Exception
 
         End Try
+        If SPAS.Dgv_Report_Year_Closing.Rows(af).Cells(10).Value < 0 Then
+            SPAS.Dgv_Report_Year_Closing.Rows(af).DefaultCellStyle.ForeColor = Color.Red
+            MsgBox("Het algemeen fonds bevat onvoldoende middelen om te overhead en uitgaven te verdisconteren, vul deze s.v.p. aan.")
+
+        End If
+
+
     End Sub
 
     Sub Report_collection2()
+
+
         Dim sql As String = "
         select 20, j.source,
         (select sum(amt1) from journal j2 left join account a on a.id = j2.fk_account left join accgroup ag on ag.id = a.fk_accgroup_id 

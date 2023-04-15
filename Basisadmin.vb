@@ -223,6 +223,27 @@ Module Basisadmin
             SPAS.Dtp_00_relation__date1.Enabled = (SPAS.Tbx_00_Relation__iban.Text <> "")
             SPAS.Dtp_00_relation__date2.Enabled = (SPAS.Tbx_00_Relation__iban.Text <> "")
             SPAS.Dtp_00_relation__date3.Enabled = (SPAS.Tbx_00_Relation__iban.Text <> "")
+            'vul giftenoverzicht
+            Dim sql As String = "
+		    select r.name, j.date, 'Overschrijving', amt1 from relation r
+		    left join bank b on b.iban2 = r.iban
+		    left join journal j on j.fk_bank = b.id
+		    where b.code in ('cb', 'ei') and r.id =" & id & "
+		    union select r.name,j.date, 'Incasso', sum(amt1) from relation r 
+		    left join journal j on r.id = j.fk_relation
+		    where source='Incasso' and r.id =" & id & "
+		    group by r.name, j.date"
+            Load_Datagridview(SPAS.Dgv_relation_giften, sql, "Select_Obj2")
+            With SPAS.Dgv_relation_giften
+                .Columns(0).Visible = False
+                .Columns(1).HeaderText = "Datum"
+                .Columns(1).Width = 75
+                .Columns(2).HeaderText = "Betaling"
+                .Columns(3).HeaderText = "Bedrag"
+                .Columns(3).DefaultCellStyle.Format = "N2"
+                .Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                .Columns(3).Width = 70
+            End With
         End If
         If tb = 4 Then 'ACCOUNT
 
@@ -230,7 +251,12 @@ Module Basisadmin
             If SPAS.Lbl_00_Account__source.Text = "cat" Then SPAS.Tbx_01_Account__name.Enabled = True
 
         End If
+        If tb = 5 Then 'bankACCOUNT
 
+            SPAS.Tbx_BankAcc_startbalance.Text = QuerySQL("select credit-debit from bank b left join bankacc c on c.accountno=b.iban 
+                                                where b.name='_startsaldo_' and b.iban ='" & SPAS.Tbx_01_BankAcc__accountno.Text & "'")
+
+        End If
 
     End Sub
 

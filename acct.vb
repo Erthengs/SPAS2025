@@ -1,4 +1,6 @@
-﻿Module acct
+﻿Imports System.ComponentModel.DataAnnotations
+
+Module acct
 
 
     '"Known error: 
@@ -287,11 +289,11 @@
         End If
 
         If rst > 0 Then
-                Dim answ = MsgBox("Een bedrag ad €" & rst & " is nog niet verdeeld. Wilt u doorgaan met bewaren?", vbYesNo)
-                If answ = vbNo Then Exit Sub
-            End If
+            Dim answ = MsgBox("Een bedrag ad €" & rst & " is nog niet verdeeld. Wilt u doorgaan met bewaren?", vbYesNo)
+            If answ = vbNo Then Exit Sub
+        End If
 
-            Dim SQLstr As String = ""
+        Dim SQLstr As String = ""
         Dim SQLroot As String = ""
 
         Dim dat As Date = SPAS.Dtp_Journal_intern.Value
@@ -468,8 +470,8 @@
             End With
         Next
         SQLStr &= SQL_Where & " ORDER BY j.date, j.name"
-        Clipboard.Clear()
-        Clipboard.SetText(SQLStr)
+        SPAS.ToClipboard(SQLStr, True)
+
         Return SQLStr
 
     End Function
@@ -477,13 +479,15 @@
     Sub Fill_Journal_List()
         Dim jrnl As Boolean
         jrnl = SPAS.Cmx_Journal_List.Text = "Journaalnaam"
-
+        Dim cred, deb As Decimal
 
         Load_Datagridview(SPAS.Dgv_Journal_items, Create_Journal_SQL, "Lv_Journal_List_Click")
         'If jrnl And SPAS.Dgv_Journal_items.RowCount > 0 Then
+
         Try
-            SPAS.Tbx_Journnal_Jname.Text = SPAS.Dgv_Journal_items.Rows(0).Cells(1).Value
+            SPAS.Tbx_.Text = SPAS.Dgv_Journal_items.Rows(0).Cells(1).Value
             SPAS.Tbx_Journal_Descr.Text = SPAS.Dgv_Journal_items.Rows(0).Cells(4).Value
+
         Catch ex As Exception
             'MsgBox(ex.ToString)
         End Try
@@ -537,7 +541,19 @@
             .Columns(6).Visible = True 'jrnl
             '.Columns(2).Visible = Not jrnl
         End With
+        cred = 0
+        deb = 0
+        Try
+            For r = 0 To SPAS.Dgv_Journal_items.RowCount - 1
+                cred += SPAS.Dgv_Journal_items.Rows(r).Cells(2).Value
+                deb += SPAS.Dgv_Journal_items.Rows(r).Cells(3).Value
+            Next
+            SPAS.Tbx_Journal_Credit.Text = cred.ToString("#0.00")
+            SPAS.Tbx_Journal_Debit.Text = deb
+            SPAS.Tbx_Journal_Saldo.Text = cred - deb
+        Catch ex As Exception
 
+        End Try
         'Calculate_Journal_Totals()
         'Calculate_Journal_Overview()
     End Sub

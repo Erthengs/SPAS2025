@@ -20,6 +20,7 @@ Module DataManagement
     Public totsql As String
     Public nocat As String
     Public _overhead As String
+    Public report_year As Integer
 
 
     Sub Connect(ByVal SQL)

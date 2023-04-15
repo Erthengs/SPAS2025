@@ -738,12 +738,8 @@ Module bank
         If Strings.InStr(SPAS.Cmx_Bank_bankacc.Text, "NL") = 0 Then Exit Sub
 
         Dim balance As Decimal = QuerySQL("
-  select      
-  (  select case when ba.startbalance isnull then 0::money else ba.startbalance::money end 
-  		from bankacc ba WHERE accountno = '" & Strings.Right(SPAS.Cmx_Bank_bankacc.Text, 18) & "'
-  )+(select case when sum(credit-debit)::money isnull then 0::money else sum(credit-debit)::money end 
+         select case when sum(credit)-sum(debit)::money isnull then 0::money else sum(credit-debit)::money end 
   		from bank ba WHERE iban = '" & Strings.Right(SPAS.Cmx_Bank_bankacc.Text, 18) & "' 
-  )
 ")
         SPAS.Lbl_Bank_Saldo.Text = Format(balance, "#,##0.00")
 
