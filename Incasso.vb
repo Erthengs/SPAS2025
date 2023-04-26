@@ -76,9 +76,9 @@ Module Incasso
         '@@@ moet gewijzigd worden naar nieuwe tabel
         Dim pi = MsgId
         Dim Inc_date As Date = Format(isd, "yyyy-MM-dd")
-        Dim text_child = QuerySQL("Select value From settings WHERE label='bank_kind'")
-        Dim text_elder = QuerySQL("Select value From settings WHERE label='bank_oudere'")
-        Dim text_other = QuerySQL("Select value From settings WHERE label='bank_overig'")
+        Dim text_child = QuerySQL("Select value From settings WHERE label='text_bank_kind'")
+        Dim text_elder = QuerySQL("Select value From settings WHERE label='text_bank_oudere'")
+        Dim text_other = QuerySQL("Select value From settings WHERE label='text_bank_overig'")
         'retrieve account data
 
         Collect_data("SELECT owner,accountno,bic,id2 FROM bankacc WHERE accountno='" &

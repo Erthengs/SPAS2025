@@ -1,4 +1,8 @@
 ﻿Imports System.ComponentModel.DataAnnotations
+Imports System.Deployment.Application
+Imports System.Runtime.InteropServices
+Imports Microsoft.EntityFrameworkCore.Metadata.Conventions
+Imports Microsoft.EntityFrameworkCore.Update.Internal
 
 Module acct
 
@@ -307,17 +311,20 @@ Module acct
                    VALUES('" & name & "','" & dat1 & "'::date,'Verwerkt'," & type & ",'Intern','" & desc & "','"
 
 
+        With SPAS.Dgv_Journal_Intern
+            .Rows(.SelectedCells(0).RowIndex).Cells(2).Value = .CurrentCell.EditedFormattedValue
+            For i = 0 To .Rows.Count - 1
 
-        For i = 0 To SPAS.Dgv_Journal_Intern.Rows.Count - 1
+                If .Rows(i).Cells(2).Value > 0 Then
+                    SQLstr &= SQLroot & Cur2(CLng(.Rows(i).Cells(2).Value)) & "','" &
+                .Rows(i).Cells(0).Value & "');"
 
-            If SPAS.Dgv_Journal_Intern.Rows(i).Cells(2).Value > 0 Then
-                SQLstr &= SQLroot & Cur2(CLng(SPAS.Dgv_Journal_Intern.Rows(i).Cells(2).Value)) & "','" &
-                SPAS.Dgv_Journal_Intern.Rows(i).Cells(0).Value & "');"
+                End If
+                'nulwaarden overslaan
+                src_amt = src_amt + Cur2(CLng(SPAS.Dgv_Journal_Intern.Rows(i).Cells(2).Value))
+            Next i
+        End With
 
-            End If
-            'nulwaarden overslaan
-            src_amt = src_amt + Cur2(CLng(SPAS.Dgv_Journal_Intern.Rows(i).Cells(2).Value))
-        Next i
         SQLstr &= SQLroot & -Cur2(Tbx2Int(src_amt)) & "','" & fka & "');"
         Clipboard.Clear()
         Clipboard.SetText(SQLstr)
@@ -694,77 +701,57 @@ Module acct
         'SPAS.Lbl_Account_Budget_Difference.Text Then SPAS.Lbl_Account_Budget_Difference.ForeColor = Color.Red
 
     End Sub
-    Sub Get_Settings_Data()
-        Collect_data("SELECT * FROM settings where label ilike '%kind%' or label ilike '%oudere%' order by label")
-        SPAS.Tbx_Settings_Banktext_Kind.Text = dst.Tables(0).Rows(0)(1)
-        SPAS.Tbx_Settings_Banktext_Oudere.Text = dst.Tables(0).Rows(1)(1)
-        SPAS.Tbx_Settings_Bedrag_Kind.Text = dst.Tables(0).Rows(2)(1)
-        SPAS.Tbx_Settings_Bedrag_Oudere.Text = dst.Tables(0).Rows(3)(1)
-        SPAS.Tbx_Settings_Overhead_Kind.Text = dst.Tables(0).Rows(4)(1)
-        SPAS.Tbx_Settings_Overhead_Oudere.Text = dst.Tables(0).Rows(5)(1)
-
-
-    End Sub
 
     Sub Load_Account_Settings()
 
-        Load_Combobox(SPAS.Cmx_Settings_Overhead, "id", "name", "SELECT id, name FROM accgroup WHERE active=TRUE ORDER BY name")
-        Load_Combobox(SPAS.Cmx_Settings_No_Cat, "id", "name", "SELECT id, name FROM accgroup WHERE active=TRUE ORDER BY name")
-        Load_Combobox(SPAS.Cmx_Settings_Euro_Account, "id", "name", "SELECT id, name FROM accgroup WHERE active=TRUE ORDER BY name")
-        Load_Combobox(SPAS.Cmx_Settings_ExchangeRate, "id", "name", "SELECT id, name FROM accgroup WHERE active=TRUE ORDER BY name")
-        Load_Combobox(SPAS.Cmx_Settings_Bankkosten, "id", "name", "SELECT id, name FROM accgroup WHERE active=TRUE  ORDER BY name")
-        Load_Combobox(SPAS.Cmx_Settings_Banktransactiekosten, "id", "name", "SELECT id, name FROM accgroup WHERE active=TRUE ORDER BY name")
-        Load_Combobox(SPAS.Cmx_Settings_Transitoria, "id", "name", "SELECT id, name FROM accgroup WHERE active=TRUE ORDER BY name")
-        Load_Combobox(SPAS.Cmx_Settings_Saldosteun, "id", "name", "SELECT id, name FROM accgroup WHERE active=TRUE ORDER BY name")
+        Load_Datagridview(SPAS.Dgv_Settings, QuerySQL("select sql from query where name='Haal settings op'"), "load account settings")
+        Dim formatting As String = QuerySQL("select formatting from query where name='Haal settings op'")
+        Dim arr_format() As String
+        If Not IsNothing(formatting) Then arr_format = formatting.Split(",")
+        SPAS.Format_Datagridview(SPAS.Dgv_Settings, arr_format)
 
-        Collect_data("
-                    select s.value, s.label, ag.name from settings s
-                    left join accgroup ag on ag.id = s.value::integer
-                    where s.value ~ '^-?\d*\.?\d+$'
-                    group by s.value, s.label,ag.name
-                    having ag.name is distinct from null
-                    order by  ag.name
-        ")
+        With SPAS.Dgv_Settings
+            Dim unit As String = ""
+            .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+            .AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
+            .DefaultCellStyle.WrapMode = DataGridViewTriState.True
+            For r As Integer = 0 To .Rows.Count - 1
+                unit = .Rows(r).Cells(1).Value
+                Select Case unit
+                    Case "text"
+                        .Rows(r).Height = 50
+                        .Rows(r).Cells(2).ReadOnly = False
+                        .Rows(r).Cells(2).Style.ForeColor = Color.Blue
+                    Case "currency"
+                        .Rows(r).Cells(2).Style.Format = "N2"
+                        .Rows(r).Cells(2).ReadOnly = False
+                        .Rows(r).Cells(2).Style.ForeColor = Color.Blue
+                    Case Else
+                        .Rows(r).Cells(2).ReadOnly = True
 
-        For i = 0 To dst.Tables(0).Rows.Count - 1
-            Select Case dst.Tables(0).Rows(i)(1)
-                Case "overhead" : SPAS.Cmx_Settings_Overhead.Text = dst.Tables(0).Rows(i)(2)
-                Case "eurotegenwaarde" : SPAS.Cmx_Settings_Euro_Account.Text = dst.Tables(0).Rows(i)(2)
-                Case "nocat" : SPAS.Cmx_Settings_No_Cat.Text = dst.Tables(0).Rows(i)(2)
-                Case "bank_transactie_kosten" : SPAS.Cmx_Settings_Banktransactiekosten.Text = dst.Tables(0).Rows(i)(2)
-                Case "wisselkoersverschil" : SPAS.Cmx_Settings_ExchangeRate.Text = dst.Tables(0).Rows(i)(2)
-                Case "bank_kosten" : SPAS.Cmx_Settings_Bankkosten.Text = dst.Tables(0).Rows(i)(2)
-                Case "transitoria" : SPAS.Cmx_Settings_Transitoria.Text = dst.Tables(0).Rows(i)(2)
-                Case "saldosteun" : SPAS.Cmx_Settings_Saldosteun.Text = dst.Tables(0).Rows(i)(2)
-
-            End Select
+                End Select
+            Next
+        End With
 
 
-        Next i
 
     End Sub
     Sub Save_Settings()
-        Dim sqlstr As String
-        sqlstr = "
-        Update public.settings SET value = " & Tbx2Int(SPAS.Tbx_Settings_Overhead_Oudere.Text) & " WHERE label = 'standaard_overhead_oudere';
-        Update public.settings SET value = " & Tbx2Int(SPAS.Tbx_Settings_Overhead_Kind.Text) & " WHERE label = 'standaard_overhead_kind';
-        Update public.settings SET value = " & Tbx2Int(SPAS.Tbx_Settings_Bedrag_Oudere.Text) & " WHERE label = 'standaard_bedrag_oudere';
-        Update public.settings SET value = " & Tbx2Int(SPAS.Tbx_Settings_Bedrag_Kind.Text) & " WHERE label = 'standaard_bedrag_kind';
-        Update public.settings SET value = '" & SPAS.Tbx_Settings_Banktext_Kind.Text & "' WHERE label = 'bank_kind';
-        Update public.settings SET value = '" & SPAS.Tbx_Settings_Banktext_Oudere.Text & "' WHERE label = 'bank_oudere';
 
-        Update public.settings SET value = '" & SPAS.Cmx_Settings_Overhead.SelectedValue & "' WHERE label = 'overhead';
-        Update public.settings SET value = '" & SPAS.Cmx_Settings_No_Cat.SelectedValue & "' WHERE label = 'nocat';
-        Update public.settings SET value = '" & SPAS.Cmx_Settings_Euro_Account.SelectedValue & "' WHERE label = 'eurotegenwaarde';
-        Update public.settings SET value = '" & SPAS.Cmx_Settings_Bankkosten.SelectedValue & "' WHERE label = 'bank_kosten';
-        Update public.settings SET value = '" & SPAS.Cmx_Settings_Banktransactiekosten.SelectedValue & "' WHERE label = 'bank_transactie_kosten';
-        Update public.settings SET value = '" & SPAS.Cmx_Settings_ExchangeRate.SelectedValue & "' WHERE label = 'wisselkoersverschil';
-        Update public.settings SET value = '" & SPAS.Cmx_Settings_Transitoria.SelectedValue & "' WHERE label = 'transitoria';
-        Update public.settings SET value = '" & SPAS.Cmx_Settings_Saldosteun.SelectedValue & "' WHERE label = 'saldosteun';
-"
-        RunSQL(sqlstr, "NULL", "Btn_Settings_Save")
-        Clipboard.Clear()
-        Clipboard.SetText(sqlstr)
+        Dim sql As String = ""
+        With SPAS.Dgv_Settings
+            If .SelectedCells.Count = 0 Then Exit Sub
+            .Rows(.SelectedCells(0).RowIndex).Cells(2).Value = .CurrentCell.EditedFormattedValue
+            For r As Integer = 0 To .Rows.Count - 1
+                If .Rows(r).Cells(1).Value = "text" Or .Rows(r).Cells(1).Value = "currency" Then
+                    sql &= "Update settings set value ='" & .Rows(r).Cells(2).Value & "' where label = '" & .Rows(r).Cells(0).Value & "';" & vbCr
+                End If
+            Next
+        End With
+        RunSQL(sql, "NULL", "Save settings")
+
+        SPAS.ToClipboard(sql, True)
+
 
     End Sub
 

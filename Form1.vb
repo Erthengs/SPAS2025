@@ -1,4 +1,9 @@
-﻿Imports System.IO
+﻿Imports System.Data.Entity
+Imports System.Data.Entity.Migrations
+Imports System.IO
+Imports System.Management.Instrumentation
+Imports System.Reflection
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar
 Imports Npgsql
 Imports NpgsqlTypes
 
@@ -27,14 +32,8 @@ Public Class SPAS
         Load_Table()
         If Lbx_Basis.Items.Count = 0 Then Empty_Tabpage()
         nocat = QuerySQL("SELECT value FROM settings WHERE label='nocat'")
-        Get_Settings_Data()
-        'Clipboard.Clear()
-        'Clipboard.SetText(totsql)
-        '
-        'If My.Settings._whatsnew = "Ja" Then
-        'MsgBox(QuerySQL("select value from settings where label = 'Whatsnew'"), vbInformation, vbOKOnly)
-        'My.Settings._whatsnew = "Nee"
-        'End If
+        Load_Account_Settings()
+
 
 
     End Sub
@@ -42,7 +41,7 @@ Public Class SPAS
 
     Sub Load_Comboboxes()
         'can go wrong if tables are empty
-        Load_Combobox(Cmx_Report5, "label", "label", "SELECT label, Label from settings where left(value, 6) ilike 'select'")
+        Load_Combobox(Cmx_Report5, "name", "name", "SELECT name, name from query where category ilike 'Overzicht%'")
         Load_Combobox(Cmx_01_cp__fk_bankacc_id, "id", "name", "SELECT id, Name||'/'||accountno as name FROM bankacc WHERE expense=True AND active=TRUE ORDER BY name")
         Load_Combobox(Cmx_Incasso_Bankaccount, "id", "name", "SELECT id, accountno AS name FROM bankacc WHERE expense=FALSE AND active=TRUE ORDER BY name")
         Load_Combobox(Cmx_01_Target__fk_cp_id, "id", "name", "SELECT id, CONCAT(name, ', ', name_add) as name FROM cp WHERE active=True ORDER BY name")
@@ -121,8 +120,8 @@ Public Class SPAS
                                                         WHERE ttype='" & Rbn_00_contract_child.Text & "' AND active= TRUE ORDER BY name")
             '-------standaard_waarden ophalen
 
-            Tbx_11_Contract__donation.Text = Tbx_Settings_Bedrag_Kind.Text
-            Tbx_11_contract__overhead.Text = Tbx_Settings_Overhead_Kind.Text
+            Tbx_11_Contract__donation.Text = QuerySQL("select value from settings where label ilike 'standaard_bedrag_kind'")
+            Tbx_11_contract__overhead.Text = QuerySQL("select value from settings where label ilike 'standaard_overhead_kind'")
             Dtp_31_contract__startdate.Value = New DateTime(Date.Today.Year, Date.Today.Month, 1).AddMonths(1)
             '----------------
 
@@ -412,7 +411,7 @@ Public Class SPAS
     End Sub
 
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+    Private Sub Button4_Click(sender As Object, e As EventArgs)
         MsgBox(sender.ToString)
 
         Exit Sub
@@ -501,8 +500,9 @@ Public Class SPAS
         Load_Combobox(Cmx_01_contract__fk_target_id, "id", "name", "Select id, Name||', '||name_add as name FROM target
                                                         WHERE ttype='" & Rbn_00_contract_child.Text & "' ORDER BY name")
         '-------standaard_waarden ophalen
-        Tbx_11_Contract__donation.Text = Tbx_Settings_Bedrag_Kind.Text
-        Tbx_11_contract__overhead.Text = Tbx_Settings_Overhead_Kind.Text
+        Collect_data("select value from settings where label ilike 'standaard_%_kind' order by label")
+        Tbx_11_Contract__donation.Text = dst.Tables(0).Rows(0)(0)
+        Tbx_11_contract__overhead.Text = dst.Tables(0).Rows(1)(0)
 
         '----------------------------
 
@@ -616,8 +616,9 @@ Public Class SPAS
         Lbl_00_Contract__name.Text = Contract_number("O")
         Load_Combobox(Cmx_01_contract__fk_target_id, "id", "name", "SELECT id, name||', '||name_add as name FROM target
                                                         WHERE ttype='" & Rbn_00_contract_elder.Text & "' ORDER BY name")
-        Tbx_11_Contract__donation.Text = Tbx_Settings_Bedrag_Oudere.Text
-        Tbx_11_contract__overhead.Text = Tbx_Settings_Overhead_Oudere.Text
+        Collect_data("select value from settings where label ilike 'standaard_%_oudere' order by label")
+        Tbx_11_Contract__donation.Text = dst.Tables(0).Rows(0)(0)
+        Tbx_11_contract__overhead.Text = dst.Tables(0).Rows(1)(0)
     End Sub
 
     Private Sub Rbn_00_contract_other_Click(sender As Object, e As EventArgs) Handles Rbn_00_contract_other.Click
@@ -751,11 +752,6 @@ Public Class SPAS
 
     Private Sub Cbx_00_target__active_Click(sender As Object, e As EventArgs) Handles Cbx_00_target__active.Click
         CheckActive(Cbx_00_target__active, Lbl_Target_pkid, "contract")
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Btn_Bank_Download.Click
-        Download_Bank_Transactions()
-
     End Sub
 
     Private Sub Dtp_30_Contract_Change_ValueChanged(sender As Object, e As EventArgs) Handles Dtp_30_Contract_Change.ValueChanged
@@ -973,7 +969,7 @@ Tbx_00_CP__city.TextChanged, Tbx_00_CP__country.TextChanged, Tbx_00_CP__email.Te
         Fill_bank_transactions("Tbx_Bank_Search.TextChanged")
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub Button3_Click(sender As Object, e As EventArgs)
         RunSQL("TRUNCATE TABLE bank", "NULL", "")
         RunSQL("Delete From journal WHERE source='Bank'", "NULL", "")
     End Sub
@@ -1278,6 +1274,16 @@ fin:
     End Sub
 
     Private Sub Lv_Journal_List_DoubleClick(sender As Object, e As EventArgs) Handles Lv_Journal_List.DoubleClick
+        If TC_Boeking.SelectedIndex = 1 Then 'overboeking
+            If Lbl_Journal_Source_Name.Text = "" Then
+                Select_Source_Account()
+            Else
+                Select_Target_Account()
+            End If
+
+        End If
+
+
         Exit Sub
         Dim i As Integer = Me.Dgv_Journal_items.CurrentRow.Index
         Dim name As String = Me.Dgv_Journal_items.Rows(i).Cells(1).Value
@@ -1575,10 +1581,6 @@ fin:
         Me.Lbl_Incasso_Error.Visible = False
     End Sub
 
-    Private Sub Btn_Bank_Folder_Click(sender As Object, e As EventArgs) Handles Btn_Bank_Folder.Click
-        Load_Bank_csv_from_folder()
-    End Sub
-
     Private Sub Dgv_Bank_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles Dgv_Bank.ColumnHeaderMouseClick
         Format_dvg_bank()
     End Sub
@@ -1586,12 +1588,6 @@ fin:
     Private Sub Dgv_Bank_RowHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles Dgv_Bank.RowHeaderMouseClick
         Format_dvg_bank()
     End Sub
-
-    Private Sub Btn_Bank_Categorize_Click(sender As Object, e As EventArgs) Handles Btn_Bank_Categorize.Click
-        Categorize_Bank_Transactions()
-        Fill_bank_transactions("Btn_Bank_Categorize.Click")
-    End Sub
-
     Private Sub Tbx_Bank_Description_Leave(sender As Object, e As EventArgs) Handles Tbx_Bank_Description.Leave
         Dim SQLstr = "UPDATE bank SET description='" & Tbx_Bank_Description.Text &
                "' WHERE id='" & Dgv_Bank.SelectedCells(0).Value & "'"
@@ -1657,7 +1653,7 @@ fin:
             Exit Function
         End If
         If Not IsDBNull(Me.Dgv_Bank.SelectedCells(12).Value) Then
-            If Strings.Left(Me.Dgv_Bank.SelectedCells(12).Value, 8) = "Excasso-" Or Strings.Left(Me.Dgv_Bank.SelectedCells(12).Value, 16) = "Contract incasso" Then
+            If Me.Dgv_Bank.SelectedCells(12).Value = "Uitkering" Or Me.Dgv_Bank.SelectedCells(12).Value = "Incasso" Then
                 MsgBox("Incasso- & uitkeringslijsten kunnen niet in de bankapplicatie aangepast worden")
                 Return False
             End If
@@ -1702,32 +1698,7 @@ fin:
             nam = "Betaling intern account"
         End If
 
-        'Frm_Bank_Select_Type.Rbn_Bank_Contract.Checked = Strings.Left(des, 8) = "Contract"
-        'If Btn_Bank_Type.Text = "?" And Btn_Bank_Type.Visible Then
 
-        'Frm_Bank_Select_Type.Rbn_Bank_Other.Checked = True
-        'Frm_Bank_Select_Type.ShowDialog()
-        'If Frm_Bank_Select_Type.Rbn_Bank_Contract.Checked Then
-        'Btn_Bank_Type.Text = "C"
-        'Else
-        'If Frm_Bank_Select_Type.Rbn_Bank_Extra.Checked Then Btn_Bank_Type.Text = "E" Else Btn_Bank_Type.Text = "I"
-        'End If
-        'End If
-
-
-
-        ' If Btn_Bank_Type.Text = "C" Then
-        'typ = "Contract"
-        'nam = "Contractbetaling (handmatig)"
-        'Else
-        'If Btn_Bank_Type.Text = "E" Then
-        'typ = "Extra"
-        'nam = "Extra gift"
-        'Else
-        'typ = "Internal"
-        'nam = "Betaling intern account"
-        'End If
-        'End If
 
         Dim SQLstr = "DELETE FROM journal WHERE fk_bank=" & bid & ";" &
                      "INSERT INTO journal(date,status,amt1,description,source, fk_account,fk_bank,name,type,iban) VALUES "
@@ -2070,7 +2041,7 @@ fin:
     End Sub
 
     Private Sub Btn_Settings_Cancel_Click(sender As Object, e As EventArgs)
-        Get_Settings_Data()
+        Load_Account_Settings()
     End Sub
 
     Private Sub Dgv_Excasso2_DoubleClick(sender As Object, e As EventArgs) Handles Dgv_Excasso2.DoubleClick
@@ -2095,14 +2066,6 @@ fin:
         'Clipboard.SetText(Dgv_Excasso2.CurrentCell.Value)
     End Sub
 
-    Private Sub Dgv_Rapportage_DoubleClick(sender As Object, e As EventArgs)
-        If Dgv_Rapportage.CurrentCell.ColumnIndex <> 1 Then Exit Sub
-        Clipboard.SetText(Dgv_Rapportage.CurrentRow.Cells(1).Value)
-        TC_Main.SelectedIndex = 4
-        Cmx_Journal_List.Text = "Accountgroep"
-        Searchbox.Text = Dgv_Rapportage.CurrentRow.Cells(1).Value
-    End Sub
-
     Private Sub Lbl_Excasso_Items_Contract_TextChanged(sender As Object, e As EventArgs) Handles Lbl_Excasso_Items_Contract.TextChanged,
             Lbl_Excasso_Items_Extra.TextChanged, Lbl_Excasso_Items_Intern.TextChanged, Lbl_Excasso_Contractwaarde.TextChanged,
             Lbl_Excasso_Extra.TextChanged, Lbl_Excasso_Intern.TextChanged
@@ -2117,11 +2080,6 @@ fin:
     Private Sub Btn_Incasso_Export_Click(sender As Object, e As EventArgs) Handles Btn_Incasso_Export.Click
         Export_2_Excel(Me.Dgv_Incasso)
     End Sub
-
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs)
-        Export_2_Excel(Dgv_Rapportage)
-    End Sub
-
 
     Private Sub ToolStripTextBox1_TextChanged(sender As Object, e As EventArgs) Handles Searchbox.TextChanged
 
@@ -2216,7 +2174,7 @@ fin:
             Case 3
 
             Case 6
-                Get_Settings_Data()
+                Load_Account_Settings()
 
             Case Else
         End Select
@@ -2379,9 +2337,9 @@ fin:
                 RunSQL(sql, "NULL", "TC_Main_Click")
 
             Case 5
-                Report_overview()
-                'Report_2()
-                'Report_3()
+                Cmx_Report5.Text = 2023
+                Rbtn_Report_Other_CheckedChanged(sender, e)
+
             Case 6
                 MenuSave.Enabled = True
                 MenuCancel.Enabled = True
@@ -2441,20 +2399,12 @@ fin:
                 Export_2_Excel(Dgv_Journal_items)
 
             Case 5
-                Select Case TC_Rapportage.SelectedIndex
-                    Case 0
+                Select Case TC_Rapportage.SelectedTab.Name
+                    Case "Journaal"
                         Export_2_Excel(Dgv_Rapportage_Overzicht)
-                    Case 1
-                        Export_2_Excel(Dgv_Rapportage)
-                    Case 2
-                        Export_2_Excel(Dgv_Rapportage_Details)
-                    Case 3
-                        Export_2_Excel(Dgv_Report_5)
-                    Case 4
-                        Export_2_Excel(Dgv_Report_7)
-                    Case 5
+                    Case "TC_Boekingen"
                         Export_2_Excel(Dgv_Report_6)
-                    Case 6
+                    Case "TC_Jaarafsluiting"
                         Export_2_Excel(Dgv_Report_Year_Closing)
                 End Select
             Case Else
@@ -2965,56 +2915,113 @@ end as e_intern,
     Private Sub TC_Rapportage_Click(sender As Object, e As EventArgs) Handles TC_Rapportage.Click
 
         Select Case TC_Rapportage.SelectedTab.Tag
+
             Case "report_overzicht"
-                Report_overview()
+                'Cmx_Report5.Text = 2023
+                'Report_overview()
             Case "report_bank_overview"
                 Report_Bank_overview()
             Case "report_bank_analysis"
-                Report_bank_analysis()
+                'Report_bank_analysis()
             Case "report_collection1"
                 'Report_checks()
             Case "report_closing"
                 Report_Closing()
-            Case "report_collection2"
-                Report_collection2()
         End Select
     End Sub
 
-    Private Sub Dgv_Rapportage_Details_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Rapportage_Details.CellContentDoubleClick
-        Drill_down_Report_Bank_Analysis(Me.Dgv_Rapportage_Details.CurrentCell.RowIndex, Me.Dgv_Rapportage_Details.CurrentCell.ColumnIndex)
-    End Sub
-
     Private Sub Dgv_Rapportage_Overzicht_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Rapportage_Overzicht.CellContentDoubleClick
-        Drill_down_Report_overview(Dgv_Rapportage_Overzicht.CurrentCell.RowIndex, Dgv_Rapportage_Overzicht.CurrentCell.ColumnIndex)
-    End Sub
+        If Rbtn_Report_Overview.Checked Then
+            Drill_down_Report_overview(Dgv_Rapportage_Overzicht.CurrentCell.RowIndex, Dgv_Rapportage_Overzicht.CurrentCell.ColumnIndex)
+        End If
+        If Rbtn_Report_Bank.Checked Then
 
-    Private Sub Dgv_Report_7_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Report_7.CellContentDoubleClick
-        Drill_down_Overhead_Detail(Me.Dgv_Report_7.CurrentCell.RowIndex, Me.Dgv_Report_7.CurrentCell.ColumnIndex)
+            If Dgv_Rapportage_Overzicht.CurrentCell.ColumnIndex = 1 Then
+                Clipboard.SetText(Dgv_Rapportage_Overzicht.CurrentRow.Cells(1).Value)
+                TC_Main.SelectedIndex = 4
+                Cmx_Journal_List.Text = "Accountgroep"
+                Searchbox.Text = Dgv_Rapportage_Overzicht.CurrentRow.Cells(1).Value
+
+            Else
+                Drill_down_Bank_overview(Me.Dgv_Rapportage_Overzicht.CurrentCell.RowIndex, Me.Dgv_Rapportage_Overzicht.CurrentCell.ColumnIndex)
+            End If
+
+        End If
     End Sub
+    Function Check_administratie()
+
+
+        Collect_data(QuerySQL("Select sql from query where name= 'Haal checks op'"))
+        Dim result As VariantType
+        Dim response As String = "Uitkomsten controles:" & vbCr
+        Dim Res As Boolean = True
+
+        For c = 0 To dst.Tables(0).Rows.Count - 1
+            dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("p1", Bank_table(report_year))
+            dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("p2", Report_table(report_year))
+            dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("p3", report_year)
+            Debug.Print(dst.Tables(0).Rows(c)(1))
+            result = QuerySQL(dst.Tables(0).Rows(c)(1))
+            If Not IsDBNull(result) Then
+                If result <> 0 Then
+                    dst.Tables(0).Rows(c)(2) = dst.Tables(0).Rows(c)(2).Replace("#", result)
+                    dst.Tables(0).Rows(c)(2) = "- FOUT: " & dst.Tables(0).Rows(c)(2)
+                    response &= dst.Tables(0).Rows(c)(2) & vbCr
+                    Res = False
+
+                End If
+            End If
+            If Strings.Left(dst.Tables(0).Rows(c)(2), 6) <> "- FOUT" Then
+                dst.Tables(0).Rows(c)(3) = "- " & dst.Tables(0).Rows(c)(3) & " OK"
+                response &= dst.Tables(0).Rows(c)(3) & vbCr
+            End If
+
+        Next c
+
+        MsgBox(response, IIf(Res, vbInformation, vbCritical))
+        If Res Then Return True Else Return False
+
+
+    End Function
+
+
 
     Private Sub Btn_Report_YearEnd_Post_Click(sender As Object, e As EventArgs) Handles Btn_Report_YearEnd_Post.Click
         '----------- uitvoeren controles
-        Dim errMsg = "De volgende punten moeten nog worden opgelost:"
-        Dim openpost = QuerySQL("select Count(*) from journal where status !='Verwerkt' and extract(year from date)=" & report_year)
-        Dim vierkant = QuerySQL("select (select sum(amt1) from journal where status='Verwerkt')- (select sum(credit) -sum(debit) from bank)")
-        Dim geencat = QuerySQL("select count(*) from journal where fk_account=" & nocat)
-        If openpost > 0 Then errMsg &= vbCr & "- Er zijn nog " & openpost & " niet verwerkte journaaltransacties. "
-        If vierkant <> 0 Then errMsg &= vbCr & "- Totaalsaldo's van banktransacties en journaalposten komen niet overeen."
-        If geencat <> 0 Then errMsg &= vbCr & "- Er zijn nog " & geencat & " ongecategoriseerde posten."
-        If CDec(Lbl_Report_total.Text) < 0 Then errMsg &= vbCr & "- De uitgaven en overhead is nog niet goed verdisconteerd."
-        MsgBox(errMsg)
 
+        If Check_administratie() = False Then Exit Sub
 
-        'follow up
-        If errMsg <> "De volgende punten moeten nog worden opgelost:" Then Exit Sub
         If MsgBox("Wilt u het jaar " & report_year & " definitief afsluiten? Dit kan niet meer worden teruggedraaid!", vbYesNo) = vbNo Then Exit Sub
 
-    End Sub
 
+        '--------------------------------- nog te testen
+        Dim archive_journal = "
+        INSERT INTO journal_archive (id, name, date, status, amt1, amt2, description, source, fk_account, fk_relation, fk_bank, type, cpinfo, iban) 
+        (select id, name, date, status, amt1, amt2, description, source, fk_account, fk_relation, fk_bank, type, cpinfo, iban
+        where extract (year from date)=" & report_year & "); 
+        insert into journal(name, date, status, amt1, amt2, description, source, fk_account, fk_relation, fk_bank, type, cpinfo, iban) VALUES"
+
+        Dim startsaldi As String = "("
+        For r = 0 To Dgv_Report_Year_Closing.Rows.Count - 1
+            'startsaldi &= IIf(r = 0, "(", ",") & Dgv_Report_Year_Closing.Rows(r).Cells(2).Value
+            'Select  0x, 1date & 2name 3source 4fk_account 5type 6x,7x,8x
+            'Startsaldo '||a.name as Description, 'Closing' as source, fk_account, j.type as jrntype, sum(amt1) as amt1, null As Verrekening, null As Eindtotaal 
+        Next r
+
+
+        Dim archive_bank = "
+        INSERT INTO bank_archive (id, iban, currency, date, debit, credit, seqorder, iban2, name, code, batchid, description, exch_rate, amt_cur, fk_journal_name, filename, cost) 
+        (select id, iban, currency, date, debit, credit, seqorder, iban2, name, code, batchid, description, exch_rate, amt_cur, fk_journal_name, filename, cost
+        ); "
+        '-----fk_journal_name moet de juiste waarde krijgen: startsaldo
+        Dim cleanup As String = "delete from journal where extract (year from date)=" & report_year & "; delete from bank where extract (year from date)=" & report_year
+
+
+
+    End Sub
     Private Sub Tbx_Bank_Description_TextChanged(sender As Object, e As EventArgs) Handles Tbx_Bank_Description.TextChanged
         Dgv_Bank.SelectedCells(3).Value = Tbx_Bank_Description.Text
     End Sub
-
     Private Sub Tbx_01_Accgroup__type_TextChanged(sender As Object, e As EventArgs) Handles Tbx_01_Accgroup__type.TextChanged
         Rbtn_accgroup_Income.Checked = Strings.Trim(Tbx_01_Accgroup__type.Text) = "Inkomsten"
         Rbtn_accgroup_expense.Checked = Strings.Trim(Tbx_01_Accgroup__type.Text) = "Uitgaven"
@@ -3080,45 +3087,72 @@ end as e_intern,
 
     End Sub
 
+    Private Sub Cmx_Report5_SelectedIndexChanged(sender As Object, e As EventArgs)  ',
 
 
-    Private Sub Cmx_Report5_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmx_Report5.SelectedIndexChanged ',
-        'Cmx_Report5.TextChanged, Cmx_Report5.SelectedValueChanged, Cmx_Report5.Click
-        'If IsDBNull(Cmx_Report5.Text) Then Exit Sub
-        'If Cmx_Report5.Text = "" Then Exit Sub
-        Dim sql = QuerySQL("Select value from settings where label='" & Cmx_Report5.Text & "' and left(value,6)='select'")
-        If sql = "" Then Exit Sub
+        Dim sql As String = ""
+        Dim formatting As String
+        Dim arr_format() As String
 
-        Load_Datagridview(Dgv_Report_5, sql, "Cmx_Report5_SelectedIndexChanged")
+        sql = QuerySQL("Select sql from query where category ilike 'Controle%' and name='" & Cmx_Report5.Text & "'")
+        If IsNothing(sql) Then Exit Sub
+        formatting = QuerySQL("Select formatting from query where category ilike 'Controle%' and name='" & Cmx_Report5.Text & "'")
+        If Not IsNothing(formatting) Then arr_format = formatting.Split(",")
 
+        sql = sql.Replace("p1", Bank_table(report_year))
+        sql = sql.Replace("p2", Report_table(report_year))
+        sql = sql.Replace("p3", report_year)
 
+        ToClipboard(sql, True)
+        Load_Datagridview(Dgv_Rapportage_Overzicht, sql, "Cmx_Report5_SelectedIndexChanged")
+        Format_Datagridview(Dgv_Rapportage_Overzicht, arr_format)
+
+    End Sub
+    Sub Format_Datagridview(dgv As DataGridView, arr As Array)
+
+        'formatarray
+        '[letter][getal][getal][getal]
+        'T = Standaardformaat
+        'N = Numeriek / 2 cijfers achter de komma
+        'H = Verberg kolom
+        'Getallen: kolombreedte
+        'Rijen: Tota betekent totaalkolom
+
+        Dim c As Integer
+        Dim f As String
         Try
-            With Dgv_Report_5
+            With dgv
+                ' formatteer kolommen
+                For x = 0 To UBound(arr)
+                    'Debug.Print(arr(x))
+                    c = CInt(Mid(arr(x), 2))
+                    f = Strings.Left(arr(x), 1)
+                    .Columns(x).ReadOnly = True
+                    .Columns(x).Width = c
+                    .Columns(x).HeaderText = Strings.Left(.Columns(x).HeaderText, 1).ToUpper & Strings.Mid(.Columns(x).HeaderText, 2).ToLower
+                    If f = "N" Then
+                        .Columns(2).DefaultCellStyle.Format = "N2"
+                        .Columns(x).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+                    ElseIf f = "H" Then
+                        .Columns(x).Visible = False
 
-                .Columns(0).Width = 50
-                .Columns(1).Width = 250
-                .Columns(2).Width = 250
-                '.Columns(2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                '.Columns(2).DefaultCellStyle.Format = "N2"
-                .Columns(2).ReadOnly = True
-
-                For r = 0 To -1  '.Rows.Count
-                    Select Case r
-                        Case 0, 5, 8
-                            .Rows(r).DefaultCellStyle.ForeColor = Color.Blue
-                            .Rows(r).DefaultCellStyle.Font = New Font("Calibri", 12, FontStyle.Bold)
-                        Case 3, 11
-                            .Rows(r).DefaultCellStyle.Font = New Font("Calibri", 12, FontStyle.Bold)
-
-                    End Select
+                    End If
                 Next
+                'formatter rijen
 
-
+                For r As Integer = 0 To .Rows.Count - 1
+                    For x = 0 To UBound(arr)
+                        If IsDBNull(.Rows(r).Cells(x).Value) Then .Rows(r).Cells(x).Value = 0
+                        'Debug.Print(.Rows(r).Cells(x).Value)
+                        If Strings.Left(CStr(.Rows(r).Cells(x).Value), 4) = "Tota" Then
+                            .Rows(r).DefaultCellStyle.BackColor = Color.Khaki
+                            Exit For
+                        End If
+                    Next x
+                Next r
             End With
         Catch ex As Exception
         End Try
-
-
 
     End Sub
 
@@ -3139,21 +3173,9 @@ end as e_intern,
         Btn_Bank_Add_Journal.Enabled = True
     End Sub
 
-
-    Private Sub Button1_Click_3(sender As Object, e As EventArgs) Handles Testbutton.Click
-
-        MsgBox(sender.ToString)
-        Dim Sql As String = "select * from settings where label=:id"
-        Load_Datagridview2(Dgv_Test, Sql, "testlabel", sender.ToString)
-
-    End Sub
-
-    Private Sub Cmx_Report_Year_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmx_Report_Year.SelectedIndexChanged
-        If TC_Main.SelectedIndex = 5 Then Report_overview()
-    End Sub
-
-
     Public Sub ToClipboard(t As String, v As Boolean)
+        If IsDBNull(t) Then Exit Sub
+        If t = "" Then Exit Sub
         If Strings.Right(connect_string, 4) = "PROD" Or v = False Then Exit Sub
         Clipboard.Clear()
         Clipboard.SetText(t)
@@ -3161,5 +3183,80 @@ end as e_intern,
     End Sub
 
 
+    Sub Rbtn_Report_Other_CheckedChanged(sender As Object, e As EventArgs) Handles Rbtn_Report_Other.Click,
+    Rbtn_Report_Bank.Click, Rbtn_Report_Overview.Click, Cmx_Report_Year.SelectedIndexChanged, Cmx_Report_Year.SelectedIndexChanged
+
+
+        If TC_Main.SelectedIndex = 5 Then
+
+            report_year = Cmx_Report_Year.Text
+            If Rbtn_Report_Overview.Checked Then
+                Cmx_Report5.Visible = False
+                Report_overview()
+            ElseIf Rbtn_Report_Bank.Checked Then
+                Cmx_Report5.Visible = False
+                Report_Bank_overview()
+            Else
+                Cmx_Report5.Visible = True
+                If Cmx_Report5.Text <> "" Then Cmx_Report5_SelectedIndexChanged_1(sender, e)
+            End If
+        End If
+
+
+    End Sub
+
+    Sub Cmx_Report5_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles Cmx_Report5.SelectedIndexChanged
+
+
+        Dim sql As String = ""
+        Dim formatting As String
+        Dim arr_format() As String
+
+
+        sql = QuerySQL("Select sql from query where category ilike 'Overzicht%' and name='" & Cmx_Report5.Text & "'")
+        If IsNothing(sql) Then Exit Sub
+        formatting = QuerySQL("Select formatting from query where category ilike 'Overzicht%' and name='" & Cmx_Report5.Text & "'")
+        If Not IsNothing(formatting) Then arr_format = formatting.Split(",")
+
+        sql = sql.Replace("p1", Bank_table(report_year))
+        sql = sql.Replace("p2", Report_table(report_year))
+        sql = sql.Replace("p3", report_year)
+
+        ToClipboard(sql, True)
+        Load_Datagridview(Dgv_Rapportage_Overzicht, sql, "Cmx_Report5_SelectedIndexChanged")
+
+        Format_Datagridview(Dgv_Rapportage_Overzicht, arr_format)
+    End Sub
+
+
+    Private Sub Btn_Report_YearEnd_Check_Click(sender As Object, e As EventArgs) Handles Btn_Report_YearEnd_Check.Click
+        Dim ans = Check_administratie()
+
+    End Sub
+
+    Private Sub Btn_Query_Test_Click(sender As Object, e As EventArgs) Handles Btn_Query_Test.Click
+
+        If UCase(Strings.Left(Tbx_Query_SQL.Text, 6)) <> "SELECT" Then
+            MsgBox("Alleen select-statements zijn toegestaan")
+        Else
+            Load_Datagridview(Dgv_Query_Test, Tbx_Query_SQL.Text, "Btn_Query_Test.Click")
+            'MsgBox("Query is niet correct")
+        End If
+
+
+    End Sub
+
+    Private Sub Button3_Click_1(sender As Object, e As EventArgs) Handles Button3.Click
+        Dim p1 = InputBox("maand:")
+        Dim sql = QuerySQL("Select sql from query where category ilike 'Transaction' and name='Verwijder maand'")
+        sql = sql.Replace("p1", p1)
+        ToClipboard(sql, True)
+        RunSQL(sql, "NULL", "Testbutton verwijder maand")
+
+    End Sub
+
+    Private Sub Dgv_Bank_Account_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Bank_Account.CellContentClick
+
+    End Sub
 End Class
 

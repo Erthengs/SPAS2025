@@ -3528,22 +3528,9 @@
         SUVORK5CYII=
 </value>
   </data>
-  <data name="Btn_Bank_Folder.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAllJREFUOE9t
-        0ltTEmEcx3HeRbdd9AK86RV01UUX3WCkiDjiTiWBoVYesdSsi2o62EzNWKPTSGUxjKCleCCHUGHjoMCk
-        HcBAQIVFBTPEfj3PruIB/jPf2Zln+X92YRCxehnnMlbA/k4Kp14G3zCDgK0pr4VxFbxGebmIDIBcIt8Y
-        A6TvIRVpQ2BWDddgBVymywh5n5D7jlzZjBVzg3KycRwwM9jdvCu0QetCMtCMmbelgLfuoMgLuA3lhYHs
-        ehd2krQ72OGEKLDtvIaspzaH0K+YB3hHGWQSnfgb32tNiAIph5pH9gH2Q1kBYKQK26sd+LNCinVgK9bO
-        R4Hk9FVssTU5wD4gzQfmP1UhHWlHevk2UrSwEAWiU9X8W+zO1+EfiZ4VBDZDt7Dxm7TUhvWgEP1wwHwJ
-        CZsKGXctn01Xgi+6kqIjwNxHBfnVtUj+0oL7qUXiRysfBfwmBZYt5C1YDdKuRkS/3oe1/yLZOwR4hhVI
-        fG9FfLEFawstCLuuIzir4QHHQAWC49WIT9dgw/eULmLqtYReDgFDlVj71owVfxNi3iZ+0dpfisk+Kfnj
-        MAhZVAh/VmHV/ZguwtJ3gV4OALepkl+MzjUi4m7gAdNzCQzPJGD1DBZHlFgcVWLSrIRyQomJ3uJjgLES
-        EU8Dws6bCLE3eEDfXQzdQzHGeuXwGK/kcrxXYOxVMXcEIAtOz5ACS7P1CM7U88DLzrN41HgGbx6cw2iP
-        eD/O3CNWk04eAeiQJa19oAx+czV5igwa+WkVOT4h3M2fPIAOQYpIEyTO0H3+1N5xwTkAIPoPJ5vAKQDg
-        22QAAAAASUVORK5CYII=
-</value>
-  </data>
+  <metadata name="HelpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>793, 20</value>
+  </metadata>
   <data name="Btn_Bank_Categorize.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -3639,9 +3626,6 @@
   <metadata name="Amt1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>132, 17</value>
-  </metadata>
   <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -3680,6 +3664,9 @@
   </metadata>
   <metadata name="FolderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>650, 17</value>
+  </metadata>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>132, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>75</value>

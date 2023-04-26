@@ -67,8 +67,8 @@ connstart:
             Connect(sql)
 
             Dim cmd As New NpgsqlCommand
-            cmd.Parameters.Add(":id", NpgsqlDbType.Text).Value = p1
-            cmd.Parameters.Add(":type", NpgsqlDbType.Text).Value = p2
+            If p1 <> "" Then cmd.Parameters.Add(":tbl", NpgsqlDbType.Text).Value = p1
+            If p1 <> "" Then cmd.Parameters.Add(":repyr", NpgsqlDbType.Text).Value = p2
 
             cmd.Connection = connection
             cmd.CommandType = CommandType.Text
@@ -85,7 +85,7 @@ connstart:
 
         End Try
     End Sub
-    Sub Load_Datagridview2(ByVal dgv As DataGridView, sql As String, p1 As String, errmsg As String)
+    Sub Load_Datagridview2(ByVal dgv As DataGridView, sql As String, p1 As String, p2 As String, errmsg As String)
 
         dgv.DataSource = Nothing
         Connect(sql)
@@ -103,7 +103,8 @@ connstart:
         Try
 
             da.SelectCommand = New NpgsqlCommand(sql, connection)
-            da.SelectCommand.Parameters.Add(":id", NpgsqlDbType.Text).Value = p1
+            If p1 <> "" Then da.SelectCommand.Parameters.Add(":p1", NpgsqlDbType.Text).Value = p1
+            If p2 <> "" Then da.SelectCommand.Parameters.Add(":p2", NpgsqlDbType.Text).Value = p2
             da.Fill(ds, sql)
             dgv.DataSource = ds.Tables(sql)
             ds.Tables.Add()
