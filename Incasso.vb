@@ -583,7 +583,7 @@ Module Incasso
 
         Collect_data("
                     SELECT distinct(name) FROM journal
-                    WHERE name ILIKE '%Excasso%'
+                    WHERE name ILIKE 'Excasso%'
                     AND status = 'Open'
                     GROUP By name, status
                     ")

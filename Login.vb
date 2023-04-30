@@ -19,6 +19,7 @@ Public Class Login
                 SPAS.BackColor = Color.WhiteSmoke
                 SPAS.MenuStrip1.BackColor = Color.LightSteelBlue
                 SPAS.ToolStripTextBox1.BackColor = Color.LightSteelBlue
+                SPAS.TC_Main.TabPages.Remove(SPAS.TC_Main.TabPages(7))
             Case "Acceptatie"
                 connect_string = "User ID=" & username & ";Password=" & Me.Tbx_login_password.Text & ";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=ACC" 'My.Settings._accovh
                 SPAS.Pan_Test.Visible = True
@@ -43,35 +44,9 @@ Public Class Login
                 SPAS.Lbl_Excasso_Extra.Visible = True
                 SPAS.Lbl_Excasso_Intern.Visible = True
                 SPAS.Text = "SPAS " & username & " (TEST DATABASE)"
-            Case "SPAS-2021"
-                connect_string = "User ID=" & username & ";Password=" & Me.Tbx_login_password.Text & ";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-2021" 'My.Settings._tstovh
-                SPAS.Pan_Test.Visible = True
-                SPAS.Pan_Test.Visible = True
-                SPAS.Lbl_Excasso_Items_Contract.Visible = True
-                SPAS.Lbl_Excasso_Items_Extra.Visible = True
-                SPAS.Lbl_Excasso_Items_Intern.Visible = True
-                SPAS.Lbl_Excasso_Contractwaarde.Visible = True
-                SPAS.Lbl_Excasso_Extra.Visible = True
-                SPAS.Lbl_Excasso_Intern.Visible = True
-                SPAS.Text = "SPAS 2021 " & username & " (HISTORIE 2021 -ALLEEN LEZEN)"
-                SPAS.ToolStripTextBox1.BackColor = Color.DarkKhaki
-                SPAS.BackColor = Color.DarkKhaki
-                SPAS.MenuStrip1.BackColor = Color.DarkKhaki
-            Case "SPAS-2022"
-                connect_string = "User ID=" & username & ";Password=" & Me.Tbx_login_password.Text & ";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-2022" 'My.Settings._tstovh
-                SPAS.Pan_Test.Visible = True
-                SPAS.Pan_Test.Visible = True
-                SPAS.Lbl_Excasso_Items_Contract.Visible = True
-                SPAS.Lbl_Excasso_Items_Extra.Visible = True
-                SPAS.Lbl_Excasso_Items_Intern.Visible = True
-                SPAS.Lbl_Excasso_Contractwaarde.Visible = True
-                SPAS.Lbl_Excasso_Extra.Visible = True
-                SPAS.Lbl_Excasso_Intern.Visible = True
-                SPAS.Text = "SPAS " & username & " (HISTORIE 2022 DATABASE)"
+
         End Select
-        SPAS.MenuAdd.Visible = IIf(InStr(Text, "(ALLEEN LEZEN)") = 0, SPAS.MenuAdd.Visible, False)
-        SPAS.MenuSave.Visible = IIf(InStr(Text, "(ALLEEN LEZEN)") = 0, SPAS.MenuSave.Visible, False)
-        SPAS.MenuDelete.Visible = IIf(InStr(Text, "(ALLEEN LEZEN)") = 0, SPAS.MenuDelete.Visible, False)
+
 
         'test connectie
         Dim connection As NpgsqlConnection

@@ -81,7 +81,7 @@ Module report
             ," & select_sum & " and j.status != 'Open')
 
         "
-        SPAS.ToClipboard(sqlstr, True)
+        ToClipboard(sqlstr, True)
 
 
         Load_Datagridview(SPAS.Dgv_Rapportage_Overzicht, sqlstr, "rapportagefout report_1")
@@ -151,7 +151,7 @@ Module report
                              from " & Report_table(report_year) & " j left join account a on a.id = j.fk_account  left join accgroup ag on ag.id = a.fk_accgroup_id
                              where extract(year from j.date)=" & report_year & "and j.source='" & source & "' and ag.name='" & accgroup & "' and j.status != 'Open' order by j.date desc"
 
-        SPAS.ToClipboard(sql, True)
+        ToClipboard(sql, True)
 
         Load_Datagridview(SPAS.Dgv_Report_6, sql, "boekingen")
         Format_drill_down()
@@ -178,7 +178,7 @@ Module report
                              where iban='" & Trim(SPAS.Dgv_Rapportage_Overzicht.Rows(i).Cells(1).Value) & "' and extract(year from b.date)= " & report_year & sqlpart1 &
                              " order by b.seqorder desc"
 
-        SPAS.ToClipboard(sql, True)
+        ToClipboard(sql, True)
 
         Load_Datagridview(SPAS.Dgv_Report_6, sql, "drilldown banktransacties")
         Format_drill_down_bank()
@@ -213,11 +213,11 @@ Module report
         where extract (year from date)=" & report_year & " and b.name = '_startsaldo_'
 "
 
-        SPAS.ToClipboard(sql2, True)
+        ToClipboard(sql2, True)
         Collect_data(sql3)
         Dim farray() As String = {"T200", "T250", "N100", "N100", "N100", "N100", "N100"}
         Load_Datagridview(SPAS.Dgv_Rapportage_Overzicht, sql2, "rapportagefout Report_Bank_overview")
-        SPAS.Format_Datagridview(SPAS.Dgv_Rapportage_Overzicht, farray)
+        SPAS.Format_Datagridview(SPAS.Dgv_Rapportage_Overzicht, farray, False)
 
         With SPAS.Dgv_Rapportage_Overzicht
             For r = 0 To .Rows.Count - 1
@@ -286,7 +286,7 @@ Module report
 "
 
         'RunSQL(sql1, "NULL", "Report_Closing")
-        SPAS.ToClipboard(sql1, True)
+        ToClipboard(sql1, True)
         Load_Datagridview(SPAS.Dgv_Report_Year_Closing, sql1, "Report_Closing")
         For r = 0 To SPAS.Dgv_Report_Year_Closing.Rows.Count - 1
             If SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(1).Value = "Transitoria" Then
@@ -317,7 +317,7 @@ Module report
         SPAS.Dgv_Report_Year_Closing.Rows(af).Cells(10).Value = Format(SPAS.Dgv_Report_Year_Closing.Rows(af).Cells(10).Value + amt, "N2")
         SPAS.Lbl_Report_total.Text = SPAS.Dgv_Report_Year_Closing.Rows(af).Cells(10).Value
 
-        SPAS.Format_Datagridview(SPAS.Dgv_Report_Year_Closing, {"T135", "H000", "H000", "H000", "T300", "H000", "T085", "T080", "N085", "N085", "N085"})
+        SPAS.Format_Datagridview(SPAS.Dgv_Report_Year_Closing, {"T135", "H000", "H000", "H000", "T300", "H000", "T085", "T080", "N085", "N085", "N085"}, False)
         SPAS.Dgv_Report_Year_Closing.Columns(10).DefaultCellStyle.ForeColor = Color.DarkGreen
 
         If SPAS.Dgv_Report_Year_Closing.Rows(af).Cells(10).Value < 0 Then

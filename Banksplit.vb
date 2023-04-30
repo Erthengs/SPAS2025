@@ -1,29 +1,22 @@
 ﻿Public Class Banksplit
-    Private Sub Dgv_Split_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Split.CellContentClick
-
-    End Sub
-
 
 
     Sub Calculate_Split_Totals()
         Dim tot As Decimal = 0
         Dim amt As Decimal = 0
         Dim diff As Decimal = 0
-        For x As Integer = 0 To dst1.Tables(0).Rows.Count - 1
-            'MsgBox(dst1.Tables(0).Rows(x)(1))
-            If IsDBNull(dst1.Tables(0).Rows(x)(1)) Then
-                amt = 0
-            Else
-                amt = CDec(dst1.Tables(0).Rows(x)(1))
-            End If
 
+
+
+        For x As Integer = 0 To Me.Dgv_Split.Rows.Count - 1
+            If IsDBNull(Me.Dgv_Split.Rows(x).Cells(1).Value) Then amt = 0 Else amt = CDec(Me.Dgv_Split.Rows(x).Cells(1).Value)
             tot = tot + amt
-        Next
+        Next x
+        diff = Tbx2Dec(Lbl_Split_Amount.Text) - tot
+        Lbl_Split_Diff.Text = diff
+        Lbl_Split_Diff.ForeColor = IIf(diff = 0, Color.Black, Color.Red)
 
-        diff = Tbx2Dec(Tbx_Split_Amount.Text) - tot
-        Tbx_Split_Diff.Text = diff
 
-        'dst.Tables(0).Rows(0)(1) = Tbx2Dec(Tbx_Split_Amount.Text) + diff
     End Sub
 
 
@@ -34,12 +27,12 @@
 
     Private Sub Btn_Split_Save_Click(sender As Object, e As EventArgs) Handles Btn_Split_Save.Click
         Calculate_Split_Totals()
-        If Tbx2Dec(Tbx_Split_Diff.Text) <> 0 Then
+        If Tbx2Dec(Lbl_Split_Diff.Text) <> 0 Then
             MsgBox("Deze banktransactie is onjuist verdeeld")
             Exit Sub
         End If
 
-        If CInt(QuerySQL("select count(distinct(fk_account)) from journal j where j.fk_bank In (Select id from bank where seqorder ='" & Tbx_Split_seqorder.Text & "')")) > 1 Then
+        If CInt(QuerySQL("select count(distinct(fk_account)) from journal j where j.fk_bank In (Select id from bank where seqorder ='" & Lbl_Split_seqorder.Text & "')")) > 1 Then
             If MsgBox("Momenteel is deze transacties verdeeld over meerdere categories." & vbCr &
                    "Door deze wijziging te bewaren krijgen alle subtransacties de categorie " & Lbl_SplitBank_Accountnr.Text & vbCr &
                    "Wilt u dat?", vbYesNo, vbExclamation) = vbNo Then
@@ -54,14 +47,15 @@
         Dim cur As String = "EUR"
         Dim _dat As Date = SPAS.Dgv_Bank.SelectedCells(1).Value
         Dim dat As String = _dat.Year & "-" & _dat.Month & "-" & _dat.Day
-        Dim seq As Integer = Tbx_Split_seqorder.Text
+        Dim seq As Integer = Lbl_Split_seqorder.Text
         Dim ib2 As String = SPAS.Dgv_Bank.SelectedCells(8).Value
         Dim nam As String = SPAS.Dgv_Bank.SelectedCells(2).Value
         Dim cod As String = Strings.Trim(SPAS.Dgv_Bank.SelectedCells(6).Value)
         Dim bat As String = SPAS.Dgv_Bank.SelectedCells(3).Value
         Dim exc As Decimal = SPAS.Dgv_Bank.SelectedCells(7).Value
         Dim amt_cur As Decimal = 0
-        Dim fkj As String = SPAS.n20(SPAS.Dgv_Bank.SelectedCells(12).Value)
+        Dim fkj As String = Lbl_SplitBank_journal_name.Text 'SPAS.n20(SPAS.Dgv_Bank.SelectedCells(12).Value)
+
         Dim fil As String = SPAS.Dgv_Bank.SelectedCells(13).Value
         Dim cst As Decimal = 0
         Dim new_id = QuerySQL("Select Max(id) FROM Bank")
@@ -73,7 +67,7 @@
         Dim deb As Decimal
         Dim cre As Decimal
         Dim des As String
-        Dim rst As Decimal = Tbx_Split_Diff.Text
+        Dim rst As Decimal = Lbl_Split_Diff.Text
 
         Dim Sqlstr As String = "DELETE FROM bank WHERE seqorder='" & seq & "';"
         Sqlstr &= "INSERT INTO BANK(iban,currency,date,seqorder,iban2,name,code,batchid,exch_rate, 
@@ -106,24 +100,25 @@ skipit:
 
         Sqlstr = Strings.Left(Sqlstr, Strings.Len(Sqlstr) - 1)
         SQLstr2 = Strings.Left(SQLstr2, Strings.Len(SQLstr2) - 1)
-        Clipboard.Clear()
-        Clipboard.SetText(SQLstr2)
+        ToClipboard(SQLstr2, True)
+
         RunSQL(Sqlstr, "NULL", "Btn_Split_Save_Click")
         RunSQL(SQLstr2, "NULL", "Btn_Split_Save_Click")
 
 
         'delete function vervangen door update van de originele transactie met het restbedrag
-        '---> "UPDATE journal j set status = 'Verwerkt', amt1 = '" & Tbx_Split_Diff.Text & "' WHERE fk_bank = '" & Tbx_Split_Bank_id.Text & "';"
+        '---> "UPDATE journal j set status = 'Verwerkt', amt1 = '" & Lbl_Split_Diff.Text & "' WHERE fk_bank = '" & Lbl__Split_Bank_id.Text & "';"
         'restant 
         If rst = 0 Then
-            RunSQL("DELETE from journal WHERE fk_bank = '" & Tbx_Split_Bank_id.Text & "';", "NULL", "Btn_Split_Save_Click2")
+            RunSQL("DELETE from journal WHERE fk_bank = '" & Lbl_Split_Bank_id.Text & "';", "NULL", "Btn_Split_Save_Click2")
         Else
-            RunSQL("UPDATE journal j set status = 'Verwerkt', amt1 = '" & Tbx_Split_Diff.Text & "' WHERE fk_bank = '" & Tbx_Split_Bank_id.Text & "';", "NULL", "Btn_Split_Save_Click_3")
+            RunSQL("UPDATE journal j set status = 'Verwerkt', amt1 = '" & Lbl_Split_Diff.Text & "' WHERE fk_bank = '" & Lbl_Split_Bank_id.Text & "';", "NULL", "Btn_Split_Save_Click_3")
         End If
 
         Me.Close()
         SPAS.Fill_bank_transactions("Btn_Split_Save_Click")
         Fill_Cmx_Excasso_Select_Combined()
+        ''Categorize_Bank_Transactions()
     End Sub
 
     Private Sub Btn_Split_Cancel_Click(sender As Object, e As EventArgs) Handles Btn_Split_Cancel.Click
@@ -134,19 +129,18 @@ skipit:
         'uitvoeren van checks
 
 
-        Collect_data1("SELECT description, credit-debit FROM bank 
-                     WHERE seqorder='" & Tbx_Split_seqorder.Text & "'")
-        'Clipboard.Clear()
-        'Clipboard.SetText(SQLstr)
+        Collect_data1("SELECT description As Omschrijving, credit-debit As Bedrag FROM bank 
+                     WHERE seqorder='" & Lbl_Split_seqorder.Text & "'")
+
         Dgv_Split.DataSource = dst1.Tables(0)
+
+
+        SPAS.Format_Datagridview(Dgv_Split, {"T360", "N080"}, True)
+
+        Exit Sub
         Try
             With Dgv_Split
 
-                .Columns(0).HeaderText = "Omschrijving"
-                .Columns(0).DefaultCellStyle.ForeColor = Color.Blue
-                .Columns(0).Width = 320
-
-                .Columns(1).HeaderText = "Bedrag"
                 .Columns(1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
                 .Columns(1).DefaultCellStyle.Format = "N2"
                 .Columns(1).DefaultCellStyle.ForeColor = Color.Blue
@@ -160,5 +154,27 @@ skipit:
     Private Sub Dgv_Split_DataError(sender As Object, e As DataGridViewDataErrorEventArgs) Handles Dgv_Split.DataError
         MsgBox("Ongeldige invoer")
         e.ThrowException = False
+    End Sub
+
+    Private Sub Btn_Prefill_Split_Click(sender As Object, e As EventArgs) Handles Btn_Prefill_Split.Click
+        Dim sql As String = "
+                    SELECT name As Omschrijving, SUM(AMt1) AS Bedrag FROM journal
+                    WHERE name ILIKE 'Excasso%' AND status = 'Open' GROUP By name, status
+"
+        Load_Datagridview(Dgv_Split, sql, "Btn_Prefill_Split")
+        SPAS.Format_Datagridview(Dgv_Split, {"T360", "N080"}, True)
+        Calculate_Split_Totals()
+    End Sub
+
+    Private Sub Dgv_Split_UserDeletedRow(sender As Object, e As DataGridViewRowEventArgs) Handles Dgv_Split.UserDeletedRow
+        Calculate_Split_Totals()
+    End Sub
+
+    Private Sub Dgv_Split_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Split.CellContentClick
+
+    End Sub
+
+    Private Sub Label76_Click(sender As Object, e As EventArgs) Handles Label76.Click
+
     End Sub
 End Class

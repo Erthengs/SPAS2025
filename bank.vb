@@ -5,6 +5,9 @@ Imports Npgsql
 Imports System.IO
 Imports System.Diagnostics.Tracing
 Imports Microsoft.EntityFrameworkCore.Update.Internal
+Imports System.ComponentModel
+Imports Microsoft.EntityFrameworkCore.Metadata.Internal
+Imports System.Dynamic
 
 Module bank
 
@@ -24,7 +27,7 @@ Module bank
         Upload_CSV(csv)
 
         SPAS.Fill_bank_transactions("Download_Bank_Transactions")
-        Categorize_Bank_Transactions()
+        'Categorize_Bank_Transactions()
     End Sub
     Sub Load_Bank_csv_from_folder()
         Dim SelectFolder As New FolderBrowserDialog
@@ -262,14 +265,12 @@ Module bank
                        UPDATE bank SET fk_journal_name='nog te bepalen' WHERE fk_journal_name ilike 'NL%' or fk_journal_name ilike 'CSV_.%';"
         If SPAS.Chbx_test.Checked Then MsgBox(SQLstr3)
         RunSQL(SQLstr3, "NULL", "Download_Bank_Transactions/SQLstr3")
-        'Clipboard.Clear()
-        'Clipboard.SetText(SQLstr3)
-        'Dim sql = QuerySQL("Select sql from query where category ilike 'Transaction' and name='Vervang null door 0/lege string'")
-        'RunSQL(sql, "NULL", "Upload_CSV")
 
+        Categorize_Bank_Transactions()
     End Sub
 
     Sub Categorize_Bank_Transactions()
+
         ' ==========================   P R E P A R A T I O N   =====================
         Dim runstr As String = ""
         Dim sqlupd As String = ""
@@ -277,149 +278,22 @@ Module bank
         Dim upsert As String = ""
         Dim delstr As String = ""
         Dim bankid As Integer
+        Dim nocat As String = QuerySQL("Select value from settings where label='nocat'")
         Dim overhead As String = QuerySQL("SELECT value FROM settings WHERE label='overhead'")
         Dim SQLinsert_hdr = "
             INSERT INTO journal
             (amt1,amt2, fk_account,date, status,description,source,fk_relation,fk_bank,name,type,iban) 
             VALUES 
 "
-        '/////////////// TOEVOEGEN: IBAN AAN SQLINSERT_HDR en SQLINS////////////////////////
+        'A ==== CATEGORIZE BANK TRANSACTIONS BASED ON CONTRACT, INCASSOJOB AND BANKCODE ====================
 
-        'A ============== CREATE JOURNAL POSTINGS FOR CONTRACTS WITHOUT AUTOMATIC COLLECTION 
-        '1) create journal posts for contracts without automated collections
-        '[ok]
-
-        Dim nocat As String = QuerySQL("Select value from settings where label='nocat'")
-        Dim SQLstrA As String = "
-            SELECT 
-                b.id, b.date, co.donation/co.term As amtd, co.overhead/co.term As amto, 
-                b.description, ac.id As acc, r.id As rel, ta.id As tar, 
-                co.donation, co.overhead, co.term, J.amt1, b.credit As bcred, co.name, r.name,r.name_add, b.iban
-            FROM bank B 
-                LEFT JOIN relation R ON r.iban = b.iban2  
-                LEFT JOIN contract CO  ON fk_relation_id = r.id
-                LEFT JOIN target TA ON TA.id = CO.fk_target_id
-                LEFT JOIN journal J ON fk_bank = b.id
-                LEFT JOIN account AC ON f_key = ta.id
-            WHERE co.autcol = False 
-                AND co.active = True
-                AND j.fk_account='" & nocat & "'
-                AND j.fk_bank=b.id
-                AND amt1 = b.credit 
-                AND donation + overhead = credit * term
-                AND Position ('extra' IN b.description)='0'
-            GROUP BY b.id, r.id, co.id, j.id, ta.id, ac.id;
-"
-
-
-        Collect_data(SQLstrA)
-
-        '2) Create journal posts based on output in dataset (dst)
-
-        For x As Integer = 0 To dst.Tables(0).Rows.Count - 1
-            bankid = dst.Tables(0).Rows(x)(0)
-            sqlupd &=
-                    "UPDATE journal SET     
-                        amt1='" & Cur2(dst.Tables(0).Rows(x)(2)) & "',
-                        fk_relation='" & dst.Tables(0).Rows(x)(6) & "', 
-                        fk_account='" & dst.Tables(0).Rows(x)(5) & "', 
-                        name='Contract " & dst.Tables(0).Rows(x)(13) & " " & dst.Tables(0).Rows(x)(14) & "," & Strings.Left(dst.Tables(0).Rows(x)(15), 1) & "',
-                        type='Contract',
-                        iban='" & dst.Tables(0).Rows(x)(16) & "'
-                    WHERE fk_bank='" & bankid & "';"  'donation amount to be booked
-            '@@@here journal name must be set with contract or (even better?) source = contract 
-
-
-            If dst.Tables(0).Rows(x)(3) > 0 Then 'create extra journal post for overhead
-                'MsgBox(dst.Tables(0).Rows(x)(3))
-                sqlins &=
-                        "('" & Cur2(dst.Tables(0).Rows(x)(3)) & "',0,'" & overhead & "','" &
-                        Format(CDate(dst.Tables(0).Rows(x)(1)), "yyyy-MM-dd") & "','Verwerkt','" &  'date, status
-                        dst.Tables(0).Rows(x)(4) & "','Bank','" & _   'description', source
-                        dst.Tables(0).Rows(x)(6) & "','" & _ 'relation id
-                        bankid & "','Contract " & dst.Tables(0).Rows(x)(13) & "','Contract','" & dst.Tables(0).Rows(x)(16) & "')," 'bank id
-            End If
-
-        Next
-
-        'posting contracts
-        If sqlins <> "" Then upsert = SQLinsert_hdr & Strings.Left(sqlins, Strings.Len(sqlins) - 1)
-        If sqlupd <> "" Then RunSQL(sqlupd & upsert, "NULL", " Categorize banktransactions A")
-
-        sqlupd = ""
-        sqlins = ""
-        'upsert = ""
-
+        RunQuery("Categoriseer contractbetaling")
+        RunQuery("Categoriseer contractincasso")
+        RunQuery("Categoriseer obv bankcode")
         'B ============== CATEGORIZE BANK TRANSACTIONS BASED ON CODE ==========================
-        '[NOK]
 
-        Dim SQLstr2 = "
-            SELECT b.id, b.date, b.debit, b.credit,b.description, b.code,
-                   (SELECT ac.id FROM account ac WHERE POSITION (b.code IN searchword)> 0)
-            FROM bank b
-			JOIN journal j ON j.fk_bank=b.id
-            WHERE (Select ac.id FROM account ac WHERE POSITION (b.code IN searchword)> 0) is distinct From Null
-                   AND b.code!='st'
-				   AND j.fk_account='" & nocat & "' 
-            GROUP BY b.id
-            ORDER BY b.code
-            "
-        Collect_data(SQLstr2)
-        For x As Integer = 0 To dst.Tables(0).Rows.Count - 1
-            bankid = dst.Tables(0).Rows(x)(0)
-            sqlupd &=
-                "UPDATE journal SET fk_account='" & dst.Tables(0).Rows(x)(6) & "' 
-                                    WHERE fk_bank='" & bankid & "';"  'category to be booked
-        Next
+        'C ============== CATEGORIZE EXCASSO JOBS ====================================================
 
-
-        'C ============== CATEGORIZE BANK TRANSACTIONS BASED ON DESCRIPTION AND SEARCH WORD ====================
-
-
-        'For sw = 1 To 1
-
-
-        Dim SQLstr4 = "
-            SELECT B.id, ac.id, B.description, ac.searchword 
-            FROM bank B
-            JOIN journal j ON j.fk_bank=b.id
-			JOIN account ac
-            On Position(searchword in B.description)>0
-	        WHERE j.fk_account='" & nocat & "' 
-            GROUP BY b.id, ac.id
-            ORDER BY b.id;
-            "
-        Collect_data(SQLstr4)
-
-        'MsgBox(sw)
-        'MsgBox(dst.Tables(0).Rows.Count - 1)
-        For x As Integer = 0 To -1 'dst.Tables(0).Rows.Count - 1
-            'if there is two candidate categories, these two are both in the output but should be ignored
-            'if v(x) = V(x + 1) Then x = x + 2 
-            bankid = dst.Tables(0).Rows(x)(0)
-
-            sqlupd &=
-                    "UPDATE journal SET 
-                    fk_account='" & dst.Tables(0).Rows(x)(6) & "',
-                    name='" & dst.Tables(0).Rows(x)(3) & "',
-                    date='" & dst.Tables(0).Rows(x)(1) & "  
-                    WHERE fk_bank='" & bankid & "';"  'category to be booked
-        Next
-
-        'Clipboard.Clear()
-        'Clipboard.SetText(sqlupd & SQLinsert_hdr)
-        'If sqlins <> "" Then upsert = SQLinsert_hdr & Strings.Left(sqlins, Strings.Len(sqlins) - 1)
-        'RunSQL(sqlupd & upsert, "NULL", " Categorize banktransactions A")
-
-        'Next sw
-
-
-
-        'D ============== CATEGORIZE AUTOMATIC INCASSO ========================================
-        Dim sql = QuerySQL("Select sql from query where category ilike 'Transaction' and name='Match contractincasso'")
-        RunSQL(sql, "NULL", "Match contractincasso")
-
-        'E ============== CATEGORIZE EXCASSO JOBS ====================================================
         Collect_data("
         Select (b.debit *-1)- Sum(j.amt1), b.id, j.date, j.name, sum(j.amt2)/(sum(j.amt1)),b.debit, sum(j.amt1), b.iban
                         FROM bank b
@@ -429,7 +303,6 @@ Module bank
                         AND j.source = 'Uitkering'
                         GROUP BY b.credit, b.id, j.date, j.name
 ")
-
         Dim _dat As Date
         Dim dat As String
         Dim calc As Boolean = False
@@ -438,9 +311,6 @@ Module bank
             MsgBox("Tussenrekening is niet geconfigureerd in Instellingen, categorisering wordt afgebroken")
             Exit Sub
         End If
-
-        'If dst.Tables(0).Rows.Count > 0 Then  'excasso available
-
 
         For x = 0 To dst.Tables(0).Rows.Count - 1
 
@@ -453,9 +323,9 @@ Module bank
                     WHERE name ilike '%" & dst.Tables(0).Rows(x)(3) & "%'",
                    "NULL", "Categorize banktransactions E2")
             'Set fk_journal_name
-            Dim updsql As String = "UPDATE bank set fk_journal_name='" & dst.Tables(0).Rows(x)(3) & "' where id=" & dst.Tables(0).Rows(x)(1)
+            Dim updsql As String = "UPDATE bank set fk_journal_name='Uitkering' where id=" & dst.Tables(0).Rows(x)(1)
             RunSQL(updsql, "NULL", "Categorize banktransactions E4")
-            MsgBox(updsql)
+
 
             If dst.Tables(0).Rows(x)(0) <> 0 Then
                 Dim msg = MsgBox("Er is een verschil tussen de bankafschrijving en het uitkeringsformulier" & vbCrLf _
@@ -464,8 +334,7 @@ Module bank
                 If msg = vbNo Then Exit Sub
                 _dat = dst.Tables(0).Rows(x)(2)
                 dat = _dat.Year & "-" & _dat.Month & "-" & _dat.Day
-                'create an extra journal item 'nocat' for the difference
-                '(amt1,fk_account,date, status,description,source,fk_relation,fk_bank,name,type) 
+
                 sqlins =
                  "('" & Cur2(dst.Tables(0).Rows(x)(0)) & "','" & 'amt1
                  Tbx2Dec(dst.Tables(0).Rows(x)(4)) * Cur2(dst.Tables(0).Rows(x)(0)) & "','" & 'amt2
@@ -477,20 +346,21 @@ Module bank
                 RunSQL(SQLinsert_hdr & sqlins, "NULL", "Categorize banktransactions E3")
                 calc = True
             End If
-            'Clipboard.Clear()
-            'Clipboard.SetText(SQLinsert_hdr & sqlins)
 
         Next x
-        'RunSQL("Update Bank set fk_journal_name='Excasso' where id=")
-        'End If
-        'F ============== CATEGORIZE EXCHANGE RATES ====================================================
-        'If MsgBox("Calculate exchange rates?", vbYesNo) = vbYes Then
-        If calc Then
-            Fill_Cmx_Excasso_Select_Combined()
-        End If
-        RunSQL("update bank b set fk_journal_name = j.source from journal J where j.fk_bank = b.id and b.fk_journal_name='nog te bepalen' and j.fk_account !='" & nocat & "'", "NULL", "Categorize bank transactions")
+
+        'C2 ============== CATEGORIZE BASED ON DESCRIPTION AND EXTRA GIFT ====================================================
+        RunQuery("Categoriseer obv omschrijving")
+        RunQuery("Categoriseer extra gift")
+        'D ============== CATEGORIZE EXCHANGE RATES ====================================================
+        'If MsgBox("Calculate exchange rates?", vbYesNo) = vbYes Then Calculate_Exchange_Rates()
+
+        'E ============== FINAL ARRANGEMENTS ====================================================
+
+        If calc Then Fill_Cmx_Excasso_Select_Combined()
         calc = False
-        'Calculate_Exchange_Rates()
+
+
     End Sub
     Sub Calculate_Exchange_Rates()
         'F ============== CALCULATE EXCHANGE DIFFERENCE ====================================================
@@ -630,18 +500,11 @@ Module bank
     End Sub
 
 
-    Sub Mark_rows_Dgv_Bank()
+    Public Sub Mark_rows_Dgv_Bank()
         For x As Integer = 0 To SPAS.Dgv_Bank.Rows.Count - 1
-
             Dim cnt As Integer = SPAS.Dgv_Bank.Rows(x).Cells(17).Value
-            If cnt > 0 Then
-                SPAS.Dgv_Bank.Rows(x).DefaultCellStyle.ForeColor = Color.DarkRed
-                'SPAS.Btn_Bank_Split.Enabled = True
-            Else
-                SPAS.Dgv_Bank.Rows(x).DefaultCellStyle.ForeColor = Color.DarkGreen
-                'SPAS.Btn_Bank_Split.Enabled = False
-            End If
-
+            SPAS.Dgv_Bank.Rows(x).DefaultCellStyle.ForeColor = IIf(cnt > 0, Color.DarkRed, Color.DarkGreen)
+            If SPAS.Dgv_Bank.Rows(x).Cells(12).Value = "Auto-cat" Then SPAS.Dgv_Bank.Rows(x).DefaultCellStyle.ForeColor = Color.DarkGoldenrod
         Next
 
     End Sub
@@ -655,7 +518,7 @@ Module bank
                      WHERE bank.id =" & journal_name
 
         Collect_bankdata(SQLstr)
-        SPAS.ToClipboard(SQLstr, True)
+        ToClipboard(SQLstr, True)
 
         Dim Amt_In = CDec(SPAS.Dgv_Bank.SelectedCells(4).Value)
         Dim cod As String = SPAS.Dgv_Bank.SelectedCells(6).Value
@@ -728,51 +591,6 @@ Module bank
 
     End Sub
 
-    Sub Obsoleet()
-        ' automatische incasso
-        Dim sqlupd As String = ""
-        Dim sqlins As String = ""
-        Dim SQLinsert_hdr As String = ""
 
-        Collect_data("Select b.credit - Sum(j.amt1), b.id, j.date, j.name, b.iban 
-                        FROM bank b
-                        JOIN journal j ON b.description = j.name 
-                        WHERE b.code = 'ei'
-                        AND j.status = 'Open'
-                        AND j.source = 'Incasso'
-                        GROUP BY b.credit, b.id, j.date, j.name")
-
-
-        For x As Integer = 0 To dst.Tables(0).Rows.Count - 1
-            If dst.Tables(0).Rows.Count > 0 Then '.Rows(0)(0)) Then 'bank is automated incasso?
-                'Delete previous standard journal post on bank transaction
-                RunSQL("DELETE FROM journal WHERE fk_bank='" & dst.Tables(0).Rows(x)(1) & "'", "NULL",
-                                   "Categorize banktransactions D1")
-                'Update journal posts with bankid, set type on contract
-                RunSQL("Update Journal 
-                                    SET status='Verwerkt',type='Contract',fk_bank='" & dst.Tables(0).Rows(x)(1) & "' 
-                                    ,iban='" & dst.Tables(0).Rows(x)(4) & "' 
-                                    WHERE name='" & dst.Tables(0).Rows(x)(3) & "'", "NULL", "Categorize banktransactions D2")
-                Dim updsql As String = "UPDATE bank set fk_journal_name='" & dst.Tables(0).Rows(x)(3) & "' where id=" & dst.Tables(0).Rows(x)(1)
-                RunSQL(updsql, "NULL", "Categorize banktransactions D4")
-
-
-                If dst.Tables(0).Rows(x)(0) <> 0 Then
-                    'create an extra journal item 'nocat' for the difference
-                    '(amt1,fk_account,date, status,description,source,fk_relation,fk_bank,name,type) 
-                    sqlins =
-                                 "('" & dst.Tables(0).Rows(x)(0) & "',0,'" & 'amt1
-                                 nocat & "','" & 'fk_account
-                                 dst.Tables(0).Rows(x)(2) & 'date
-                                 "','Verwerkt','Verschil tussen bankincasso en incassoboeking','Incasso','','" &  'status/descr/source/relat
-                                 dst.Tables(0).Rows(x)(1) & "','" & 'fk_bank
-                                 dst.Tables(0).Rows(x)(3) & "','Contract','" & dst.Tables(0).Rows(x)(16) & "');" 'name/type
-                    RunSQL(SQLinsert_hdr & sqlins, "NULL", "Categorize banktransactions D3-" & x)
-                End If
-            End If
-        Next x
-
-
-    End Sub
 
 End Module

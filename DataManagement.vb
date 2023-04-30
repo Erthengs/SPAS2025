@@ -41,6 +41,28 @@ connstart:
         End Try
 
     End Sub
+    Public Sub RunQuery(ByVal Qname As String)
+
+        Dim sql = QuerySQL("Select sql from query where category ilike 'Transaction' and name='" & Qname & "'")
+        Try
+            RunSQL(sql, "NULL", Qname)
+            'Debug.Print("Success: RunQuery " & Qname)
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+            ToClipboard("sql", True)
+            Debug.Print("Error: RunQuery " & Qname)
+        End Try
+
+    End Sub
+
+    Public Sub ToClipboard(t As String, v As Boolean)
+        If IsDBNull(t) Then Exit Sub
+        If t = "" Then Exit Sub
+        If Strings.Right(connect_string, 4) = "PROD" Or v = False Then Exit Sub
+        Clipboard.Clear()
+        Clipboard.SetText(t)
+
+    End Sub
 
     Public Sub RunSQL(ByVal sql As String, jpg As String, msg As String)
         Try

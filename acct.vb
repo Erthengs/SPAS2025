@@ -477,7 +477,7 @@ Module acct
             End With
         Next
         SQLStr &= SQL_Where & " ORDER BY j.date, j.name"
-        SPAS.ToClipboard(SQLStr, True)
+        ToClipboard(SQLStr, True)
 
         Return SQLStr
 
@@ -708,7 +708,7 @@ Module acct
         Dim formatting As String = QuerySQL("select formatting from query where name='Haal settings op'")
         Dim arr_format() As String
         If Not IsNothing(formatting) Then arr_format = formatting.Split(",")
-        SPAS.Format_Datagridview(SPAS.Dgv_Settings, arr_format)
+        SPAS.Format_Datagridview(SPAS.Dgv_Settings, arr_format, False)
 
         With SPAS.Dgv_Settings
             Dim unit As String = ""
@@ -750,7 +750,7 @@ Module acct
         End With
         RunSQL(sql, "NULL", "Save settings")
 
-        SPAS.ToClipboard(sql, True)
+        ToClipboard(sql, True)
 
 
     End Sub

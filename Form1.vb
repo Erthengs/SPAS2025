@@ -786,7 +786,7 @@ Public Class SPAS
         Chx_00_BankAcc__expense.Enter, Cmx_01_BankAcc__currency.Enter, Tbx_00_BankAcc__description.Enter,
         Rbtn_Account_Income.Enter, Rbtn_Account_Expense.Enter, Rbtn_Account_Transit.Enter,
         Cmx_01_cp__fk_bankacc_id.Enter, Cmx_01_account__fk_accgroup_id.Click, Tbx_00_Account__description.Enter, Tbx_00_Account__searchword.Enter,
-        Dtp_00_relation__date1.Enter, Dtp_00_relation__date2.Enter, Dtp_00_relation__date3.Enter, Tbx_10_Account__startsaldo.Enter,
+        Dtp_00_relation__date1.Enter, Dtp_00_relation__date2.Enter, Dtp_00_relation__date3.Enter, Tbx_00_Account__bankcode.Enter,
         Dtp_31_contract__startdate.Enter, Tbx_00_cp__description.Enter, Cmx_01_cp__fk_bankacc_id.Click, Tbx_00_CP__telephone.Enter,
         Tbx_00_Relation__iban.Enter, Tbx_11_Contract__donation.Enter, Tbx_11_contract__overhead.Enter, Cbx_00_BankAcc__active.Enter,
         Cbx_00_Account__active.Enter, Cbx_00_cp__active.Enter, Tbx_00_CP__telephone.Enter, Tbx_00_CP__address.Enter, Tbx_00_CP__zip.Enter,
@@ -828,7 +828,7 @@ Tbx_00_BankAcc__id2.TextChanged, Tbx_00_BankAcc__bic.TextChanged, Tbx_BankAcc_st
 Tbx_00_BankAcc__description.TextChanged, Cbx_00_BankAcc__income.CheckedChanged, Chx_00_BankAcc__expense.CheckedChanged,
 Cmx_01_BankAcc__currency.SelectedIndexChanged, Cmx_01_cp__fk_bankacc_id.SelectedIndexChanged,
 Cmx_01_account__fk_accgroup_id.SelectedIndexChanged,
-Tbx_00_cp__description.TextChanged, Tbx_10_Account__startsaldo.TextChanged, Dtp_00_relation__date1.ValueChanged, Dtp_00_relation__date2.ValueChanged,
+Tbx_00_cp__description.TextChanged, Tbx_00_Account__bankcode.TextChanged, Dtp_00_relation__date1.ValueChanged, Dtp_00_relation__date2.ValueChanged,
 Dtp_00_relation__date3.ValueChanged, Tbx_00_Target__address.TextChanged, Dtp_31_contract__startdate.TextChanged,
 Tbx_00_Target__zip.TextChanged, Tbx_00_Target__city.TextChanged, Tbx_00_Target__country.TextChanged, Tbx_00_Target__description.TextChanged,
 Dtp_00_Target__birthday.ValueChanged, Cmx_01_Target__fk_cp_id.SelectedIndexChanged, Tbx_00_Account__description.TextChanged, Tbx_00_Account__searchword.TextChanged,
@@ -900,9 +900,13 @@ Tbx_00_CP__city.TextChanged, Tbx_00_CP__country.TextChanged, Tbx_00_CP__email.Te
                 If Dgv_Bank_Account.Rows(x).Cells(1).Value = "[Niet toegewezen]" Then
                     Tbx_Bank_Amount.Text = Dgv_Bank_Account.Rows(x).Cells(2).Value
                     Exit For
-
                 End If
             Next x
+            If Dgv_Bank.Rows(Dgv_Bank.SelectedCells(2).RowIndex).Cells(12).Value = "Auto-cat" Then
+                RunSQL("Update Bank set fk_journal_name='Bank' where id='" & Dgv_Bank.SelectedCells(0).Value & "'", "NULL", "auto_cat")
+                Dgv_Bank.Rows(Dgv_Bank.SelectedCells(2).RowIndex).DefaultCellStyle.ForeColor = Color.DarkGreen
+                Dgv_Bank.Rows(Dgv_Bank.SelectedCells(2).RowIndex).Cells(12).Value = "Bank" '
+            End If
         Catch ex As Exception
             'MsgBox(ex.ToString)
         End Try
@@ -1490,40 +1494,39 @@ fin:
 
 
             'calculate actual exchange rate
-            Tbx_Excasso_Exchange_rate.Text =
-                            Math.Round(GetDouble(QuerySQL("
-                                    SELECT sum(amt2)/sum(amt1) FROM journal
-                                    WHERE name ='" & Cmx_Excasso_Select.SelectedItem & "'")), 2)
+            Dim exr = QuerySQL("SELECT sum(amt2)/sum(amt1) FROM journal WHERE name ='" & Cmx_Excasso_Select.SelectedItem & "'")
+            If IsDBNull(exr) Then exr = 0
+            Tbx_Excasso_Exchange_rate.Text = Math.Round(GetDouble(exr), 2)
             ' determine date
             Dtp_Excasso_Start.Value = CDate(QuerySQL("SELECT date FROM journal WHERE name='" _
                                 & Cmx_Excasso_Select.SelectedItem & "'"))
-            Dtp_Excasso_Start.Enabled = False
-            'determine target type
+                Dtp_Excasso_Start.Enabled = False
+                'determine target type
 
-            Cbx_Uitkering_Kind.Enabled = False
-            Cbx_Uitkering_Oudere.Enabled = False
-            Cbx_Uitkering_Overig.Enabled = False
+                Cbx_Uitkering_Kind.Enabled = False
+                Cbx_Uitkering_Oudere.Enabled = False
+                Cbx_Uitkering_Overig.Enabled = False
 
-            Dim str2() As String = Split(Cmx_Excasso_Select.SelectedItem, "-")
-            Cbx_Uitkering_Kind.Checked = InStr(str2(1), "K") > 0
-            Cbx_Uitkering_Oudere.Checked = InStr(str2(1), "O") > 0
-            Cbx_Uitkering_Overig.Checked = InStr(str2(1), "V") > 0
+                Dim str2() As String = Split(Cmx_Excasso_Select.SelectedItem, "-")
+                Cbx_Uitkering_Kind.Checked = InStr(str2(1), "K") > 0
+                Cbx_Uitkering_Oudere.Checked = InStr(str2(1), "O") > 0
+                Cbx_Uitkering_Overig.Checked = InStr(str2(1), "V") > 0
 
-            Dim cp_amount = QuerySQL("
+                Dim cp_amount = QuerySQL("
             Select sum(amt1) FROM journal
             WHERE name ='" & Cmx_Excasso_Select.SelectedItem & "' 
                                AND type='CP'
                                AND amt1<='0.00'")
 
-            If IsNumeric(cp_amount) Then
-                Lbl_Excasso_CP_Totaal.Text = CInt(cp_amount * -1)
-                Lbl_Excasso_CP_Totaal_MDL.Text = Tbx2Int(CInt(Lbl_Excasso_CP_Totaal.Text) * Tbx2Dec(Tbx_Excasso_Exchange_rate.Text))
-            Else
-                Lbl_Excasso_CP_Totaal.Text = 0
-                Lbl_Excasso_CP_Totaal_MDL.Text = 0
-            End If
+                If IsNumeric(cp_amount) Then
+                    Lbl_Excasso_CP_Totaal.Text = CInt(cp_amount * -1)
+                    Lbl_Excasso_CP_Totaal_MDL.Text = Tbx2Int(CInt(Lbl_Excasso_CP_Totaal.Text) * Tbx2Dec(Tbx_Excasso_Exchange_rate.Text))
+                Else
+                    Lbl_Excasso_CP_Totaal.Text = 0
+                    Lbl_Excasso_CP_Totaal_MDL.Text = 0
+                End If
 
-        End If
+            End If
     End Sub
 
     Sub Load_Excasso_Balances()
@@ -1717,7 +1720,8 @@ fin:
         SQLstr = Strings.Left(SQLstr, Strings.Len(SQLstr) - 1) 'remove the last comma
         If Me.Chbx_test.Checked Then MsgBox(SQLstr)
         RunSQL(SQLstr, "NULL", "")
-
+        RunSQL("update bank b set fk_journal_name = j.source from journal j where b.id = j.fk_bank and j.fk_account !=" & nocat & " 
+        and b.fk_journal_name = 'nog te bepalen'", "NULL", "Categorize_Bank_Transactions / Set journal Name")
 
     End Sub
     Sub Calculate_Total_Booked(sender)
@@ -1770,7 +1774,7 @@ fin:
 
         With Me.Dgv_Bank
             .Columns(1).HeaderText = "Datum"
-            .Columns(2).HeaderText = "Name"
+            .Columns(2).HeaderText = "Naam"
             .Columns(3).HeaderText = "Omschrijving"
             .Columns(4).HeaderText = "Bij"
             .Columns(5).HeaderText = "Af"
@@ -1843,7 +1847,7 @@ fin:
                       (select count(j.id) from journal j left join bank b2 on b2.id=j.fk_bank where j.fk_account='" & nocat & "' and b.id = b2.id)
                       FROM bank b WHERE iban ='" & bankacc & "' " & filter & " 
                       ORDER BY seqorder DESC, date DESC"
-        'Clipboard.SetText(SQLstr)
+        ToClipboard(SQLstr, True)
 
         Load_Datagridview(Me.Dgv_Bank, SQLstr, "fill bank transactions")
 
@@ -1888,10 +1892,6 @@ fin:
                         Exit Sub
                     Else
 
-                        'Dim acc_id As Integer = QuerySQL("select id from account where source ilike 'Doel' and f_key=" & Cmx_01_contract__fk_target_id.SelectedValue)
-                        'MsgBox("select id from account where source ilike 'Doel' and f_key=" & Cmx_01_contract__fk_target_id.SelectedValue)
-                        'Exit Sub
-                        'Calculate_Budget(acc_id)
                         QuerySQL("Update account set b_jan=0, b_feb=0, b_mar=0, b_apr=0, b_may=0, b_jun=0, b_jul=0, b_aug=0, b_sep=0, b_oct=0, b_nov=0, b_dec=0 
                         where source ilike 'Doel' and f_key=" & Cmx_01_contract__fk_target_id.SelectedValue)
 
@@ -2001,22 +2001,24 @@ fin:
     Private Sub Btn_Bank_Split_Click(sender As Object, e As EventArgs) Handles Btn_Bank_Split.Click, Dgv_Bank.DoubleClick
 
 
-        Banksplit.Tbx_Split_Description.Text = Dgv_Bank.SelectedCells(3).Value
-        Banksplit.Tbx_Split_seqorder.Text = Dgv_Bank.SelectedCells(9).Value
-        Banksplit.Tbx_Split_Bank_id.Text = Dgv_Bank.SelectedCells(0).Value
-        Banksplit.Tbx_Split_Amount.Text = QuerySQL("Select sum(credit) - sum(debit) from bank where seqorder = '" & Banksplit.Tbx_Split_seqorder.Text & "';")
+        Banksplit.Lbl_Split_Description.Text = Dgv_Bank.SelectedCells(3).Value
+        Banksplit.Lbl_Split_seqorder.Text = Dgv_Bank.SelectedCells(9).Value
+        Banksplit.Lbl_Split_Bank_id.Text = Dgv_Bank.SelectedCells(0).Value
+        Banksplit.Lbl_SplitBank_journal_name.Text = Dgv_Bank.SelectedCells(12).Value
+
+        Banksplit.Lbl_Split_Amount.Text = QuerySQL("Select sum(credit) - sum(debit) from bank where seqorder = '" & Banksplit.Lbl_Split_seqorder.Text & "';")
 
         If Not Check_Change_Bank_Categories() Then Exit Sub
-        Dim cnt = QuerySQL("select count(j.fk_account) from bank b left join journal j on j.fk_bank = b.id where b.id=" & Banksplit.Tbx_Split_Bank_id.Text)
+        Dim cnt = QuerySQL("select count(j.fk_account) from bank b left join journal j on j.fk_bank = b.id where b.id=" & Banksplit.Lbl_Split_Bank_id.Text)
         If cnt <> 1 Then
             MsgBox("Splitsen van een banktransactie met meerdere categoriëen is niet mogelijk")
             Exit Sub
         End If
 
         Banksplit.Lbl_SplitBank_Accountnr.Text = QuerySQL("select j.fk_account||' ['||a.name||']' from bank b left join journal j on j.fk_bank = b.id 
-            left join account a on a.id = j.fk_account where b.id=" & Banksplit.Tbx_Split_Bank_id.Text)
+            left join account a on a.id = j.fk_account where b.id=" & Banksplit.Lbl_Split_Bank_id.Text)
         Dim jtype = QuerySQL("select j.type from bank b left join journal j on j.fk_bank = b.id 
-            left join account a on a.id = j.fk_account where b.id=" & Banksplit.Tbx_Split_Bank_id.Text)
+            left join account a on a.id = j.fk_account where b.id=" & Banksplit.Lbl_Split_Bank_id.Text)
         If Not IsDBNull(jtype) Then Banksplit.Lbl_SplitBank_Type.Text = jtype
 
         Banksplit.Show()
@@ -3105,10 +3107,10 @@ end as e_intern,
 
         ToClipboard(sql, True)
         Load_Datagridview(Dgv_Rapportage_Overzicht, sql, "Cmx_Report5_SelectedIndexChanged")
-        Format_Datagridview(Dgv_Rapportage_Overzicht, arr_format)
+        Format_Datagridview(Dgv_Rapportage_Overzicht, arr_format, False)
 
     End Sub
-    Sub Format_Datagridview(dgv As DataGridView, arr As Array)
+    Sub Format_Datagridview(dgv As DataGridView, arr As Array, Editable As Boolean)
 
         'formatarray
         '[letter][getal][getal][getal]
@@ -3127,7 +3129,7 @@ end as e_intern,
                     'Debug.Print(arr(x))
                     c = CInt(Mid(arr(x), 2))
                     f = Strings.Left(arr(x), 1)
-                    .Columns(x).ReadOnly = True
+                    .Columns(x).ReadOnly = Not Editable
                     .Columns(x).Width = c
                     .Columns(x).HeaderText = Strings.Left(.Columns(x).HeaderText, 1).ToUpper & Strings.Mid(.Columns(x).HeaderText, 2).ToLower
                     If f = "N" Then
@@ -3173,14 +3175,7 @@ end as e_intern,
         Btn_Bank_Add_Journal.Enabled = True
     End Sub
 
-    Public Sub ToClipboard(t As String, v As Boolean)
-        If IsDBNull(t) Then Exit Sub
-        If t = "" Then Exit Sub
-        If Strings.Right(connect_string, 4) = "PROD" Or v = False Then Exit Sub
-        Clipboard.Clear()
-        Clipboard.SetText(t)
 
-    End Sub
 
 
     Sub Rbtn_Report_Other_CheckedChanged(sender As Object, e As EventArgs) Handles Rbtn_Report_Other.Click,
@@ -3225,7 +3220,7 @@ end as e_intern,
         ToClipboard(sql, True)
         Load_Datagridview(Dgv_Rapportage_Overzicht, sql, "Cmx_Report5_SelectedIndexChanged")
 
-        Format_Datagridview(Dgv_Rapportage_Overzicht, arr_format)
+        Format_Datagridview(Dgv_Rapportage_Overzicht, arr_format, False)
     End Sub
 
 
@@ -3234,7 +3229,7 @@ end as e_intern,
 
     End Sub
 
-    Private Sub Btn_Query_Test_Click(sender As Object, e As EventArgs) Handles Btn_Query_Test.Click
+    Private Sub Btn_Query_Test_Click(sender As Object, e As EventArgs)
 
         If UCase(Strings.Left(Tbx_Query_SQL.Text, 6)) <> "SELECT" Then
             MsgBox("Alleen select-statements zijn toegestaan")
@@ -3252,11 +3247,18 @@ end as e_intern,
         sql = sql.Replace("p1", p1)
         ToClipboard(sql, True)
         RunSQL(sql, "NULL", "Testbutton verwijder maand")
+        Fill_bank_transactions("Button3")
 
     End Sub
 
     Private Sub Dgv_Bank_Account_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Bank_Account.CellContentClick
+        'If Dgv_Bank.SelectedCells(12).Value = "Auto-cat" Then RunSQL("Update Bank set fk_journal_name='Bank' where id='" & Dgv_Bank.SelectedCells(0).Value & "'", "NULL", "auto_cat")
+    End Sub
+
+    Private Sub Dgv_Bank_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Bank.CellContentClick
 
     End Sub
+
+
 End Class
 
