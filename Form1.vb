@@ -867,6 +867,17 @@ Tbx_00_CP__city.TextChanged, Tbx_00_CP__country.TextChanged, Tbx_00_CP__email.Te
             'MsgBox(Dgv_Bank.SelectedCells(2).Value)
             Tbx_Bank_Relation.Text = Dgv_Bank.SelectedCells(2).Value
             Tbx_Bank_Description.Text = Dgv_Bank.SelectedCells(3).Value
+            If Chbx_Bank_ExtraInfo_voor.Checked Then
+                If Strings.InStr(Tbx_Bank_Description.Text, " | ") > 0 Then
+                    Tbx_Bank_Extra_Info.Text = Strings.Left(Tbx_Bank_Description.Text, Strings.InStr(Tbx_Bank_Description.Text, " | ") - 1)
+                Else
+                    Tbx_Bank_Extra_Info.Text = ""
+                End If
+
+            Else
+                'Tbx_Bank_Extra_Info.Text = Strings.Mid(Tbx_Bank_Description.Text,Strings.InStr(Tbx_Bank_Description.Text,"[Extra info]")+14) 
+            End If
+
             Tbx_Bank_Afschrift.Text = Dgv_Bank.SelectedCells(9).Value
             If Not IsDBNull(Dgv_Bank.SelectedCells(8).Value) Then Tbx_Bank_Relation_account.Text = Dgv_Bank.SelectedCells(8).Value
             If Not IsDBNull(Dgv_Bank.SelectedCells(6).Value) Then Tbx_Bank_Code.Text = Dgv_Bank.SelectedCells(6).Value
@@ -916,7 +927,7 @@ Tbx_00_CP__city.TextChanged, Tbx_00_CP__country.TextChanged, Tbx_00_CP__email.Te
     Private Sub Btn_Bank_Add_Journal_Click(sender As Object, e As EventArgs) Handles Btn_Bank_Add_Journal.Click ', Cmx_Bank_Account.SelectedValueChanged
         'Exit Sub
         'Cmx_Bank_Account.SelectedIndexChanged,
-        If Check_Change_Bank_Categories() = False Then Exit Sub
+        If Check_Change_Bank_Categories(True) = False Then Exit Sub
         If (Not Rbn_Bank_jtype_con.Checked And Not Rbn_Bank_jtype_ext.Checked And Not Rbn_Bank_jtype_int.Checked) And Pan_Bank_jtype.Visible Then
             MsgBox("Selecteer eerst of dit een contractgift, extra gift of een andere banktransactie betreft")
             'Exit Sub
@@ -958,11 +969,8 @@ Tbx_00_CP__city.TextChanged, Tbx_00_CP__country.TextChanged, Tbx_00_CP__email.Te
             Exit Sub
         End If
 
-        If Check_Change_Bank_Categories() = False Then
-            Fill_Journals_by_bank(Dgv_Bank.SelectedCells(0).Value)
-            'MsgBox("Dgv_Test_CellValueChanged")
-            Exit Sub
-        End If
+        If Check_Change_Bank_Categories(True) = False Then Exit Sub
+
         Calculate_Total_Booked("Dgv_Test_CellValueChanged")
         Save_Banktransaction_Accounts()
         Update_Category_Status()
@@ -1095,7 +1103,7 @@ Tbx_00_CP__city.TextChanged, Tbx_00_CP__country.TextChanged, Tbx_00_CP__email.Te
             Case 6
                 If Me.Dgv_Excasso2.Rows(i).Cells(6).Value > ruimte_contract Then
                     MsgBox("Uitkering is maximaal het beschikbare contractbedrag")
-                    Me.Dgv_Excasso2.Rows(i).Cells(6).Value = ruimte_contract
+                    'Me.Dgv_Excasso2.Rows(i).Cells(6).Value = ruimte_contract
                 End If
 
             Case 7
@@ -1118,9 +1126,6 @@ fin:
     Private Sub Dgv_Excasso2_DataError(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewDataErrorEventArgs) _
     Handles Dgv_Excasso2.DataError, Dgv_Bank_Account.DataError, Dgv_Bank_Account.DataError
 
-        'Dim view As DataGridView = CType(sender, DataGridView)
-        'view.Rows(e.RowIndex).ErrorText = "an error"
-        'View.Rows(e.RowIndex).Cells(e.ColumnIndex).ErrorText = "Incorrect input"
         MsgBox("Ongeldige invoer")
         e.ThrowException = False
 
@@ -1591,7 +1596,7 @@ fin:
     Private Sub Dgv_Bank_RowHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles Dgv_Bank.RowHeaderMouseClick
         Format_dvg_bank()
     End Sub
-    Private Sub Tbx_Bank_Description_Leave(sender As Object, e As EventArgs) Handles Tbx_Bank_Description.Leave
+    Private Sub Tbx_Bank_Description_Leave(sender As Object, e As EventArgs) Handles Tbx_Bank_Description.Leave, Tbx_Bank_Extra_Info.Leave
         Dim SQLstr = "UPDATE bank SET description='" & Tbx_Bank_Description.Text &
                "' WHERE id='" & Dgv_Bank.SelectedCells(0).Value & "'"
         RunSQL(SQLstr, "NULL", "Tbx_Bank_Description.Leave")
@@ -1650,14 +1655,15 @@ fin:
     Private Sub Cbx_00_cp__active_Click(sender As Object, e As EventArgs) Handles Cbx_00_cp__active.Click
         CheckActive(Cbx_00_cp__active, Lbl_CP_pkid, "target")
     End Sub
-    Function Check_Change_Bank_Categories()
+    Function Check_Change_Bank_Categories(ByVal msg As Boolean)
         If Me.Dgv_Bank.Rows.Count = 0 Or Dgv_Bank_Account.Rows.Count = 0 Then
             Return False
             Exit Function
         End If
         If Not IsDBNull(Me.Dgv_Bank.SelectedCells(12).Value) Then
             If Me.Dgv_Bank.SelectedCells(12).Value = "Uitkering" Or Me.Dgv_Bank.SelectedCells(12).Value = "Incasso" Then
-                MsgBox("Incasso- & uitkeringslijsten kunnen niet in de bankapplicatie aangepast worden")
+                If msg Then MsgBox("Incasso- & uitkeringslijsten kunnen niet in de bankapplicatie aangepast worden")
+                Fill_Journals_by_bank(Dgv_Bank.SelectedCells(0).Value)
                 Return False
             End If
         End If
@@ -1668,11 +1674,8 @@ fin:
 
     Sub Save_Banktransaction_Accounts()
 
-        If Check_Change_Bank_Categories() = False Then
-            Fill_Journals_by_bank(Dgv_Bank.SelectedCells(0).Value)
-            'MsgBox("Save_Banktransaction_Accounts")
-            Exit Sub
-        End If
+        If Check_Change_Bank_Categories(False) = False Then Exit Sub
+
 
         Dim bid As Integer = Me.Dgv_Bank.SelectedCells(0).Value
         Dim _dat As Date = Me.Dgv_Bank.SelectedCells(1).Value
@@ -1720,8 +1723,10 @@ fin:
         SQLstr = Strings.Left(SQLstr, Strings.Len(SQLstr) - 1) 'remove the last comma
         If Me.Chbx_test.Checked Then MsgBox(SQLstr)
         RunSQL(SQLstr, "NULL", "")
-        RunSQL("update bank b set fk_journal_name = j.source from journal j where b.id = j.fk_bank and j.fk_account !=" & nocat & " 
-        and b.fk_journal_name = 'nog te bepalen'", "NULL", "Categorize_Bank_Transactions / Set journal Name")
+
+        RunSQL("update bank b set fk_journal_name = j.source from journal j where b.id = j.fk_bank and j.fk_account !=" & nocat & " and b.fk_journal_name='nog te bepalen';
+        update bank b set fk_journal_name='nog te bepalen' from journal j where b.id = j.fk_bank and j.fk_account =" & nocat, "NULL", "Categorize_Bank_Transactions / Set journal Name")
+
 
     End Sub
     Sub Calculate_Total_Booked(sender)
@@ -2008,7 +2013,7 @@ fin:
 
         Banksplit.Lbl_Split_Amount.Text = QuerySQL("Select sum(credit) - sum(debit) from bank where seqorder = '" & Banksplit.Lbl_Split_seqorder.Text & "';")
 
-        If Not Check_Change_Bank_Categories() Then Exit Sub
+        If Not Check_Change_Bank_Categories(False) Then Exit Sub
         Dim cnt = QuerySQL("select count(j.fk_account) from bank b left join journal j on j.fk_bank = b.id where b.id=" & Banksplit.Lbl_Split_Bank_id.Text)
         If cnt <> 1 Then
             MsgBox("Splitsen van een banktransactie met meerdere categoriëen is niet mogelijk")
@@ -2027,7 +2032,7 @@ fin:
 
     Private Sub ToolTip1_Popup(sender As Object, e As PopupEventArgs) Handles ToolTip1.Popup
 
-        ToolTip1.SetToolTip(Btn_Bank_Categorize, "Categoriseer transacties")
+        ' ToolTip1.SetToolTip(Btn_Bank_Categorize, "Categoriseer transacties")
     End Sub
 
     Private Sub Rbn_00_contract_child_CheckedChanged(sender As Object, e As EventArgs) Handles Rbn_00_contract_child.CheckedChanged
@@ -2231,7 +2236,7 @@ fin:
     End Sub
 
     Private Sub MenuCategoriseer_Click(sender As Object, e As EventArgs) Handles MenuCategoriseer.Click
-        Categorize_Bank_Transactions()
+        Categorize_Bank_Transactions(True, True, True, True, True, True, True)
         Fill_bank_transactions("MenuCategoriseer")
     End Sub
 
@@ -2377,16 +2382,12 @@ fin:
 
     Private Sub Dgv_Bank_Account_Leave(sender As Object, e As EventArgs) Handles Dgv_Bank_Account.Leave
 
-        If Check_Change_Bank_Categories() = False Then
-            Fill_Journals_by_bank(Dgv_Bank.SelectedCells(0).Value)
-            'MsgBox("Dgv_Bank_Account_Leave")
-            Exit Sub
-        End If
+        If Check_Change_Bank_Categories(False) = False Then Exit Sub
+
         Calculate_Total_Booked("Dgv_Bank_Account_Leave")
         Save_Banktransaction_Accounts()
         Update_Category_Status()
-        'Fill_bank_transactions("Dgv_Bank_Account.CellValueChanged")
-        'Mark_rows_Dgv_Bank()
+
     End Sub
 
     Private Sub Menu_Export_Click_1(sender As Object, e As EventArgs) Handles Menu_Export.Click
@@ -2421,23 +2422,6 @@ fin:
         If Dgv_Bank.Rows(Dgv_Bank.SelectedCells(2).RowIndex).DefaultCellStyle.ForeColor <> Color.DarkRed Then Save_Banktransaction_Accounts()
 
     End Sub
-
-
-    Private Sub Btn_Bank_Type_Click(sender As Object, e As EventArgs) Handles Btn_Bank_Type.Click
-        If Check_Change_Bank_Categories() = False Then Exit Sub
-        Exit Sub
-
-
-        Frm_Bank_Select_Type.Rbn_Bank_Other.Checked = True
-        Frm_Bank_Select_Type.ShowDialog()
-        If Frm_Bank_Select_Type.Rbn_Bank_Contract.Checked Then
-            Btn_Bank_Type.Text = "C"
-        Else
-            If Frm_Bank_Select_Type.Rbn_Bank_Extra.Checked Then Btn_Bank_Type.Text = "E" Else Btn_Bank_Type.Text = "I"
-        End If
-        Save_Banktransaction_Accounts()
-    End Sub
-
 
     Private Sub Cbx_Journal_Status_Click(sender As Object, e As EventArgs) Handles Cbx_Journal_Status_Open.Click, Cbx_Journal_Status_Verwerkt.Click,
             Cbx_Journal_Saldo_Open.Click, Cmx_Journal_List.SelectedIndexChanged, Chbx_Journal_Inactive.CheckedChanged
@@ -2957,14 +2941,15 @@ end as e_intern,
         Dim result As VariantType
         Dim response As String = "Uitkomsten controles:" & vbCr
         Dim Res As Boolean = True
-
+        Dim rep_year = QuerySQL("select extract(year from min(date)) from journal")
         For c = 0 To dst.Tables(0).Rows.Count - 1
-            dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("p1", Bank_table(report_year))
-            dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("p2", Report_table(report_year))
-            dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("p3", report_year)
+            dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("p1", Bank_table(rep_year))
+            dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("p2", Report_table(rep_year))
+            dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("2023", rep_year)
             Debug.Print(dst.Tables(0).Rows(c)(1))
-            result = QuerySQL(dst.Tables(0).Rows(c)(1))
-            If Not IsDBNull(result) Then
+            'result = QuerySQL(dst.Tables(0).Rows(c)(1))
+            If Not IsDBNull(QuerySQL(dst.Tables(0).Rows(c)(1))) Then
+                result = QuerySQL(dst.Tables(0).Rows(c)(1))
                 If result <> 0 Then
                     dst.Tables(0).Rows(c)(2) = dst.Tables(0).Rows(c)(2).Replace("#", result)
                     dst.Tables(0).Rows(c)(2) = "- FOUT: " & dst.Tables(0).Rows(c)(2)
@@ -2997,6 +2982,12 @@ end as e_intern,
 
 
         '--------------------------------- nog te testen
+        Dim a = "INSERT INTO journal_archive 
+                    select * from journal ja 
+                    where extract (year from date)=2023"
+
+
+
         Dim archive_journal = "
         INSERT INTO journal_archive (id, name, date, status, amt1, amt2, description, source, fk_account, fk_relation, fk_bank, type, cpinfo, iban) 
         (select id, name, date, status, amt1, amt2, description, source, fk_account, fk_relation, fk_bank, type, cpinfo, iban
@@ -3012,7 +3003,7 @@ end as e_intern,
 
 
         Dim archive_bank = "
-        INSERT INTO bank_archive (id, iban, currency, date, debit, credit, seqorder, iban2, name, code, batchid, description, exch_rate, amt_cur, fk_journal_name, filename, cost) 
+        INSERT INTO bank_archive (id, iban, currency, date, debit, credit, seqorder, iban2, name, code, batchid, description, exch_rate, amt_cur, fk_journal_name, filename, c ost) 
         (select id, iban, currency, date, debit, credit, seqorder, iban2, name, code, batchid, description, exch_rate, amt_cur, fk_journal_name, filename, cost
         ); "
         '-----fk_journal_name moet de juiste waarde krijgen: startsaldo
@@ -3078,6 +3069,7 @@ end as e_intern,
                 Left Join account a on a.id = j.fk_account
             where j.id = " & jid
         ToClipboard(s, True)
+
         Collect_data(s)
 
         Me.Tbx_Report6_Add.Text = "[JOURNAAL]   id: <" & dst.Tables(0).Rows(0)(0) & ">  bron: <" & Trim(dst.Tables(0).Rows(0)(1)) & ">  status: <" & Trim(dst.Tables(0).Rows(0)(2)) _
@@ -3259,6 +3251,44 @@ end as e_intern,
 
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim p1 = InputBox("maand:")
+        Dim sql = QuerySQL("Select sql from query where category ilike 'Transaction' and name='Verwijder maand'")
+        sql = sql.Replace("p1", p1)
+        ToClipboard(sql, True)
+        RunSQL(sql, "NULL", "Testbutton verwijder maand")
+        Fill_bank_transactions("Button1")
+    End Sub
 
+    Private Sub TabPage1_Click(sender As Object, e As EventArgs) Handles TabPage1.Click
+
+    End Sub
+
+    Private Sub Dgv_Report_Year_Closing_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Report_Year_Closing.CellContentClick
+
+    End Sub
+
+    Private Sub Btn_Bank_Categorize_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub Tbx_Bank_Amount_TextChanged(sender As Object, e As EventArgs) Handles Tbx_Bank_Amount.TextChanged
+
+    End Sub
+
+    Private Sub Tbx_Extra_Info_TextChanged(sender As Object, e As EventArgs) Handles Tbx_Bank_Extra_Info.TextChanged
+        Dim des As String = Tbx_Bank_Description.Text
+        If Chbx_Bank_ExtraInfo_voor.Checked Then
+            If Strings.InStr(des, " | ") = 0 And Tbx_Bank_Extra_Info.Text <> "" Then des = " | " & des
+            des = Tbx_Bank_Extra_Info.Text & Strings.Mid(des, Strings.InStr(des, " | "))
+        Else
+            'Tbx_Bank_Description.Text = Tbx_Bank_Description.Text & " [Extra info] " & Tbx_Bank_Extra_Info.Text
+            'Tbx_Bank_Extra_Info.Text = Strings.Mid(Tbx_Bank_Description.Text, Strings.InStr(Tbx_Bank_Description.Text, "[Extra info]") + 14)
+        End If
+        If Tbx_Bank_Extra_Info.Text = "" And Strings.InStr(des, " | ") > 0 Then des = Mid(des, Strings.InStr(des, " | ") + 3)
+        Tbx_Bank_Description.Text = des
+
+
+    End Sub
 End Class
 

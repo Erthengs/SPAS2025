@@ -1,4 +1,5 @@
 ﻿Imports System.Windows.Forms.VisualStyles
+Imports System.Xml
 Imports Microsoft.EntityFrameworkCore.Metadata
 
 Module report
@@ -33,8 +34,6 @@ Module report
         'If InStr(1, tabname, " (") > 0 Then SPAS.TC_Rapportage.TabPages(x).Text = Trim(Strings.Left(tabname, InStr(1, tabname, " (")))
         'SPAS.TC_Rapportage.TabPages(x).Text &= " (" & report_year & ")"
         'Next x
-
-
 
         Dim sqlstr As String = ""
         Dim select_j2 = "select sum(amt1) from " & jtable & " j2 left join account a2 on a2.id = j2.fk_account where a2.fk_accgroup_id = a.fk_accgroup_id and j2.status != 'Open' "
@@ -220,112 +219,30 @@ Module report
         SPAS.Format_Datagridview(SPAS.Dgv_Rapportage_Overzicht, farray, False)
 
         With SPAS.Dgv_Rapportage_Overzicht
-            For r = 0 To .Rows.Count - 1
 
-                'Debug.Print(dst.Tables(0).Rows(r)(1))
-                .Rows(r).Cells(2).Value = dst.Tables(0).Rows(r)(1)
-                .Rows(r).Cells(6).Value = .Rows(r).Cells(5).Value + dst.Tables(0).Rows(r)(1)
+            For r = 0 To .Rows.Count - 1
+                If Not IsDBNull(.Rows(r).Cells(5).Value) Then
+                    'Debug.Print(dst.Tables(0).Rows(r)(1))  vv
+                    .Rows(r).Cells(2).Value = dst.Tables(0).Rows(r)(1)
+                    .Rows(r).Cells(6).Value = .Rows(r).Cells(5).Value + dst.Tables(0).Rows(r)(1)
+                End If
             Next r
+
         End With
     End Sub
 
 
     Sub Report_Closing()
 
-        Dim saldo_date_start As String = "'Startsaldo 1-1-" & report_year + 1 & "' as name,'" & report_year + 1 & "-01-01' as date,'Verwerkt',"
-        Dim tables As String = "journal j left join account a on a.id=j.fk_account left join accgroup g on g.id= a.fk_accgroup_id "
-        Dim sql2 As String = ""
-        Dim sql3 = "INSERT INTO journal(name, date, status, amt1, description, source, fk_account, type) VALUES" & vbCrLf
-        Dim sql1 As String
-        sql1 = "
-    drop table if exists postings;
-    select a.type as accounttype, " & saldo_date_start & " 
-    'Startsaldo '||a.name as overgangspost, 'Closing' as source, fk_account As Accountnr, j.type as Journaaltype, sum(amt1) as Bedrag, null As Verrekening, null As Eindtotaal 
-    into temp table postings
-    from " & tables & "
-    where a.type = 'Specifiek (doel)' and extract (year from date)=2023 --g.type = 'Inkomsten' and j.status != 'Open' and
-    group by a.type, a.name, j.fk_account, j.type
-    having sum(amt1) !=0::money
-    --order by a.type
-    ------------------------------------------------------------------------------------------------------------
-    -- 2 haal de totaal van de kosten op
+        Dim Sqlc = QuerySQL("Select sql from query where category = 'Overzicht' and name='Transitieposten'")
+        If IsNothing(Sqlc) Then Exit Sub
+        Sqlc = Sqlc.Replace("2023", QuerySQL("select extract(year from min(date)) from journal"))
+        Dim formatting As String = QuerySQL("select formatting from query where name='Transitieposten'")
+        Dim arr_format() As String
+        If Not IsNothing(formatting) Then arr_format = formatting.Split(",")
 
-    union ------------------uitgaven
-    select 'Uitgaven'," & saldo_date_start & "
-    'Totaal uitgaven', 'Closing',null, null,
-    (select sum(amt1) from  " & tables & " where extract (year from date)=2023 and g.type = 'Uitgaven' and j.status != 'Open'), 
-    null As Verrekening, null As Eindtotaal 
-
-    union ----------------------------overhead
-    select 'Generiek (overhead)', 'Startsaldo 1-1-2024', '2024-01-01','Verwerkt',
-    'Overhead', 'Closing',null, null,
-     (select sum(amt1) from  " & tables & " where a.type = 'Anders' and g.type != 'Uitgaven' and g.name = 'Overhead'),
-     null As Verrekening, null As Eindtotaal 
-
-
-    union----- fondsen--------------------------
-    select a.type as accounttype, " & saldo_date_start & " 
-    'Startsaldo '||a.name as overgangspost, 'Closing' as source, fk_account, null,sum(amt1) as Bedrag, null As Verrekening, null As Eindtotaal 
-    from " & tables & "
-    where  extract (year from date)=2023 and a.type = 'Generiek (fonds)' and j.status != 'Open' and g.type = 'Inkomsten'
-    group by a.type, a.name, j.fk_account
-    having sum(amt1) !='0'::money
-
-    union ----------------------------transit
-
-    select 'Transit', " & saldo_date_start & "
-    'Startsaldo '||a.name as overgangspost, 'Closing' as source, fk_account, null,sum(amt1) as Bedrag, null As Verrekening, null As Eindtotaal 
-    from " & tables & "
-    where extract (year from date)=2023  and j.status != 'Open' and g.type = 'Transit'
-    group by a.type, a.name, j.fk_account
-    having sum(amt1) !='0'::money
-    order by accounttype;
-
-
-    select * from postings
-"
-
-        'RunSQL(sql1, "NULL", "Report_Closing")
-        ToClipboard(sql1, True)
-        Load_Datagridview(SPAS.Dgv_Report_Year_Closing, sql1, "Report_Closing")
-        For r = 0 To SPAS.Dgv_Report_Year_Closing.Rows.Count - 1
-            If SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(1).Value = "Transitoria" Then
-            End If
-
-        Next r
-
-
-
-
-        Dim amt = 0.00
-        Dim af As Integer = 0
-        For r = 0 To SPAS.Dgv_Report_Year_Closing.Rows.Count - 1
-            'amt = Replace(SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(3).Value, ".", "")
-            'amt = Replace(amt, ",", ".")
-            If InStr(SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(5).Value, "Startsaldo Algemeen,Fonds") Then af = r
-
-            If InStr(SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(0).Value, "v") > 0 Then 'oVerhead, uitgaVen
-                SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(9).Value = Format(SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(8).Value, "N2")
-                SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(10).Value = 0
-                amt += SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(9).Value
-            Else
-                SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(9).Value = 0
-                SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(10).Value = Format(SPAS.Dgv_Report_Year_Closing.Rows(r).Cells(8).Value, "N2")
-            End If
-        Next
-        SPAS.Dgv_Report_Year_Closing.Rows(af).Cells(9).Value = amt
-        SPAS.Dgv_Report_Year_Closing.Rows(af).Cells(10).Value = Format(SPAS.Dgv_Report_Year_Closing.Rows(af).Cells(10).Value + amt, "N2")
-        SPAS.Lbl_Report_total.Text = SPAS.Dgv_Report_Year_Closing.Rows(af).Cells(10).Value
-
-        SPAS.Format_Datagridview(SPAS.Dgv_Report_Year_Closing, {"T135", "H000", "H000", "H000", "T300", "H000", "T085", "T080", "N085", "N085", "N085"}, False)
-        SPAS.Dgv_Report_Year_Closing.Columns(10).DefaultCellStyle.ForeColor = Color.DarkGreen
-
-        If SPAS.Dgv_Report_Year_Closing.Rows(af).Cells(10).Value < 0 Then
-            SPAS.Dgv_Report_Year_Closing.Rows(af).DefaultCellStyle.ForeColor = Color.Red
-            MsgBox("Het algemeen fonds bevat onvoldoende middelen om te overhead en uitgaven te verdisconteren, vul deze s.v.p. aan.")
-
-        End If
-
+        Load_Datagridview(SPAS.Dgv_Report_Year_Closing, Sqlc, "Report_Closing")
+        SPAS.Format_Datagridview(SPAS.Dgv_Report_Year_Closing, arr_format, False)
 
     End Sub
 

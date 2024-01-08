@@ -52,19 +52,9 @@ Module bank
         'Dim newdir As String
 
         For Each f In dir.GetFiles()
-            'If Left(f.Name, 3) = "CSV" Then newdir = fold + Mid(f.Name, 11, 2) Else newdir = fold + Mid(f.Name, 23, 2) & "\"
-            'If (Not System.IO.Directory.Exists(fold & "\nieuw\")) Then
-            'System.IO.Directory.CreateDirectory(fold & "\nieuw\")
-            'End If
-
-            If Strings.Right(f.Name, 4) = ".csv" Then
-
-                Upload_CSV(SelectFolder.SelectedPath & "\" & f.Name)
-
-
-            End If
+            If Strings.Right(f.Name, 4) = ".csv" Then Upload_CSV(SelectFolder.SelectedPath & "\" & f.Name)
         Next
-        'Categorize_Bank_Transactions()
+        Categorize_Bank_Transactions(True, True, True, True, True, True, True)
         SPAS.Fill_bank_transactions("Load_Bank_csv_from_folder")
 
     End Sub
@@ -266,238 +256,32 @@ Module bank
         If SPAS.Chbx_test.Checked Then MsgBox(SQLstr3)
         RunSQL(SQLstr3, "NULL", "Download_Bank_Transactions/SQLstr3")
 
-        Categorize_Bank_Transactions()
+
     End Sub
 
-    Sub Categorize_Bank_Transactions()
+    Sub Categorize_Bank_Transactions(ByVal contr As Boolean, uitk As Boolean, inc As Boolean, bcode As Boolean, omschr As Boolean, extrag As Boolean, ing As Boolean)
 
-        ' ==========================   P R E P A R A T I O N   =====================
-        Dim runstr As String = ""
-        Dim sqlupd As String = ""
-        Dim sqlins As String = ""
-        Dim upsert As String = ""
-        Dim delstr As String = ""
-        Dim bankid As Integer
         Dim nocat As String = QuerySQL("Select value from settings where label='nocat'")
-        Dim overhead As String = QuerySQL("SELECT value FROM settings WHERE label='overhead'")
-        Dim SQLinsert_hdr = "
-            INSERT INTO journal
-            (amt1,amt2, fk_account,date, status,description,source,fk_relation,fk_bank,name,type,iban) 
-            VALUES 
-"
-        'A ==== CATEGORIZE BANK TRANSACTIONS BASED ON CONTRACT, INCASSOJOB AND BANKCODE ====================
 
-        RunQuery("Categoriseer contractbetaling")
-        RunQuery("Categoriseer contractincasso")
-        RunQuery("Categoriseer obv bankcode")
-        'B ============== CATEGORIZE BANK TRANSACTIONS BASED ON CODE ==========================
 
-        'C ============== CATEGORIZE EXCASSO JOBS ====================================================
+        'controle op null toevoegen
 
-        Collect_data("
-        Select (b.debit *-1)- Sum(j.amt1), b.id, j.date, j.name, sum(j.amt2)/(sum(j.amt1)),b.debit, sum(j.amt1), b.iban
-                        FROM bank b
-                        JOIN journal j ON b.description  ilike '%'||j.name||'%' 
-                        WHERE b.code = 'bg'
-                        AND j.status = 'Open'
-                        AND j.source = 'Uitkering'
-                        GROUP BY b.credit, b.id, j.date, j.name
-")
-        Dim _dat As Date
-        Dim dat As String
-        Dim calc As Boolean = False
-        Dim tr = QuerySQL("Select value from settings where label='tussenrekening_uitk'")
-        If IsDBNull(tr) Then
-            MsgBox("Tussenrekening is niet geconfigureerd in Instellingen, categorisering wordt afgebroken")
-            Exit Sub
+        If inc Then RunQuery("Categoriseer contractincasso")
+
+
+        If uitk Then
+            RunQuery("Categoriseer uitkering")
+            Fill_Cmx_Excasso_Select_Combined()
         End If
-
-        For x = 0 To dst.Tables(0).Rows.Count - 1
-
-            'Delete previous standard journal post on bank transaction
-            RunSQL("DELETE FROM journal WHERE fk_bank='" & dst.Tables(0).Rows(x)(1) & "'", "NULL",
-               "Categorize banktransactions E1") 'remove the journal entry entered originally on importing bank transactions
-            'Update journal posts with bankid, set type on contract
-            RunSQL("Update Journal 
-                    SET status='Verwerkt',fk_bank='" & dst.Tables(0).Rows(x)(1) & "' 
-                    WHERE name ilike '%" & dst.Tables(0).Rows(x)(3) & "%'",
-                   "NULL", "Categorize banktransactions E2")
-            'Set fk_journal_name
-            Dim updsql As String = "UPDATE bank set fk_journal_name='Uitkering' where id=" & dst.Tables(0).Rows(x)(1)
-            RunSQL(updsql, "NULL", "Categorize banktransactions E4")
-
-
-            If dst.Tables(0).Rows(x)(0) <> 0 Then
-                Dim msg = MsgBox("Er is een verschil tussen de bankafschrijving en het uitkeringsformulier" & vbCrLf _
-                       & "van " & dst.Tables(0).Rows(x)(0) & " euro. Wilt u doorgaan (het verschil wordt" &
-                       vbCrLf & "dan naar een tussenrekening geboekt)?", vbYesNo)
-                If msg = vbNo Then Exit Sub
-                _dat = dst.Tables(0).Rows(x)(2)
-                dat = _dat.Year & "-" & _dat.Month & "-" & _dat.Day
-
-                sqlins =
-                 "('" & Cur2(dst.Tables(0).Rows(x)(0)) & "','" & 'amt1
-                 Tbx2Dec(dst.Tables(0).Rows(x)(4)) * Cur2(dst.Tables(0).Rows(x)(0)) & "','" & 'amt2
-                 tr & "','" & 'fk_account
-                 dat & 'date
-                 "','Verwerkt','Verschil tussen bankbetaling en excassoboeking','Bank',null,'" &  'status/descr/source/relat
-                 dst.Tables(0).Rows(x)(1) & "','Tussenrek. nav " & 'fk_bank
-                 dst.Tables(0).Rows(x)(3) & "','Internal','" & dst.Tables(0).Rows(x)(7) & "');" 'name/type
-                RunSQL(SQLinsert_hdr & sqlins, "NULL", "Categorize banktransactions E3")
-                calc = True
-            End If
-
-        Next x
-
-        'C2 ============== CATEGORIZE BASED ON DESCRIPTION AND EXTRA GIFT ====================================================
-        RunQuery("Categoriseer obv omschrijving")
-        RunQuery("Categoriseer extra gift")
-        'D ============== CATEGORIZE EXCHANGE RATES ====================================================
-        'If MsgBox("Calculate exchange rates?", vbYesNo) = vbYes Then Calculate_Exchange_Rates()
-
-        'E ============== FINAL ARRANGEMENTS ====================================================
-
-        If calc Then Fill_Cmx_Excasso_Select_Combined()
-        calc = False
+        If contr Then RunQuery("Categoriseer contractbetaling")
+        If bcode Then RunQuery("Categoriseer obv bankcode")
+        If omschr Then RunQuery("Categoriseer obv omschrijving")
+        If extrag Then RunQuery("Categoriseer extra gift")
+        If ing Then RunQuery("Categoriseer ingbank")
 
 
     End Sub
-    Sub Calculate_Exchange_Rates()
-        'F ============== CALCULATE EXCHANGE DIFFERENCE ====================================================
-        Dim payment_rate As Decimal = -1
-        Dim euro_tegenwaarde, diff, trans_cost As Decimal
-        Dim sql1 As String = ""
-        Dim sql2 As String = ""
-        Dim iban_old As String = "xxx"
-        Dim cod, iban, acc_euro_tegenwaarde, acc_wisselkoers_verschil, bank_transactie_kosten, bank_kosten, dat As String
-        Dim id As Integer
-        Dim _dat As Date
-        Dim transtype, bname As String
 
-        '1 retrieve account names
-        Collect_data("SELECT * FROM settings")
-        For x As Integer = 0 To dst.Tables(0).Rows.Count - 1
-            If dst.Tables(0).Rows(x)(0) = "eurotegenwaarde" Then acc_euro_tegenwaarde = dst.Tables(0).Rows(x)(1)
-            If dst.Tables(0).Rows(x)(0) = "wisselkoersverschil" Then acc_wisselkoers_verschil = dst.Tables(0).Rows(x)(1)
-            If dst.Tables(0).Rows(x)(0) = "bank_transactie_kosten" Then bank_transactie_kosten = dst.Tables(0).Rows(x)(1)
-            If dst.Tables(0).Rows(x)(0) = "bank_kosten" Then bank_kosten = dst.Tables(0).Rows(x)(1)
-        Next x
-
-        Collect_data("
-        Select b.iban, b.iban2, b.Date, b.debit, b.credit, 
-                       b.exch_rate, b.amt_cur, b.cost, b.id, b.fk_journal_name, 
-                    (
-				select amt2/amt1 from journal j11
-				left join cp cp1 on cp1.id = substring(j11.cpinfo,1,2)::integer
-				left join bankacc ba1 on ba1.id = cp1.fk_bankacc_id 
-				 where source = 'Uitkering'
-				 and date <= b.date
-				 and ba1.accountno = b.iban
-				 and j11.amt1 < 0::money
-				 and b.code='GM'
-				 order by j11.date desc
-				 limit 1
-                ), b.code, b.description
-                FROM bank b
-                LEFT join bankacc a ON a.accountno=b.iban
-                WHERE a.expense='True'
-                ORDER BY b.iban, b.date asc
-")
-
-        For x As Integer = 0 To dst.Tables(0).Rows.Count - 1
-            iban = Trim(dst.Tables(0).Rows(x)(0))
-
-            'bepaal ING rekening ------------------------------------------------------
-            If iban <> iban_old Then
-                payment_rate = 1 '@@@ gaat fout als eerste transactie van het jaar geen storting is
-                iban_old = iban
-            End If
-
-            'onthoud wisselkoers
-            If Not IsDBNull(dst.Tables(0).Rows(x)(11)) Then cod = Trim(dst.Tables(0).Rows(x)(11))
-            id = dst.Tables(0).Rows(x)(8)
-            _dat = dst.Tables(0).Rows(x)(2)
-            dat = _dat.Year & "-" & _dat.Month & "-" & _dat.Day
-
-            If cod = "GM" Then
-                If Not IsDBNull(dst.Tables(0).Rows(x)(10)) Then
-                    payment_rate = Decimal.Round(dst.Tables(0).Rows(x)(10), 2)
-                Else payment_rate = -1
-                End If
-            End If
-
-            If IsDBNull(dst.Tables(0).Rows(x)(9)) Then dst.Tables(0).Rows(x)(9) = "nog te bepalen"
-            If dst.Tables(0).Rows(x)(9) = "" Then dst.Tables(0).Rows(x)(9) = "nog te bepalen"
-            If IsDBNull(dst.Tables(0).Rows(x)(7)) Then dst.Tables(0).Rows(x)(7) = 0
-            If IsDBNull(dst.Tables(0).Rows(x)(6)) Then dst.Tables(0).Rows(x)(6) = 0
-            If dst.Tables(0).Rows(x)(9) = "nog te bepalen" Then
-
-                Select Case cod
-                    Case "OV"
-                        transtype = IIf(InStr(dst.Tables(0).Rows(x)(12), "Excasso-") > 0, "Bank", "Internal")
-                        bname = IIf(transtype = "Bank", "Overschrijving uitkering", "Saldosteun")
-                        'If IsDBNull(dst.Tables(0).Rows(x)(10)) Then payment_rate = 1 Else payment_rate = Decimal.Round(dst.Tables(0).Rows(x)(10), 2)
-                        'boek euro tegenwaarde
-
-                        sql1 &= vbCrLf & "UPDATE journal SET fk_account='" & acc_euro_tegenwaarde & "', name='" & bname & "', type='" & transtype & "' WHERE fk_bank='" & id & "';"
-                        'vervang 'nog te bepalen met 'euro tegenwaarde
-                        sql1 &= vbCrLf & "UPDATE bank SET fk_journal_name='Intrabank boeking' WHERE id='" & id & "';"
-
-                    Case "GM"
-                        'bereken euro tegenwaarde
-                        If payment_rate < -1 Then payment_rate = InputBox("De wisselkoers van de voorafgaande uitkeringslijst (" & iban & ") kon niet bepaald worden. Geef deze s.v.p. op (MLD per €)")
-                        trans_cost = -Decimal.Round(dst.Tables(0).Rows(x)(7), 2)
-                        If Decimal.Round(dst.Tables(0).Rows(x)(6)) <> 0 Then
-                            euro_tegenwaarde = -Decimal.Round(dst.Tables(0).Rows(x)(6) / payment_rate, 2) '+ trans_cost
-                        Else
-                            euro_tegenwaarde = -Decimal.Round(dst.Tables(0).Rows(x)(3), 2) - trans_cost
-                        End If
-
-                        diff = -euro_tegenwaarde - Decimal.Round(dst.Tables(0).Rows(x)(3), 2) - trans_cost
-
-                        'boek euro tegenwaarde
-
-                        sql1 &= vbCrLf & " UPDATE journal SET fk_account='" & acc_euro_tegenwaarde & "',name='Uitkeringstransactie', 
-                                           type='Bank', iban='" & Trim(iban) & "',amt1='" & Cur2(euro_tegenwaarde) & "'::MONEY WHERE fk_bank='" & id & "';"
-                        'boek wisselkoersverschil
-                        If diff <> 0 Then
-                            sql2 &= vbCrLf & "('" & Cur2(diff) & "'::MONEY,'" & acc_wisselkoers_verschil & "','" & dat &
-                            "','Verwerkt','Wisselkoersverschil','Bank','" & id & "','Wisselkoersverschil','Bank','" & Trim(iban) & "'),"
-                        End If
-                        'boek transactiekosten
-                        If trans_cost <> 0 Then
-                            sql2 &= vbCrLf & "('" & Cur2(trans_cost) & "'::MONEY,'" &
-                            bank_transactie_kosten & "','" & dat &
-                            "','Verwerkt','Banktransactiekosten','Bank','" & id & "','Transactiekosten','Bank','" & Trim(iban) & "'),"
-                        End If
-                        'vervang 'nog te bepalen met 'euro tegenwaarde/wisselkoers'
-                        sql1 &= vbCrLf & "UPDATE bank SET fk_journal_name='Lokale opname' WHERE id='" & id & "';"
-                    Case "DV", "VZ"
-                        'boek bankkosten
-                        sql1 &= vbCrLf & "UPDATE journal SET fk_account='" & bank_kosten & "', name='Boeking bankkosten',type='Bank' WHERE fk_bank='" & id & "';"
-                        'vervang 'nog te bepalen met 'euro tegenwaarde/wisselkoers'
-                        sql1 &= vbCrLf & "UPDATE bank SET fk_journal_name='Bankkosten' WHERE id='" & id & "';"
-
-                End Select
-
-
-            End If
-        Next x
-
-        If sql2 <> "" Then
-            sql2 = "INSERT INTO journal (amt1,fk_account,date, status,description,source,fk_bank,name,type,iban) VALUES " &
-                Strings.Left(sql2, Strings.Len(sql2) - 1) & ";" 'remove the last comma
-        End If
-        Clipboard.Clear()
-        Clipboard.SetText(sql1 & vbCrLf & sql2)  'sql1 & vbCrLf & 
-
-        If sql1 <> "" Or sql2 <> "" Then
-            RunSQL(sql1 & vbCrLf & sql2, "NULL", "Calculate_Exchange_Rates")
-        Else
-            'MsgBox("No transactions categorized.")
-        End If
-
-    End Sub
 
 
     Public Sub Mark_rows_Dgv_Bank()
@@ -524,17 +308,10 @@ Module bank
         Dim cod As String = SPAS.Dgv_Bank.SelectedCells(6).Value
         Dim cnt As Integer = SPAS.Dgv_Bank.SelectedCells(17).Value
 
-        SPAS.Btn_Bank_Type.Visible = (Trim(cod) = "cb")
-
         SPAS.Dgv_Bank_Account.DataSource = dstbank.Tables(0)
-        SPAS.Btn_Bank_Type.Text = ""
-        'SPAS.Btn_Bank_Split.Enabled = cnt > 0
+
         If Trim(cod) = "cb" Then
             SPAS.Pan_Bank_jtype.Visible = True
-            If Not IsDBNull(dstbank.Tables(0).Rows(0)(3)) Then
-                SPAS.Btn_Bank_Type.Text = Left(dstbank.Tables(0).Rows(0)(3), 1)
-            End If
-            If SPAS.Btn_Bank_Type.Text = "" Then SPAS.Btn_Bank_Type.Text = "?"
             Dim jtype = dstbank.Tables(0).Rows(0)(3)
             SPAS.Rbn_Bank_jtype_con.Checked = False
             SPAS.Rbn_Bank_jtype_ext.Checked = False

@@ -19,11 +19,13 @@ Module Output
             .SelectedPath = My.Settings._excassopath
             .ShowNewFolderButton = True
         End With
+        Dim pad As String = SelectFolder.SelectedPath & "\"
+        pad = InputBox("Corrigeer pad:",, pad)
         Dim Journal_name As String = SPAS.Cmx_Excasso_Select.Text
         Dim filename As String = Journal_name
         Dim filenum As Integer = 0
         Do
-            filename = SelectFolder.SelectedPath & "\" & Journal_name & filenum.ToString & ".pdf"
+            filename = pad & Journal_name & filenum.ToString & ".pdf"
 
             If File.Exists(filename) Then
                 filenum += 1

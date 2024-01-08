@@ -5,7 +5,10 @@
         Dim tot As Decimal = 0
         Dim amt As Decimal = 0
         Dim diff As Decimal = 0
-
+        If Me.Dgv_Split.Rows.Count = 2 Then
+            MsgBox("U heeft niets gesplitst")
+            Exit Sub
+        End If
 
 
         For x As Integer = 0 To Me.Dgv_Split.Rows.Count - 1
@@ -16,11 +19,7 @@
         Lbl_Split_Diff.Text = diff
         Lbl_Split_Diff.ForeColor = IIf(diff = 0, Color.Black, Color.Red)
 
-
     End Sub
-
-
-
     Private Sub Dgv_Split_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Split.CellEndEdit
         Calculate_Split_Totals()
     End Sub
@@ -76,11 +75,11 @@
                                 fk_bank,fk_relation,type, iban) VALUES "
 
 
-
-
-
         For x As Integer = 0 To Me.Dgv_Split.Rows.Count - 1
-            des = Me.Dgv_Split.Rows(x).Cells(0).Value
+            des = Me.Dgv_Split.Rows(x).Cells(0).Value &
+              IIf(Me.Dgv_Split.Rows(x).Cells(0).Value <> Lbl_Split_Description.Text,
+              " | " & Lbl_Split_Description.Text, "")
+
             If Not (IsDBNull(Me.Dgv_Split.Rows(x).Cells(1).Value)) Then val = Me.Dgv_Split.Rows(x).Cells(1).Value Else val = 0
             'val = SPAS.n20(val)
             deb = IIf(val < 0, val * -1, 0)
@@ -116,9 +115,10 @@ skipit:
         End If
 
         Me.Close()
+        Categorize_Bank_Transactions(False, True, False, False, True, False, False)
         SPAS.Fill_bank_transactions("Btn_Split_Save_Click")
         Fill_Cmx_Excasso_Select_Combined()
-        ''Categorize_Bank_Transactions()
+
     End Sub
 
     Private Sub Btn_Split_Cancel_Click(sender As Object, e As EventArgs) Handles Btn_Split_Cancel.Click
@@ -157,6 +157,12 @@ skipit:
     End Sub
 
     Private Sub Btn_Prefill_Split_Click(sender As Object, e As EventArgs) Handles Btn_Prefill_Split.Click
+        Dim errmsg As String = ""
+        If SPAS.Dgv_Bank.SelectedCells(12).Value <> "nog te bepalen" Then
+            MsgBox("Laden van openstaande uitkeringen kan alleen bij ongecategoriseerde banktransacties.")
+            Exit Sub
+        End If
+
         Dim sql As String = "
                     SELECT name As Omschrijving, SUM(AMt1) AS Bedrag FROM journal
                     WHERE name ILIKE 'Excasso%' AND status = 'Open' GROUP By name, status
@@ -170,11 +176,4 @@ skipit:
         Calculate_Split_Totals()
     End Sub
 
-    Private Sub Dgv_Split_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Split.CellContentClick
-
-    End Sub
-
-    Private Sub Label76_Click(sender As Object, e As EventArgs) Handles Label76.Click
-
-    End Sub
 End Class
