@@ -952,7 +952,10 @@ Tbx_00_CP__city.TextChanged, Tbx_00_CP__country.TextChanged, Tbx_00_CP__email.Te
 
     Private Sub Dgv_Test_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles _
         Dgv_Bank_Account.CellValueChanged ', Dgv_Bank_Account.Leave
-
+        If Dgv_Bank_Account.Rows.Count = 0 Then  'dit kan alleen voorkomen als er een error is opgetreden. 
+            MsgBox("Er is een fout opgetreden, u kunt wel doorgaan")
+            Exit Sub
+        End If
 
         Try
             If IsDBNull(Dgv_Bank_Account.CurrentCell.Value) Then
@@ -1441,6 +1444,9 @@ fin:
 
     Sub Load_Excasso_Form()
         If Cmx_Excasso_Select.SelectedIndex = -1 Then Exit Sub
+        'check of de budgetbedragen nog geldig zijn
+        If QuerySQL("select extract (year from min(date)) from journal") < Now.Year Then Calculate_Budget("")
+
 
 
         Gbx_Excasso_Calculate.Enabled = True
@@ -2968,49 +2974,29 @@ end as e_intern,
         MsgBox(response, IIf(Res, vbInformation, vbCritical))
         If Res Then Return True Else Return False
 
-
     End Function
 
 
 
     Private Sub Btn_Report_YearEnd_Post_Click(sender As Object, e As EventArgs) Handles Btn_Report_YearEnd_Post.Click
+
         '----------- uitvoeren controles
 
         If Check_administratie() = False Then Exit Sub
-
         If MsgBox("Wilt u het jaar " & report_year & " definitief afsluiten? Dit kan niet meer worden teruggedraaid!", vbYesNo) = vbNo Then Exit Sub
 
+        'Ophalen transitieposten ten behoeve van table t1
+        Dim Sqlc = QuerySQL("Select sql from query where category = 'Overzicht' and name='Transitieposten'")
+        RunSQL(Sqlc.Replace("2023", QuerySQL("select extract(year from min(date)) from journal")), "NULL", "Btn_Report_YearEnd_Post/Transitieposten")
 
-        '--------------------------------- nog te testen
-        Dim a = "INSERT INTO journal_archive 
-                    select * from journal ja 
-                    where extract (year from date)=2023"
+        'Uitvoeren jaarafsluiting
+        Dim Sqlc2 = QuerySQL("Select sql from query where category = 'Transaction' and name='Jaarafsluiting'")
 
+        RunSQL(Sqlc2.Replace("2023", QuerySQL("select extract(year from min(date)) from journal")), "NULL", "Btn_Report_YearEnd_Post/Jaarafsluiting")
 
-
-        Dim archive_journal = "
-        INSERT INTO journal_archive (id, name, date, status, amt1, amt2, description, source, fk_account, fk_relation, fk_bank, type, cpinfo, iban) 
-        (select id, name, date, status, amt1, amt2, description, source, fk_account, fk_relation, fk_bank, type, cpinfo, iban
-        where extract (year from date)=" & report_year & "); 
-        insert into journal(name, date, status, amt1, amt2, description, source, fk_account, fk_relation, fk_bank, type, cpinfo, iban) VALUES"
-
-        Dim startsaldi As String = "("
-        For r = 0 To Dgv_Report_Year_Closing.Rows.Count - 1
-            'startsaldi &= IIf(r = 0, "(", ",") & Dgv_Report_Year_Closing.Rows(r).Cells(2).Value
-            'Select  0x, 1date & 2name 3source 4fk_account 5type 6x,7x,8x
-            'Startsaldo '||a.name as Description, 'Closing' as source, fk_account, j.type as jrntype, sum(amt1) as amt1, null As Verrekening, null As Eindtotaal 
-        Next r
-
-
-        Dim archive_bank = "
-        INSERT INTO bank_archive (id, iban, currency, date, debit, credit, seqorder, iban2, name, code, batchid, description, exch_rate, amt_cur, fk_journal_name, filename, c ost) 
-        (select id, iban, currency, date, debit, credit, seqorder, iban2, name, code, batchid, description, exch_rate, amt_cur, fk_journal_name, filename, cost
-        ); "
-        '-----fk_journal_name moet de juiste waarde krijgen: startsaldo
-        Dim cleanup As String = "delete from journal where extract (year from date)=" & report_year & "; delete from bank where extract (year from date)=" & report_year
-
-
-
+        If MsgBox("Wilt u de budgetten voor " & Now.Year & " berekenen (eventuele handmatige aanpassen gaan verloren)? ", vbYesNo) = vbYes Then
+            Calculate_Budget("")
+        End If
     End Sub
     Private Sub Tbx_Bank_Description_TextChanged(sender As Object, e As EventArgs) Handles Tbx_Bank_Description.TextChanged
         Dgv_Bank.SelectedCells(3).Value = Tbx_Bank_Description.Text
@@ -3260,21 +3246,7 @@ end as e_intern,
         Fill_bank_transactions("Button1")
     End Sub
 
-    Private Sub TabPage1_Click(sender As Object, e As EventArgs) Handles TabPage1.Click
 
-    End Sub
-
-    Private Sub Dgv_Report_Year_Closing_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Report_Year_Closing.CellContentClick
-
-    End Sub
-
-    Private Sub Btn_Bank_Categorize_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Tbx_Bank_Amount_TextChanged(sender As Object, e As EventArgs) Handles Tbx_Bank_Amount.TextChanged
-
-    End Sub
 
     Private Sub Tbx_Extra_Info_TextChanged(sender As Object, e As EventArgs) Handles Tbx_Bank_Extra_Info.TextChanged
         Dim des As String = Tbx_Bank_Description.Text

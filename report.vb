@@ -234,15 +234,21 @@ Module report
 
     Sub Report_Closing()
 
+
         Dim Sqlc = QuerySQL("Select sql from query where category = 'Overzicht' and name='Transitieposten'")
         If IsNothing(Sqlc) Then Exit Sub
-        Sqlc = Sqlc.Replace("2023", QuerySQL("select extract(year from min(date)) from journal"))
+
+        RunSQL(Sqlc.Replace("2023", QuerySQL("select extract(year from min(date)) from journal")), "NULL", "Report Closing")
+
         Dim formatting As String = QuerySQL("select formatting from query where name='Transitieposten'")
         Dim arr_format() As String
         If Not IsNothing(formatting) Then arr_format = formatting.Split(",")
 
-        Load_Datagridview(SPAS.Dgv_Report_Year_Closing, Sqlc, "Report_Closing")
+        Load_Datagridview(SPAS.Dgv_Report_Year_Closing, Sqlc, "...")
+
         SPAS.Format_Datagridview(SPAS.Dgv_Report_Year_Closing, arr_format, False)
+
+
 
     End Sub
 

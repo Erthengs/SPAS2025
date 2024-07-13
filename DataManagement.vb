@@ -58,7 +58,7 @@ connstart:
     Public Sub ToClipboard(t As String, v As Boolean)
         If IsDBNull(t) Then Exit Sub
         If t = "" Then Exit Sub
-        If Strings.Right(connect_string, 4) = "PROD" Or v = False Then Exit Sub
+        'If Strings.Right(connect_string, 4) = "PROD" Or v = False Then Exit Sub
         Clipboard.Clear()
         Clipboard.SetText(t)
 

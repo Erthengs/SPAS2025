@@ -71,14 +71,14 @@ Module bank
         Dim amt2 As Decimal
         Dim filename As String = "testfilename"
         Dim SQLstr As String = ""
+        Dim relation_name As String
         Dim SQLstr2 As String = "INSERT INTO journal(name,date,status,description,source,amt1,fk_account,
                                fk_bank,fk_relation,iban) VALUES "
         Dim delimiter As String
         Dim content = IO.File.ReadAllText(csv)  'My.Computer.FileSystem.ReadAllText(csv)
-
         delimiter = IIf(content.Contains(""";"""), """;""", """,""")
 
-        'delimiter = IIf(InStr(csv, "ING") > 0, """;""", """,""")
+
         IO.File.WriteAllText(csv, IO.File.ReadAllText(csv).Replace(delimiter, """|"""))
         Dim items = (From line In IO.File.ReadAllLines(csv)
                      Select Array.ConvertAll(line.Split("|"c), Function(v) _
@@ -117,7 +117,7 @@ Module bank
             If Not IsDBNull(Last_seq_order) Then
                 If CInt(Bank_DT.Rows(1)(3)) <> Last_seq_order + 1 Then
                     MsgBox("Er zijn nog niet ingeladen tussenliggende banktransacties. Doe dit s.v.p eerst. ")
-                    Exit Sub
+                    'Exit Sub
                 End If
             End If
 
@@ -127,15 +127,19 @@ Module bank
                 'a) determine in which column the amount must be stored
                 Dim debit = Cur2(IIf(Bank_DT.Rows(i)(6) < 0, Bank_DT.Rows(i)(6) * -1, 0))
                 Dim credit = Cur2(IIf(Bank_DT.Rows(i)(6) > 0, Bank_DT.Rows(i)(6), 0))
-                'debit = Replace(debit, ",", ".")
-                'credit = Replace(credit, ",", ".")
                 Dim descr = Strings.Trim(Bank_DT.Rows(i)(19)) & " " & Strings.Trim(Bank_DT.Rows(i)(20)) & " " _
                             & Strings.Trim(Bank_DT.Rows(i)(21)) & Strings.Trim(Bank_DT.Rows(i)(14))
                 descr = Replace(descr, "'", "")
                 'b) retrieve relation based on bankacc
                 Dim iban2 = Bank_DT.Rows(i)(8)
-                Dim relation_name As String = QuerySQL("SELECT CONCAT(name, ', ',name_add) FROM relation WHERE iban='" & iban2 & "'")
-                If relation_name = "" Then relation_name = Bank_DT.Rows(i)(9)
+
+                If Len(iban2) > 0 Then
+                    relation_name = QuerySQL("SELECT CONCAT(name, ', ',name_add) FROM relation WHERE iban='" & iban2 & "'")
+                    If relation_name = "" Then relation_name = Bank_DT.Rows(i)(9)
+                Else
+                    relation_name = "-"
+                    iban2 = "-"
+                End If
 
                 '==== Creating SQL strings =====
                 SQLstr &=
@@ -178,7 +182,7 @@ Module bank
                               lastdate.ToString & ". De startdatum van dit bankbestand is " &
                               startdate & ". Er zit dus minimaal een maand tussen. " &
                               "Upload s.v.p. eerst de tussenliggende banktransacties.")
-                    Exit Sub
+                    'Exit Sub
                 End If
             End If
 
