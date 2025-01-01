@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel.DataAnnotations
 Imports System.Deployment.Application
 Imports System.Runtime.InteropServices
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports Microsoft.EntityFrameworkCore.Metadata.Conventions
 Imports Microsoft.EntityFrameworkCore.Update.Internal
 
@@ -36,8 +37,11 @@ Module acct
 
         Select Case t
             Case "Journaalnaam"
-                Load_Listview(SPAS.Lv_Journal_List, "SELECT DISTINCT name, name, date FROM journal 
-                                                WHERE name ILIKE '%" & f & "%' 
+                'MsgBox("SELECT DISTINCT name, name, date FROM journal j
+                'WHERE name ILIKE '%" & f & "%'" & st & " 
+                'ORDER BY date desc, name")
+                Load_Listview(SPAS.Lv_Journal_List, "SELECT DISTINCT name, name, date FROM journal j
+                                                WHERE name ILIKE '%" & f & "%'" & st & " 
                                                 ORDER BY date desc, name")
 
             Case "Alle accounts", "Kind", "Oudere", "Overig"
@@ -312,9 +316,9 @@ Module acct
 
 
         With SPAS.Dgv_Journal_Intern
-            .Rows(.SelectedCells(0).RowIndex).Cells(2).Value = .CurrentCell.EditedFormattedValue
+            '.Rows(.SelectedCells(0).RowIndex).Cells(2).Value = .CurrentCell.EditedFormattedValue
             For i = 0 To .Rows.Count - 1
-
+                'MsgBox("i:" & i & "    .Rows(i).Cells(2).Value:" & .Rows(i).Cells(2).Value & "/" & .Rows(i).Cells(1).Value)
                 If .Rows(i).Cells(2).Value > 0 Then
                     SQLstr &= SQLroot & Cur2(CLng(.Rows(i).Cells(2).Value)) & "','" &
                 .Rows(i).Cells(0).Value & "');"
@@ -437,12 +441,18 @@ Module acct
              ac.name As Account, 
              j.status As Status,
              j.source As Bron,
-            substring(j.iban,5,3)||substring(j.iban,15,4) As IBAN,
+             j.iban As IBAN,
             j.type As Soort,
              --,cp.name As CP
              --,r.name||','||r.name_add As Relatie,
              --,b.name||'/'||b.description||b.batchid As Bankinfo
-             j.id As Id
+             j.id As Id,
+             j.fk_account As Accountnr, j.cpinfo As CPinfo, j.fk_relation AS relatie, cp.name As cp
+             ,CASE 
+ 	 	        WHEN j.amt2 is distinct from null and j.amt2 !=0::money THEN j.amt2::decimal/j.amt1::decimal
+                WHEN j.amt2 is not distinct from null or j.amt2=0::money THEN 0 END As Rate
+             ,j.fk_bank As Banktransaction
+             ,r.name||','||r.name_add As Relatienaam
              FROM journal j 
              LEFT JOIN account ac ON j.fk_account = ac.id
              LEFT JOIN relation r ON j.fk_relation = r.id
@@ -486,7 +496,7 @@ Module acct
     Sub Fill_Journal_List()
         Dim jrnl As Boolean
         jrnl = SPAS.Cmx_Journal_List.Text = "Journaalnaam"
-        Dim cred, deb As Decimal
+
 
         Load_Datagridview(SPAS.Dgv_Journal_items, Create_Journal_SQL, "Lv_Journal_List_Click")
         'If jrnl And SPAS.Dgv_Journal_items.RowCount > 0 Then
@@ -503,15 +513,18 @@ Module acct
         'End If
         With SPAS.Dgv_Journal_items
 
-            .Columns(0).Width = 60
+            .Columns(0).Width = 50
             .Columns(0).HeaderText = "Dat"
             .Columns(0).DefaultCellStyle.Format = "dd-MM"
 
-            .Columns(1).Width = 160
+            .Columns(1).Width = 250
             .Columns(1).HeaderText = "Naam"
+            '.Columns(1).DefaultCellStyle.ForeColor = Color.Blue
+            .Columns(1).DefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Underline)
 
-            .Columns(2).Width = 70
-            .Columns(3).Width = 70
+
+            .Columns(2).Width = 60
+            .Columns(3).Width = 60
             .Columns(2).HeaderText = "Bij"
             .Columns(3).HeaderText = "Af"
             .Columns(2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -520,24 +533,24 @@ Module acct
             .Columns(3).DefaultCellStyle.Format = "N2"
             .Columns(8).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
 
-            .Columns(4).Width = IIf(jrnl, 0, 250)
+            .Columns(4).Width = 250
             .Columns(4).HeaderText = "Omschrijving"
 
 
             .Columns(5).Visible = True
-            .Columns(5).Width = 250
+            .Columns(5).Width = IIf(jrnl, 200, 0)
             .Columns(5).HeaderText = "Account"
 
-            .Columns(6).Width = 80
+            .Columns(6).Width = 50
             .Columns(6).HeaderText = "Status"
 
-            .Columns(7).Width = 80
+            .Columns(7).Width = 70
             .Columns(7).HeaderText = "Bron"
 
             .Columns(8).Width = 70
             .Columns(8).HeaderText = "IBAN"
 
-            .Columns(9).Width = 80
+            .Columns(9).Width = 70
             .Columns(9).HeaderText = "Soort"
 
             'determine visibility 
@@ -548,23 +561,70 @@ Module acct
             .Columns(6).Visible = True 'jrnl
             '.Columns(2).Visible = Not jrnl
         End With
-        cred = 0
-        deb = 0
-        Try
-            For r = 0 To SPAS.Dgv_Journal_items.RowCount - 1
-                cred += SPAS.Dgv_Journal_items.Rows(r).Cells(2).Value
-                deb += SPAS.Dgv_Journal_items.Rows(r).Cells(3).Value
-            Next
-            SPAS.Tbx_Journal_Credit.Text = cred.ToString("#0.00")
-            SPAS.Tbx_Journal_Debit.Text = deb
-            SPAS.Tbx_Journal_Saldo.Text = cred - deb
-        Catch ex As Exception
 
-        End Try
-        'Calculate_Journal_Totals()
-        'Calculate_Journal_Overview()
+        SPAS.Calculate_Journaalposten_totalen(SPAS.Dgv_Journal_items)
     End Sub
 
+    Sub Fill_Journal_List_journaalposten()
+
+        Dim cred, deb As Decimal
+
+        Load_Datagridview(SPAS.Dgv_journaalposten, Create_Journal_SQL, "Lv_Journal_List_Click")
+
+
+
+
+        'End If
+        With SPAS.Dgv_journaalposten
+
+            .Columns(0).Width = 60
+            .Columns(0).HeaderText = "Datum"
+            .Columns(0).DefaultCellStyle.Format = "dd-MM"
+            .Columns(0).ReadOnly = True
+            .Columns(0).Visible = False
+
+            .Columns(1).Width = 160
+            .Columns(1).HeaderText = "Naam"
+            .Columns(1).Visible = False
+
+            .Columns(2).Width = 60
+            .Columns(2).ReadOnly = False
+            .Columns(2).HeaderText = "Bij"
+            .Columns(2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            .Columns(2).DefaultCellStyle.Format = "N2"
+            .Columns(2).DefaultCellStyle.ForeColor = Color.Blue
+
+            .Columns(3).Width = 60
+            .Columns(3).ReadOnly = False
+            .Columns(3).HeaderText = "Af"
+            .Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            .Columns(3).DefaultCellStyle.Format = "N2"
+            .Columns(3).DefaultCellStyle.ForeColor = Color.Blue
+
+            .Columns(4).Width = 250
+            .Columns(4).HeaderText = "Omschrijving"
+            .Columns(4).DefaultCellStyle.ForeColor = Color.Blue
+
+            .Columns(5).Visible = True
+            .Columns(5).Width = 160
+            .Columns(5).HeaderText = "Account"
+            .Columns(5).ReadOnly = True
+
+
+            For i = 6 To 16
+                .Columns(i).Visible = False
+            Next
+            .Columns(10).Visible = True
+            .Columns(17).Visible = True
+            .Columns(17).Width = 160
+            .Columns(17).HeaderText = "Relatie"
+            .Columns(17).ReadOnly = True
+
+
+        End With
+        SPAS.Calculate_Journaalposten_totalen(SPAS.Dgv_journaalposten)
+
+    End Sub
     Sub Calculate_Budget(ByVal id As String)
 
         Dim SQLStr As String = ""
@@ -753,6 +813,40 @@ Module acct
         ToClipboard(sql, True)
 
 
+    End Sub
+
+    Sub Select_in_Lv_Journal_list_ByNameAndDate(name As String, dateValue As String, idx As String, fltr As String)
+        ' Loop through each item in the ListView
+        Dim dat_ As Date
+        Dim dat As String
+
+        SPAS.TC_Boeking.SelectedIndex = idx
+        SPAS.Cmx_Journal_List.Text = fltr
+        For Each item As ListViewItem In SPAS.Lv_Journal_List.Items
+            dat_ = item.SubItems(2).Text
+            dat = dat_.Year & "-" & dat_.Month & "-" & dat_.Day
+            If item.SubItems(0).Text = name AndAlso dat = dateValue Then
+                item.Selected = True
+                item.EnsureVisible()
+
+                Exit For
+            End If
+        Next
+    End Sub
+
+    Sub SelectRowById(dgv As DataGridView, idToFind As Integer)
+        ' Loop through all rows in the DataGridView
+        For Each row As DataGridViewRow In dgv.Rows
+            ' Check if the value in the "IdColumn" matches the idToFind
+            If row.Cells("Id").Value IsNot Nothing AndAlso row.Cells("Id").Value = idToFind Then
+                ' Select the row
+                row.Selected = True
+                dgv.FirstDisplayedScrollingRowIndex = row.Index
+
+                ' Exit the loop once the row is found
+                Exit For
+            End If
+        Next
     End Sub
 
 End Module

@@ -22,10 +22,6 @@ Module Incasso
         End If
 
         Collect_data(Create_Incasso_Bookings(s1))
-        'Clipboard.Clear()
-        'Clipboard.SetText(Create_Incasso_Bookings(s1, SPAS.Dtp_Incasso_end.Value))
-
-
 
         Dim SQLstr = "
                 INSERT INTO journal
@@ -52,7 +48,7 @@ Module Incasso
             End If
 
         Next
-        'MsgBox(Left(SQLstr, Strings.Len(SQLstr) - 1))
+
         RunSQL(Left(SQLstr, Strings.Len(SQLstr) - 1), "NULL", "Create_Incasso_Journals")
     End Sub
     Sub Create_SEPA_XML()
@@ -477,8 +473,7 @@ Module Incasso
             j_name = SPAS.Cmx_Excasso_Select.SelectedItem
             'cntold = QuerySQL("SELECT count(*) FROM journal WHERE name ILIKE '%" & j_name & "'")
             RunSQL("DELETE FROM journal WHERE name ILIKE '%" & j_name & "'", "NULL", "Save_Excasso_job 1")
-            'MsgBox(cntold)
-            'this is an existing excasso that need to be deleted first
+
         Else
             j_name = "Excasso-" &
                 IIf(SPAS.Cbx_Uitkering_Kind.Checked, "K", "") &

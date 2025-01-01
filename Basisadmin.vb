@@ -39,6 +39,8 @@ Module Basisadmin
 
     Sub Count_Occurences()
         Dim qty As Integer
+        PopulateDataGridView()
+        Exit Sub
 
         Collect_data("
                 select 
@@ -64,7 +66,7 @@ Module Basisadmin
             SPAS.Dgv_Mgnt_Tables.Rows.Add(dst.Tables(0).Columns(i).ColumnName)
             SPAS.Dgv_Mgnt_Tables.Rows(SPAS.Dgv_Mgnt_Tables.Rows.Count - 1).Cells(1).Value = qty
         Next i
-
+        MsgBox(SPAS.Dgv_Mgnt_Tables.Rows(3).Cells(1).Value)
     End Sub
 
 
@@ -109,12 +111,11 @@ Module Basisadmin
             Exit Sub
         End Try
         Collect_data("SELECT * FROM " & tbl & " WHERE id='" & id & "'")
-        'Clipboard.Clear()
-        'Clipboard.SetText("SELECT * FROM " & tbl & " WHERE id='" & id & "'")
+
         Empty_Tabpage()
 
         For Each ctl In SPAS.TC_Object.TabPages(tb).Controls
-            'If tb = 4 Then MsgBox(ctl.Name & " " & ctl.Text)
+
             If Strings.InStr(ctl.Name, "_pkid") > 0 Then ctl.Text = id
 
             pos = Strings.InStr(ctl.Name, "__")
@@ -168,10 +169,10 @@ Module Basisadmin
                         pos2 = Strings.InStr(ctl.Name, "_id")
                         fk_id = dst.Tables(0).Rows(0)(col) 'QuerySQL("SELECT " & fld & " FROM " & tbl & " WHERE id='" & id & "'")
                         fk_tbl = Mid(fld, 4, Len(fld) - 6) ', pos2 - pos1
-                        'MsgBox(fk_tbl)
+
                         If fk_tbl = "bank" Then fk_tbl = "bankacc"
                         If fk_tbl = "acco" Then fk_tbl = "account"
-                        'MsgBox(fk_id)
+
                         If fk_tbl = "bankacc" Or fk_tbl = "account" Or fk_tbl = "accgroup" Then  '@@@ workaround
 
                             ctl.Text = QuerySQL("SELECT name FROM " & fk_tbl & " WHERE id='" & fk_id & "'")
@@ -182,7 +183,7 @@ Module Basisadmin
                     Else
                         ctl.Text = dst.Tables(0).Rows(0)(col).ToString
                     End If
-                    'MsgBox(ctl.Text)
+
                 ElseIf TypeOf ctl Is DateTimePicker Then
                     ctl.Value = dst.Tables(0).Rows(0)(col)
                 End If
@@ -321,9 +322,6 @@ Module Basisadmin
                         ORDER BY t.name"
 
             Load_Listbox(SPAS.Lbx_Basis, SQLstr)
-            'Clipboard.Clear()
-            'Clipboard.SetText(SQLstr)
-
 
         ElseIf tb = 4 Then
             SQLstr1 = "SELECT id, CONCAT(source,' ',name,' (',accgroup,')') as name FROM " & tbl & " 
@@ -333,16 +331,12 @@ Module Basisadmin
                        AND (active=" & IIf(SPAS.Cbx_LifeCycle.Text = "Inactief", False, True) & ") 
                        ORDER BY source, accgroup, name"
             Load_Listbox(SPAS.Lbx_Basis, SQLstr1)
-            'Clipboard.Clear()
-            'Clipboard.SetText(SQLstr1)
+
 
         ElseIf tb = 5 Then
             SQLstr2 = "SELECT id, name FROM " & LCase(tbl) & " WHERE name ILIKE '%" & arg & "%'" & sel_act & " ORDER BY name"
 
             Load_Listbox(SPAS.Lbx_Basis, SQLstr2)
-
-            'Clipboard.Clear()
-            'Clipboard.SetText(SQLstr2)
 
         Else
             SQLstr1 = "SELECT id, CONCAT(name, ', ', name_add) as name FROM " & tbl & " WHERE UPPER(name) Like '%" & arg & "%'" & sel_act & " ORDER BY name"
@@ -355,8 +349,7 @@ Module Basisadmin
                 Load_Listbox(SPAS.Lbx_Basis, SQLstr2)
 
             End Try
-            'Clipboard.Clear()
-            'Clipboard.SetText(SQLstr2)
+
         End If
 
     End Sub
@@ -366,17 +359,12 @@ Module Basisadmin
 
         For rowit1 = 0 To SPAS.Lbx_Basis.Items.Count - 1
             If SPAS.Lbx_Basis.Items(rowit1)(SPAS.Lbx_Basis.ValueMember) = valit1 Then
-                'SPAS.Lbx_Basis.SelectedItem = SPAS.Lbx_Basis.Items(rowit1)
-
                 SPAS.Lbx_Basis.SetSelected(rowit1, True)
-                'SPAS.Click_Lbx_Basis()
-                ''Select_Obj2("Locate_Listbox_Position")
+
                 Exit For
             End If
         Next
-        'MsgBox("1")
-        'Select_Obj2("Locate_Listbox_Position")
-        'MsgBox("2")
+
     End Sub
     Function Handle_errors(ByVal errmsg As String)
         Dim tb As Integer = SPAS.TC_Object.SelectedIndex
@@ -414,7 +402,7 @@ Module Basisadmin
 
                     Clipboard.Clear()
                     Clipboard.SetText(sqlstr)
-                    'MsgBox("Stop")
+
                     Dim res As String = QuerySQL(sqlstr)
                     If res <> "" Then errmsg1 &= "Er loopt al een contract voor " & res & "." & vbCrLf &
                         "Dit contract mag daarmee niet overlappen. Beëindig deze eerst alvorens dit contract af te sluiten."
@@ -488,8 +476,7 @@ Module Basisadmin
         Next
         SQLStr = Left(SQLStr, Strings.Len(SQLStr) - 1) & " WHERE id=" & id1 & ";"  'remove final komma
         If SPAS.Chbx_test.Checked = True Then MsgBox(SQLStr)
-        'Clipboard.Clear()
-        'Clipboard.SetText(SQLStr)
+
         RunSQL(SQLStr, "NULL", "Update table " & tbl)
 
     End Sub
@@ -545,8 +532,7 @@ Module Basisadmin
         Next
         SQLstr = Left(s1, Strings.Len(s1) - 1) & ") " & Left(s2, Strings.Len(s2) - 1) & ");"
         If SPAS.Chbx_test.Checked = True Then MsgBox(SQLstr)
-        'Clipboard.Clear()
-        'Clipboard.SetText(SQLstr)
+
         RunSQL(SQLstr, "NULL", "Insert into table " & tbl)
 
         'addition for contract;  target  - --

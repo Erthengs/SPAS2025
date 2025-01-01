@@ -22,18 +22,12 @@ Module report
 
 
     Sub Report_overview()
-
-
+        Exit Sub
         Dim jtable, btable, yearcheck_j2 As String
         jtable = Report_table(report_year)
         btable = Bank_table(report_year)
         yearcheck_j2 = "and extract(year from date)=" & report_year
-        'Dim tabname As String
-        'For x = 0 To 1
-        'tabname = SPAS.TC_Rapportage.TabPages(x).Text
-        'If InStr(1, tabname, " (") > 0 Then SPAS.TC_Rapportage.TabPages(x).Text = Trim(Strings.Left(tabname, InStr(1, tabname, " (")))
-        'SPAS.TC_Rapportage.TabPages(x).Text &= " (" & report_year & ")"
-        'Next x
+
 
         Dim sqlstr As String = ""
         Dim select_j2 = "select sum(amt1) from " & jtable & " j2 left join account a2 on a2.id = j2.fk_account where a2.fk_accgroup_id = a.fk_accgroup_id and j2.status != 'Open' "
@@ -70,7 +64,7 @@ Module report
         Next i
 
         sqlstr &= "
-            --union select 12, null, null, null, null, null, null, null 
+            -- union select 12, null, null, null, null, null, null, null 
             union select 12, 'Totaal generaal' 
             ," & select_sum & " and j.source = 'Closing' and status != 'Open')
             ," & select_sum & " and j.source = 'Incasso' and status != 'Open')
@@ -95,11 +89,11 @@ Module report
                 .Columns(5).HeaderText = "Interne boekingen"
                 .Columns(6).HeaderText = "Uitkering"
                 .Columns(7).HeaderText = "Saldo 31/12"
-                .Columns(1).Width = 230
+                .Columns(1).Width = 190
 
                 For k = 2 To 7
                     .Columns(k).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                    .Columns(k).Width = 120
+                    .Columns(k).Width = 110
                     .Columns(k).DefaultCellStyle.Format = "N2"
                     .Columns(k).ReadOnly = True
                 Next
@@ -214,7 +208,7 @@ Module report
 
         ToClipboard(sql2, True)
         Collect_data(sql3)
-        Dim farray() As String = {"T200", "T250", "N100", "N100", "N100", "N100", "N100"}
+        Dim farray() As String = {"T170", "T170", "N100", "N100", "N100", "N100", "N100"}
         Load_Datagridview(SPAS.Dgv_Rapportage_Overzicht, sql2, "rapportagefout Report_Bank_overview")
         SPAS.Format_Datagridview(SPAS.Dgv_Rapportage_Overzicht, farray, False)
 

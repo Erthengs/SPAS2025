@@ -209,6 +209,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Basisadmin.vb" />
+    <Compile Include="Class1.vb" />
     <Compile Include="DataManagement.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
@@ -224,6 +225,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Functions.vb" />
+    <Compile Include="Helptext.Designer.vb">
+      <DependentUpon>Helptext.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Helptext.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Incasso.vb" />
     <Compile Include="Login.Designer.vb">
       <DependentUpon>Login.vb</DependentUpon>
@@ -266,6 +273,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Helptext.resx">
+      <DependentUpon>Helptext.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.vb</DependentUpon>

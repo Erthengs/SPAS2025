@@ -14,13 +14,15 @@ Public Class Login
         Select Case Cmx_Login_Database.Text
             Case "Productie"
                 connect_string = "User ID=" & username & ";Password=" & Me.Tbx_login_password.Text & ";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-PROD"
+                db ='PROD'
                 SPAS.Pan_Test.Visible = False
-                SPAS.Text = "SPAS " & username
+                SPAS.Text &= " " & username
                 SPAS.BackColor = Color.WhiteSmoke
                 SPAS.MenuStrip1.BackColor = Color.LightSteelBlue
                 SPAS.ToolStripTextBox1.BackColor = Color.LightSteelBlue
-                SPAS.TC_Main.TabPages.Remove(SPAS.TC_Main.TabPages(7))
+                'SPAS.TC_Main.TabPages.Remove(SPAS.TC_Main.TabPages(7))
             Case "Acceptatie"
+                'db ='ACC'
                 connect_string = "User ID=" & username & ";Password=" & Me.Tbx_login_password.Text & ";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=ACC" 'My.Settings._accovh
                 SPAS.Pan_Test.Visible = True
                 SPAS.Lbl_Excasso_Items_Contract.Visible = True
@@ -29,11 +31,12 @@ Public Class Login
                 SPAS.Lbl_Excasso_Contractwaarde.Visible = True
                 SPAS.Lbl_Excasso_Extra.Visible = True
                 SPAS.Lbl_Excasso_Intern.Visible = True
-                SPAS.Text = "SPAS " & username & " (TIJDELIJKE ACCEPTATIE DATABASE)"
+                SPAS.Text &= " " & username & " (TIJDELIJKE ACCEPTATIE DATABASE)"
                 SPAS.BackColor = Color.YellowGreen
                 SPAS.MenuStrip1.BackColor = Color.GreenYellow
                 SPAS.ToolStripTextBox1.BackColor = Color.GreenYellow
             Case "Test"
+                'db ='TEST'
                 connect_string = "User ID=" & username & ";Password=" & Me.Tbx_login_password.Text & ";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-TEST" 'My.Settings._tstovh
                 SPAS.Pan_Test.Visible = True
                 SPAS.Pan_Test.Visible = True
@@ -43,7 +46,10 @@ Public Class Login
                 SPAS.Lbl_Excasso_Contractwaarde.Visible = True
                 SPAS.Lbl_Excasso_Extra.Visible = True
                 SPAS.Lbl_Excasso_Intern.Visible = True
-                SPAS.Text = "SPAS " & username & " (TEST DATABASE)"
+                SPAS.Text &= " " & username & " (TEST DATABASE)"
+                SPAS.BackColor = Color.Orange
+                SPAS.MenuStrip1.BackColor = Color.Orange
+                SPAS.ToolStripTextBox1.BackColor = Color.Orange
 
         End Select
 
@@ -89,7 +95,5 @@ Public Class Login
         'My.Settings._whatsnew = "Ja"
     End Sub
 
-    Private Sub Cmx_Login_Database_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmx_Login_Database.SelectedIndexChanged
 
-    End Sub
 End Class

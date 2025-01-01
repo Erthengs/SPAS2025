@@ -8,7 +8,6 @@ Imports Microsoft.EntityFrameworkCore.Update.Internal
 Imports System.ComponentModel
 Imports Microsoft.EntityFrameworkCore.Metadata.Internal
 Imports System.Dynamic
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 
 Module bank
 
@@ -70,11 +69,16 @@ Module bank
         Dim cost As Decimal
         Dim lastdate As Date
         Dim amt2 As Decimal
-        Dim filename As String = "testfilename"
+        Dim filename As String = StrReverse(Strings.Left(StrReverse(csv), InStr(StrReverse(csv), "\") - 1))
         Dim SQLstr As String = ""
         Dim relation_name As String
         Dim SQLstr2 As String = "INSERT INTO journal(name,date,status,description,source,amt1,fk_account,
                                fk_bank,fk_relation,iban) VALUES "
+
+        '===============================================================================================
+        '===                             read from csv into datatable                                ===
+        '===============================================================================================
+
         Dim delimiter As String
         Dim content = IO.File.ReadAllText(csv)  'My.Computer.FileSystem.ReadAllText(csv)
         delimiter = IIf(content.Contains(""";"""), """;""", """,""")
@@ -97,8 +101,31 @@ Module bank
             Bank_DT.Rows.Add(dr)
         Next
 
-        Dim csv1 = StrReverse(csv)
-        filename = StrReverse(Strings.Left(csv1, InStr(csv1, "\") - 1))
+        Dim BankTable As New DataTable
+        BankTable.Columns.Add("iban", GetType(String))
+        BankTable.Columns.Add("currency", GetType(String))
+        BankTable.Columns.Add("date", GetType(DateTime))
+        BankTable.Columns.Add("debit", GetType(Decimal))
+        BankTable.Columns.Add("credit", GetType(Decimal))
+        BankTable.Columns.Add("seqorder", GetType(Integer))
+        BankTable.Columns.Add("iban2", GetType(String))
+        BankTable.Columns.Add("name", GetType(String))
+        BankTable.Columns.Add("code", GetType(String))
+        BankTable.Columns.Add("batchid", GetType(String))
+        BankTable.Columns.Add("description", GetType(String))
+        BankTable.Columns.Add("exch_rate", GetType(Decimal))
+        BankTable.Columns.Add("amt_cur", GetType(Integer))
+        BankTable.Columns.Add("fk_journal_name", GetType(String))
+        BankTable.Columns.Add("filename", GetType(String))
+        BankTable.Columns.Add("cost", GetType(Decimal))
+
+
+
+
+
+        '===============================================================================================
+        '===                           read from datatable into database                             ===
+        '===============================================================================================
 
         'determine Bank
         bank = IIf(InStr(Bank_DT.Rows(1)(2), "RABO") > 0, "rabo", "ing")
@@ -117,8 +144,8 @@ Module bank
             '1) checks on import file
             If Not IsDBNull(Last_seq_order) Then
                 If CInt(Bank_DT.Rows(1)(3)) <> Last_seq_order + 1 Then
-                    MsgBox("Er zijn nog niet ingeladen tussenliggende banktransacties. Doe dit s.v.p eerst. ")
-                    'Exit Sub
+                    MsgBox("Volgnummer van banktransactie sluit niet aan op laatst ingeladen transactie in SPAS, check s.v.p. het csv-bestand")
+                    Exit Sub
                 End If
             End If
 
@@ -276,17 +303,32 @@ Module bank
         If uitk Then
             RunQuery("Categoriseer uitkering")
             Fill_Cmx_Excasso_Select_Combined()
+
         End If
         If contr Then RunQuery("Categoriseer contractbetaling")
+
         If bcode Then RunQuery("Categoriseer obv bankcode")
+
         If omschr Then RunQuery("Categoriseer obv omschrijving")
+
         If extrag Then RunQuery("Categoriseer extra gift")
-        'If ing Then RunQuery("Categoriseer ingbank")
+
+        If ing Then RunQuery("Categoriseer ingbank")
+
 
 
     End Sub
 
 
+
+    Public Sub Mark_rows_Dgv_Bank()
+        For x As Integer = 0 To SPAS.Dgv_Bank.Rows.Count - 1
+            Dim cnt As Integer = SPAS.Dgv_Bank.Rows(x).Cells(17).Value
+            SPAS.Dgv_Bank.Rows(x).DefaultCellStyle.ForeColor = IIf(cnt > 0, Color.DarkRed, Color.DarkGreen)
+            If SPAS.Dgv_Bank.Rows(x).Cells(12).Value = "Auto-cat" Then SPAS.Dgv_Bank.Rows(x).DefaultCellStyle.ForeColor = Color.DarkGoldenrod
+        Next
+
+    End Sub
     Sub Fill_Journals_by_bank(ByVal journal_name As Integer)
 
         'If Strings.Left(journal_name, 1) = "0" Then Exit Sub
@@ -361,44 +403,6 @@ Module bank
             End If
         Next x
 
-    End Sub
-
-
-
-    Private Function GetBankData() As DataTable
-        Dim connString As String = connect_string
-        Dim query As String = "SELECT seqorder, date, credit, debit, code FROM Bank ORDER BY seqorder, date;"
-        Dim dt As New DataTable()
-        Using conn As New NpgsqlConnection(connString)
-            conn.Open()
-            Dim cmd As New NpgsqlCommand(query, conn)
-            Dim da As New NpgsqlDataAdapter(cmd)
-            da.Fill(dt)
-        End Using
-        Return dt
-    End Function
-
-    Sub Populate_treeview()
-
-
-        'Populate table here.
-        'GetBankData()
-
-
-        AddNodes(SPAS.BankTree.Nodes, GetBankData(), Nothing)
-    End Sub
-
-    Private Sub AddNodes(nodes As TreeNodeCollection, table As DataTable, id As Integer?)
-        Dim filter = If(id.HasValue, "id = " & id, "id IS NULL")
-        Dim rows = table.Select(filter)
-
-        For Each row In rows
-            Dim nid = row.Field(Of Integer)("name")
-            Dim node = nodes.Add(nid.ToString(), row.Field(Of String)("seq_order"))
-
-            'Make a recursive call to add child nodes to this node.
-            'AddNodes(node.Nodes, table, id)
-        Next
     End Sub
 
 
