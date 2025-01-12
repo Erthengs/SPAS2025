@@ -24,32 +24,32 @@ Partial Class SPAS
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SPAS))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle53 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle54 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle55 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle56 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle57 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle58 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle59 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle60 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle61 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle62 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle63 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle64 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle65 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle66 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle67 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle68 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle69 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle70 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle71 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle72 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle73 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle74 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle75 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle76 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle77 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle78 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TC_Main = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -319,8 +319,6 @@ Partial Class SPAS
         Me.Tbx_BankAcc_startbalance = New System.Windows.Forms.TextBox()
         Me.Label40 = New System.Windows.Forms.Label()
         Me.Accgroup = New System.Windows.Forms.TabPage()
-        Me.Label119 = New System.Windows.Forms.Label()
-        Me.Tbx_00_Accgroup__labels = New System.Windows.Forms.TextBox()
         Me.Tbx_00_Accgroup__description = New System.Windows.Forms.TextBox()
         Me.Label130 = New System.Windows.Forms.Label()
         Me.Tbx_00_Accgroup__subtype = New System.Windows.Forms.TextBox()
@@ -540,12 +538,9 @@ Partial Class SPAS
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label149 = New System.Windows.Forms.Label()
         Me.Cbx_Journal_Saldo_Open = New System.Windows.Forms.CheckBox()
-        Me.Label124 = New System.Windows.Forms.Label()
         Me.Cbx_Journal_Status_Verwerkt = New System.Windows.Forms.CheckBox()
         Me.Lbl_Journal_Status = New System.Windows.Forms.Label()
         Me.Cbx_Journal_Status_Open = New System.Windows.Forms.CheckBox()
-        Me.Cbx_Journal_Select_All = New System.Windows.Forms.CheckBox()
-        Me.Cbx_Journal_DeSelect_All = New System.Windows.Forms.CheckBox()
         Me.Lbl_Boeking_Selecteer = New System.Windows.Forms.Label()
         Me.Tbx_Journal_Filter = New System.Windows.Forms.TextBox()
         Me.Lv_Journal_List = New System.Windows.Forms.ListView()
@@ -556,17 +551,14 @@ Partial Class SPAS
         Me.Tab_Rapportage = New System.Windows.Forms.TabPage()
         Me.TC_Rapportage = New System.Windows.Forms.TabControl()
         Me.Journaal = New System.Windows.Forms.TabPage()
+        Me.LbL_Formatting = New System.Windows.Forms.Label()
+        Me.Label119 = New System.Windows.Forms.Label()
+        Me.Cmbx_Reporting_Year = New System.Windows.Forms.ComboBox()
+        Me.Lbl_Rapportage = New System.Windows.Forms.Label()
         Me.Btn_Rap_Expand_Collapse = New System.Windows.Forms.Button()
         Me.Dgv_Rapportage_Overzicht = New System.Windows.Forms.DataGridView()
         Me.BankTree = New System.Windows.Forms.TreeView()
-        Me.Cmx_Report5 = New System.Windows.Forms.ComboBox()
-        Me.Rbtn_Report_Other = New System.Windows.Forms.RadioButton()
-        Me.Rbtn_Report_Bank = New System.Windows.Forms.RadioButton()
-        Me.Rbtn_Report_Overview = New System.Windows.Forms.RadioButton()
-        Me.Label151 = New System.Windows.Forms.Label()
-        Me.Cmx_Report_Year = New System.Windows.Forms.ComboBox()
         Me.TC_Boekingen = New System.Windows.Forms.TabPage()
-        Me.Dgv_Report_6 = New System.Windows.Forms.DataGridView()
         Me.Tbx_Report6_Add = New System.Windows.Forms.TextBox()
         Me.TC_Jaarafsluiting = New System.Windows.Forms.TabPage()
         Me.Btn_Report_YearEnd_Check = New System.Windows.Forms.Button()
@@ -594,6 +586,7 @@ Partial Class SPAS
         Me.Cmbx_Query_Select = New System.Windows.Forms.ComboBox()
         Me.Dgv_Query_Test = New System.Windows.Forms.DataGridView()
         Me.Test = New System.Windows.Forms.TabPage()
+        Me.TreeView1 = New System.Windows.Forms.TreeView()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Pan_Test = New System.Windows.Forms.Panel()
@@ -625,6 +618,12 @@ Partial Class SPAS
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
+        Me.Dgv_Report_6 = New System.Windows.Forms.DataGridView()
+        Me.Panel11 = New System.Windows.Forms.Panel()
+        Me.Splitter1 = New System.Windows.Forms.Splitter()
+        Me.Panel12 = New System.Windows.Forms.Panel()
+        Me.Splitter2 = New System.Windows.Forms.Splitter()
+        Me.Panel13 = New System.Windows.Forms.Panel()
         Me.TC_Main.SuspendLayout
         Me.TabPage1.SuspendLayout
         Me.Panel1.SuspendLayout
@@ -682,7 +681,6 @@ Partial Class SPAS
         Me.Journaal.SuspendLayout
         CType(Me.Dgv_Rapportage_Overzicht, System.ComponentModel.ISupportInitialize).BeginInit
         Me.TC_Boekingen.SuspendLayout
-        CType(Me.Dgv_Report_6, System.ComponentModel.ISupportInitialize).BeginInit
         Me.TC_Jaarafsluiting.SuspendLayout
         CType(Me.Dgv_Report_Year_Closing, System.ComponentModel.ISupportInitialize).BeginInit
         Me.Instellingen.SuspendLayout
@@ -695,6 +693,10 @@ Partial Class SPAS
         Me.Pan_Test.SuspendLayout
         CType(Me.Dgv_Mgnt_Tables, System.ComponentModel.ISupportInitialize).BeginInit
         Me.MenuStrip1.SuspendLayout
+        CType(Me.Dgv_Report_6, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Panel11.SuspendLayout
+        Me.Panel12.SuspendLayout
+        Me.Panel13.SuspendLayout
         Me.SuspendLayout
         '
         'TC_Main
@@ -2104,8 +2106,8 @@ Partial Class SPAS
         '
         Me.Dgv_relation_giften.AllowUserToAddRows = False
         Me.Dgv_relation_giften.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.Dgv_relation_giften.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle53.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.Dgv_relation_giften.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle53
         Me.Dgv_relation_giften.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.Dgv_relation_giften.Location = New System.Drawing.Point(467, 223)
         Me.Dgv_relation_giften.Name = "Dgv_relation_giften"
@@ -3643,8 +3645,6 @@ Partial Class SPAS
         '
         'Accgroup
         '
-        Me.Accgroup.Controls.Add(Me.Label119)
-        Me.Accgroup.Controls.Add(Me.Tbx_00_Accgroup__labels)
         Me.Accgroup.Controls.Add(Me.Tbx_00_Accgroup__description)
         Me.Accgroup.Controls.Add(Me.Label130)
         Me.Accgroup.Controls.Add(Me.Tbx_00_Accgroup__subtype)
@@ -3664,35 +3664,14 @@ Partial Class SPAS
         Me.Accgroup.TabIndex = 7
         Me.Accgroup.Text = "Accountgroep"
         '
-        'Label119
-        '
-        Me.Label119.AutoSize = True
-        Me.Label119.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label119.Location = New System.Drawing.Point(32, 192)
-        Me.Label119.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label119.Name = "Label119"
-        Me.Label119.Size = New System.Drawing.Size(57, 18)
-        Me.Label119.TabIndex = 149
-        Me.Label119.Text = "Label(s)"
-        '
-        'Tbx_00_Accgroup__labels
-        '
-        Me.Tbx_00_Accgroup__labels.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_00_Accgroup__labels.Location = New System.Drawing.Point(142, 190)
-        Me.Tbx_00_Accgroup__labels.Margin = New System.Windows.Forms.Padding(2)
-        Me.Tbx_00_Accgroup__labels.Name = "Tbx_00_Accgroup__labels"
-        Me.Tbx_00_Accgroup__labels.Size = New System.Drawing.Size(302, 23)
-        Me.Tbx_00_Accgroup__labels.TabIndex = 148
-        Me.Tbx_00_Accgroup__labels.Tag = "Subtype"
-        '
         'Tbx_00_Accgroup__description
         '
         Me.Tbx_00_Accgroup__description.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_00_Accgroup__description.Location = New System.Drawing.Point(142, 225)
+        Me.Tbx_00_Accgroup__description.Location = New System.Drawing.Point(142, 138)
         Me.Tbx_00_Accgroup__description.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_Accgroup__description.Multiline = True
         Me.Tbx_00_Accgroup__description.Name = "Tbx_00_Accgroup__description"
-        Me.Tbx_00_Accgroup__description.Size = New System.Drawing.Size(302, 79)
+        Me.Tbx_00_Accgroup__description.Size = New System.Drawing.Size(302, 61)
         Me.Tbx_00_Accgroup__description.TabIndex = 147
         Me.Tbx_00_Accgroup__description.Tag = "Omschrijving"
         '
@@ -3700,7 +3679,7 @@ Partial Class SPAS
         '
         Me.Label130.AutoSize = True
         Me.Label130.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label130.Location = New System.Drawing.Point(32, 225)
+        Me.Label130.Location = New System.Drawing.Point(31, 130)
         Me.Label130.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label130.Name = "Label130"
         Me.Label130.Size = New System.Drawing.Size(89, 18)
@@ -3710,7 +3689,7 @@ Partial Class SPAS
         'Tbx_00_Accgroup__subtype
         '
         Me.Tbx_00_Accgroup__subtype.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_00_Accgroup__subtype.Location = New System.Drawing.Point(142, 155)
+        Me.Tbx_00_Accgroup__subtype.Location = New System.Drawing.Point(142, 103)
         Me.Tbx_00_Accgroup__subtype.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_Accgroup__subtype.Name = "Tbx_00_Accgroup__subtype"
         Me.Tbx_00_Accgroup__subtype.Size = New System.Drawing.Size(302, 23)
@@ -3721,7 +3700,7 @@ Partial Class SPAS
         '
         Me.Label137.AutoSize = True
         Me.Label137.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label137.Location = New System.Drawing.Point(32, 157)
+        Me.Label137.Location = New System.Drawing.Point(32, 103)
         Me.Label137.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label137.Name = "Label137"
         Me.Label137.Size = New System.Drawing.Size(59, 18)
@@ -3736,7 +3715,7 @@ Partial Class SPAS
         Me.Panel9.Location = New System.Drawing.Point(142, 74)
         Me.Panel9.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(94, 70)
+        Me.Panel9.Size = New System.Drawing.Size(302, 25)
         Me.Panel9.TabIndex = 139
         '
         'Rbtn_accgroup_Income
@@ -3753,7 +3732,7 @@ Partial Class SPAS
         'Rbtn_accgroup_transit
         '
         Me.Rbtn_accgroup_transit.AutoSize = True
-        Me.Rbtn_accgroup_transit.Location = New System.Drawing.Point(3, 48)
+        Me.Rbtn_accgroup_transit.Location = New System.Drawing.Point(187, -1)
         Me.Rbtn_accgroup_transit.Name = "Rbtn_accgroup_transit"
         Me.Rbtn_accgroup_transit.Size = New System.Drawing.Size(67, 22)
         Me.Rbtn_accgroup_transit.TabIndex = 26
@@ -3764,7 +3743,7 @@ Partial Class SPAS
         'Rbtn_accgroup_expense
         '
         Me.Rbtn_accgroup_expense.AutoSize = True
-        Me.Rbtn_accgroup_expense.Location = New System.Drawing.Point(3, 25)
+        Me.Rbtn_accgroup_expense.Location = New System.Drawing.Point(100, -1)
         Me.Rbtn_accgroup_expense.Name = "Rbtn_accgroup_expense"
         Me.Rbtn_accgroup_expense.Size = New System.Drawing.Size(81, 22)
         Me.Rbtn_accgroup_expense.TabIndex = 26
@@ -3840,12 +3819,13 @@ Partial Class SPAS
         'Tbx_01_Accgroup__type
         '
         Me.Tbx_01_Accgroup__type.Enabled = False
-        Me.Tbx_01_Accgroup__type.Location = New System.Drawing.Point(304, 73)
+        Me.Tbx_01_Accgroup__type.Location = New System.Drawing.Point(454, 73)
         Me.Tbx_01_Accgroup__type.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_01_Accgroup__type.Name = "Tbx_01_Accgroup__type"
-        Me.Tbx_01_Accgroup__type.Size = New System.Drawing.Size(140, 26)
+        Me.Tbx_01_Accgroup__type.Size = New System.Drawing.Size(69, 26)
         Me.Tbx_01_Accgroup__type.TabIndex = 131
         Me.Tbx_01_Accgroup__type.Tag = "Accounttype"
+        Me.Tbx_01_Accgroup__type.Visible = False
         '
         'Tab_Bank
         '
@@ -3986,8 +3966,8 @@ Partial Class SPAS
         '
         Me.Dgv_Bank_Account.AllowUserToAddRows = False
         Me.Dgv_Bank_Account.AllowUserToDeleteRows = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Dgv_Bank_Account.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle54.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Bank_Account.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle54
         Me.Dgv_Bank_Account.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -3998,8 +3978,8 @@ Partial Class SPAS
         Me.Dgv_Bank_Account.Name = "Dgv_Bank_Account"
         Me.Dgv_Bank_Account.RowHeadersVisible = False
         Me.Dgv_Bank_Account.RowHeadersWidth = 50
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Arial Narrow", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dgv_Bank_Account.RowsDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle55.Font = New System.Drawing.Font("Arial Narrow", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Bank_Account.RowsDefaultCellStyle = DataGridViewCellStyle55
         Me.Dgv_Bank_Account.RowTemplate.Height = 20
         Me.Dgv_Bank_Account.Size = New System.Drawing.Size(315, 228)
         Me.Dgv_Bank_Account.TabIndex = 37
@@ -4265,23 +4245,23 @@ Partial Class SPAS
         '
         Me.Dgv_Bank.AllowUserToAddRows = False
         Me.Dgv_Bank.AllowUserToDeleteRows = False
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.NullValue = " -"
-        Me.Dgv_Bank.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle56.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle56.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle56.NullValue = " -"
+        Me.Dgv_Bank.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle56
         Me.Dgv_Bank.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Dgv_Bank.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.NullValue = "-"
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Dgv_Bank.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle57.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle57.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle57.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle57.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle57.NullValue = "-"
+        DataGridViewCellStyle57.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle57.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle57.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Dgv_Bank.DefaultCellStyle = DataGridViewCellStyle57
         Me.Dgv_Bank.Location = New System.Drawing.Point(340, 5)
         Me.Dgv_Bank.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Bank.MultiSelect = False
@@ -4624,23 +4604,23 @@ Partial Class SPAS
         '
         Me.Dgv_Incasso.AllowUserToAddRows = False
         Me.Dgv_Incasso.AllowUserToDeleteRows = False
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.NullValue = " -"
-        Me.Dgv_Incasso.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle58.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        DataGridViewCellStyle58.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle58.NullValue = " -"
+        Me.Dgv_Incasso.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle58
         Me.Dgv_Incasso.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Dgv_Incasso.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle7.NullValue = "-"
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Dgv_Incasso.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle59.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle59.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle59.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle59.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle59.NullValue = "-"
+        DataGridViewCellStyle59.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle59.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle59.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Dgv_Incasso.DefaultCellStyle = DataGridViewCellStyle59
         Me.Dgv_Incasso.Location = New System.Drawing.Point(300, 5)
         Me.Dgv_Incasso.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Incasso.MultiSelect = False
@@ -5437,30 +5417,30 @@ Partial Class SPAS
         '
         Me.Dgv_Excasso2.AllowUserToAddRows = False
         Me.Dgv_Excasso2.AllowUserToDeleteRows = False
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Dgv_Excasso2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle60.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Excasso2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle60
         Me.Dgv_Excasso2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Dgv_Excasso2.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Dgv_Excasso2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle9.Format = "#.##"
-        DataGridViewCellStyle9.NullValue = """"""
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Dgv_Excasso2.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle61.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle61.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle61.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle61.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle61.Format = "#.##"
+        DataGridViewCellStyle61.NullValue = """"""
+        DataGridViewCellStyle61.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle61.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle61.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Dgv_Excasso2.DefaultCellStyle = DataGridViewCellStyle61
         Me.Dgv_Excasso2.Location = New System.Drawing.Point(300, 5)
         Me.Dgv_Excasso2.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Excasso2.Name = "Dgv_Excasso2"
         Me.Dgv_Excasso2.RowHeadersVisible = False
         Me.Dgv_Excasso2.RowHeadersWidth = 50
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dgv_Excasso2.RowsDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle62.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Excasso2.RowsDefaultCellStyle = DataGridViewCellStyle62
         Me.Dgv_Excasso2.RowTemplate.Height = 20
         Me.Dgv_Excasso2.Size = New System.Drawing.Size(726, 560)
         Me.Dgv_Excasso2.TabIndex = 73
@@ -5619,24 +5599,24 @@ Partial Class SPAS
         '
         Me.Dgv_Journal_items.AllowUserToAddRows = False
         Me.Dgv_Journal_items.AllowUserToDeleteRows = False
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle11.NullValue = " -"
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Black
-        Me.Dgv_Journal_items.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle63.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        DataGridViewCellStyle63.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle63.NullValue = " -"
+        DataGridViewCellStyle63.SelectionForeColor = System.Drawing.Color.Black
+        Me.Dgv_Journal_items.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle63
         Me.Dgv_Journal_items.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Dgv_Journal_items.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle12.NullValue = "-"
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Dgv_Journal_items.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle64.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle64.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle64.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle64.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle64.NullValue = "-"
+        DataGridViewCellStyle64.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle64.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle64.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Dgv_Journal_items.DefaultCellStyle = DataGridViewCellStyle64
         Me.Dgv_Journal_items.Location = New System.Drawing.Point(2, 4)
         Me.Dgv_Journal_items.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Journal_items.MultiSelect = False
@@ -5824,8 +5804,8 @@ Partial Class SPAS
         '
         Me.Dgv_Journal_Intern.AllowUserToAddRows = False
         Me.Dgv_Journal_Intern.AllowUserToDeleteRows = False
-        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Dgv_Journal_Intern.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle65.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Journal_Intern.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle65
         Me.Dgv_Journal_Intern.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Dgv_Journal_Intern.BorderStyle = System.Windows.Forms.BorderStyle.None
@@ -5836,8 +5816,8 @@ Partial Class SPAS
         Me.Dgv_Journal_Intern.Name = "Dgv_Journal_Intern"
         Me.Dgv_Journal_Intern.RowHeadersVisible = False
         Me.Dgv_Journal_Intern.RowHeadersWidth = 50
-        DataGridViewCellStyle14.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dgv_Journal_Intern.RowsDefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle66.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Journal_Intern.RowsDefaultCellStyle = DataGridViewCellStyle66
         Me.Dgv_Journal_Intern.RowTemplate.Height = 20
         Me.Dgv_Journal_Intern.Size = New System.Drawing.Size(236, 361)
         Me.Dgv_Journal_Intern.TabIndex = 45
@@ -6142,8 +6122,8 @@ Partial Class SPAS
         'Dgv_journaalposten
         '
         Me.Dgv_journaalposten.AllowUserToDeleteRows = False
-        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Dgv_journaalposten.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle67.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_journaalposten.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle67
         Me.Dgv_journaalposten.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -6358,12 +6338,9 @@ Partial Class SPAS
         '
         Me.Panel2.Controls.Add(Me.Label149)
         Me.Panel2.Controls.Add(Me.Cbx_Journal_Saldo_Open)
-        Me.Panel2.Controls.Add(Me.Label124)
         Me.Panel2.Controls.Add(Me.Cbx_Journal_Status_Verwerkt)
         Me.Panel2.Controls.Add(Me.Lbl_Journal_Status)
         Me.Panel2.Controls.Add(Me.Cbx_Journal_Status_Open)
-        Me.Panel2.Controls.Add(Me.Cbx_Journal_Select_All)
-        Me.Panel2.Controls.Add(Me.Cbx_Journal_DeSelect_All)
         Me.Panel2.Controls.Add(Me.Lbl_Boeking_Selecteer)
         Me.Panel2.Controls.Add(Me.Tbx_Journal_Filter)
         Me.Panel2.Controls.Add(Me.Lv_Journal_List)
@@ -6380,7 +6357,7 @@ Partial Class SPAS
         '
         Me.Label149.AutoSize = True
         Me.Label149.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label149.Location = New System.Drawing.Point(9, 66)
+        Me.Label149.Location = New System.Drawing.Point(10, 50)
         Me.Label149.Name = "Label149"
         Me.Label149.Size = New System.Drawing.Size(38, 14)
         Me.Label149.TabIndex = 139
@@ -6390,23 +6367,12 @@ Partial Class SPAS
         '
         Me.Cbx_Journal_Saldo_Open.AutoSize = True
         Me.Cbx_Journal_Saldo_Open.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Journal_Saldo_Open.Location = New System.Drawing.Point(63, 66)
+        Me.Cbx_Journal_Saldo_Open.Location = New System.Drawing.Point(64, 50)
         Me.Cbx_Journal_Saldo_Open.Name = "Cbx_Journal_Saldo_Open"
         Me.Cbx_Journal_Saldo_Open.Size = New System.Drawing.Size(70, 18)
         Me.Cbx_Journal_Saldo_Open.TabIndex = 138
         Me.Cbx_Journal_Saldo_Open.Text = "Niet nul"
         Me.Cbx_Journal_Saldo_Open.UseVisualStyleBackColor = True
-        '
-        'Label124
-        '
-        Me.Label124.AutoSize = True
-        Me.Label124.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label124.Location = New System.Drawing.Point(8, 29)
-        Me.Label124.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label124.Name = "Label124"
-        Me.Label124.Size = New System.Drawing.Size(38, 18)
-        Me.Label124.TabIndex = 137
-        Me.Label124.Text = "Toon"
         '
         'Cbx_Journal_Status_Verwerkt
         '
@@ -6414,7 +6380,7 @@ Partial Class SPAS
         Me.Cbx_Journal_Status_Verwerkt.Checked = True
         Me.Cbx_Journal_Status_Verwerkt.CheckState = System.Windows.Forms.CheckState.Checked
         Me.Cbx_Journal_Status_Verwerkt.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Journal_Status_Verwerkt.Location = New System.Drawing.Point(122, 48)
+        Me.Cbx_Journal_Status_Verwerkt.Location = New System.Drawing.Point(138, 32)
         Me.Cbx_Journal_Status_Verwerkt.Name = "Cbx_Journal_Status_Verwerkt"
         Me.Cbx_Journal_Status_Verwerkt.Size = New System.Drawing.Size(73, 18)
         Me.Cbx_Journal_Status_Verwerkt.TabIndex = 135
@@ -6425,7 +6391,7 @@ Partial Class SPAS
         '
         Me.Lbl_Journal_Status.AutoSize = True
         Me.Lbl_Journal_Status.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Journal_Status.Location = New System.Drawing.Point(9, 49)
+        Me.Lbl_Journal_Status.Location = New System.Drawing.Point(10, 33)
         Me.Lbl_Journal_Status.Name = "Lbl_Journal_Status"
         Me.Lbl_Journal_Status.Size = New System.Drawing.Size(41, 14)
         Me.Lbl_Journal_Status.TabIndex = 136
@@ -6435,36 +6401,12 @@ Partial Class SPAS
         '
         Me.Cbx_Journal_Status_Open.AutoSize = True
         Me.Cbx_Journal_Status_Open.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Journal_Status_Open.Location = New System.Drawing.Point(63, 48)
+        Me.Cbx_Journal_Status_Open.Location = New System.Drawing.Point(64, 32)
         Me.Cbx_Journal_Status_Open.Name = "Cbx_Journal_Status_Open"
         Me.Cbx_Journal_Status_Open.Size = New System.Drawing.Size(55, 18)
         Me.Cbx_Journal_Status_Open.TabIndex = 134
         Me.Cbx_Journal_Status_Open.Text = "Open"
         Me.Cbx_Journal_Status_Open.UseVisualStyleBackColor = True
-        '
-        'Cbx_Journal_Select_All
-        '
-        Me.Cbx_Journal_Select_All.AutoSize = True
-        Me.Cbx_Journal_Select_All.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Journal_Select_All.Location = New System.Drawing.Point(64, 29)
-        Me.Cbx_Journal_Select_All.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cbx_Journal_Select_All.Name = "Cbx_Journal_Select_All"
-        Me.Cbx_Journal_Select_All.Size = New System.Drawing.Size(54, 18)
-        Me.Cbx_Journal_Select_All.TabIndex = 131
-        Me.Cbx_Journal_Select_All.Text = "Alles"
-        Me.Cbx_Journal_Select_All.UseVisualStyleBackColor = True
-        '
-        'Cbx_Journal_DeSelect_All
-        '
-        Me.Cbx_Journal_DeSelect_All.AutoSize = True
-        Me.Cbx_Journal_DeSelect_All.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Journal_DeSelect_All.Location = New System.Drawing.Point(122, 29)
-        Me.Cbx_Journal_DeSelect_All.Margin = New System.Windows.Forms.Padding(2)
-        Me.Cbx_Journal_DeSelect_All.Name = "Cbx_Journal_DeSelect_All"
-        Me.Cbx_Journal_DeSelect_All.Size = New System.Drawing.Size(55, 18)
-        Me.Cbx_Journal_DeSelect_All.TabIndex = 131
-        Me.Cbx_Journal_DeSelect_All.Text = "Niets"
-        Me.Cbx_Journal_DeSelect_All.UseVisualStyleBackColor = True
         '
         'Lbl_Boeking_Selecteer
         '
@@ -6480,7 +6422,7 @@ Partial Class SPAS
         'Tbx_Journal_Filter
         '
         Me.Tbx_Journal_Filter.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_Journal_Filter.Location = New System.Drawing.Point(200, 44)
+        Me.Tbx_Journal_Filter.Location = New System.Drawing.Point(216, 28)
         Me.Tbx_Journal_Filter.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Journal_Filter.Name = "Tbx_Journal_Filter"
         Me.Tbx_Journal_Filter.Size = New System.Drawing.Size(18, 25)
@@ -6497,10 +6439,10 @@ Partial Class SPAS
         Me.Lv_Journal_List.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Lv_Journal_List.FullRowSelect = True
         Me.Lv_Journal_List.HideSelection = False
-        Me.Lv_Journal_List.Location = New System.Drawing.Point(7, 95)
+        Me.Lv_Journal_List.Location = New System.Drawing.Point(7, 73)
         Me.Lv_Journal_List.Margin = New System.Windows.Forms.Padding(2)
         Me.Lv_Journal_List.Name = "Lv_Journal_List"
-        Me.Lv_Journal_List.Size = New System.Drawing.Size(228, 468)
+        Me.Lv_Journal_List.Size = New System.Drawing.Size(244, 490)
         Me.Lv_Journal_List.TabIndex = 54
         Me.Lv_Journal_List.UseCompatibleStateImageBehavior = False
         '
@@ -6517,7 +6459,7 @@ Partial Class SPAS
         '
         Me.Chbx_Journal_Inactive.AutoSize = True
         Me.Chbx_Journal_Inactive.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Chbx_Journal_Inactive.Location = New System.Drawing.Point(181, 29)
+        Me.Chbx_Journal_Inactive.Location = New System.Drawing.Point(139, 50)
         Me.Chbx_Journal_Inactive.Margin = New System.Windows.Forms.Padding(2)
         Me.Chbx_Journal_Inactive.Name = "Chbx_Journal_Inactive"
         Me.Chbx_Journal_Inactive.Size = New System.Drawing.Size(73, 18)
@@ -6531,7 +6473,7 @@ Partial Class SPAS
         Me.Cmx_Journal_List.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.Cmx_Journal_List.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cmx_Journal_List.FormattingEnabled = True
-        Me.Cmx_Journal_List.Items.AddRange(New Object() {"Alle accounts", "Kind", "Oudere", "Overig", "Categoriën", "CP", "Journaalnaam", "Relaties"})
+        Me.Cmx_Journal_List.Items.AddRange(New Object() {"Accounts", "Journaalnaam", "Relaties"})
         Me.Cmx_Journal_List.Location = New System.Drawing.Point(78, 2)
         Me.Cmx_Journal_List.Margin = New System.Windows.Forms.Padding(2)
         Me.Cmx_Journal_List.Name = "Cmx_Journal_List"
@@ -6567,15 +6509,12 @@ Partial Class SPAS
         '
         'Journaal
         '
-        Me.Journaal.Controls.Add(Me.Btn_Rap_Expand_Collapse)
-        Me.Journaal.Controls.Add(Me.Dgv_Rapportage_Overzicht)
-        Me.Journaal.Controls.Add(Me.BankTree)
-        Me.Journaal.Controls.Add(Me.Cmx_Report5)
-        Me.Journaal.Controls.Add(Me.Rbtn_Report_Other)
-        Me.Journaal.Controls.Add(Me.Rbtn_Report_Bank)
-        Me.Journaal.Controls.Add(Me.Rbtn_Report_Overview)
-        Me.Journaal.Controls.Add(Me.Label151)
-        Me.Journaal.Controls.Add(Me.Cmx_Report_Year)
+        Me.Journaal.Controls.Add(Me.Panel13)
+        Me.Journaal.Controls.Add(Me.Splitter2)
+        Me.Journaal.Controls.Add(Me.Panel12)
+        Me.Journaal.Controls.Add(Me.Splitter1)
+        Me.Journaal.Controls.Add(Me.Panel11)
+        Me.Journaal.Controls.Add(Me.Lbl_Rapportage)
         Me.Journaal.Location = New System.Drawing.Point(4, 28)
         Me.Journaal.Name = "Journaal"
         Me.Journaal.Padding = New System.Windows.Forms.Padding(3)
@@ -6585,110 +6524,87 @@ Partial Class SPAS
         Me.Journaal.Text = "Overzicht"
         Me.Journaal.UseVisualStyleBackColor = True
         '
+        'LbL_Formatting
+        '
+        Me.LbL_Formatting.AutoSize = True
+        Me.LbL_Formatting.Location = New System.Drawing.Point(146, 4)
+        Me.LbL_Formatting.Name = "LbL_Formatting"
+        Me.LbL_Formatting.Size = New System.Drawing.Size(68, 19)
+        Me.LbL_Formatting.TabIndex = 88
+        Me.LbL_Formatting.Text = "Label148"
+        Me.LbL_Formatting.Visible = False
+        '
+        'Label119
+        '
+        Me.Label119.AutoSize = True
+        Me.Label119.Location = New System.Drawing.Point(3, 4)
+        Me.Label119.Name = "Label119"
+        Me.Label119.Size = New System.Drawing.Size(35, 19)
+        Me.Label119.TabIndex = 87
+        Me.Label119.Text = "Jaar"
+        '
+        'Cmbx_Reporting_Year
+        '
+        Me.Cmbx_Reporting_Year.FormattingEnabled = True
+        Me.Cmbx_Reporting_Year.Location = New System.Drawing.Point(57, 1)
+        Me.Cmbx_Reporting_Year.Name = "Cmbx_Reporting_Year"
+        Me.Cmbx_Reporting_Year.Size = New System.Drawing.Size(81, 27)
+        Me.Cmbx_Reporting_Year.TabIndex = 86
+        '
+        'Lbl_Rapportage
+        '
+        Me.Lbl_Rapportage.AutoSize = True
+        Me.Lbl_Rapportage.Font = New System.Drawing.Font("Calibri", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Rapportage.Location = New System.Drawing.Point(156, 2)
+        Me.Lbl_Rapportage.Name = "Lbl_Rapportage"
+        Me.Lbl_Rapportage.Size = New System.Drawing.Size(0, 23)
+        Me.Lbl_Rapportage.TabIndex = 85
+        '
         'Btn_Rap_Expand_Collapse
         '
-        Me.Btn_Rap_Expand_Collapse.Location = New System.Drawing.Point(6, 496)
+        Me.Btn_Rap_Expand_Collapse.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Btn_Rap_Expand_Collapse.Location = New System.Drawing.Point(0, 493)
         Me.Btn_Rap_Expand_Collapse.Name = "Btn_Rap_Expand_Collapse"
-        Me.Btn_Rap_Expand_Collapse.Size = New System.Drawing.Size(145, 28)
+        Me.Btn_Rap_Expand_Collapse.Size = New System.Drawing.Size(147, 28)
         Me.Btn_Rap_Expand_Collapse.TabIndex = 84
-        Me.Btn_Rap_Expand_Collapse.Text = "Uitklappen"
+        Me.Btn_Rap_Expand_Collapse.Text = "Alles uitklappen"
         Me.Btn_Rap_Expand_Collapse.UseVisualStyleBackColor = True
         '
         'Dgv_Rapportage_Overzicht
         '
         Me.Dgv_Rapportage_Overzicht.AllowUserToAddRows = False
         Me.Dgv_Rapportage_Overzicht.AllowUserToDeleteRows = False
-        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Dgv_Rapportage_Overzicht.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle68.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Rapportage_Overzicht.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle68
         Me.Dgv_Rapportage_Overzicht.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Dgv_Rapportage_Overzicht.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Dgv_Rapportage_Overzicht.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Dgv_Rapportage_Overzicht.Location = New System.Drawing.Point(156, 5)
+        Me.Dgv_Rapportage_Overzicht.Location = New System.Drawing.Point(6, 4)
         Me.Dgv_Rapportage_Overzicht.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Rapportage_Overzicht.Name = "Dgv_Rapportage_Overzicht"
         Me.Dgv_Rapportage_Overzicht.RowHeadersVisible = False
         Me.Dgv_Rapportage_Overzicht.RowHeadersWidth = 50
-        DataGridViewCellStyle17.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dgv_Rapportage_Overzicht.RowsDefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle69.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Rapportage_Overzicht.RowsDefaultCellStyle = DataGridViewCellStyle69
         Me.Dgv_Rapportage_Overzicht.RowTemplate.Height = 20
-        Me.Dgv_Rapportage_Overzicht.Size = New System.Drawing.Size(851, 517)
+        Me.Dgv_Rapportage_Overzicht.Size = New System.Drawing.Size(770, 342)
         Me.Dgv_Rapportage_Overzicht.TabIndex = 76
         '
         'BankTree
         '
+        Me.BankTree.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BankTree.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BankTree.Location = New System.Drawing.Point(0, 71)
+        Me.BankTree.Location = New System.Drawing.Point(3, 26)
         Me.BankTree.Name = "BankTree"
-        Me.BankTree.Size = New System.Drawing.Size(155, 425)
+        Me.BankTree.Size = New System.Drawing.Size(211, 466)
         Me.BankTree.TabIndex = 83
-        '
-        'Cmx_Report5
-        '
-        Me.Cmx_Report5.FormattingEnabled = True
-        Me.Cmx_Report5.Location = New System.Drawing.Point(700, 0)
-        Me.Cmx_Report5.Name = "Cmx_Report5"
-        Me.Cmx_Report5.Size = New System.Drawing.Size(253, 27)
-        Me.Cmx_Report5.TabIndex = 82
-        Me.Cmx_Report5.Visible = False
-        '
-        'Rbtn_Report_Other
-        '
-        Me.Rbtn_Report_Other.AutoSize = True
-        Me.Rbtn_Report_Other.Location = New System.Drawing.Point(580, 0)
-        Me.Rbtn_Report_Other.Name = "Rbtn_Report_Other"
-        Me.Rbtn_Report_Other.Size = New System.Drawing.Size(104, 23)
-        Me.Rbtn_Report_Other.TabIndex = 81
-        Me.Rbtn_Report_Other.Text = "Overzichten"
-        Me.Rbtn_Report_Other.UseVisualStyleBackColor = True
-        Me.Rbtn_Report_Other.Visible = False
-        '
-        'Rbtn_Report_Bank
-        '
-        Me.Rbtn_Report_Bank.AutoSize = True
-        Me.Rbtn_Report_Bank.Location = New System.Drawing.Point(448, 0)
-        Me.Rbtn_Report_Bank.Name = "Rbtn_Report_Bank"
-        Me.Rbtn_Report_Bank.Size = New System.Drawing.Size(116, 23)
-        Me.Rbtn_Report_Bank.TabIndex = 80
-        Me.Rbtn_Report_Bank.Text = "Bankoverzicht"
-        Me.Rbtn_Report_Bank.UseVisualStyleBackColor = True
-        Me.Rbtn_Report_Bank.Visible = False
-        '
-        'Rbtn_Report_Overview
-        '
-        Me.Rbtn_Report_Overview.AutoSize = True
-        Me.Rbtn_Report_Overview.Checked = True
-        Me.Rbtn_Report_Overview.Location = New System.Drawing.Point(250, 0)
-        Me.Rbtn_Report_Overview.Name = "Rbtn_Report_Overview"
-        Me.Rbtn_Report_Overview.Size = New System.Drawing.Size(168, 23)
-        Me.Rbtn_Report_Overview.TabIndex = 79
-        Me.Rbtn_Report_Overview.TabStop = True
-        Me.Rbtn_Report_Overview.Text = "Financiele rapportage"
-        Me.Rbtn_Report_Overview.UseVisualStyleBackColor = True
-        Me.Rbtn_Report_Overview.Visible = False
-        '
-        'Label151
-        '
-        Me.Label151.AutoSize = True
-        Me.Label151.BackColor = System.Drawing.Color.Transparent
-        Me.Label151.Location = New System.Drawing.Point(1, 0)
-        Me.Label151.Name = "Label151"
-        Me.Label151.Size = New System.Drawing.Size(113, 19)
-        Me.Label151.TabIndex = 78
-        Me.Label151.Text = "Rapportagejaar:"
-        '
-        'Cmx_Report_Year
-        '
-        Me.Cmx_Report_Year.FormattingEnabled = True
-        Me.Cmx_Report_Year.Location = New System.Drawing.Point(6, 25)
-        Me.Cmx_Report_Year.Name = "Cmx_Report_Year"
-        Me.Cmx_Report_Year.Size = New System.Drawing.Size(80, 27)
-        Me.Cmx_Report_Year.TabIndex = 77
         '
         'TC_Boekingen
         '
-        Me.TC_Boekingen.Controls.Add(Me.Dgv_Report_6)
         Me.TC_Boekingen.Controls.Add(Me.Tbx_Report6_Add)
         Me.TC_Boekingen.Location = New System.Drawing.Point(4, 28)
         Me.TC_Boekingen.Name = "TC_Boekingen"
@@ -6698,24 +6614,6 @@ Partial Class SPAS
         Me.TC_Boekingen.Tag = "report_bookings"
         Me.TC_Boekingen.Text = "Details"
         Me.TC_Boekingen.UseVisualStyleBackColor = True
-        '
-        'Dgv_Report_6
-        '
-        DataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Dgv_Report_6.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle18
-        Me.Dgv_Report_6.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Dgv_Report_6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Dgv_Report_6.Location = New System.Drawing.Point(0, 6)
-        Me.Dgv_Report_6.Name = "Dgv_Report_6"
-        Me.Dgv_Report_6.RowHeadersVisible = False
-        Me.Dgv_Report_6.RowHeadersWidth = 82
-        DataGridViewCellStyle19.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dgv_Report_6.RowsDefaultCellStyle = DataGridViewCellStyle19
-        Me.Dgv_Report_6.RowTemplate.Height = 20
-        Me.Dgv_Report_6.Size = New System.Drawing.Size(1002, 500)
-        Me.Dgv_Report_6.TabIndex = 2
         '
         'Tbx_Report6_Add
         '
@@ -6784,8 +6682,8 @@ Partial Class SPAS
         '
         Me.Dgv_Report_Year_Closing.AllowUserToAddRows = False
         Me.Dgv_Report_Year_Closing.AllowUserToDeleteRows = False
-        DataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Dgv_Report_Year_Closing.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle20
+        DataGridViewCellStyle70.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Report_Year_Closing.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle70
         Me.Dgv_Report_Year_Closing.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -6796,8 +6694,8 @@ Partial Class SPAS
         Me.Dgv_Report_Year_Closing.Name = "Dgv_Report_Year_Closing"
         Me.Dgv_Report_Year_Closing.RowHeadersVisible = False
         Me.Dgv_Report_Year_Closing.RowHeadersWidth = 50
-        DataGridViewCellStyle21.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dgv_Report_Year_Closing.RowsDefaultCellStyle = DataGridViewCellStyle21
+        DataGridViewCellStyle71.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Report_Year_Closing.RowsDefaultCellStyle = DataGridViewCellStyle71
         Me.Dgv_Report_Year_Closing.RowTemplate.Height = 20
         Me.Dgv_Report_Year_Closing.Size = New System.Drawing.Size(999, 471)
         Me.Dgv_Report_Year_Closing.TabIndex = 77
@@ -6823,7 +6721,7 @@ Partial Class SPAS
         Me.TC_Management.Location = New System.Drawing.Point(8, 5)
         Me.TC_Management.Name = "TC_Management"
         Me.TC_Management.SelectedIndex = 0
-        Me.TC_Management.Size = New System.Drawing.Size(991, 559)
+        Me.TC_Management.Size = New System.Drawing.Size(1011, 559)
         Me.TC_Management.TabIndex = 5
         '
         'Settings
@@ -6832,25 +6730,25 @@ Partial Class SPAS
         Me.Settings.Location = New System.Drawing.Point(4, 28)
         Me.Settings.Name = "Settings"
         Me.Settings.Padding = New System.Windows.Forms.Padding(3)
-        Me.Settings.Size = New System.Drawing.Size(983, 527)
+        Me.Settings.Size = New System.Drawing.Size(1003, 527)
         Me.Settings.TabIndex = 0
         Me.Settings.Text = "Settings"
         Me.Settings.UseVisualStyleBackColor = True
         '
         'Dgv_Settings
         '
-        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Dgv_Settings.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle22
+        DataGridViewCellStyle72.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Settings.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle72
         Me.Dgv_Settings.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Dgv_Settings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.Dgv_Settings.Location = New System.Drawing.Point(6, 3)
         Me.Dgv_Settings.Name = "Dgv_Settings"
         Me.Dgv_Settings.RowHeadersVisible = False
         Me.Dgv_Settings.RowHeadersWidth = 82
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dgv_Settings.RowsDefaultCellStyle = DataGridViewCellStyle23
+        DataGridViewCellStyle73.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Settings.RowsDefaultCellStyle = DataGridViewCellStyle73
         Me.Dgv_Settings.RowTemplate.Height = 20
-        Me.Dgv_Settings.Size = New System.Drawing.Size(945, 515)
+        Me.Dgv_Settings.Size = New System.Drawing.Size(976, 515)
         Me.Dgv_Settings.TabIndex = 5
         '
         'AVG
@@ -6858,7 +6756,7 @@ Partial Class SPAS
         Me.AVG.Location = New System.Drawing.Point(4, 28)
         Me.AVG.Name = "AVG"
         Me.AVG.Padding = New System.Windows.Forms.Padding(3)
-        Me.AVG.Size = New System.Drawing.Size(983, 527)
+        Me.AVG.Size = New System.Drawing.Size(1003, 527)
         Me.AVG.TabIndex = 1
         Me.AVG.Text = "AVG"
         Me.AVG.UseVisualStyleBackColor = True
@@ -6882,7 +6780,7 @@ Partial Class SPAS
         Me.QueryBuilder.Location = New System.Drawing.Point(4, 28)
         Me.QueryBuilder.Name = "QueryBuilder"
         Me.QueryBuilder.Padding = New System.Windows.Forms.Padding(3)
-        Me.QueryBuilder.Size = New System.Drawing.Size(983, 527)
+        Me.QueryBuilder.Size = New System.Drawing.Size(1003, 527)
         Me.QueryBuilder.TabIndex = 2
         Me.QueryBuilder.Text = "QueryBuilder"
         Me.QueryBuilder.UseVisualStyleBackColor = True
@@ -7022,8 +6920,8 @@ Partial Class SPAS
         '
         'Dgv_Query_Test
         '
-        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Dgv_Query_Test.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle74.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Query_Test.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle74
         Me.Dgv_Query_Test.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -7032,15 +6930,16 @@ Partial Class SPAS
         Me.Dgv_Query_Test.Name = "Dgv_Query_Test"
         Me.Dgv_Query_Test.RowHeadersVisible = False
         Me.Dgv_Query_Test.RowHeadersWidth = 82
-        DataGridViewCellStyle25.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dgv_Query_Test.RowsDefaultCellStyle = DataGridViewCellStyle25
+        DataGridViewCellStyle75.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Query_Test.RowsDefaultCellStyle = DataGridViewCellStyle75
         Me.Dgv_Query_Test.RowTemplate.Height = 20
-        Me.Dgv_Query_Test.Size = New System.Drawing.Size(961, 289)
+        Me.Dgv_Query_Test.Size = New System.Drawing.Size(981, 289)
         Me.Dgv_Query_Test.TabIndex = 18
         '
         'Test
         '
         Me.Test.BackColor = System.Drawing.SystemColors.Control
+        Me.Test.Controls.Add(Me.TreeView1)
         Me.Test.Controls.Add(Me.Button5)
         Me.Test.Controls.Add(Me.Button2)
         Me.Test.Controls.Add(Me.Pan_Test)
@@ -7053,6 +6952,13 @@ Partial Class SPAS
         Me.Test.Size = New System.Drawing.Size(1022, 570)
         Me.Test.TabIndex = 7
         Me.Test.Text = "Test"
+        '
+        'TreeView1
+        '
+        Me.TreeView1.Location = New System.Drawing.Point(555, 52)
+        Me.TreeView1.Name = "TreeView1"
+        Me.TreeView1.Size = New System.Drawing.Size(313, 358)
+        Me.TreeView1.TabIndex = 38
         '
         'Button5
         '
@@ -7074,7 +6980,6 @@ Partial Class SPAS
         '
         'Pan_Test
         '
-        Me.Pan_Test.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Pan_Test.Controls.Add(Me.Button3)
         Me.Pan_Test.Controls.Add(Me.Button4)
         Me.Pan_Test.Controls.Add(Me.Chbx_test)
@@ -7119,14 +7024,14 @@ Partial Class SPAS
         'Dgv_Mgnt_Tables
         '
         Me.Dgv_Mgnt_Tables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle26.ForeColor = System.Drawing.Color.Maroon
-        DataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Dgv_Mgnt_Tables.DefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle76.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle76.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle76.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle76.ForeColor = System.Drawing.Color.Maroon
+        DataGridViewCellStyle76.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle76.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle76.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Dgv_Mgnt_Tables.DefaultCellStyle = DataGridViewCellStyle76
         Me.Dgv_Mgnt_Tables.Location = New System.Drawing.Point(27, 63)
         Me.Dgv_Mgnt_Tables.Name = "Dgv_Mgnt_Tables"
         Me.Dgv_Mgnt_Tables.ReadOnly = True
@@ -7263,7 +7168,7 @@ Partial Class SPAS
         Me.Searchbox.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.Searchbox.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.Searchbox.Name = "Searchbox"
-        Me.Searchbox.Size = New System.Drawing.Size(152, 24)
+        Me.Searchbox.Size = New System.Drawing.Size(180, 24)
         Me.Searchbox.ToolTipText = "Zoeken in tabel"
         '
         'ZoekenToolStripMenuItem
@@ -7271,10 +7176,10 @@ Partial Class SPAS
         Me.ZoekenToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ZoekenToolStripMenuItem.Enabled = False
         Me.ZoekenToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ZoekenToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.ZoekenToolStripMenuItem.ForeColor = System.Drawing.Color.Black
         Me.ZoekenToolStripMenuItem.Name = "ZoekenToolStripMenuItem"
-        Me.ZoekenToolStripMenuItem.Size = New System.Drawing.Size(118, 24)
-        Me.ZoekenToolStripMenuItem.Text = "Zoeken/filteren op"
+        Me.ZoekenToolStripMenuItem.Size = New System.Drawing.Size(280, 24)
+        Me.ZoekenToolStripMenuItem.Text = "Zoeken/filteren (meerdere zoektermen mogelijk)"
         '
         'OpenFileDialog1
         '
@@ -7292,6 +7197,72 @@ Partial Class SPAS
         '
         Me.HelpProvider1.HelpNamespace = "C:\Users\Werner Horlings\OneDrive\Documents\HelpNDoc\Output\chm\SPAS Help.chm"
         '
+        'Dgv_Report_6
+        '
+        DataGridViewCellStyle77.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Report_6.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle77
+        Me.Dgv_Report_6.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Dgv_Report_6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.Dgv_Report_6.Location = New System.Drawing.Point(6, 6)
+        Me.Dgv_Report_6.Name = "Dgv_Report_6"
+        Me.Dgv_Report_6.RowHeadersVisible = False
+        Me.Dgv_Report_6.RowHeadersWidth = 82
+        DataGridViewCellStyle78.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Report_6.RowsDefaultCellStyle = DataGridViewCellStyle78
+        Me.Dgv_Report_6.RowTemplate.Height = 20
+        Me.Dgv_Report_6.Size = New System.Drawing.Size(770, 161)
+        Me.Dgv_Report_6.TabIndex = 90
+        '
+        'Panel11
+        '
+        Me.Panel11.Controls.Add(Me.BankTree)
+        Me.Panel11.Controls.Add(Me.Label119)
+        Me.Panel11.Controls.Add(Me.Btn_Rap_Expand_Collapse)
+        Me.Panel11.Controls.Add(Me.LbL_Formatting)
+        Me.Panel11.Controls.Add(Me.Cmbx_Reporting_Year)
+        Me.Panel11.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel11.Location = New System.Drawing.Point(3, 3)
+        Me.Panel11.Name = "Panel11"
+        Me.Panel11.Size = New System.Drawing.Size(220, 521)
+        Me.Panel11.TabIndex = 91
+        '
+        'Splitter1
+        '
+        Me.Splitter1.Location = New System.Drawing.Point(223, 3)
+        Me.Splitter1.Name = "Splitter1"
+        Me.Splitter1.Size = New System.Drawing.Size(3, 521)
+        Me.Splitter1.TabIndex = 92
+        Me.Splitter1.TabStop = False
+        '
+        'Panel12
+        '
+        Me.Panel12.Controls.Add(Me.Dgv_Rapportage_Overzicht)
+        Me.Panel12.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel12.Location = New System.Drawing.Point(226, 3)
+        Me.Panel12.Name = "Panel12"
+        Me.Panel12.Size = New System.Drawing.Size(781, 348)
+        Me.Panel12.TabIndex = 0
+        '
+        'Splitter2
+        '
+        Me.Splitter2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Splitter2.Location = New System.Drawing.Point(226, 351)
+        Me.Splitter2.Name = "Splitter2"
+        Me.Splitter2.Size = New System.Drawing.Size(781, 3)
+        Me.Splitter2.TabIndex = 93
+        Me.Splitter2.TabStop = False
+        '
+        'Panel13
+        '
+        Me.Panel13.Controls.Add(Me.Dgv_Report_6)
+        Me.Panel13.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel13.Location = New System.Drawing.Point(226, 354)
+        Me.Panel13.Name = "Panel13"
+        Me.Panel13.Size = New System.Drawing.Size(781, 170)
+        Me.Panel13.TabIndex = 94
+        '
         'SPAS
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -7306,7 +7277,7 @@ Partial Class SPAS
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "SPAS"
         Me.HelpProvider1.SetShowHelp(Me, True)
-        Me.Text = "SPAS (versie 28-12-24)"
+        Me.Text = "SPAS (versie  5-1-25b)"
         Me.TC_Main.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
@@ -7394,7 +7365,6 @@ Partial Class SPAS
         CType(Me.Dgv_Rapportage_Overzicht, System.ComponentModel.ISupportInitialize).EndInit
         Me.TC_Boekingen.ResumeLayout(False)
         Me.TC_Boekingen.PerformLayout
-        CType(Me.Dgv_Report_6, System.ComponentModel.ISupportInitialize).EndInit
         Me.TC_Jaarafsluiting.ResumeLayout(False)
         Me.TC_Jaarafsluiting.PerformLayout
         CType(Me.Dgv_Report_Year_Closing, System.ComponentModel.ISupportInitialize).EndInit
@@ -7412,6 +7382,11 @@ Partial Class SPAS
         CType(Me.Dgv_Mgnt_Tables, System.ComponentModel.ISupportInitialize).EndInit
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout
+        CType(Me.Dgv_Report_6, System.ComponentModel.ISupportInitialize).EndInit
+        Me.Panel11.ResumeLayout(False)
+        Me.Panel11.PerformLayout
+        Me.Panel12.ResumeLayout(False)
+        Me.Panel13.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout
 
@@ -7750,8 +7725,6 @@ Partial Class SPAS
     Friend WithEvents Lbl_Journal_Source_id As Label
     Friend WithEvents Lbl_Journal_Source_Name As Label
     Friend WithEvents Label121 As Label
-    Friend WithEvents Cbx_Journal_DeSelect_All As CheckBox
-    Friend WithEvents Cbx_Journal_Select_All As CheckBox
     Friend WithEvents Chbx_Journal_Inactive As CheckBox
     Friend WithEvents Lbl_Journal_Source_Restamt As Label
     Friend WithEvents Btn_Journal_Recalculate As Button
@@ -7869,7 +7842,6 @@ Partial Class SPAS
     Friend WithEvents Rbn_Journal_Contract As RadioButton
     Friend WithEvents Rbn_Journal_Intern As RadioButton
     Friend WithEvents Label54 As Label
-    Friend WithEvents Label124 As Label
     Friend WithEvents Tbx_Journal_Name As TextBox
     Friend WithEvents Label126 As Label
     Friend WithEvents Accgroup As TabPage
@@ -7907,20 +7879,13 @@ Partial Class SPAS
     Friend WithEvents Lbl_Overzicht_Giften As Label
     Friend WithEvents TC_Rapportage As TabControl
     Friend WithEvents Journaal As TabPage
-    Friend WithEvents Label151 As Label
-    Friend WithEvents Cmx_Report_Year As ComboBox
     Friend WithEvents Dgv_Rapportage_Overzicht As DataGridView
     Friend WithEvents TC_Boekingen As TabPage
-    Friend WithEvents Dgv_Report_6 As DataGridView
     Friend WithEvents Tbx_Report6_Add As TextBox
     Friend WithEvents TC_Jaarafsluiting As TabPage
     Friend WithEvents Lbl_Report_total As Label
     Friend WithEvents Btn_Report_YearEnd_Post As Button
     Friend WithEvents Dgv_Report_Year_Closing As DataGridView
-    Friend WithEvents Cmx_Report5 As ComboBox
-    Friend WithEvents Rbtn_Report_Other As RadioButton
-    Friend WithEvents Rbtn_Report_Bank As RadioButton
-    Friend WithEvents Rbtn_Report_Overview As RadioButton
     Friend WithEvents Btn_Report_YearEnd_Check As Button
     Friend WithEvents HelpProvider1 As HelpProvider
     Friend WithEvents Pan_Test As Panel
@@ -7947,8 +7912,6 @@ Partial Class SPAS
     Friend WithEvents Cmbx_Query_Select As ComboBox
     Friend WithEvents Dgv_Query_Test As DataGridView
     Friend WithEvents Button1 As Button
-    Friend WithEvents Label119 As Label
-    Friend WithEvents Tbx_00_Accgroup__labels As TextBox
     Friend WithEvents Lbl_Bank_Extra_Info As Label
     Friend WithEvents Tbx_Bank_Extra_Info As TextBox
     Friend WithEvents Chbx_Bank_ExtraInfo_achter As RadioButton
@@ -7994,4 +7957,15 @@ Partial Class SPAS
     Friend WithEvents Button5 As Button
     Friend WithEvents BankTree As TreeView
     Friend WithEvents Btn_Rap_Expand_Collapse As Button
+    Friend WithEvents TreeView1 As TreeView
+    Friend WithEvents Label119 As Label
+    Friend WithEvents Cmbx_Reporting_Year As ComboBox
+    Friend WithEvents Lbl_Rapportage As Label
+    Friend WithEvents LbL_Formatting As Label
+    Friend WithEvents Dgv_Report_6 As DataGridView
+    Friend WithEvents Splitter1 As Splitter
+    Friend WithEvents Panel11 As Panel
+    Friend WithEvents Panel13 As Panel
+    Friend WithEvents Splitter2 As Splitter
+    Friend WithEvents Panel12 As Panel
 End Class

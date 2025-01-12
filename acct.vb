@@ -8,11 +8,6 @@ Imports Microsoft.EntityFrameworkCore.Update.Internal
 Module acct
 
 
-    '"Known error: 
-    'bij het aanvinken van selecteer alle worden alle accounts getoond, niet alleen de subselectie. 
-
-
-
     Sub Fill_Cmx_Journal_List()
 
         Dim k As String = "", lf As String = ""
@@ -22,7 +17,7 @@ Module acct
         Dim verwerkt As Boolean = SPAS.Cbx_Journal_Status_Verwerkt.Checked
         Dim open As Boolean = SPAS.Cbx_Journal_Status_Open.Checked
         Dim sqlstr As String
-        Dim ttype As String = ""
+
         Dim nulsaldo As String = ""
 
         Dim st As String = " AND (j.status "
@@ -37,17 +32,12 @@ Module acct
 
         Select Case t
             Case "Journaalnaam"
-                'MsgBox("SELECT DISTINCT name, name, date FROM journal j
-                'WHERE name ILIKE '%" & f & "%'" & st & " 
-                'ORDER BY date desc, name")
+
                 Load_Listview(SPAS.Lv_Journal_List, "SELECT DISTINCT name, name, date FROM journal j
                                                 WHERE name ILIKE '%" & f & "%'" & st & " 
                                                 ORDER BY date desc, name")
 
-            Case "Alle accounts", "Kind", "Oudere", "Overig"
-
-                ttype = "AND ta.ttype ILIKE '%" & t & "%' "
-                If t = "Alle accounts" Then ttype = ""
+            Case "Accounts"
 
                 sqlstr = "
                                           SELECT ac.id, ac.name As Accountnaam, 
@@ -57,57 +47,15 @@ Module acct
                                                 From account ac
 												LEFT JOIN journal j ON j.fk_account = ac.id
                                                 LEFT JOIN target ta ON ta.id = ac.f_key 
-                                                WHERE ac.name ILIKE '%" & f & "%' " & ttype & st & "
+                                                WHERE ac.name ILIKE '%" & f & "%' " & st & "
                                                 Group by ac.id " & nulsaldo & "
                                                 ORDER BY ac.name
                                                "
-                Clipboard.SetText(sqlstr)
 
                 Load_Listview(SPAS.Lv_Journal_List, sqlstr)
 
-            Case "CP"
-                sqlstr = "
-                                                SELECT ac.id, ac.name,  
-                                                CASE WHEN Sum(j.amt1) is not distinct from null Then ac.startsaldo
-                                                WHEN Sum(j.amt1) is  distinct from null Then Sum(j.amt1) End, 
-                                                ac.startsaldo, ac.accgroup From account ac
-                                                Left JOIN journal j ON j.fk_account = ac.id
-                                                LEFT JOIN cp ON cp.id = ac.f_key 
-                                                Left Join target ta on fk_cp_id = cp.id
-                                                Left Join contract co on fk_target_id = ta.id
-                                                WHERE ac.f_key = cp.id 
-       											AND ac.name ILIKE '%" & f & "%'" & st & "
-                                                AND 
-                                                (cp.active = 'True' 
-                                                --OR cp.active = '" & act & "'
-                                                --OR co.enddate > CURRENT_DATE
-                                                ) 
-                                                Group by ac.id
-                                                ORDER BY ac.name"
-
-
-                Load_Listview(SPAS.Lv_Journal_List, sqlstr)
-
-
-                ', Sum(j.amt1), ac.startsaldo
-
-            Case "Categoriën"
-                Load_Listview(SPAS.Lv_Journal_List, "
-                                                SELECT ac.id, ac.name, 
-                                                CASE WHEN Sum(j.amt1) is  distinct from null Then Sum(j.amt1) else 0::money End 
-                                                ,(select sum(amt1) from journal j2 where j2.source='Closing' and j2.fk_account = ac.id)
-                                                , ac.accgroup
-                                                FROM account ac
-												LEFT JOIN journal j ON j.fk_account = ac.id
-                                                WHERE ac.source = 'cat' 
- 												AND ac.name ILIKE '%" & f & "%'
-                                                AND (ac.active = 'True' OR ac.active = '" & act & "') " & st & "
-                                                Group by ac.id
-                                                ORDER BY ac.name
-                                                ")
 
             Case "Relaties"
-                'MsgBox("nog niet geïmplementeerd")
                 Load_Listview(SPAS.Lv_Journal_List, "
                                                 Select r.id, r.name||', '||r.name_add, 
                                                 --CASE WHEN Sum(j.amt1) is not distinct from null Then sum(j.amt1) ELSE '$0.00' END,
@@ -119,23 +67,8 @@ Module acct
                                                 order by r.name
 ")
 
-            Case "Accountgroep"
-                Load_Listview(SPAS.Lv_Journal_List, "
-                                                SELECT ac.id, ac.name, 
-                                                CASE WHEN Sum(j.amt1) is  distinct from null Then Sum(j.amt1) else 0::money End 
-                                                ,(select sum(amt1) from journal j2 where j2.source='Closing' and j2.fk_account = ac.id)
-                                                , ac.accgroup
-                                                FROM account ac
-												LEFT JOIN journal j ON j.fk_account = ac.id
-  												WHERE ac.accgroup ILIKE '%" & f & "%'
-                                                AND (ac.active = 'True' OR ac.active = '" & act & "') " & st & "
-                                                Group by ac.id
-                                                ORDER BY ac.name
-                                                ")
         End Select
 
-        SPAS.Cbx_Journal_DeSelect_All.Checked = False
-        SPAS.Cbx_Journal_Select_All.Checked = False
 
         With SPAS.Lv_Journal_List
             .Columns.Item(0).Width = 0
@@ -160,11 +93,7 @@ Module acct
     End Sub
 
     '===============================================================================================
-    Sub Select_Deselect_Accounts(ByVal sel As Boolean)
-        For i = 0 To SPAS.Lv_Journal_List.Items.Count - 1
-            SPAS.Lv_Journal_List.Items(i).Selected = sel
-        Next
-    End Sub
+
 
     Sub Select_Source_Account()
         Dim ErrMsg As String = ""
@@ -848,5 +777,20 @@ Module acct
             End If
         Next
     End Sub
+
+    Sub Select_Account_Details(ByVal dgv As DataGridView)
+        Exit Sub
+        'Clipboard.SetText(Dgv_Excasso2.CurrentCell.Value)
+        With SPAS
+            .TC_Main.SelectedIndex = 4
+            .Cmx_Journal_List.SelectedIndex = 0
+            .Searchbox.Text = dgv.CurrentCell.Value
+            If SPAS.Lv_Journal_List.Items.Count > 0 Then
+                .Lv_Journal_List.Items(0).Focused = True
+                .Lv_Journal_List.Items(0).Selected = True
+            End If
+        End With
+    End Sub
+
 
 End Module

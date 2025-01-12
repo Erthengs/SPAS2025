@@ -436,6 +436,7 @@ Module Basisadmin
         If errmsg1 <> "" Then errmsg = "Invoerfouten: " & vbCrLf & errmsg1
         Return errmsg
     End Function
+
     Sub Update_table()
         'Dim id As Integer = SPAS.Lbx_Basis.Items(SPAS.Lbx_Basis.SelectedIndex)(SPAS.Lbx_Basis.ValueMember)
         Dim tb As Integer = SPAS.TC_Object.SelectedIndex

@@ -3,6 +3,7 @@ Imports System.Security.Cryptography
 Imports System.Text.RegularExpressions
 Imports Npgsql
 Imports NpgsqlTypes
+Imports PdfSharp.Pdf.IO
 
 Module DataManagement
     Public connection As NpgsqlConnection
@@ -144,9 +145,24 @@ connstart:
             Clipboard.Clear()
             Clipboard.SetText(sql)
         End Try
-
     End Sub
 
+    Sub Collect_data_new(ByVal sql As String, ByRef dtst As DataSet)
+
+        Try
+            Connect(sql)
+            Dim da = New NpgsqlDataAdapter(sql, connection)
+            connection.Close()
+            Dim ds = New DataSet
+            da.Fill(ds, "Table")
+            dtst = ds
+
+        Catch
+            MsgBox("De data kon niet opgehaald worden.")
+            Clipboard.Clear()
+            Clipboard.SetText(sql)
+        End Try
+    End Sub
 
     Sub Collect_bankdata(ByVal sql As String)
         Try
@@ -222,7 +238,10 @@ connstart:
             ds.Tables.Add()
 
         Catch ex As Exception
-            MsgBox("er is een fout opgetreden in de datagridview, module: " & errmsg & vbCrLf & vbCrLf & ex.ToString)
+            Clipboard.Clear()
+            Clipboard.SetText(sql)
+            MsgBox("er is een fout opgetreden in de datagridview, sql (gekopieerd naar klembord): " & vbCrLf & sql & vbCrLf & vbCrLf & ex.ToString)
+
         End Try
         connection.Close()
 
@@ -445,11 +464,11 @@ connstart:
         SPAS.Dgv_Mgnt_Tables.Columns(1).HeaderText = "Total Records"
     End Sub
 
-    Sub Populate_DataTree()
+    Sub Populate_DataTree(ByVal sql As String, ByVal tview As TreeView)
         Collect_data("select name from query where sql ilike '%[year]%'")
         Dim conn = New NpgsqlConnection(connect_string)
         conn.Open()
-        Dim cmd As New NpgsqlCommand($"SELECT module, name from query where category = 'Overzicht' order by module, name;", conn)
+        Dim cmd As New NpgsqlCommand(sql, conn)
         Dim cat As String
         Dim name1 As String
         Dim cat2 As String = ""
@@ -466,26 +485,27 @@ connstart:
             If cat2 = cat Then
                 Dim childNode As New TreeNode(name1)
                 childNode.Tag = "Child"
-                SPAS.BankTree.SelectedNode.Nodes.Add(childNode) '
-
+                childNode.Name = name1
+                'SPAS.BankTree.SelectedNode.Nodes.Add(childNode) '
+                tview.SelectedNode.Nodes.Add(childNode)
                 For i = 0 To dst.Tables(0).Rows.Count - 1
                     If name1 = dst.Tables(0).Rows(i)(0) Then
-                        AddLevel2Nodes(childNode)
+                        'AddLevel2Nodes(childNode)
                     End If
                 Next
 
             Else
-                node1 = SPAS.BankTree.Nodes.Add(cat)
+                'node1 = SPAS.BankTree.Nodes.Add(cat)
+                node1 = tview.Nodes.Add(cat)
                 cat2 = cat
-                SPAS.BankTree.SelectedNode = node1
+                tview.SelectedNode = node1
                 Dim childNode As New TreeNode(name1)
                 childNode.Tag = "Child"
-                SPAS.BankTree.SelectedNode.Nodes.Add(childNode)
+                tview.SelectedNode.Nodes.Add(childNode)
 
                 For i = 0 To dst.Tables(0).Rows.Count - 1
-                    'MsgBox($"Overzicht: '{dst.Tables(0).Rows(i)(0)}'")
                     If name1 = dst.Tables(0).Rows(i)(0) Then
-                        AddLevel2Nodes(childNode)
+                        'AddLevel2Nodes(childNode)
                     End If
                 Next
             End If
@@ -495,12 +515,76 @@ connstart:
     End Sub
 
     Private Sub AddLevel2Nodes(parentNode As TreeNode)
-        Dim level2Values As New List(Of String) From {"2023", "2022", "2021"}
 
-        For Each value As String In level2Values
-            Dim level2Node As New TreeNode(value)
+        Dim yearlist As DataSet = Nothing
+        Collect_data_new("Select distinct extract(year from date) from journal_archive", yearlist)
+
+        For i = 0 To yearlist.Tables(0).Rows.Count - 1
+
+            Dim level2Node As New TreeNode(yearlist.Tables(0).Rows(i)(0))
             level2Node.Tag = "Level2"
             parentNode.Nodes.Add(level2Node)
         Next
+
     End Sub
+
+    Sub SelectNodeByName(treeView As TreeView, nodeName As String)
+        Dim node As TreeNode = FindNodeByName(treeView.Nodes, nodeName)
+        If node IsNot Nothing Then
+            treeView.SelectedNode = node
+            treeView.SelectedNode.EnsureVisible() ' Ensure the selected node is visible
+            Dim args As New TreeNodeMouseClickEventArgs(node, MouseButtons.Left, 1, 0, 0)
+            SPAS.BankTree_NodeMouseClick(treeView, args)
+        End If
+    End Sub
+
+    Private Function FindNodeByName(nodes As TreeNodeCollection, name As String) As TreeNode
+        For Each node As TreeNode In nodes
+            If node.Name = name Then
+                Return node
+            End If
+            Dim childNode As TreeNode = FindNodeByName(node.Nodes, name)
+            If childNode IsNot Nothing Then
+                Return childNode
+            End If
+        Next
+        Return Nothing
+    End Function
+
+    Sub Populate_Single_Combobox(ByVal cmbx As ComboBox, sql As String)
+
+        Try
+
+            Connect(sql)
+            Dim cmd As New NpgsqlCommand(sql, connection)
+            Dim reader As NpgsqlDataReader = cmd.ExecuteReader()
+
+            Dim listitems As New List(Of String)
+
+            ' Clear existing items in the ComboBox
+
+
+            ' Add each year to the ComboBox
+            While reader.Read()
+                listitems.Add(reader("year").ToString())
+            End While
+
+            ' Close the reader and connection
+            reader.Close()
+            connection.Close()
+
+            listitems.Sort(Function(a, b) b.CompareTo(a))
+            ' Optionally set the selected index to the first item
+            cmbx.Items.Clear()
+            cmbx.Items.AddRange(listitems.ToArray())
+            If cmbx.Items.Count > 0 Then
+                cmbx.SelectedIndex = 0
+            End If
+
+        Catch ex As Exception
+            MsgBox("Error populating reporting year: " & ex.Message)
+        End Try
+    End Sub
+
+
 End Module
