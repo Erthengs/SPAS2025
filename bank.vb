@@ -116,9 +116,9 @@ Module bank
             'MsgBox(CInt(Bank_DT.Rows(1)(3)).ToString & " - " & Last_seq_order.ToString)
             '1) checks on import file
             If Not IsDBNull(Last_seq_order) Then
-                If CInt(Bank_DT.Rows(1)(3)) <> Last_seq_order + 1 Then
-                    MsgBox("Er zijn nog niet ingeladen tussenliggende banktransacties. Doe dit s.v.p eerst. ")
-                    'Exit Sub
+                If (CInt(Bank_DT.Rows(1)(3)) <> Last_seq_order + 1) And (Last_seq_order <> 0) Then
+                    MsgBox($"Afschriftnummer {CInt(Bank_DT.Rows(1)(3))} sluit niet aan op laatst ingeladen bankafschrift ({Last_seq_order}).")
+                    Exit Sub
                 End If
             End If
 

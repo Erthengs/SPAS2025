@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel.DataAnnotations
 Imports System.Data.Entity
 Imports System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder
+Imports System.Data.Entity.Core.Common.EntitySql
 Imports System.Data.Entity.Migrations
 Imports System.IO
 Imports System.Management.Instrumentation
@@ -13,6 +14,7 @@ Imports System.Xml
 Imports Microsoft.EntityFrameworkCore.Metadata.Internal
 Imports Microsoft.EntityFrameworkCore.Query.Internal
 Imports Microsoft.EntityFrameworkCore.Query.SqlExpressions
+Imports Microsoft.VisualBasic.Devices
 Imports Npgsql
 Imports NpgsqlTypes
 
@@ -21,7 +23,39 @@ Public Class SPAS
     Private PreviousTab As Integer
     Private PreviousTabMain As Integer
     Private oldend_date As Date
+    Private isProgrammaticChange As Boolean = True
     'bekende fouten
+    ''' <summary>
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' ===============================================================================================
+    ''' ==============================   BASISADMINISTRATIE ===========================================
+    ''' ===============================================================================================
+    ''' 
+    ''' ===============================================================================================
+    ''' =========================================   BANK  =============================================
+    ''' ===============================================================================================
+    ''' 
+    ''' ===============================================================================================
+    ''' =========================================   INCASSO ===========================================
+    ''' ===============================================================================================
+    ''' 
+    ''' ===============================================================================================
+    ''' =======================================   UITKERING ===========================================
+    ''' ===============================================================================================
+    ''' 
+    ''' ===============================================================================================
+    ''' ========================================= BOEKINGEN ===========================================
+    ''' ===============================================================================================
+    ''' 
+    ''' ===============================================================================================
+    ''' =======================================  RAPPORTAGE ===========================================
+    ''' ===============================================================================================
+    ''' 
+    ''' ===============================================================================================
+    ''' =========================================  BEHEER  ===========================================
+    ''' ===============================================================================================
 
     Private Sub SPAS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -47,7 +81,8 @@ Public Class SPAS
 
         Dim sql = $"SELECT module, name, sql from query where category = 'Overzicht' order by module, name;"
         Populate_DataTree(sql, BankTree)
-
+        sql = $"select g.name, a.name  from account a left join accgroup g on g.id = a.fk_accgroup_id where a.active = true and g.active = true order by g.name, a.name"
+        Populate_DataTree_New(sql, AccountTree)
 
 
     End Sub
@@ -68,14 +103,16 @@ Public Class SPAS
         Load_Combobox(Cmx_00_Contract__fk_account_id, "id", "name", "SELECT id, CONCAT(id, ' ',name) As name FROM account 
                                           WHERE active=TRUE AND source='cat' AND type = 'Inkomsten' ORDER BY name")
         Load_Combobox(Cmx_01_account__fk_accgroup_id, "id", "name", "SELECT id, name FROM accgroup WHERE active=True ORDER BY name")
-        Load_Combobox(Cmx_Incasso_Jobs, "name", "name", "select distinct name, date, status from journal where source='Incasso' and status !='Verwerkt'")
-        Populate_Single_Combobox(Cmbx_Reporting_Year, "
 
-select distinct extract (year from date) As Year from journal_archive 
+        Populate_Single_Combobox(Cmbx_Reporting_Year, "select distinct extract (year from date) As Year from journal_archive 
                                             union select distinct min(extract (year from date)) from journal")
 
-        'Clipboard.Clear()
-        'Clipboard.SetText("SELECT id, CONCAT(name, ', ', name_add) as name FROM target WHERE active=TRUE ORDER BY name")
+        Populate_Combobox(Cmbx_Overboeking_Bron, "select a.id, a.name, sum(j.amt1) from journal j left join account a on a.id=j.fk_account 
+        WHERE a.active=True group by a.id, a.name having sum(amt1)>0::money ORDER BY a.name")
+        Populate_Combobox(Cmbx_Overboeking_Target, "select a.id, a.name, sum(j.amt1), a.id from journal j left join account a on a.id=j.fk_account 
+        WHERE a.active=True group by a.id, a.name ORDER BY a.name")
+        Fill_Cmx_Journal_List()
+
         If Me.Dgv_Mgnt_Tables.Rows(8).Cells(1).Value > 0 Then
 
             Load_Combobox(Cmx_01_contract__fk_target_id, "id", "name", "SELECT id, name||', '||name_add as name FROM target WHERE active=TRUE ORDER BY name")
@@ -84,13 +121,17 @@ select distinct extract (year from date) As Year from journal_archive
         Fill_Cmx_Excasso_Select_Combined()
         Me.Cmbx_journaalposten_account.SelectedIndex = -1
         Me.Cmbx_journaalposten_relatie.SelectedIndex = -1
-
+        Cmbx_Overboeking_Bron.SelectedIndex = -1
+        Cmbx_Overboeking_Target.SelectedIndex = -1
 
     End Sub
+    '===============================================================================================
+    '==============================   BASISADMINISTRATIE ===========================================
+    '===============================================================================================
+
+    '************************************      ALGEMEEN    *****************************************
     Private Sub TC_Object_Click(sender As Object, e As EventArgs) Handles TC_Object.Click
-        'If Edit_Mode Or Add_Mode Then
-        'If Btn_Basis_Save.Enabled Then
-        'MsgBox("TC_Object_Click")
+
         If MenuSave.Enabled Then
             MsgBox("U bent nog bezig met het " & IIf(Edit_Mode, "bewerken", "aanmaken") & " van een " & TC_Object.TabPages(PreviousTab).Text.ToLower & ".")
             TC_Object.SelectedIndex = PreviousTab
@@ -107,6 +148,9 @@ select distinct extract (year from date) As Year from journal_archive
             TC_Object.SelectedIndex = PreviousTab
         End If
     End Sub
+
+
+    '************************************      TARGET    *****************************************
     Private Sub Rbtn_Target_Child_CheckedChanged(sender As Object, e As EventArgs) Handles Rbtn_Target_Child.CheckedChanged
         If MenuSave.Enabled Then Tbx_01_Target__ttype.Text = Rbtn_Target_Child.Text
     End Sub
@@ -119,15 +163,13 @@ select distinct extract (year from date) As Year from journal_archive
         If MenuSave.Enabled Then Tbx_01_Target__ttype.Text = Rbtn_Target_Other.Text
     End Sub
 
-    Private Sub Btn_Basis_Add_Click(sender As Object, e As EventArgs) Handles Btn_Basis_Add.Click
-        Basis_Add()
-    End Sub
+
     Sub Basis_Add()
 
         Dim t As String = TC_Object.SelectedIndex.ToString
 
         Add_Mode = True
-        Manage_Buttons_Target(False, False, False, True, True, "Btn_Basis_Add_Click")
+        Manage_Buttons_Target(False, False, False, True, True, "Menu_Add_Click")
         Empty_Tabpage()
 
 
@@ -177,10 +219,7 @@ select distinct extract (year from date) As Year from journal_archive
         End If
 
     End Sub
-    Public Sub Btn_Basis_Cancel_Click(sender As Object, e As EventArgs) Handles Btn_Basis_Cancel.Click
-        Cancel()
 
-    End Sub
     Sub Cancel()
         Select_Obj2("Cancel")
         Manage_Buttons_Target(True, True, True, False, False, "Cancel")
@@ -200,9 +239,6 @@ select distinct extract (year from date) As Year from journal_archive
 
     End Sub
 
-    Private Sub Btn_Basis_Save_Click(sender As Object, e As EventArgs) Handles Btn_Basis_Save.Click
-        Basis_Save()
-    End Sub
     Sub Basis_Save()
         Dim tbl As String = Me.TC_Object.TabPages(Me.TC_Object.SelectedIndex).Name
         Dim val, val2 As Integer
@@ -211,7 +247,7 @@ select distinct extract (year from date) As Year from journal_archive
             MsgBox(errmsg)
             Exit Sub
         End If
-        If Lbx_Basis.SelectedIndex = 5 Then
+        If Lbx_Basis.SelectedIndex = 6 Then
             If Cbx_00_BankAcc__income.Checked And (Tbx_00_BankAcc__bic.Text = "" Or Tbx_00_BankAcc__id2.Text = "") Then
                 MsgBox("Voor inkomstenaccounts is het invullen van BIC en bankidnummer verplicht")
                 Exit Sub
@@ -256,8 +292,7 @@ select distinct extract (year from date) As Year from journal_archive
                                     donation, overhead, description, autcol, name, term,  
                                     intern, fk_account_id FROM contract WHERE id=" & val & ";"
 
-                        'Clipboard.Clear()
-                        'Clipboard.SetText(sqlstr)
+
                         RunSQL(sqlstr, "NULL", "MenuSave.Click upsert new version")
 
                         val2 = Convert.ToInt32(QuerySQL("Select MAX(id) FROM " & tbl))
@@ -499,7 +534,7 @@ select distinct extract (year from date) As Year from journal_archive
     End Sub
 
 
-    Private Sub Tbx_10_Relation__name_TextChanged(sender As Object, e As EventArgs)
+    Private Sub Tbx_10_Relation__name_TextChanged(sender As Object, e As EventArgs) Handles Tbx_01_relation__name.TextChanged
         If Edit_Mode Then
             Manage_Buttons_Target(False, False, False, True, True, "Tbx_10_Relation__name_TextChanged")
             reload = True
@@ -924,11 +959,6 @@ Tbx_00_CP__city.TextChanged, Tbx_00_CP__country.TextChanged, Tbx_00_CP__email.Te
                 MsgBox(Dgv_Bank.SelectedCells(9).Value)
             End If
 
-
-
-            'Dim ink As Boolean = Dgv_Bank.SelectedCells(4).Value > 0 And
-            'Strings.Left(Dgv_Bank.SelectedCells(3).Value, 8) <> "Contract"
-
             Fill_Journals_by_bank(Dgv_Bank.SelectedCells(0).Value)
 
 
@@ -1098,18 +1128,37 @@ Tbx_00_CP__city.TextChanged, Tbx_00_CP__country.TextChanged, Tbx_00_CP__email.Te
         If TC_Main.SelectedIndex <> 2 Then Exit Sub
         Create_Incassolist()
         If Rbn_Incasso_SEPA.Checked Then Format_dvg_incasso() Else Format_dvg_incasso_bookings()
+        Rbn_Incasso_SEPA.Checked = True
     End Sub
 
-    Private Sub Rbn_Incasso_SEPA_CheckedChanged(sender As Object, e As EventArgs) Handles Rbn_Incasso_SEPA.CheckedChanged
+    Private Sub Rbn_Incasso_SEPA_CheckedChanged(sender As Object, e As EventArgs) Handles Rbn_Incasso_SEPA.CheckedChanged _
+        , Rbn_Incasso_journal.Click, Rbn_Incasso_Verschillen.Click
+
         If TC_Main.SelectedIndex <> 2 Then Exit Sub
         If Rbn_Incasso_SEPA.Checked Then
             Load_Datagridview(Me.Dgv_Incasso, Create_Incasso(Dtp_Incasso_start.Value), "Dtp_Incasso_start.ValueChanged")
             Format_dvg_incasso()
-        Else
+        ElseIf Rbn_Incasso_journal.Checked Then
             Load_Datagridview(Me.Dgv_Incasso, Create_Incasso_Bookings(Dtp_Incasso_start.Value), "Dtp_Incasso_start.ValueChanged")
             Format_dvg_incasso_bookings()
+        Else
+            Dim arr_format() As String = Nothing
+            Dim sql = QuerySQL($"select sql from query where name='Check_incasso'")
+            If IsNothing(sql) Then Exit Sub
+            Dim formatting = QuerySQL($"select sql from query where name='Check_incasso'")
+            If Not IsNothing(formatting) Then arr_format = formatting.Split(",")
+            sql = sql.replace("[date]", $"'{Year(Me.Dtp_Incasso_start.Value)}-{Month(Me.Dtp_Incasso_start.Value)}-01'")
+            Load_Datagridview(Me.Dgv_Incasso, sql, "Dtp_Incasso_verschillen.ValueChanged")
+            'Format_Datagridview(Dgv_Incasso, arr_format, False)
+            Me.Dgv_Incasso.Columns(0).Width = 250
+            Me.Dgv_Incasso.Columns(1).Width = 150
+
+
+
+
         End If
     End Sub
+
 
 
 
@@ -1247,13 +1296,6 @@ fin:
     End Sub
 
 
-    Private Sub Btn_Select_Bulk_Click(sender As Object, e As EventArgs) Handles Btn_Select_Bulk.Click
-        Select_Target_Account()
-    End Sub
-
-
-
-
     Private Sub Tbx_10_Account__b_jan_Leave(sender As Object, e As EventArgs) Handles _
             Tbx_10_Account__b_jan.Leave, Tbx_10_Account__b_feb.Leave, Tbx_10_Account__b_mar.Leave,
             Tbx_10_Account__b_apr.Leave, Tbx_10_Account__b_may.Leave, Tbx_10_Account__b_jun.Leave,
@@ -1263,19 +1305,13 @@ fin:
         Calculate_Manual_Budgets()
     End Sub
 
-    Private Sub Button9_Click_1(sender As Object, e As EventArgs) Handles Btn_Journal_Add_Source.Click
-        Select_Source_Account()
-
-
-    End Sub
-
-
     Private Sub Tbx_Journal_Source_Amt_TextChanged(sender As Object, e As EventArgs) Handles Tbx_Journal_Source_Amt.TextChanged
         Dim s As Decimal = Tbx2Dec(Me.Tbx_Journal_Source_Amt.Text)
         Dim m As Decimal = Tbx2Dec(Me.Lbl_Journal_Source_Saldo.Text)
         If (s <= 0 Or s > m) And (Tbx2Dec(Lbl_Journal_Source_Saldo.Text) <> 0) Then
             MsgBox("Bedrag (" & s & ") moet groter zijn dan nul en kleiner dan het saldo van de bronaccount (" & m & ")")
             Tbx_Journal_Source_Amt.Text = Tbx2Dec(m)
+            Lbl_Journal_Source_Restamt.Text = Tbx_Journal_Source_Amt.Text
         End If
     End Sub
 
@@ -1311,20 +1347,6 @@ fin:
         Save_Internal_Booking()
     End Sub
 
-    Private Sub Lv_Journal_List_DoubleClick(sender As Object, e As EventArgs) Handles Lv_Journal_List.DoubleClick
-
-
-        If TC_Boeking.SelectedIndex = 1 Then 'overboeking
-            If Lbl_Journal_Source_Name.Text = "" Then
-                Select_Source_Account()
-            Else
-                Select_Target_Account()
-            End If
-
-        End If
-
-    End Sub
-
     Sub Btn_Account_Budget_Id_Click(sender As Object, e As EventArgs) Handles Btn_Account_Budget_Id.Click
         Calculate_Budget(Lbl_00_pkid.Text)
         Select_Obj2("Btn_Account_Budget_Id_Click")
@@ -1358,15 +1380,12 @@ fin:
         Me.Dtp_Incasso_end.Value = New DateTime(d.Year, d.Month, 1).AddDays(-1)
         'Me.Dtp_Incasso_start.MinDate = New Date(minDate1.Year, 1, 1)
         Me.Dtp_Incasso_start.MaxDate = New Date(maxDate.Year, maxDate.Month, 1)
-        'MsgBox(Dtp_Incasso_start.MinDate)
-
 
         Dim isd As Date = Me.Dtp_Incasso_start.Value
         Dim MsgId = "Contract incasso " & Month(isd) & "-" & Year(isd)
         Me.Lbl_Incasso_job_name.Text = MsgId
         Dim qtopen, qtverwerkt As Integer
-        'Dim d1 As String = Year(Me.Dtp_Incasso_start.Value, "yyyy-MM-dd")
-        'Dim d2 As Date = Format(Me.Dtp_Incasso_end.Value, "yyyy-MM-dd")
+
         t1 = Year(Me.Dtp_Incasso_start.Value) & "-" & Month(Me.Dtp_Incasso_start.Value) & "-01"
         t2 = Year(Me.Dtp_Incasso_end.Value) & "-" &
             Month(Me.Dtp_Incasso_end.Value) & "-" & Me.Dtp_Incasso_end.Value.Day
@@ -1379,17 +1398,18 @@ fin:
         Else
             Load_Datagridview(Me.Dgv_Incasso, Create_Incasso_Bookings(t1), "Me.Dtp_Incasso_start.ValueChanged")
             Format_dvg_incasso_bookings()
-
         End If
-        Load_Listview(Me.Lv_Incasso_Overview, Create_Incasso_Totals(t1))
-        Me.Lv_Incasso_Overview.Columns(0).Text = "Type"
-        Me.Lv_Incasso_Overview.Columns(1).Text = "Aantal"
-        Me.Lv_Incasso_Overview.Columns(2).Text = "Bedrag"
-        Me.Lv_Incasso_Overview.Columns(1).TextAlign = HorizontalAlignment.Center
-        Me.Lv_Incasso_Overview.Columns(2).TextAlign = HorizontalAlignment.Right
-        Me.Lv_Incasso_Overview.Items(3).BackColor = Color.LightBlue
 
-        Dim Tot_amt = CDec(Me.Lv_Incasso_Overview.Items(3).SubItems(2).Text).ToString("#,##")
+        Load_Datagridview(Dgv_incasso_totals, Create_Incasso_Totals(t1), "Create_Incassolist")
+        Format_Datagridview(Dgv_incasso_totals, {"T100", "T60", "N080"}, True)
+
+
+        Dim Tot_amt = QuerySQL($"SELECT sum((co.donation+co.overhead)/term)
+            FROM contract co  LEFT JOIN Target ta ON co.fk_target_id = ta.id LEFT JOIN Relation r ON co.fk_relation_id = r.id
+            WHERE co.autcol = True AND co.startdate <= '{t1}' AND co.enddate > '{t1}'")
+
+        Dim sql = QuerySQL($"select sql from query where name='Check_incasso'")
+        sql = sql.replace("[date]", $"'{Year(Me.Dtp_Incasso_start.Value)}-{Month(Me.Dtp_Incasso_start.Value)}-01'")
 
 
         'Check_Existing_Incasso()
@@ -1400,11 +1420,6 @@ fin:
 
         If qtopen > 0 Then
             Me.Lbl_Incasso_Status.Text = "Open"
-
-            Me.Btn_Incasso_Delete.Enabled = True
-            Me.Btn_Run_Incasso.Enabled = False
-            Me.Btn_Incasso_Print.Enabled = True
-
             MenuDelete.Enabled = True
             MenuSave.Enabled = False
             Menu_Print.Enabled = True
@@ -1412,20 +1427,15 @@ fin:
 
             Dim Checksum = QuerySQL("Select Sum(amt1) from journal where name ='" & journal_name & "'")
             If Tot_amt <> Checksum Then
-                Dim msg = "Er is een fout opgetreden: het berekende totaal (" & Tot_amt &
-                    ") komt niet overeen met de eerder gecreëerde incassojob (" &
-                    Checksum & "). Als deze incassojob nog niet naar de bank is verstuurd" &
-                    " wordt u geadviseerd deze job te verwijderen en een nieuwe aan te maken " &
-                    "voor deze maand."
+                Dim msg = $"Het totaalbedrag ({Tot_amt}) verschilt van de eerder gecreëerde incassojob ({Checksum}). De details zijn te zien via de radiobutton 'Verschillen' op deze pagina."
                 Me.Lbl_Incasso_Error.Text = msg
                 Me.Lbl_Incasso_Error.Visible = True
+                Me.Rbn_Incasso_Verschillen.BackColor = Color.MistyRose
+            Else
+                Me.Rbn_Incasso_Verschillen.BackColor = Color.Transparent
             End If
         ElseIf qtverwerkt > 0 Then
             Me.Lbl_Incasso_Status.Text = "Verwerkt"
-
-            Me.Btn_Incasso_Delete.Enabled = False
-            Me.Btn_Run_Incasso.Enabled = False
-            Me.Btn_Incasso_Print.Enabled = True
 
             MenuDelete.Enabled = False
             MenuSave.Enabled = False
@@ -1437,10 +1447,6 @@ fin:
             End If
         Else
             Me.Lbl_Incasso_Status.Text = "Nieuw"
-
-            Me.Btn_Incasso_Delete.Enabled = False
-            Me.Btn_Run_Incasso.Enabled = True
-            Me.Btn_Incasso_Print.Enabled = False
 
             MenuDelete.Enabled = False
             MenuSave.Enabled = True
@@ -1591,22 +1597,6 @@ fin:
 
     Private Sub Tbx_Excasso_Exchange_rate_Leave(sender As Object, e As EventArgs) Handles Tbx_Excasso_Exchange_rate.Leave
         My.Settings._exrate = Tbx2Dec(Tbx_Excasso_Exchange_rate.Text)
-    End Sub
-
-    Private Sub Btn_Incasso_Delete_Click(sender As Object, e As EventArgs) Handles Btn_Incasso_Delete.Click
-        RunSQL("Delete From Journal where name ='" &
-               Me.Lbl_Incasso_job_name.Text & "'", "NULL", "Btn_Incasso_Delete_Click")
-        Me.Lbl_Incasso_Status.Text = "Nieuw"
-
-        Me.Btn_Incasso_Delete.Enabled = False
-        Me.Btn_Run_Incasso.Enabled = True
-        Me.Btn_Incasso_Print.Enabled = False
-
-        MenuDelete.Enabled = False
-        MenuSave.Enabled = True
-        Menu_Print.Enabled = False
-
-        Me.Lbl_Incasso_Error.Visible = False
     End Sub
 
     Private Sub Dgv_Bank_ColumnHeaderMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles Dgv_Bank.ColumnHeaderMouseClick
@@ -1954,7 +1944,8 @@ fin:
                 Else
                     If MsgBox("Weet u zeker dat u het doel " & Tbx_01_Target__name.Text & "," & Tbx_01_Target__name_add.Text &
                         " wilt verwijderen?") Then
-                        sqlstr = "Delete from target where id=" & id & ";DELETE from account WHERE id=" & account_id
+                        sqlstr = "Delete from target where id=" & id
+                        'verwijderd totdat er ook in journal_archive een check plaatsvindt'  [;  'DELETE from account WHERE id=" & account_id]
                     End If
 
                 End If
@@ -2078,22 +2069,116 @@ fin:
 
 
         If Dgv_Excasso2.CurrentCell.ColumnIndex <> 1 Then Exit Sub
-        'Clipboard.SetText(Dgv_Excasso2.CurrentCell.Value)
-        TC_Main.SelectedIndex = 4
-        Cmx_Journal_List.SelectedIndex = 0
-        Searchbox.Text = Dgv_Excasso2.CurrentCell.Value
-        If Lv_Journal_List.Items.Count > 0 Then
-            Lv_Journal_List.Items(0).Focused = True
-            Lv_Journal_List.Items(0).Selected = True
+
+        Dim i As Integer = Me.Dgv_Excasso2.CurrentRow.Index
+
+        Dim name As String = Me.Dgv_Excasso2.Rows(i).Cells(1).Value
+        Dim id = Me.Dgv_Excasso2.Rows(i).Cells(0).Value
 
 
-        End If
+        Dim sql As String = $"
+         select j.date, j.name, amt1, j.description from journal j
+         where j.fk_account = '{id}'
+         order by j.date desc
+"
+        Load_Datagridview(Dgv_Uitkering_Account_Details, sql, "Dgv_Excasso2.DoubleClick")
+
+        With Dgv_Uitkering_Account_Details
+
+            .Columns(0).Width = 48
+            .Columns(0).HeaderText = "Dat"
+            .Columns(0).DefaultCellStyle.Format = "dd-MM"
+
+            .Columns(1).Width = 190
+            .Columns(1).HeaderText = "Journaalnaam"
+            '.Columns(1).DefaultCellStyle.ForeColor = Color.Blue
+            .Columns(1).DefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Underline)
+
+
+            .Columns(2).Width = 56
+            .Columns(2).HeaderText = "Bedr."
+            .Columns(2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            .Columns(2).DefaultCellStyle.Format = "N2"
+
+            For Each row As DataGridViewRow In .Rows
+                Dim cellValue As Object = row.Cells(2).Value ' Assuming you want to check column 1
+                If IsNumeric(cellValue) Then
+                    Dim value As Double = Convert.ToDouble(cellValue)
+                    If value < 0 Then
+                        row.Cells(1).Style.ForeColor = Color.DarkRed
+                        row.Cells(2).Style.ForeColor = Color.DarkRed
+                    ElseIf value > 0 Then
+                        row.Cells(1).Style.ForeColor = Color.Green
+                        row.Cells(2).Style.ForeColor = Color.Green
+                    Else
+                        row.Cells(1).Style.ForeColor = Color.Black ' Default color for zero
+                        row.Cells(2).Style.ForeColor = Color.Black
+                    End If
+                End If
+            Next
+            .Columns(3).Width = 250
+            .Columns(3).HeaderText = "Omschrijving"
+
+
+        End With
 
     End Sub
 
     Private Sub Dgv_Excasso2_Click(sender As Object, e As EventArgs) Handles Dgv_Excasso2.Click
-        'Clipboard.Clear()
-        'Clipboard.SetText(Dgv_Excasso2.CurrentCell.Value)
+        'If Dgv_Excasso2.CurrentCell.ColumnIndex <> 1 Then Exit Sub
+
+        Dim i As Integer = Me.Dgv_Excasso2.CurrentRow.Index
+
+        Dim name As String = Me.Dgv_Excasso2.Rows(i).Cells(1).Value
+        Dim id = Me.Dgv_Excasso2.Rows(i).Cells(0).Value
+
+
+
+        Dim sql As String = $"
+         select j.date, j.name, amt1, j.description from journal j
+         where j.fk_account = '{id}'
+         order by j.date desc, abs(amt1::decimal) 
+"
+        Load_Datagridview(Dgv_Uitkering_Account_Details, sql, "Dgv_Excasso2_Click")
+
+        With Dgv_Uitkering_Account_Details
+
+            .Columns(0).Width = 48
+            .Columns(0).HeaderText = "Dat"
+            .Columns(0).DefaultCellStyle.Format = "dd-MM"
+
+            .Columns(1).Width = 190
+            .Columns(1).HeaderText = "Journaalnaam"
+            '.Columns(1).DefaultCellStyle.ForeColor = Color.Blue
+            .Columns(1).DefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Underline)
+
+
+            .Columns(2).Width = 56
+            .Columns(2).HeaderText = "Bedr."
+            .Columns(2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            .Columns(2).DefaultCellStyle.Format = "N2"
+
+            For Each row As DataGridViewRow In .Rows
+                Dim cellValue As Object = row.Cells(2).Value ' Assuming you want to check column 1
+                If IsNumeric(cellValue) Then
+                    Dim value As Double = Convert.ToDouble(cellValue)
+                    If value < 0 Then
+                        row.Cells(1).Style.ForeColor = Color.DarkRed
+                        row.Cells(2).Style.ForeColor = Color.DarkRed
+                    ElseIf value > 0 Then
+                        row.Cells(1).Style.ForeColor = Color.Green
+                        row.Cells(2).Style.ForeColor = Color.Green
+                    Else
+                        row.Cells(1).Style.ForeColor = Color.Black ' Default color for zero
+                        row.Cells(2).Style.ForeColor = Color.Black
+                    End If
+                End If
+            Next
+            .Columns(3).Width = 250
+            .Columns(3).HeaderText = "Omschrijving"
+
+
+        End With
     End Sub
 
     Private Sub Lbl_Excasso_Items_Contract_TextChanged(sender As Object, e As EventArgs) Handles Lbl_Excasso_Items_Contract.TextChanged,
@@ -2107,9 +2192,6 @@ fin:
         & Lbl_Excasso_Intern.Text & " à"
     End Sub
 
-    Private Sub Btn_Incasso_Export_Click(sender As Object, e As EventArgs) Handles Btn_Incasso_Export.Click
-        Export_2_Excel(Me.Dgv_Incasso)
-    End Sub
 
     Private Sub ToolStripTextBox1_TextChanged(sender As Object, e As EventArgs) Handles Searchbox.TextChanged
         'Dim dt As New DataTable()
@@ -2171,13 +2253,7 @@ fin:
     End Sub
 
     Private Sub Lv_Journal_List_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Lv_Journal_List.SelectedIndexChanged
-        If Cmx_Journal_List.Text = "Journaalnaam" Then
-            TC_Boeking.SelectedIndex = 2
-            Fill_Journal_List_journaalposten()
-        Else
-            Fill_Journal_List()
-        End If
-
+        Fill_Journal_List_journaalposten()
     End Sub
 
     Private Sub Cbx_LifeCycle_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cbx_LifeCycle.SelectedIndexChanged
@@ -2208,9 +2284,7 @@ fin:
                 Create_Incasso_Journals()
                 Create_SEPA_XML()
                 Me.Lbl_Incasso_Status.Text = "Open"
-                Me.Btn_Incasso_Delete.Enabled = True
-                Me.Btn_Run_Incasso.Enabled = False
-                Me.Btn_Incasso_Print.Enabled = True
+
                 MenuDelete.Enabled = True
                 Menu_Print.Enabled = True
                 MenuSave.Enabled = False
@@ -2221,31 +2295,30 @@ fin:
                 Load_Combobox(Cmx_Bank_Account, "id", "name", "SELECT id, name FROM account WHERE active = True ORDER BY source, name")
                 Select Case TC_Boeking.SelectedIndex
                     Case 0
-                        MsgBox(0)
-                    Case 1
                         Save_Internal_Booking()
-                    Case 2
+                    Case 1
                         Save_modified_journaalposts()
-                    Case 6
-                        Save_Settings()
                 End Select
-                Exit Sub
-                If TC_Boeking.SelectedIndex = 1 Then
-
-                    Save_Internal_Booking()
-                ElseIf TC_Boeking.SelectedIndex = 0 Then
-                    Dim id = Dgv_journaalposten.SelectedCells(10).Value
-                    RunSQL("Update Journal Set description='" & Tbx_Journal_Descr.Text & "' Where id='" & id & "'", "NULL", "Tbx_Journal_Descr_Leave")
-                    Load_Datagridview(Me.Dgv_Journal_items, Create_Journal_SQL, "Lv_Journal_List_Click")
-                    Me.Tbx_.Text = Me.Dgv_Journal_items.Rows(0).Cells(1).Value
-                    Me.Tbx_Journal_Descr.Text = Me.Dgv_Journal_items.Rows(0).Cells(4).Value
-                    MenuSave.Enabled = False
-
-                End If
 
         End Select
 
     End Sub
+
+    Sub Leeg_overboeking_scherm()
+        If TC_Boeking.SelectedIndex = 0 Then
+            Lbl_Journal_Source_Saldo.Text = 0
+            Lbl_Journal_Source_Name.Text = ""
+            Tbx_Journal_Source_Amt.Text = 0
+            Dgv_Journal_Intern.Rows.Clear()
+            Lbl_Journal_Source_Restamt.Text = 0
+            Cmbx_Overboeking_Bron.SelectedIndex = -1
+            Cmbx_Overboeking_Target.SelectedIndex = -1
+            Tbx_Journal_Description.Text = ""
+            Dtp_Journal_intern.Value = Date.Today
+            Tbx_Journal_Name.Text = ""
+        End If
+    End Sub
+
 
     Private Sub MenuAdd_Click(sender As Object, e As EventArgs) Handles MenuAdd.Click
         Select Case TC_Main.SelectedIndex
@@ -2256,18 +2329,7 @@ fin:
             Case 3
         End Select
     End Sub
-    Private Sub Menu_Export_Click(sender As Object, e As EventArgs) Handles MenuCancel.Click
-        Select Case TC_Main.SelectedIndex
-            Case 2
 
-            Case 3
-
-            Case 6
-                Load_Account_Settings()
-
-            Case Else
-        End Select
-    End Sub
     Private Sub MenuCancel_Click(sender As Object, e As EventArgs) Handles MenuCancel.Click
         Select Case TC_Main.SelectedIndex
             Case 0
@@ -2275,13 +2337,9 @@ fin:
             Case 3
                 If Cmx_Excasso_Select.SelectedIndex = -1 Then Exit Sub
             Case 4
-                If TC_Boeking.SelectedIndex = 1 Then
-                    Lbl_Journal_Source_Saldo.Text = 0
-                    Lbl_Journal_Source_Name.Text = ""
-                    Tbx_Journal_Source_Amt.Text = 0
-                    Dgv_Journal_Intern.Rows.Clear()
-                    Lbl_Journal_Source_Restamt.Text = 0
-                End If
+                Leeg_overboeking_scherm()
+            Case 6
+                Load_Account_Settings()
         End Select
     End Sub
 
@@ -2295,9 +2353,6 @@ fin:
                 RunSQL("Delete From Journal where name ='" &
                  Me.Lbl_Incasso_job_name.Text & "'", "NULL", "Btn_Incasso_Delete_Click")
                 Me.Lbl_Incasso_Status.Text = "Nieuw"
-                Me.Btn_Incasso_Delete.Enabled = False
-                Me.Btn_Run_Incasso.Enabled = True
-                Me.Btn_Incasso_Print.Enabled = False
 
                 MenuDelete.Enabled = False
                 MenuSave.Enabled = True
@@ -2339,12 +2394,12 @@ fin:
         MenuUploadAlles.Visible = (i = 1)
         MenuBanktransactie.Visible = (i = 1)
         MenuCategoriseer.Visible = (i = 1)
-        Menu_Export.Visible = (i = 2 Or i = 4 Or i = 5) Or TC_Boeking.SelectedIndex = 0
+        Menu_Export.Visible = (i = 2 Or i = 4 Or i = 5)
         Menu_Print.Visible = (i = 2 Or i = 3)
         MenuDelete.Visible = (i = 0 Or i = 2 Or i = 3)
         MenuSave.Visible = (i = 0 Or i = 2 Or i = 3 Or i = 4 Or i = 6)
-        MenuAdd.Visible = (i = 0) Or (i = 4 And TC_Boeking.SelectedIndex = 2)
-        MenuCancel.Visible = (i = 0 Or i = 3 Or (i = 4 And TC_Boeking.SelectedIndex > 0)) Or i = 6
+        MenuAdd.Visible = (i = 0) Or (i = 4 And TC_Boeking.SelectedIndex = 1)
+        MenuCancel.Visible = (i = 0 Or i = 3 Or (i = 4 And TC_Boeking.SelectedIndex >= 0)) Or i = 6
         ZoekenToolStripMenuItem.Visible = (i < 2 Or i = 4 Or i = 5)
         Searchbox.Visible = ZoekenToolStripMenuItem.Visible
         MenuFilter.Visible = ZoekenToolStripMenuItem.Visible
@@ -2353,7 +2408,7 @@ fin:
         MenuAdd.Visible = IIf(InStr(Text, "(ALLEEN LEZEN)") = 0, MenuAdd.Visible, False)
         MenuSave.Visible = IIf(InStr(Text, "(ALLEEN LEZEN)") = 0, MenuSave.Visible, False)
         MenuDelete.Visible = IIf(InStr(Text, "(ALLEEN LEZEN)") = 0, MenuDelete.Visible, False)
-        Menu_Help.Visible = (i = 4)
+        Menu_Help.Visible = True
 
 
     End Sub
@@ -2391,7 +2446,7 @@ fin:
                     Format_dvg_incasso()
                 End If
 
-            Case 3
+            Case 3 'uitkering
 
                 MenuSave.Enabled = True
                 MenuCancel.Enabled = True
@@ -2415,7 +2470,12 @@ fin:
 
             Case 4
                 Manage_Buttons_Target(False, True, False, False, False, "TC_Main_SelectedIndexChanged")
-                If Cmx_Journal_List.Text = "" Or IsDBNull(Cmx_Journal_List.Text) Then Cmx_Journal_List.Text = "Accounts"
+                ShowButtons()
+                MenuSave.Enabled = True
+                MenuCancel.Enabled = True
+                Menu_Export.Enabled = True
+
+
                 Me.Dtp_Journal_intern.Value = CDate(Date.Today.Year & "-" & Date.Today.Month & "-" & Date.Today.Day)
                 Dim sql As String = "update journal j set name = 
                 (select left(replace(replace(replace(replace(replace(replace(replace(b.name,' van der',''),' van de',''),'Hr ',''),'Mw ',''),' de ',''),' van ',''),'.',''),14) 
@@ -2444,27 +2504,19 @@ fin:
     Private Sub TC_Boeking_Click(sender As Object, e As EventArgs) Handles TC_Boeking.Click
         ShowButtons()
         MenuSave.Enabled = True
-        MenuCancel.Enabled = TC_Boeking.SelectedIndex = 1
-        Menu_Export.Enabled = TC_Boeking.SelectedIndex = 0
+        MenuCancel.Enabled = True
+        Menu_Export.Enabled = True
 
-        If TC_Boeking.SelectedIndex = 0 And Cmx_Journal_List.Text = "Journaalnaam" Then 'boekingen
-            Cmx_Journal_List.Text = "Accounts"
-        ElseIf TC_Boeking.SelectedIndex = 2 And Cmx_Journal_List.Text <> "Journaalnaam" Then
-            Cmx_Journal_List.Text = "Journaalnaam"
-            'Me.Cmbx_journaalposten_account.SelectedIndex = -1
-            'Me.Cmbx_journaalposten_relatie.SelectedIndex = -1
-        Else 'overboekingen
-            Searchbox.Text = ""
+
+        Searchbox.Text = ""
             If Lbl_Journal_Source_Name.Text = "" Then
                 Tbx_Journal_Name.Text = ""
-                Tbx_Journal_Description.Text = ""
                 Rbn_Journal_Intern.Checked = True
             End If
-            If Cmx_Journal_List.Text = "CP" Or Cmx_Journal_List.Text = "Journaalnaam" Or Cmx_Journal_List.Text = "Relaties" Then
-                Cmx_Journal_List.Text = "Accounts"
-            End If
-
-        End If
+        Select Case TC_Boeking.SelectedIndex
+            Case 2
+                Report_Closing()
+        End Select
 
 
     End Sub
@@ -2488,17 +2540,15 @@ fin:
             Case 3
                 Export_2_Excel(Dgv_Excasso2)
             Case 4
-                Export_2_Excel(Dgv_Journal_items)
+                ' Export_2_Excel(Dgv_Journal_items)
 
             Case 5
-                Select Case TC_Rapportage.SelectedTab.Name
-                    Case "Journaal"
-                        Export_2_Excel(Dgv_Rapportage_Overzicht)
-                    Case "TC_Boekingen"
-                        Export_2_Excel(Dgv_Report_6)
-                    Case "TC_Jaarafsluiting"
-                        Export_2_Excel(Dgv_Report_Year_Closing)
-                End Select
+                'Select Case TC_Rapportage.SelectedTab.Name
+                'Case "Journaal"
+                'Export_2_Excel(Dgv_Rapportage_Overzicht)
+                'Case "TC_Jaarafsluiting"
+                'Export_2_Excel(Dgv_Report_Year_Closing)
+                'End Select
             Case Else
         End Select
     End Sub
@@ -2513,7 +2563,7 @@ fin:
     End Sub
 
     Private Sub Cbx_Journal_Status_Click(sender As Object, e As EventArgs) Handles Cbx_Journal_Status_Open.Click, Cbx_Journal_Status_Verwerkt.Click,
-            Cbx_Journal_Saldo_Open.Click, Cmx_Journal_List.SelectedIndexChanged, Chbx_Journal_Inactive.CheckedChanged
+            Cbx_Journal_Saldo_Open.Click
         Fill_Cmx_Journal_List()
     End Sub
 
@@ -2795,6 +2845,7 @@ end as e_intern,
                 Next
 
                 .Columns(0).Width = 45
+                .Columns(0).Visible = False
                 .Columns(1).Width = 140
                 For c = 0 To 10 : .Columns(c).ReadOnly = True : Next
                 For c = 6 To 8
@@ -2976,77 +3027,21 @@ end as e_intern,
         Manage_Buttons_Target(False, False, False, True, True, "Rbn_Relation_1_CheckedChanged")
     End Sub
 
-    Private Sub TC_Rapportage_Click(sender As Object, e As EventArgs) Handles TC_Rapportage.Click
-        'SelectNodeByName(BankTree, "Financieel")
+    Private Sub TC_Rapportage_Click(sender As Object, e As EventArgs)
+        SelectNodeByName(BankTree, "Jaarrapportage")
 
-        If TC_Rapportage.SelectedTab.Tag = "report_closing" Then Report_Closing()
-
-    End Sub
-
-    Private Sub Dgv_Rapportage_Overzicht_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Rapportage_Overzicht.CellContentDoubleClick
-
-
+        'If TC_Rapportage.SelectedTab.Tag = "report_closing" Then Report_Closing()
 
     End Sub
-    Function Check_administratie()
 
 
-        Collect_data(QuerySQL("Select sql from query where name= 'Haal checks op'"))
-        Dim result As VariantType
-        Dim response As String = "Uitkomsten controles:" & vbCr
-        Dim Res As Boolean = True
 
-
-        For c = 0 To dst.Tables(0).Rows.Count - 1
-            'dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("p1", Bank_table(rep_year))
-            'dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("p2", Report_table(rep_year))
-            dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("[year]", report_year)
-            Debug.Print(dst.Tables(0).Rows(c)(1))
-            'result = QuerySQL(dst.Tables(0).Rows(c)(1))
-
-            If Not IsDBNull(QuerySQL(dst.Tables(0).Rows(c)(1))) Then
-
-                result = QuerySQL(dst.Tables(0).Rows(c)(1))
-                If result <> 0 Then
-                    dst.Tables(0).Rows(c)(2) = dst.Tables(0).Rows(c)(2).Replace("#", result)
-                    dst.Tables(0).Rows(c)(2) = "- FOUT: " & dst.Tables(0).Rows(c)(2)
-                    response &= dst.Tables(0).Rows(c)(2) & vbCr
-                    Res = False
-
-                End If
-            End If
-            If Strings.Left(dst.Tables(0).Rows(c)(2), 6) <> "- FOUT" Then
-                dst.Tables(0).Rows(c)(3) = "- " & dst.Tables(0).Rows(c)(3) & " OK"
-                response &= dst.Tables(0).Rows(c)(3) & vbCr
-            End If
-
-        Next c
-
-        MsgBox(response, IIf(Res, vbInformation, vbCritical))
-        If Res Then Return True Else Return False
-
-    End Function
 
 
 
     Private Sub Btn_Report_YearEnd_Post_Click(sender As Object, e As EventArgs) Handles Btn_Report_YearEnd_Post.Click
+        Close_Year()
 
-        '----------- uitvoeren controles
-
-        If Check_administratie() = False Then Exit Sub
-        If MsgBox("Wilt u het jaar " & report_year & " definitief afsluiten? Dit kan niet meer worden teruggedraaid!", vbYesNo) = vbNo Then Exit Sub
-
-        'Ophalen transitieposten ten behoeve van table t1
-        Dim Sql1 As String = QuerySQL("Select sql from query where category = 'Overzicht' and name='Transitieposten'")
-        Dim Sql2 As String = QuerySQL("Select sql from query where category = 'Transaction' and name='Jaarafsluiting'")
-        Dim Sql As String = Sql1 & vbCr & Sql2
-        Sql = Sql.Replace("[Year]", report_year)
-        'Uitvoeren jaarafsluiting
-        RunSQL(Sql, "NULL", "Btn_Report_YearEnd_Post/Transitieposten")
-
-        If MsgBox("Wilt u de budgetten voor " & Now.Year & " berekenen (eventuele handmatige aanpassen gaan verloren)? ", vbYesNo) = vbYes Then
-            Calculate_Budget("")
-        End If
     End Sub
 
     Private Sub Tbx_Bank_Description_TextChanged(sender As Object, e As EventArgs) Handles Tbx_Bank_Description.TextChanged
@@ -3075,52 +3070,6 @@ end as e_intern,
     End Sub
 
 
-    Private Sub Dgv_Journal_items_Click(sender As Object, e As EventArgs) Handles Dgv_Journal_items.Click
-        If Dgv_Journal_items.RowCount = 0 Then Exit Sub
-
-        Dim a = Dgv_Journal_items.SelectedCells(0).Value
-        Dim i As Integer = Me.Dgv_Journal_items.CurrentRow.Index
-        Dim name As String = Me.Dgv_Journal_items.Rows(i).Cells(1).Value
-        Dim id = Dgv_Journal_items.SelectedCells(10).Value
-        Tbx_Journal_Descr.Text = Dgv_Journal_items.SelectedCells(4).Value 'omschrijving
-
-    End Sub
-
-
-
-    Private Sub Tbx_Journal_Descr_Enter(sender As Object, e As EventArgs) Handles Tbx_Journal_Descr.Enter
-        MenuSave.Enabled = True
-    End Sub
-
-
-    Private Sub Dgv_Report_6_Click(sender As Object, e As DataGridViewCellEventArgs)
-        Dim jid As String = Me.Dgv_Report_6.Rows(Me.Dgv_Report_6.CurrentRow.Index).Cells(9).Value
-
-        Dim s As String = "
-            select 
-                j.id, j.source, j.status, j.type, j.iban,
-                b.id, b.date, b.debit, b.credit, b.name, b.description, b.iban2,
-                r.id, r.name||', '||r.name_add,
-                a.id, a.name
-                From journal j 
-                Left Join bank b on b.id = j.fk_bank
-                Left Join relation r on r.id = j.fk_relation
-                Left Join account a on a.id = j.fk_account
-            where j.id = " & jid
-        ToClipboard(s, True)
-
-        Collect_data(s)
-
-        Me.Tbx_Report6_Add.Text = "[JOURNAAL]   id: <" & dst.Tables(0).Rows(0)(0) & ">  bron: <" & Trim(dst.Tables(0).Rows(0)(1)) & ">  status: <" & Trim(dst.Tables(0).Rows(0)(2)) _
-            & ">  type: <" & dst.Tables(0).Rows(0)(3) & ">  iban: <" & dst.Tables(0).Rows(0)(4) & ">  account id:<" & dst.Tables(0).Rows(0)(14) & ">" & vbCrLf _
-            & "[BANK]  id:<" & dst.Tables(0).Rows(0)(5) & ">  datum: <" & dst.Tables(0).Rows(0)(6) & ">  bedrag: <" & dst.Tables(0).Rows(0)(8) - dst.Tables(0).Rows(0)(7) _
-            & ">  naam: <" & dst.Tables(0).Rows(0)(9) & ">  tegenrekening: <" & dst.Tables(0).Rows(0)(11) & ">  omschrijving: <" & dst.Tables(0).Rows(0)(10)
-
-
-
-    End Sub
-
-
     Sub Format_Datagridview(dgv As DataGridView, arr As Array, Editable As Boolean)
 
         'formatarray
@@ -3137,9 +3086,9 @@ end as e_intern,
 
         Try
             With dgv
-                ' formatteer kolommen
+                ' ================ formatteer kolommen ================
+
                 For x = 0 To UBound(arr)
-                    'Debug.Print(arr(x))
                     c = CInt(Mid(arr(x), 2))
                     f = Strings.Left(arr(x), 1)
 
@@ -3155,8 +3104,8 @@ end as e_intern,
                     End If
                 Next
 
-                'formatter rijen
-                'MsgBox(dgv.Name.ToString)
+                ' ==================formatter rijen =================
+
                 For r As Integer = 0 To .Rows.Count - 1
 
                     For x = 0 To UBound(arr)
@@ -3235,7 +3184,7 @@ end as e_intern,
 
     End Sub
 
-    Private Sub Button3_Click_1(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub Button3_Click_1(sender As Object, e As EventArgs)
         Dim p1 = InputBox("maand:")
         Dim sql = QuerySQL("Select sql from query where category ilike 'Transaction' and name='Verwijder maand'")
         sql = sql.Replace("p1", p1)
@@ -3274,20 +3223,14 @@ end as e_intern,
 
     End Sub
 
-
+    Public Sub ShowHelp(chmFilePath As String, topic As String)
+        Dim fullPath As String = System.IO.Path.GetFullPath(chmFilePath)
+        HtmlHelpAPI.HtmlHelp(IntPtr.Zero, fullPath & "::/" & topic, HtmlHelpAPI.HH_DISPLAY_TOPIC, Nothing)
+    End Sub
 
 
     Private Sub Menu_Help_Click(sender As Object, e As EventArgs) Handles Menu_Help.Click
-
-        Select Case TC_Main.SelectedIndex
-            Case 4
-                Helptext.TextBox1.Text = QuerySQL("Select value from settings where label = 'journalposten' limit 1")
-                Helptext.LbL_Onderwerp2.Text = "Journalposten"
-            Case Else
-                Helptext.TextBox1.Text = "Nog geen helptekst beschikbaar"
-        End Select
-        Helptext.Show()
-
+        Process.Start("https://github.com/Erthengs/SPAS2025/wiki/Stappenplan-(Maandelijks)")
 
     End Sub
     '========================================================================================================
@@ -3297,43 +3240,36 @@ end as e_intern,
     '========================================================================================================
 
     Sub Lv_Journal_List_Click(sender As Object, e As EventArgs) Handles Lv_Journal_List.Click
-        If Cmx_Journal_List.Text <> "Journaalnaam" Then
-            'TC_Boeking.SelectedIndex = 2
-            Fill_Journal_List()
-        Else
-            'TC_Boeking.SelectedIndex = 0
-            Try
-                Dim selectedItem As ListViewItem = Lv_Journal_List.SelectedItems(0)
-                Collect_data(Create_Journal_SQL)
 
-                Me.Lbl_Journaalposten_datum.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(0)), "", dst.Tables(0).Rows(0)(0))
-                Me.Lbl_Journaalposten_header.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(1)), "", dst.Tables(0).Rows(0)(1))
-                'Me.Tbx_journaalposten_omschr.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(4)), "", dst.Tables(0).Rows(0)(4))
-                Me.Lbl_journaalposten_status.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(6)), "", dst.Tables(0).Rows(0)(6))
-                Me.Lbl_Journaalposten_bron.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(7)), "", dst.Tables(0).Rows(0)(7))
-                Me.Lbl_journaalposten_iban.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(8)), "", dst.Tables(0).Rows(0)(8))
-                Me.Lbl_journaalposten_type.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(9)), "", dst.Tables(0).Rows(0)(9))
-                Me.Lbl_journaalposten_cpinfo.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(14)), "", dst.Tables(0).Rows(0)(14))
-                Me.Lbl_journaalposten_wisselkoers.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(15)), "", dst.Tables(0).Rows(0)(15))
-                Me.Banklink.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(16)), 0, dst.Tables(0).Rows(0)(16).ToString)               'Me.Cmbx_journaalposten_relatie.SelectedIndex = -1
+        Try
+            Dim selectedItem As ListViewItem = Lv_Journal_List.SelectedItems(0)
+            Collect_data(Create_Journal_SQL)
 
-                Fill_Journal_List_journaalposten()
+            Me.Lbl_Journaalposten_datum.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(0)), "", dst.Tables(0).Rows(0)(0))
+            Me.Lbl_Journaalposten_header.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(1)), "", dst.Tables(0).Rows(0)(1))
+            'Me.Tbx_journaalposten_omschr.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(4)), "", dst.Tables(0).Rows(0)(4))
+            Me.Lbl_journaalposten_status.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(6)), "", dst.Tables(0).Rows(0)(6))
+            Me.Lbl_Journaalposten_bron.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(7)), "", dst.Tables(0).Rows(0)(7))
+            Me.Lbl_journaalposten_iban.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(8)), "", dst.Tables(0).Rows(0)(8))
+            Me.Lbl_journaalposten_type.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(9)), "", dst.Tables(0).Rows(0)(9))
+            Me.Lbl_journaalposten_cpinfo.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(14)), "", dst.Tables(0).Rows(0)(14))
+            Me.Lbl_journaalposten_wisselkoers.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(15)), "", dst.Tables(0).Rows(0)(15))
+            Me.Banklink.Text = IIf(IsDBNull(dst.Tables(0).Rows(0)(16)), 0, dst.Tables(0).Rows(0)(16).ToString)               'Me.Cmbx_journaalposten_relatie.SelectedIndex = -1
 
+            Fill_Journal_List_journaalposten()
 
-                If Dgv_journaalposten.Rows.Count > 0 Then
-                    ' Clear any previous selection
-                    Dgv_journaalposten.ClearSelection()
-                    Dgv_journaalposten.Rows(0).Selected = True
-                    Dgv_journaalposten_Click("a", e)
-                    ' Optionally, scroll to the first row if it is out of view
-                    Dgv_journaalposten.FirstDisplayedScrollingRowIndex = 0
-                End If
-            Catch ex As Exception
-                MsgBox(ex.ToString)
-            End Try
+            If Dgv_journaalposten.Rows.Count > 0 Then
+                ' Clear any previous selection
+                Dgv_journaalposten.ClearSelection()
+                Dgv_journaalposten.Rows(0).Selected = True
+                Dgv_journaalposten_Click("a", e)
+                ' Optionally, scroll to the first row if it is out of view
+                Dgv_journaalposten.FirstDisplayedScrollingRowIndex = 0
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
 
-
-        End If
     End Sub
 
 
@@ -3342,51 +3278,6 @@ end as e_intern,
     '======                B O E K I N G E N   - J O U R N A A L P O S T E N                           ======
     '======                                                                                            ======
     '========================================================================================================
-
-    Private Sub Dgv_Journal_items_DoubleClick(sender As Object, e As EventArgs) Handles Dgv_Journal_items.DoubleClick
-        Dim i As Integer = Me.Dgv_Journal_items.CurrentRow.Index
-        Dim name As String = Me.Dgv_Journal_items.Rows(i).Cells(1).Value
-        Dim dat_ = Me.Dgv_Journal_items.Rows(i).Cells(0).Value
-        Dim dat As String = dat_.Year & "-" & dat_.Month & "-" & dat_.Day
-        Dim selectedItem As ListViewItem = Lv_Journal_List.SelectedItems(0)
-
-        Me.Tbx_.Text = name
-        journalid2.Text = Me.Dgv_Journal_items.Rows(i).Cells(10).Value.ToString
-        Me.Lbl_accountname.Text = selectedItem.SubItems(1).Text
-        Select_in_Lv_Journal_list_ByNameAndDate(name, dat, 2, "Journaalnaam")
-        'Fill_Journal_List_journaalposten()
-        Lv_Journal_List_Click(sender, e)
-
-    End Sub
-
-
-    Private Sub Menu_Back_Click(sender As Object, e As EventArgs) Handles Menu_Back.Click
-        ' Loop through each item in the ListView
-
-
-        TC_Boeking.SelectedIndex = 0
-        Cmx_Journal_List.Text = "Accounts"
-        For Each item As ListViewItem In Lv_Journal_List.Items
-            If item.SubItems(1).Text = Lbl_accountname.Text Then
-                item.Selected = True
-                item.EnsureVisible()
-                Exit For
-            End If
-        Next
-        For Each row As DataGridViewRow In Dgv_Journal_items.Rows
-            ' Compare the name (first column) and date (third column)
-            If row.Cells(10).Value.ToString() = Me.journalid2.Text Then
-                ' Select the row
-                row.Selected = True
-                ' Optionally, scroll the DataGridView to the selected row
-                Dgv_Journal_items.FirstDisplayedScrollingRowIndex = row.Index
-                ' Stop the loop once the matching row is found
-                Exit For
-            End If
-        Next
-
-    End Sub
-
 
 
     Sub Dgv_journaalposten_Click(sender As Object, e As EventArgs) Handles Dgv_journaalposten.Click
@@ -3433,7 +3324,7 @@ end as e_intern,
 
     Private Sub Cmbx_journaalposten_account_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmbx_journaalposten_account.SelectedIndexChanged
         If Cmbx_journaalposten_account.SelectedIndex = -1 Or
-            TC_Boeking.SelectedIndex <> 2 _
+            TC_Boeking.SelectedIndex <> 1 _
             Or Dgv_journaalposten.RowCount = 0 Then Exit Sub
 
 
@@ -3491,7 +3382,7 @@ end as e_intern,
         Dim fk_relation As Integer
         Dim fk_bank As Integer = Integer.Parse(Banklink.Text)
         Dim Type As String = Trim(Lbl_journaalposten_type.Text)
-        Dim cpinfo As String = Trim(Lbl_journaalposten_cpinfo.Text)
+        Dim cpinfo As String
         Dim iban As String = Trim(Lbl_journaalposten_iban.Text)
         Dim transactiesaldo = CInt(Math.Round(Decimal.Parse(Tbx_Journal_Saldo.Text)))
 
@@ -3553,6 +3444,7 @@ end as e_intern,
                 description = row.Cells("omschrijving").Value.ToString
                 fk_account = row.Cells("accountnr").Value.ToString
                 fk_relation = IIf(IsDBNull(row.Cells("relatie").Value), Nothing, row.Cells("relatie").Value.ToString)
+                cpinfo = row.Cells("cpinfo").Value.ToString
                 Dim ops As String
                 If row.Tag.ToString = "Modified" Then
                     If Len(row.Cells("id").Value.ToString) = 0 Then 'new record
@@ -3562,6 +3454,7 @@ end as e_intern,
 
                     End If
                     'MsgBox(row.Tag.ToString & "---" & description)
+                    'MsgBox($"relatie: {fk_relation}, fk_bank {fk_bank}")
                     Run_SQL_Journal("Save_modified_journaalposts", ops, id, name, datum, status, amt1, amt2, description,
                                              source, fk_account, fk_relation, fk_bank, Type, cpinfo, iban)
 
@@ -3619,11 +3512,7 @@ end as e_intern,
         End With
     End Sub
 
-    Private Sub Btn_Run_Incasso_Click(sender As Object, e As EventArgs) Handles Btn_Run_Incasso.Click
-        Create_Incassolist()
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs)
         Count_Occurences()
     End Sub
 
@@ -3632,33 +3521,27 @@ end as e_intern,
         Dim sql As String = ""
         Dim formatting As String
 
-        'ElseIf e.Node.Level = 2 Then
-        '   rep = e.Node.Parent.Text
-
 
         sql = QuerySQL($"Select sql from query where category ilike 'Overzicht%' and name='{rep}'")
-        If IsNothing(Sql) Then Exit Sub
+        If IsNothing(sql) Then Exit Sub
 
-        Formatting = QuerySQL($"Select formatting from query where category ilike 'Overzicht%' and name='{rep}'")
-        LbL_Formatting.Text = Formatting
+        formatting = QuerySQL($"Select formatting from query where category ilike 'Overzicht%' and name='{rep}'")
+        LbL_Formatting.Text = formatting
         If Not IsNothing(LbL_Formatting.Text) Then arr_format = LbL_Formatting.Text.Split(","c)
 
-        Sql = Sql.Replace("[year]", report_year)
+        sql = sql.Replace("[year]", report_year)
         If Cmbx_Reporting_Year.SelectedIndex > 0 Then
-            Sql = Sql.Replace("from bank ", "from bank_archive ")
-            Sql = Sql.Replace("from journal ", "from journal_archive ")
+            sql = sql.Replace("from bank ", "from bank_archive ")
+            sql = sql.Replace("from journal ", "from journal_archive ")
         End If
-        Load_Datagridview(Dgv_Rapportage_Overzicht, Sql, "BankTree.NodeMouseClick-level2")
+        Load_Datagridview(Dgv_Rapportage_Overzicht, sql, "BankTree.NodeMouseClick-level2")
         Format_Datagridview(Dgv_Rapportage_Overzicht, arr_format, False)
     End Sub
 
     Sub BankTree_NodeMouseClick(sender As Object, e As TreeNodeMouseClickEventArgs) Handles BankTree.NodeMouseClick
 
         Dim rep As String = ""
-
         report_year = Cmbx_Reporting_Year.SelectedItem
-        'MsgBox(report_year)
-
 
         If e.Node.Level = 1 Then
             rep = e.Node.Text
@@ -3666,56 +3549,16 @@ end as e_intern,
             Run_BankTree(rep)
         End If
 
-
-
-
-
-        Exit Sub
-        Dim arr_format() As String = Nothing
-        Dim sql As String = ""
-        Dim formatting As String
-        If e.Node.Level = 1 Then
-            'report_year = QuerySQL("select min(extract (year from date)) from journal")
-            rep = e.Node.Text
-            Lbl_Rapportage.Text = rep
-            sql = QuerySQL($"Select sql from query where category ilike 'Overzicht%' and name='{rep}'")
-            If IsNothing(sql) Then Exit Sub
-
-            formatting = QuerySQL($"Select formatting from query where category ilike 'Overzicht%' and name='{e.Node.Text}'")
-            LbL_Formatting.Text = formatting
-            If Not IsNothing(LbL_Formatting.Text) Then arr_format = LbL_Formatting.Text.Split(","c)
-            sql = sql.Replace("[year]", report_year)
-
-            Load_Datagridview(Dgv_Rapportage_Overzicht, sql, "BankTree.NodeMouseClick-level1")
-            Format_Datagridview(Dgv_Rapportage_Overzicht, arr_format, False)
-
-        ElseIf e.Node.Level = 2 Then
-            'raadpleging van archief, eerder rapportagejaar
-
-            'report_year = e.Node.Text
-            rep = e.Node.Parent.Text
-            Lbl_Rapportage.Text = rep
-            sql = QuerySQL($"Select sql from query where category ilike 'Overzicht%' and name='{rep}'")
-            If IsNothing(sql) Then Exit Sub
-
-            formatting = QuerySQL($"Select formatting from query where category ilike 'Overzicht%' and name='{rep}'")
-            LbL_Formatting.Text = formatting
-            If Not IsNothing(LbL_Formatting.Text) Then arr_format = LbL_Formatting.Text.Split(","c)
-
-            sql = sql.Replace("from bank ", "from bank_archive ")
-            sql = sql.Replace("from journal ", "from journal_archive ")
-            sql = sql.Replace("[year]", report_year)
-
-            Load_Datagridview(Dgv_Rapportage_Overzicht, sql, "BankTree.NodeMouseClick-level2")
-            Format_Datagridview(Dgv_Rapportage_Overzicht, arr_format, False)
-
-        End If
-
     End Sub
 
 
 
     Private Sub Btn_Rap_Expand_Collapse_Click(sender As Object, e As EventArgs) Handles Btn_Rap_Expand_Collapse.Click
+
+
+    End Sub
+
+    Sub Expand_Collapse(ByRef but As Button, ByRef tv As TreeView)
         If Btn_Rap_Expand_Collapse.Text = "Alles uitklappen" Then
             BankTree.ExpandAll()
             Btn_Rap_Expand_Collapse.Text = "Alles inklappen"
@@ -3723,48 +3566,57 @@ end as e_intern,
             BankTree.CollapseAll()
             Btn_Rap_Expand_Collapse.Text = "Alles uitklappen"
         End If
-
     End Sub
 
-
-
-    Private Sub Dgv_Rapportage_Overzicht_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Rapportage_Overzicht.CellContentClick
+    Private Sub dgv_1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Rapportage_Overzicht.CellContentClick
         Dim selectedNode As TreeNode = BankTree.SelectedNode
 
-        If selectedNode.Text = "Jaaroverzicht Bank" Then
-            If Dgv_Rapportage_Overzicht.CurrentCell.ColumnIndex = 1 Then
-                'Clipboard.SetText(Dgv_Rapportage_Overzicht.CurrentRow.Cells(1).Value)
-                'TC_Main.SelectedIndex = 4
-                'Cmx_Journal_List.Text = "Accountgroep"
-                'Searchbox.Text = Dgv_Rapportage_Overzicht.CurrentRow.Cells(1).Value
-            Else
-                Drill_down_Bank_overview(Me.Dgv_Rapportage_Overzicht.CurrentCell.RowIndex, Me.Dgv_Rapportage_Overzicht.CurrentCell.ColumnIndex)
-            End If
-        ElseIf selectedNode.Text = "Jaarrapportage" Then
-            Drill_down_Report_overview(Dgv_Rapportage_Overzicht.CurrentCell.RowIndex, Dgv_Rapportage_Overzicht.CurrentCell.ColumnIndex)
-        End If
-    End Sub
+        Select Case selectedNode.Text
+            Case "Jaaroverzicht Bank"
+                If Dgv_Rapportage_Overzicht.CurrentCell.ColumnIndex = 1 Then
+                Else
+                    Drill_down_Bank_overview(Me.Dgv_Rapportage_Overzicht.CurrentCell.RowIndex, Me.Dgv_Rapportage_Overzicht.CurrentCell.ColumnIndex)
+                End If
+            Case "Jaarrapportage"
+                Drill_down_Report_overview(Dgv_Rapportage_Overzicht.CurrentCell.RowIndex, Dgv_Rapportage_Overzicht.CurrentCell.ColumnIndex)
+            Case Else
+                Dim columnName As String = Dgv_Rapportage_Overzicht.Columns(e.ColumnIndex).HeaderText
+                Dim formatting As String = Nothing
+                Dim arr_format() As String = Nothing
+                formatting = QuerySQL($"Select formatting from query where category = 'Transaction' and name='Detail journaalposten'")
+                If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 AndAlso
+                    (columnName = "Accountnaam" Or columnName = "Journaalnaam" Or columnName = "Accountgroep" Or columnName = "Relatienaam") Then
+                    ' Get the column header text
+                    Dim sql As String = QuerySQL("SELECT sql from query where name = 'Detail journaalposten';")
+
+                    If Not IsNothing(LbL_Formatting.Text) Then arr_format = LbL_Formatting.Text.Split(","c)
 
 
-    Private Sub dgv_1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Rapportage_Overzicht.CellDoubleClick
-        ' Check if the clicked cell is valid
-        If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
-            ' Get the column header text
-            Dim columnName As String = Dgv_Rapportage_Overzicht.Columns(e.ColumnIndex).HeaderText
+                    Select Case columnName
+                        Case "Accountnaam"
+                            sql = sql.Replace("a.name like '%%'", $"a.name like '{Dgv_Rapportage_Overzicht.CurrentCell.Value}'")
+                            formatting = formatting.Replace("T150", "H150")
+                        Case "Journaalnaam"
+                            sql = sql.Replace("j.name like '%%'", $"j.name like '{Dgv_Rapportage_Overzicht.CurrentCell.Value}'")
+                            formatting = formatting.Replace("T250", "H250")
+                        Case "Accountgroep"
+                            sql = sql.Replace("c.name like '%%'", $"c.name like '{Dgv_Rapportage_Overzicht.CurrentCell.Value}'")
+                            formatting = formatting.Replace("T149", "H149")
+                        Case "Relatienaam"
+                            sql = sql.Replace("concat(r.name||','||r.name_add) like'%%'", $"concat(r.name||','||r.name_add) like '{Dgv_Rapportage_Overzicht.CurrentCell.Value}'")
+                            formatting = formatting.Replace("T151", "H151")
+                        Case Else
+                            'Do nothing
+                    End Select
+                    Load_Datagridview(Dgv_Report_6, sql, "Dgv_Rapportage_Overzicht.DoubleClick")
+                    'MsgBox(formatting)
+                    If Not IsNothing(formatting) Then Format_Datagridview(Dgv_Report_6, formatting.Split(","), False)
+                    Lbl_Rapportage_Detail.Text = $"Details {Dgv_Rapportage_Overzicht.CurrentCell.Value}"
+                End If
 
-            If columnName = "Accountname" Then
+        End Select
 
-                Dim sql = $"Select j.date As Datum, j.name As Journaalnaam
-                    ,case when amt1>0::money then amt1 else 0::money end As Bij
-                    ,case when amt1<=0::money then amt1 else 0::money end As Af
-                    ,j.status As Status, j.type As Journaaltype, j.source AS Bron
-                    from journal j left join account a on a.id = j.fk_account where a.name = '{Dgv_Rapportage_Overzicht.CurrentCell.Value}'
-                    order by date
-"
-                Load_Datagridview(Dgv_Report_6, sql, "Dgv_Rapportage_Overzicht.DoubleClick")
-            End If
 
-        End If
     End Sub
 
     Private Sub Cmbx_Reporting_Year_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmbx_Reporting_Year.SelectedIndexChanged
@@ -3774,6 +3626,127 @@ end as e_intern,
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
+    End Sub
+
+    Private Sub Dgv_Report_6_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Report_6.CellContentClick
+        Dim columnName As String = Dgv_Report_6.Columns(e.ColumnIndex).HeaderText
+        If columnName = "Journaalnaam" Then
+
+            SelectNodeByName(BankTree, "Posten per boeking")
+            With Dgv_Report_6
+                Searchbox.Text = $"{ .CurrentCell.Value} { .Rows(.CurrentCell.RowIndex).Cells(0).Value}"
+            End With
+        End If
+
+    End Sub
+
+    Private Sub Cmbx_Overboeking_Bron_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmbx_Overboeking_Bron.SelectedIndexChanged
+        If TC_Boeking.SelectedTab.Text <> "Overboekingen" Or Cmbx_Overboeking_Bron.SelectedIndex = -1 Then Exit Sub
+        Try
+            Dim selectedItem As ComboBoxItem = TryCast(Cmbx_Overboeking_Bron.SelectedItem, ComboBoxItem)
+
+            If selectedItem IsNot Nothing Then
+                Tbx_Journal_Source_Amt.Text = selectedItem.Column3
+                Calculate_Journal_Booking_Data()
+            End If
+        Catch
+        End Try
+
+
+    End Sub
+    Private Sub Cmbx_Overboeking_Bron_TextChanged(sender As Object, e As EventArgs) Handles Cmbx_Overboeking_Bron.TextChanged
+        If Cmbx_Overboeking_Bron.SelectedIndex = -1 Then Tbx_Journal_Source_Amt.Text = "0"
+    End Sub
+    Private Sub Cmbx_Overboeking_Target_Changed(sender As Object, e As EventArgs) Handles Cmbx_Overboeking_Target.SelectedIndexChanged
+
+        If isProgrammaticChange Then Exit Sub
+        If Cmbx_Overboeking_Target.SelectedIndex = -1 Then Exit Sub
+        'If TC_Boeking.SelectedTab.Text <> "Overboekingen" Then Exit Sub
+
+        'MsgBox($"Cmbx_Overboeking_Bron.SelectedIndex:{Cmbx_Overboeking_Bron.SelectedIndex}{vbCr}TC_Boeking.SelectedTab.Text:{TC_Boeking.SelectedTab.Text}
+        '{vbCr}isProgrammaticChange: {isProgrammaticChange}")
+        'controle of er een doelaccount gekozen kan/mag worden
+        If Cmbx_Overboeking_Bron.SelectedIndex = -1 And TC_Boeking.SelectedTab.Text <> "Overboekingen" Then
+            If Tbx2Dec(Lbl_Journal_Source_Restamt.Text) <= 0 Then
+                MsgBox($"Selecteer eerst een bronaccount.", vbInformation)
+                Exit Sub
+            End If
+        End If
+        Dim selectedItem As ComboBoxItem = TryCast(Cmbx_Overboeking_Target.SelectedItem, ComboBoxItem)
+        Dim tgt_tot As Decimal = 0
+
+        If selectedItem IsNot Nothing Then
+            If Cmbx_Overboeking_Bron.SelectedIndex > -1 Then
+                'MsgBox($"1) {selectedItem.Column2}{vbCr} 2) {selectedItem.Column2}{vbCr} 3) {selectedItem.Column3}")
+                With Dgv_Journal_Intern
+                    .Rows.Add(selectedItem.Column1)
+                    .Rows(.Rows.Count - 1).Cells(1).Value = selectedItem.Column2
+                    .Rows(.Rows.Count - 1).Cells(2).Value = Tbx2Dec(Lbl_Journal_Source_Restamt.Text)
+
+                    'calculation of rest amount
+                    For i = 0 To .Rows.Count - 1
+                        tgt_tot = tgt_tot + .Rows(i).Cells(2).Value
+                    Next
+                End With
+            End If
+
+        End If
+        With Dgv_Journal_Intern
+            .Columns(0).Visible = False
+            .Columns(1).Width = 160
+            .Columns(1).ReadOnly = True
+            .Columns(2).Width = 70
+            .Columns(2).DefaultCellStyle.Format = "N2"
+            .Columns(2).DefaultCellStyle.ForeColor = Color.Blue
+            .Columns(2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+        End With
+        Calculate_Journal_Booking_Data()
+        isProgrammaticChange = True
+    End Sub
+
+
+
+    Private Sub Cmbx_Overboeking_Bron_QueryContinueDrag(sender As Object, e As QueryContinueDragEventArgs) Handles Cmbx_Overboeking_Bron.QueryContinueDrag
+        Tbx_Journal_Source_Amt.Text = 0
+    End Sub
+
+    Private Sub Cmbx_Overboeking_Target_Enter(sender As Object, e As EventArgs) Handles Cmbx_Overboeking_Target.Enter, Cmbx_Overboeking_Target.Click
+        isProgrammaticChange = False
+    End Sub
+
+    Private Sub Rbtn_Overboekingen_Kind_CheckedChanged(sender As Object, e As EventArgs) Handles Rbtn_Overboekingen_Kind.CheckedChanged,
+        Rbtn_Overboekingen_Oudere.CheckedChanged, Rbtn_Overboekingen_alles.CheckedChanged
+        If isProgrammaticChange = True Then Exit Sub
+        Dim sql As String = "select a.id, a.name, sum(j.amt1), a.id from journal j left join account a on a.id=j.fk_account left join accgroup g on g.id= a.fk_accgroup_id  
+        WHERE a.active=True group by a.id, a.name ORDER BY a.name"
+        If Rbtn_Overboekingen_Kind.Checked Then
+            sql = sql.Replace("True", "True and g.name = 'Kindersponsoring'")
+        ElseIf Rbtn_Overboekingen_Oudere.Checked Then
+            sql = sql.Replace("True", "True and g.name = 'Ouderensponsoring'")
+        End If
+        isProgrammaticChange = True
+        Populate_Combobox(Cmbx_Overboeking_Target, sql)
+
+    End Sub
+
+    Private Sub Rbtn_Overboekingen_Oudere_Click(sender As Object, e As EventArgs) Handles Rbtn_Overboekingen_Oudere.Click,
+            Rbtn_Overboekingen_Oudere.Click, Rbtn_Overboekingen_alles.Click
+        isProgrammaticChange = False
+    End Sub
+
+    Private Sub BankTree_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles BankTree.AfterSelect
+
+    End Sub
+
+    Private Sub Btn_Boeking_Expand_Collapse_Click(sender As Object, e As EventArgs) Handles Btn_Boeking_Expand_Collapse.Click
+        If Btn_Boeking_Expand_Collapse.Text = "Alles uitklappen" Then
+            AccountTree.ExpandAll()
+            Btn_Boeking_Expand_Collapse.Text = "Alles inklappen"
+        Else
+            AccountTree.CollapseAll()
+            Btn_Boeking_Expand_Collapse.Text = "Alles uitklappen"
+        End If
     End Sub
 
 

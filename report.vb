@@ -80,8 +80,6 @@ Module report
 
     End Sub
 
-
-
     Sub Report_Closing()
 
 
@@ -92,14 +90,11 @@ Module report
         RunSQL(Sqlc, "NULL", "Report Closing")
 
         Dim formatting As String = QuerySQL("select formatting from query where name='Transitieposten'")
-        Dim arr_format() As String
+        Dim arr_format() As String = Nothing
         If Not IsNothing(formatting) Then arr_format = formatting.Split(",")
 
         Load_Datagridview(SPAS.Dgv_Report_Year_Closing, Sqlc, "...")
-
         SPAS.Format_Datagridview(SPAS.Dgv_Report_Year_Closing, arr_format, False)
-
-
 
     End Sub
 

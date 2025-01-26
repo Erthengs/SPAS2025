@@ -67,35 +67,29 @@ Module Output
 
 
         'Dim img
-        Dim ximg As XImage = XImage.FromFile(Application.StartupPath & "\Logo HOET.jpg") 'C:\Users\werne\OneDrive\Pictures
+        Dim ximg As XImage = XImage.FromFile(Application.StartupPath & "\HOEZH3.jpg")
 
         gfx.DrawImage(ximg, 10, 10)
-
-        'gfx.DrawString(Journal_name & " / " & dat, font2, XBrushes.Black,
-        'New XRect(20, 20, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-
-        'header:
-
-        gfx.DrawString("Texel East Europe Support", font2, XBrushes.Black,
-        New XRect(120, 20, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+        gfx.DrawString("East Europe Support South Holland", font2, XBrushes.Black,
+        New XRect(150, 20, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString("Page " & pages & "/" & totalpages, font, XBrushes.Black,
                     New XRect(500, 20, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
 
-        gfx.DrawString("Contact person:", font, XBrushes.Black, New XRect(120, 40, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString("Date:", font, XBrushes.Black, New XRect(120, 60, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+        gfx.DrawString("Contact person:", font, XBrushes.Black, New XRect(150, 40, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+        gfx.DrawString("Date:", font, XBrushes.Black, New XRect(150, 60, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString("Bank Account:", font, XBrushes.Black,
-                    New XRect(120, 80, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+                    New XRect(150, 80, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString("File name:", font, XBrushes.Black,
-                    New XRect(120, 100, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+                    New XRect(150, 100, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
 
         gfx.DrawString(CP_name, font, XBrushes.Black,
-                    New XRect(300, 40, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+                    New XRect(270, 40, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString(dat, font, XBrushes.Black,
-                    New XRect(300, 60, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+                    New XRect(270, 60, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString(CP_bank, font, XBrushes.Black,
-                    New XRect(300, 80, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+                    New XRect(270, 80, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString(filenameShort, font, XBrushes.Black,
-                    New XRect(300, 100, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+                    New XRect(270, 100, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
 
         gfx.DrawLine(pen1, New XPoint(20, 140), New XPoint(560, 140))
 
@@ -116,11 +110,7 @@ Module Output
         gfx.DrawString("Summary", font2, XBrushes.Black, New XRect(20, 180, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString("QTY", font, XBrushes.Black, New XRect(215, 180, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString("EUR", font, XBrushes.Black, New XRect(275, 180, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString("MDL", font, XBrushes.Black, New XRect(340, 180, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-
-
-        'format.Alignment = XStringAlignment.Far
-        'format.Alignment = XStringFormats
+        gfx.DrawString("MDL", font, XBrushes.Black, New XRect(350, 180, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
 
         gfx.DrawString("Distribution", font, XBrushes.Black,
                     New XRect(30, 210, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
@@ -128,10 +118,6 @@ Module Output
                     New XRect(30, 240, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString("Extra gifts", font, XBrushes.Black,
                     New XRect(30, 270, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        'gfx.DrawString("Internal donations", font, XBrushes.Black,
-        'New XRect(30, 300, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        'gfx.DrawString("Total persons/donations", font, XBrushes.Black,
-        'New XRect(30, 330, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
 
         Dim Con_tot_qty As Integer = Tbx2Int(SPAS.Lbl_Excasso_Items_Contract.Text)
         Dim Ext_tot_qty As Integer = Tbx2Dec(SPAS.Lbl_Excasso_Items_Extra.Text) + Tbx2Dec(SPAS.Lbl_Excasso_Items_Intern.Text) * 1
@@ -142,35 +128,26 @@ Module Output
         Dim xr As Decimal = Tbx2Dec(SPAS.Tbx_Excasso_Exchange_rate.Text)
         'Dim mld_tot As Integer = Format(Gen_tot_eur * xr, "#,###")
 
+
+
         gfx.DrawString("General totals", font2, XBrushes.Black, New XRect(30, 330, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString("1", font, XBrushes.Black, New XRect(220, 210, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString(Con_tot_qty, font, XBrushes.Black, New XRect(220, 240, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString(Ext_tot_qty, font, XBrushes.Black, New XRect(220, 270, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        'gfx.DrawString(SPAS.Lbl_Excasso_Items_Intern.Text, font, XBrushes.Black, New XRect(220, 300, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        'gfx.DrawString(SPAS.Lbl_Excasso_Items_Totaal.Text, font, XBrushes.Black, New XRect(220, 330, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+        gfx.DrawString("1", font, XBrushes.Black, New XRect(190, 210, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Con_tot_qty, font, XBrushes.Black, New XRect(190, 240, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Ext_tot_qty, font, XBrushes.Black, New XRect(190, 270, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(CP_tot_eur * 1, font, XBrushes.Black, New XRect(260, 210, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Con_tot_eur * 1, font, XBrushes.Black, New XRect(260, 240, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Ext_tot_eur, font, XBrushes.Black, New XRect(260, 270, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Gen_tot_eur, font2, XBrushes.Black, New XRect(260, 330, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Tbx2Int(CP_tot_eur * xr), font, XBrushes.Black, New XRect(340, 210, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Tbx2Int(Con_tot_eur * xr), font, XBrushes.Black, New XRect(340, 240, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Tbx2Int(Ext_tot_eur * xr), font, XBrushes.Black, New XRect(340, 270, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Tbx2Int(Gen_tot_eur * xr), font2, XBrushes.Black, New XRect(340, 330, 50, font.Height), XStringFormats.TopRight)
 
-        gfx.DrawString(CP_tot_eur * 1, font, XBrushes.Black, New XRect(275, 210, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString(Con_tot_eur * 1, font, XBrushes.Black, New XRect(275, 240, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString(Ext_tot_eur, font, XBrushes.Black, New XRect(275, 270, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        'gfx.DrawString(SPAS.Lbl_Excasso_Intern.Text, font, XBrushes.Black, New XRect(270, 300, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        'gfx.DrawString(Tbx2Dec(SPAS.Lbl_Excasso_Totaal.Text), font, XBrushes.Black,New XRect(270, 330, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString(Gen_tot_eur * 1, font2, XBrushes.Black, New XRect(270, 330, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
 
-
-        gfx.DrawString(Tbx2Int(CP_tot_eur * xr), font, XBrushes.Black, New XRect(330, 210, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString(Tbx2Int(Con_tot_eur * xr), font, XBrushes.Black, New XRect(330, 240, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString(Tbx2Int(Ext_tot_eur * xr), font, XBrushes.Black, New XRect(330, 270, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        'gfx.DrawString(Tbx2Int(Tbx2Int(SPAS.Lbl_Excasso_Intern.Text) * xr), font, XBrushes.Black, New XRect(330, 300, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        'gfx.DrawString(Tbx2Int(Tbx2Dec(SPAS.Lbl_Excasso_Totaal.Text) * xr), font, XBrushes.Black, New XRect(330, 330, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString(Tbx2Int(Gen_tot_eur * xr), font2, XBrushes.Black, New XRect(330, 330, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
 
         page = document.AddPage()
         gfx = XGraphics.FromPdfPage(page)
         pages = pages + 1
-        'header
-
-        'gfx.DrawLine(pen1, New XPoint(20, 10), New XPoint(500, 60))
-        'end header
 
         Dim linecounter As Integer
         For x As Integer = 0 To SPAS.Dgv_Excasso2.Rows.Count - 1
@@ -196,15 +173,11 @@ Module Output
                     gfx.DrawString("Signature", font, XBrushes.Black, New XRect(390, 60, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
                     gfx.DrawLine(pen1, New XPoint(20, 85), New XPoint(560, 85))
                     gfx.DrawLine(pen3, New XPoint(175, 90), New XPoint(175, 145))
-                    'gfx.DrawLine(pen3, New XPoint(245, 90), New XPoint(245, 145))
-                    'gfx.DrawLine(pen3, New XPoint(315, 90), New XPoint(315, 145))
                     gfx.DrawLine(pen3, New XPoint(385, 90), New XPoint(385, 145))
                     line = 65
 
                 End If
                 line = line + 50
-                'gfx.DrawString("This is my first pdf document", font, XBrushes.Black,
-                'New XRect(0, 0, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
                 Sponsored = SPAS.Dgv_Excasso2.Rows(x).Cells(1).Value
                 Contract = Tbx2Int(SPAS.Dgv_Excasso2.Rows(x).Cells(6).Value) * xr
                 Extra = (SPAS.Dgv_Excasso2.Rows(x).Cells(7).Value + SPAS.Dgv_Excasso2.Rows(x).Cells(8).Value) * xr
@@ -218,15 +191,11 @@ Module Output
                 linecounter = linecounter + 1
                 If x < SPAS.Dgv_Excasso2.Rows.Count - 1 And linecounter Mod 14 <> 0 Then
                     gfx.DrawLine(pen3, New XPoint(175, line + 25), New XPoint(175, line + 75))
-                    'gfx.DrawLine(pen3, New XPoint(245, line + 25), New XPoint(245, line + 75))
-                    'gfx.DrawLine(pen3, New XPoint(315, line + 25), New XPoint(315, line + 75))
                     gfx.DrawLine(pen3, New XPoint(385, line + 25), New XPoint(385, line + 75))
                 End If
 
             End If
         Next
-
-
 
         If (SelectFolder.ShowDialog() = DialogResult.OK) Then
 

@@ -91,6 +91,7 @@ Module Basisadmin
         Next
         'If SPAS.Lbx_Basis.Items.Count > 0 Then Select_Obj2()
     End Sub
+
     Sub Select_Obj2(sender As String)
 
         '@@@deze module moet nog verbeterd worden via gebruik van een dataset en het kunnen hanteren van 0-waarden
@@ -121,7 +122,7 @@ Module Basisadmin
             pos = Strings.InStr(ctl.Name, "__")
             If pos > 0 Then
                 fld = Mid(ctl.Name, pos + 2, Len(ctl.Name) - pos)
-                'retrieve the accompanying columns
+                'retrieve the name of accompanying columns
                 For i = 0 To dst.Tables(0).Columns.Count - 1
                     If fld = dst.Tables(0).Columns(i).ColumnName Then
                         col = i
@@ -144,12 +145,9 @@ Module Basisadmin
 
                             If IsDBNull(dst.Tables(0).Rows(0)(col)) Then ctl.Text = "" Else ctl.Text = dst.Tables(0).Rows(0)(col)
 
-                            'ctl.Text = dst.Tables(0).Rows(0)(col)
-                            'If IsDBNull(ctl.Text) Then ctl.Text = ""
                     End Select
                 ElseIf TypeOf ctl Is CheckBox Then
-                    'Clipboard.Clear()
-                    'Clipboard.SetText(ctl.Name)
+
                     ctl.Checked = dst.Tables(0).Rows(0)(col)
                 ElseIf TypeOf ctl Is PictureBox Then
 
@@ -252,7 +250,7 @@ Module Basisadmin
             If SPAS.Lbl_00_Account__source.Text = "cat" Then SPAS.Tbx_01_Account__name.Enabled = True
 
         End If
-        If tb = 5 Then 'bankACCOUNT
+        If tb = 6 Then 'bankACCOUNT
 
             SPAS.Tbx_BankAcc_startbalance.Text = QuerySQL("select credit-debit from bank b left join bankacc c on c.accountno=b.iban 
                                                 where b.name='_startsaldo_' and b.iban ='" & SPAS.Tbx_01_BankAcc__accountno.Text & "'")
@@ -333,7 +331,7 @@ Module Basisadmin
             Load_Listbox(SPAS.Lbx_Basis, SQLstr1)
 
 
-        ElseIf tb = 5 Then
+        ElseIf tb = 6 Then
             SQLstr2 = "SELECT id, name FROM " & LCase(tbl) & " WHERE name ILIKE '%" & arg & "%'" & sel_act & " ORDER BY name"
 
             Load_Listbox(SPAS.Lbx_Basis, SQLstr2)
@@ -413,9 +411,7 @@ Module Basisadmin
                 If Add_Mode Then
                     nm = Strings.Trim(IIf(ix = 1, SPAS.Tbx_01_Target__name.Text, IIf(ix = 2, SPAS.Tbx_01_relation__name.Text, SPAS.Tbx_01_CP__name.Text)))
                     nma = Strings.Trim(IIf(ix = 1, SPAS.Tbx_01_Target__name_add.Text, IIf(ix = 2, SPAS.Tbx_01_Relation__name_add.Text, SPAS.Tbx_01_CP__name_add.Text)))
-                    'Clipboard.Clear()
-                    'Clipboard.SetText("SELECT count(*) from " & tbl &
-                    '" WHERE name='" & nm & "' AND name_add='" & nma & "'")
+
                     cnt = QuerySQL("SELECT count(*) from " & tbl &
                                    " WHERE name='" & nm & "' AND name_add='" & nma & "'")
 
@@ -551,8 +547,7 @@ Module Basisadmin
                 SQLstr = "SELECT CONCAT(name,',', name_add) FROM " & tbl & " WHERE id=" & new_id
                 If SPAS.Chbx_test.Checked Then MsgBox(SQLstr)
                 name = QuerySQL(SQLstr)
-                Dim accgroup As String
-                'Dim tt As String = QuerySQL("SELECT ttype " & tbl & " WHERE id=" & new_id)
+
 
                 Create_Account(tbtxt.ToLower, name, SPAS.Tbx_01_Target__ttype.Text, new_id, "Specifiek (doel)")
         End Select
@@ -779,25 +774,9 @@ Module Basisadmin
     End Function
 
     Function Create_Incasso_Totals(date_start As String)
-        Dim SQLstr As String = "
-            SELECT ta.ttype, count (distinct r.id), 
-            sum((co.donation+co.overhead)/term)
-            FROM contract co 
-            LEFT JOIN Target ta ON co.fk_target_id = ta.id
-            LEFT JOIN Relation r ON co.fk_relation_id = r.id
-            WHERE co.autcol = True 
-            AND co.startdate <= '" & date_start & "' 
-            AND co.enddate > '" & date_start & "'
-            AND 
-            ((r.date1 <='" & date_start & "' AND ta.ttype = 'Kind') OR
-            (r.date2 <='" & date_start & "' AND ta.ttype = 'Oudere') OR
-            (r.date3 <='" & date_start & "' AND ta.ttype = 'Overig'))
-            GROUP BY ta.ttype
-"
-        '        Return SQLstr
 
-        SQLstr = "
-            Select 'Kind',  count (distinct r.id),sum((co.donation+co.overhead)/term)
+        Dim SQLstr As String = "
+            Select 'Kind' As Doel,  count (distinct r.id) As Aantal,sum((co.donation+co.overhead)/term) As Totaal 
             From contract co LEFT Join Target ta ON co.fk_target_id = ta.id LEFT Join Relation r ON co.fk_relation_id = r.id 
             Where co.autcol = True And co.startdate <= '" & date_start & "' AND co.enddate > '" & date_start & "' AND r.date1 <='" & date_start & "' AND ta.ttype = 'Kind'
             union
@@ -833,35 +812,7 @@ Module Basisadmin
 
     End Function
 
-    Function Create_Incasso_Bookings(date_start As String)
-        Dim SQLstr As String = "
-            SELECT 
-                Concat(r.name, ', ',r.name_add) As Sponsor, 
-                ta.name||', '||ta.name_add As Doel, 
-                co.name As Contractnr, 
-                ta.ttype As Doeltype, 
-                sum(co.donation/co.term) As Donatie,
-                sum(co.overhead/co.term) As overhead,
-                ac.id As Accountid, 
-                r.id As Sponsorid
-            FROM contract co 
-                LEFT JOIN Target ta ON co.fk_target_id = ta.id
-                LEFT JOIN Relation r ON co.fk_relation_id = r.id
-                LEFT JOIN Account ac ON ac.f_key = ta.id
-            WHERE co.autcol = True 
-            AND co.startdate <= '" & date_start & "' 
-            AND co.enddate > '" & date_start & "'
-                AND 
-            ((r.date1 <='" & date_start & "' AND ta.ttype = 'Kind') OR
-            (r.date2 <='" & date_start & "' AND ta.ttype = 'Oudere') OR
-            (r.date3 <='" & date_start & "' AND ta.ttype = 'Overig'))
 
-            GROUP BY  ac.id,r.id,ta.name,ta.name_add, co.name, r.reference, r.name, r.name_add, r.iban, ta.ttype, r.date1, r.date2
-            ORDER by  ta.ttype, r.reference
-"
-        Return SQLstr
-
-    End Function
     Function Existing_Excasso(ByVal exnam As String)
 
         Dim overhead As String = QuerySQL("SELECT value FROM settings WHERE label='overhead'")
@@ -946,48 +897,12 @@ Module Basisadmin
             ORDER BY ac.name ASC
 
 "
-        'Clipboard.Clear()
-        'Clipboard.SetText(SQLstr)
+
         Return SQLstr
 
 
     End Function
-    'concat(ta.name, ta.name_add)
-
-    Sub Set_Budgets()
-        Dim SQLstr = "
 
 
-        update account Set 
-        b_jan = 0, b_feb=0, b_mar=0, b_apr=0,b_may = 0, b_jun=0, b_jul=0, b_aug=0,b_sep = 0, b_oct=0, b_nov=0, b_dec=0;
-        UPDATE account c1   
-        SET 
-        b_jan = (co.donation+co.overhead)/co.term,
-        b_feb = (co.donation+co.overhead)/co.term,
-        b_mar = (co.donation+co.overhead)/co.term,
-        b_apr = (co.donation+co.overhead)/co.term,
-        b_may = (co.donation+co.overhead)/co.term,
-        b_jun = (co.donation+co.overhead)/co.term,
-        b_jul = (co.donation+co.overhead)/co.term,
-        b_aug = (co.donation+co.overhead)/co.term,
-        b_sep = (co.donation+co.overhead)/co.term,
-        b_oct = (co.donation+co.overhead)/co.term,
-        b_nov = (co.donation+co.overhead)/co.term,
-        b_dec = (co.donation+co.overhead)/co.term
-        FROM account 
-        LEFT JOIN contract co ON co.fk_target_id = account.f_key
-        LEFT JOIN account c2 ON co.fk_target_id = c2.f_key
-        WHERE c1.f_key = c2.f_key
-        AND c1.f_key = co.fk_target_id;
-"
-
-
-    End Sub
-
-    Function E2D(ByVal amt)
-        Dim camt = FormatCurrency(amt, 2)
-
-        Return camt
-    End Function
 
 End Module

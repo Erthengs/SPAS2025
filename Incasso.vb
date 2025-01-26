@@ -61,10 +61,8 @@ Module Incasso
         Dim filename = "Incassojob_" & Month(isd) & "_" & Year(isd) & ".xml"
 
         Collect_data(Create_Incasso_Totals(s1))
-        Clipboard.Clear()
-        Clipboard.SetText(Create_Incasso_Totals(s1))
 
-        'Create_Incasso_Totals gaat fout sinds er overig bij zit
+
 
         Dim nr As Integer = dst.Tables(0).Rows(0)(1) + dst.Tables(0).Rows(1)(1) + dst.Tables(0).Rows(2)(1)
         Dim amt = Replace(CDbl(dst.Tables(0).Rows(0)(2) + dst.Tables(0).Rows(1)(2) + dst.Tables(0).Rows(2)(2)).ToString("F2"), ",", ".")
@@ -602,16 +600,16 @@ Module Incasso
 
     End Sub
     Function Create_Incasso(date_start As String)
-        Dim SQLstr = "
-            SELECT Concat(r.name, ', ', r.name_add), 
-            sum((co.donation+co.overhead)/co.term),
-            r.iban, ta.ttype, 
-            CASE 
+        Dim SQLstr = $"
+            SELECT Concat(r.name, ', ', r.name_add)
+            ,sum((co.donation+co.overhead)/co.term)
+            ,r.iban, ta.ttype 
+            ,CASE 
 	            WHEN ta.ttype = 'Kind' Then Concat('k', r.reference)
 	            WHEN ta.ttype = 'Oudere' Then Concat('o',r.reference)
                 WHEN ta.ttype = 'Overig' Then Concat('v',r.reference)
-            END,
-            CASE 
+            END
+            ,CASE 
 	            WHEN ta.ttype = 'Kind' Then r.date1
 	            WHEN ta.ttype = 'Oudere' Then r.date2
                 WHEN ta.ttype = 'Overig' Then r.date3
@@ -619,21 +617,52 @@ Module Incasso
             FROM contract co 
             LEFT JOIN Target ta ON co.fk_target_id = ta.id
             LEFT JOIN Relation r ON co.fk_relation_id = r.id
+            LEFT JOIN Account ac ON ac.f_key = ta.id
             WHERE co.autcol = True 
-            AND co.startdate <= '" & date_start & "' 
-            AND co.enddate > '" & date_start & "'
+            AND co.startdate <= '{date_start}' 
+            AND co.enddate > '{date_start}'
+            AND ac.active = True
             AND 
-            ((r.date1 <='" & date_start & "' AND ta.ttype = 'Kind') OR
-            (r.date2 <='" & date_start & "' AND ta.ttype = 'Oudere') OR
-            (r.date3 <='" & date_start & "' AND ta.ttype = 'Overig'))
+            ((r.date1 <='{date_start}' AND ta.ttype = 'Kind') OR
+            (r.date2 <='{date_start}' AND ta.ttype = 'Oudere') OR
+            (r.date3 <='{date_start}' AND ta.ttype = 'Overig'))
+
             GROUP BY  r.reference, r.name, r.name_add, r.iban, ta.ttype, r.date1, r.date2, r.date3
             ORDER by  ta.ttype, r.reference
 
 "
         Return SQLstr
-        'Clipboard.Clear()
-        'Clipboard.SetText(SQLstr)
+
 
     End Function
+    Function Create_Incasso_Bookings(date_start As String)
+        Dim SQLstr As String = $"
+            SELECT 
+                Concat(r.name, ', ',r.name_add) As Sponsor, 
+                ta.name||', '||ta.name_add As Doel, 
+                co.name As Contractnr, 
+                ta.ttype As Doeltype, 
+                sum(co.donation/co.term) As Donatie,
+                sum(co.overhead/co.term) As overhead,
+                ac.id As Accountid, 
+                r.id As Sponsorid
+            FROM contract co 
+                LEFT JOIN Target ta ON co.fk_target_id = ta.id
+                LEFT JOIN Relation r ON co.fk_relation_id = r.id
+                LEFT JOIN Account ac ON ac.f_key = ta.id
+            WHERE co.autcol = True 
+            AND co.startdate <= '{date_start}' 
+            AND co.enddate > '{date_start}'
+            AND ac.active = True
+            AND 
+            ((r.date1 <='{date_start}' AND ta.ttype = 'Kind') OR
+            (r.date2 <='{date_start}' AND ta.ttype = 'Oudere') OR
+            (r.date3 <='{date_start}' AND ta.ttype = 'Overig'))
 
+            GROUP BY  ac.id,r.id,ta.name,ta.name_add, co.name, r.reference, r.name, r.name_add, r.iban, ta.ttype, r.date1, r.date2
+            ORDER by  ta.ttype, r.reference
+"
+        Return SQLstr
+
+    End Function
 End Module

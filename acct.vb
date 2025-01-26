@@ -11,9 +11,8 @@ Module acct
     Sub Fill_Cmx_Journal_List()
 
         Dim k As String = "", lf As String = ""
-        Dim t As String = SPAS.Cmx_Journal_List.Text
         Dim f As String = SPAS.Searchbox.Text 'SPAS.Tbx_Journal_Filter.Text
-        Dim act As Boolean = (SPAS.Cbx_LifeCycle.Text = "Actief")  'Not SPAS.Chbx_Journal_Inactive.Checked
+        Dim act As Boolean = (SPAS.Cbx_LifeCycle.Text = "Actief")
         Dim verwerkt As Boolean = SPAS.Cbx_Journal_Status_Verwerkt.Checked
         Dim open As Boolean = SPAS.Cbx_Journal_Status_Open.Checked
         Dim sqlstr As String
@@ -27,169 +26,23 @@ Module acct
         If Not open And Not verwerkt Then st &= "Not IN ('Open','Verwerkt') or j.status isnull)"
         If SPAS.Cbx_Journal_Saldo_Open.Checked Then nulsaldo = "having sum(amt1) !=0::money "
 
-
-        Load_Datagridview(SPAS.Dgv_Journal_items, "SELECT * FROM account WHERE name = 'xxxxxxxx'", "Fill_Cmx_Journal_List")
-
-        Select Case t
-            Case "Journaalnaam"
-
-                Load_Listview(SPAS.Lv_Journal_List, "SELECT DISTINCT name, name, date FROM journal j
+        Load_Listview(SPAS.Lv_Journal_List, "SELECT DISTINCT name, name, date FROM journal j
                                                 WHERE name ILIKE '%" & f & "%'" & st & " 
                                                 ORDER BY date desc, name")
-
-            Case "Accounts"
-
-                sqlstr = "
-                                          SELECT ac.id, ac.name As Accountnaam, 
-                                                CASE WHEN Sum(j.amt1) is  distinct from null Then Sum(j.amt1) else 0::money End
-                                                ,(select sum(amt1) from journal j2 where j2.source='Closing' and j2.fk_account = ac.id) As Startsaldo
-                                                ,ac.accgroup As Group
-                                                From account ac
-												LEFT JOIN journal j ON j.fk_account = ac.id
-                                                LEFT JOIN target ta ON ta.id = ac.f_key 
-                                                WHERE ac.name ILIKE '%" & f & "%' " & st & "
-                                                Group by ac.id " & nulsaldo & "
-                                                ORDER BY ac.name
-                                               "
-
-                Load_Listview(SPAS.Lv_Journal_List, sqlstr)
-
-
-            Case "Relaties"
-                Load_Listview(SPAS.Lv_Journal_List, "
-                                                Select r.id, r.name||', '||r.name_add, 
-                                                --CASE WHEN Sum(j.amt1) is not distinct from null Then sum(j.amt1) ELSE '$0.00' END,
-                                                sum(amt1),null, null
-                                                FROM relation r 
-                                                LEFT Join journal j on r.id=j.fk_relation
-                                                WHERE j.source NOT in ('Uitkering', 'Intern')
-                                                group by r.id, r.name_add, r.name
-                                                order by r.name
-")
-
-        End Select
 
 
         With SPAS.Lv_Journal_List
             .Columns.Item(0).Width = 0
             .Columns(1).Text = "Naam"
-
-            If t = "Journaalnaam" Then
-                .Columns.Item(1).Width = 150
-                .Columns.Item(2).Width = 100
-                .Columns(2).Text = "Date"
-
-            Else
-                .Columns(2).Text = "Saldo"
-                .Columns.Item(1).Width = 150
-                .Columns.Item(2).Width = 70
-                .Columns.Item(3).Width = 70
-                .Columns.Item(4).Width = 120
-            End If
-
+            .Columns.Item(1).Width = 150
+            .Columns.Item(2).Width = 100
+            .Columns(2).Text = "Date"
         End With
 
 
     End Sub
 
     '===============================================================================================
-
-
-    Sub Select_Source_Account()
-        Dim ErrMsg As String = ""
-        Dim sel As Integer = 0
-        Dim cs As Decimal = 0
-
-        For i = 0 To SPAS.Lv_Journal_List.Items.Count - 1
-            If SPAS.Lv_Journal_List.Items(i).Selected Then sel = sel + 1
-        Next
-
-        If SPAS.Cmx_Journal_List.Text = "Journaalnaam" Then ErrMsg &= vbCrLf & "Selecteer een account i.p.v. een journaalitem"
-        If sel <> 1 Then ErrMsg &= vbCrLf & "Selecteer één account als bronaccount."
-
-        If sel = 1 Then
-            cs = Tbx2Dec(SPAS.Lv_Journal_List.FocusedItem.SubItems(2).Text)
-        End If
-        If cs = 0 And sel = 1 And SPAS.Cmx_Journal_List.Text <> "Journaalnaam" Then
-            ErrMsg &= vbCrLf & "Het saldo van een bronaccount moet positief zijn."
-        End If
-
-        If ErrMsg <> "" Then
-            MsgBox("Selectie van bronaccount is mislukt: " & ErrMsg)
-            Exit Sub
-        End If
-
-
-        SPAS.Lbl_Journal_Source_id.Text = SPAS.Lv_Journal_List.FocusedItem.SubItems(0).Text
-        SPAS.Lbl_Journal_Source_Name.Text = SPAS.Lv_Journal_List.FocusedItem.SubItems(1).Text
-        SPAS.Lbl_Journal_Source_Saldo.Text = Tbx2Dec(cs)
-        SPAS.Tbx_Journal_Source_Amt.Text = Tbx2Dec(cs)
-        SPAS.Tbx_Journal_Name.Text = SPAS.Lbl_Journal_Source_Name.Text & ">"
-
-    End Sub
-
-    Sub test()
-
-
-    End Sub
-
-    Sub Select_Target_Account()
-
-        Dim ErrMsg As String = ""
-        Dim i As Integer
-        Dim sel As Integer = 0
-        Dim id
-        Dim amt As Integer = 0
-        Dim tgt_tot As Decimal = 0
-
-        'what part of the amount is already allocated
-        For i = 0 To SPAS.Dgv_Journal_Intern.Rows.Count - 1
-            tgt_tot = tgt_tot + SPAS.Dgv_Journal_Intern.Rows(i).Cells(2).Value
-        Next
-
-
-
-        For i = 0 To SPAS.Lv_Journal_List.Items.Count - 1
-            If SPAS.Lv_Journal_List.Items(i).Selected Then sel = sel + 1
-        Next
-
-        If SPAS.Cmx_Journal_List.Text = "Journaalnaam" Then ErrMsg &= vbCrLf & "Selecteer een account i.p.v. een journaalitem"
-        If sel = 0 Then ErrMsg &= vbCrLf & "Selecteer minimaal één account als doelaccount."
-        If Tbx2Dec(SPAS.Tbx_Journal_Source_Amt.Text) = 0 Then ErrMsg &= vbCrLf & "Selecteer eerst een bronaccount."
-
-        If ErrMsg <> "" Then
-            MsgBox("Selectie van doelaccount(s) is mislukt: " & ErrMsg)
-            Exit Sub
-        End If
-
-        For i = 0 To SPAS.Lv_Journal_List.Items.Count - 1
-            With SPAS.Lv_Journal_List.Items(i)
-
-                If (.Selected) Then
-                    amt = (Tbx2Dec(SPAS.Tbx_Journal_Source_Amt.Text) - tgt_tot) / sel
-                    id = SPAS.Lv_Journal_List.Items(SPAS.Lv_Journal_List.Items(i).Index).SubItems(1).Text
-                    SPAS.Dgv_Journal_Intern.Rows.Add(SPAS.Lv_Journal_List.Items(i).Text)
-                    SPAS.Dgv_Journal_Intern.Rows(SPAS.Dgv_Journal_Intern.Rows.Count - 1).Cells(1).Value = id
-                    SPAS.Dgv_Journal_Intern.Rows(SPAS.Dgv_Journal_Intern.Rows.Count - 1).Cells(2).Value = Tbx2Dec(amt)
-
-                End If
-
-            End With
-        Next
-
-        With SPAS.Dgv_Journal_Intern
-            .Columns(0).Visible = False
-            .Columns(1).Width = 160
-            .Columns(1).ReadOnly = True
-            .Columns(2).Width = 70
-            .Columns(2).DefaultCellStyle.Format = "N2"
-            .Columns(2).DefaultCellStyle.ForeColor = Color.Blue
-            .Columns(2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-
-        End With
-        Calculate_Journal_Booking_Data()
-
-    End Sub
 
     Sub Divide_among_targets()
         Dim cnt As Integer = 0
@@ -208,8 +61,7 @@ Module acct
     End Sub
 
     Sub Save_Internal_Booking()
-        'checks
-        'Dim act_cnt, act_cnt2 As Integer
+        'invoerchecks
         Dim err As String = ""
         Dim rst = SPAS.Lbl_Journal_Source_Restamt.Text
         Dim name As String = SPAS.Tbx_Journal_Name.Text
@@ -219,6 +71,9 @@ Module acct
 
         If SPAS.Dgv_Journal_Intern.RowCount = 0 Then err &= "Er is geen doelaccount geselecteerd" & vbCr
         If rst < 0 Then err = "Het te verdelen bedrag is hoger dan het saldo van de bronaccount." & vbCr
+        If SPAS.Rbn_Journal_Intern.Checked = False And SPAS.Rbn_Journal_Contract.Checked = False And SPAS.Rbn_Journal_Extra.Checked = False Then
+            err = "Het transactietype (intern, contract of extra) is nog niet aangegeven." & vbCr
+        End If
 
         If err <> "" Then
             MsgBox(err)
@@ -237,20 +92,18 @@ Module acct
         Dim dat1 As String = dat.Year & "-" & dat.Month & "-" & dat.Day
         Dim src_amt As Integer '= Cur2(Tbx2Int(SPAS.Tbx_Journal_Source_Amt.Text) - rst)
         Dim desc As String = SPAS.Tbx_Journal_Description.Text
-        Dim fka As String = SPAS.Lbl_Journal_Source_id.Text
+        Dim selectedItem As ComboBoxItem = TryCast(SPAS.Cmbx_Overboeking_Bron.SelectedItem, ComboBoxItem)
+        Dim fka As String = selectedItem.Column1
         Dim type As String = IIf(SPAS.Rbn_Journal_Intern.Checked, "'Internal'", IIf(SPAS.Rbn_Journal_Contract.Checked, "'Contract'", "'Extra'"))
+
         'save source 
         SQLroot = "INSERT INTO journal(name,date,status,type,source,description,amt1,fk_account)
                    VALUES('" & name & "','" & dat1 & "'::date,'Verwerkt'," & type & ",'Intern','" & desc & "','"
 
-
         With SPAS.Dgv_Journal_Intern
-            '.Rows(.SelectedCells(0).RowIndex).Cells(2).Value = .CurrentCell.EditedFormattedValue
             For i = 0 To .Rows.Count - 1
-                'MsgBox("i:" & i & "    .Rows(i).Cells(2).Value:" & .Rows(i).Cells(2).Value & "/" & .Rows(i).Cells(1).Value)
                 If .Rows(i).Cells(2).Value > 0 Then
-                    SQLstr &= SQLroot & Cur2(CLng(.Rows(i).Cells(2).Value)) & "','" &
-                .Rows(i).Cells(0).Value & "');"
+                    SQLstr &= SQLroot & Cur2(CLng(.Rows(i).Cells(2).Value)) & "','" & .Rows(i).Cells(0).Value & "');"
 
                 End If
                 'nulwaarden overslaan
@@ -261,21 +114,14 @@ Module acct
         SQLstr &= SQLroot & -Cur2(Tbx2Int(src_amt)) & "','" & fka & "');"
         Clipboard.Clear()
         Clipboard.SetText(SQLstr)
-
-        RunSQL(SQLstr, "NULL", "Save_Internal_Booking")
+        Try
+            RunSQL(SQLstr, "NULL", "Save_Internal_Booking")
+        Catch ex As Exception
+            MsgBox($"Incorrecte SQL statement: {SQLstr}")
+            Exit Sub
+        End Try
         MsgBox("Deze interne boeking is opgeslagen met de naam " & name & ".")
-
-        SPAS.Lbl_Journal_Source_Saldo.Text = 0
-        SPAS.Lbl_Journal_Source_Name.Text = ""
-        SPAS.Tbx_Journal_Source_Amt.Text = 0
-        SPAS.Dgv_Journal_Intern.Rows.Clear()
-        SPAS.Lbl_Journal_Source_Restamt.Text = 0
-        SPAS.Tbx_Journal_Description.Text = ""
-        SPAS.Dtp_Journal_intern.Value = Date.Today
-
-        SPAS.Cmx_Journal_List.Text = "Journaalnaam"
-        SPAS.Searchbox.Text = name
-        SPAS.TC_Boeking.SelectedIndex = 0
+        SPAS.Leeg_overboeking_scherm()
 
 
     End Sub
@@ -311,6 +157,12 @@ Module acct
         'calculate values of target accounts
         Dim tgt_tot As Decimal = 0
         Dim tname As String
+        Dim selectedItem As ComboBoxItem = TryCast(SPAS.Cmbx_Overboeking_Bron.SelectedItem, ComboBoxItem)
+        If SPAS.Cmbx_Overboeking_Bron.SelectedIndex = -1 Then
+            MsgBox("Selecteer eerst een bronaccount.")
+            Exit Sub
+        End If
+
         For i = 0 To SPAS.Dgv_Journal_Intern.Rows.Count - 1
             tgt_tot = tgt_tot + SPAS.Dgv_Journal_Intern.Rows(i).Cells(2).Value
             tname = SPAS.Dgv_Journal_Intern.Rows(i).Cells(1).Value
@@ -320,9 +172,9 @@ Module acct
 
 
         If SPAS.Dgv_Journal_Intern.Rows.Count > 1 Then
-            SPAS.Tbx_Journal_Name.Text = SPAS.Lbl_Journal_Source_Name.Text & ">" & tname & "+" & SPAS.Dgv_Journal_Intern.Rows.Count - 1
+            SPAS.Tbx_Journal_Name.Text = selectedItem.Column2 & ">" & tname & "+" & SPAS.Dgv_Journal_Intern.Rows.Count - 1
         Else
-            SPAS.Tbx_Journal_Name.Text = SPAS.Lbl_Journal_Source_Name.Text & ">" & tname
+            SPAS.Tbx_Journal_Name.Text = selectedItem.Column2 & ">" & tname
         End If
 
 
@@ -336,18 +188,9 @@ Module acct
         Dim dat
         Dim tbl, SQL_Where, SQLStr, dateselect As String
         Dim stat As String = ""
-        tbl = ""
         SQL_Where = ""
         SQLStr = ""
-        Dim jrnl = SPAS.Cmx_Journal_List.Text = "Journaalnaam"
-
-        Select Case SPAS.Cmx_Journal_List.Text
-            Case "Relaties" : tbl = "j.fk_relation"
-            Case "Incasso"
-            Case "Uitkering"
-            Case "Journaalnaam" : tbl = "j.name"
-            Case Else : tbl = "ac.id"
-        End Select
+        tbl = "j.name"
 
         If SPAS.Cbx_Journal_Status_Open.Checked And Not SPAS.Cbx_Journal_Status_Verwerkt.Checked Then
             stat = " AND j.status = 'Open' "
@@ -398,21 +241,14 @@ Module acct
                 If (.Selected) Then
                     id = SPAS.Lv_Journal_List.Items(SPAS.Lv_Journal_List.Items(i).Index).SubItems(0).Text
 
-                    If jrnl Then
-                        Dim _dat As Date
-                        _dat = SPAS.Lv_Journal_List.Items(SPAS.Lv_Journal_List.Items(i).Index).SubItems(2).Text
-                        dat = _dat.Year & "-" & _dat.Month & "-" & _dat.Day
-                        dateselect = " and j.date ='" & dat & "'::date"
-                    Else
-                        dateselect = ""
-                    End If
+                    Dim _dat As Date
+                    _dat = SPAS.Lv_Journal_List.Items(SPAS.Lv_Journal_List.Items(i).Index).SubItems(2).Text
+                    dat = _dat.Year & "-" & _dat.Month & "-" & _dat.Day
+                    dateselect = " and j.date ='" & dat & "'::date"
+
                     SQL_Where &= IIf(SQL_Where = "", " WHERE ", " OR ") & tbl & "='" & id & "'" & stat & dateselect
-                    'saldo = saldo +
-                    'Tbx2Dec(SPAS.Lv_Journal_List.Items(SPAS.Lv_Journal_List.Items(i).Index).SubItems(3).Text) +
-                    'Tbx2Dec(SPAS.Lv_Journal_List.Items(SPAS.Lv_Journal_List.Items(i).Index).SubItems(4).Text)
                 End If
-                '
-                ' Dgv_Journal_Intern.DataSource = boundSet.Tables(0)
+
             End With
         Next
         SQLStr &= SQL_Where & " ORDER BY j.date, j.name"
@@ -422,86 +258,12 @@ Module acct
 
     End Function
 
-    Sub Fill_Journal_List()
-        Dim jrnl As Boolean
-        jrnl = SPAS.Cmx_Journal_List.Text = "Journaalnaam"
-
-
-        Load_Datagridview(SPAS.Dgv_Journal_items, Create_Journal_SQL, "Lv_Journal_List_Click")
-        'If jrnl And SPAS.Dgv_Journal_items.RowCount > 0 Then
-
-        Try
-            SPAS.Tbx_.Text = SPAS.Dgv_Journal_items.Rows(0).Cells(1).Value
-            SPAS.Tbx_Journal_Descr.Text = SPAS.Dgv_Journal_items.Rows(0).Cells(4).Value
-
-        Catch ex As Exception
-            'MsgBox(ex.ToString)
-        End Try
-
-
-        'End If
-        With SPAS.Dgv_Journal_items
-
-            .Columns(0).Width = 50
-            .Columns(0).HeaderText = "Dat"
-            .Columns(0).DefaultCellStyle.Format = "dd-MM"
-
-            .Columns(1).Width = 250
-            .Columns(1).HeaderText = "Naam"
-            '.Columns(1).DefaultCellStyle.ForeColor = Color.Blue
-            .Columns(1).DefaultCellStyle.Font = New Font(.DefaultCellStyle.Font, FontStyle.Underline)
-
-
-            .Columns(2).Width = 60
-            .Columns(3).Width = 60
-            .Columns(2).HeaderText = "Bij"
-            .Columns(3).HeaderText = "Af"
-            .Columns(2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            .Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            .Columns(2).DefaultCellStyle.Format = "N2"
-            .Columns(3).DefaultCellStyle.Format = "N2"
-            .Columns(8).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-
-            .Columns(4).Width = 250
-            .Columns(4).HeaderText = "Omschrijving"
-
-
-            .Columns(5).Visible = True
-            .Columns(5).Width = IIf(jrnl, 200, 0)
-            .Columns(5).HeaderText = "Account"
-
-            .Columns(6).Width = 50
-            .Columns(6).HeaderText = "Status"
-
-            .Columns(7).Width = 70
-            .Columns(7).HeaderText = "Bron"
-
-            .Columns(8).Width = 70
-            .Columns(8).HeaderText = "IBAN"
-
-            .Columns(9).Width = 70
-            .Columns(9).HeaderText = "Soort"
-
-            'determine visibility 
-
-
-            .Columns(1).Visible = Not jrnl
-            .Columns(8).Visible = Not jrnl
-            .Columns(6).Visible = True 'jrnl
-            '.Columns(2).Visible = Not jrnl
-        End With
-
-        SPAS.Calculate_Journaalposten_totalen(SPAS.Dgv_Journal_items)
-    End Sub
 
     Sub Fill_Journal_List_journaalposten()
 
-        Dim cred, deb As Decimal
+        ' Dim cred, deb As Decimal
 
-        Load_Datagridview(SPAS.Dgv_journaalposten, Create_Journal_SQL, "Lv_Journal_List_Click")
-
-
-
+        Load_Datagridview(SPAS.Dgv_journaalposten, Create_Journal_SQL, "Fill_Journal_List_journaalposten")
 
         'End If
         With SPAS.Dgv_journaalposten
@@ -541,7 +303,7 @@ Module acct
 
 
             For i = 6 To 16
-                .Columns(i).Visible = False
+                .Columns(i).Visible = True
             Next
             .Columns(10).Visible = True
             .Columns(17).Visible = True
@@ -687,7 +449,6 @@ Module acct
                     GetDouble(SPAS.Tbx_10_Account__b_dec.Text))
         )
 
-        'SPAS.Lbl_Account_Budget_Difference.Text Then SPAS.Lbl_Account_Budget_Difference.ForeColor = Color.Red
 
     End Sub
 
@@ -750,7 +511,6 @@ Module acct
         Dim dat As String
 
         SPAS.TC_Boeking.SelectedIndex = idx
-        SPAS.Cmx_Journal_List.Text = fltr
         For Each item As ListViewItem In SPAS.Lv_Journal_List.Items
             dat_ = item.SubItems(2).Text
             dat = dat_.Year & "-" & dat_.Month & "-" & dat_.Day
@@ -778,19 +538,66 @@ Module acct
         Next
     End Sub
 
-    Sub Select_Account_Details(ByVal dgv As DataGridView)
-        Exit Sub
-        'Clipboard.SetText(Dgv_Excasso2.CurrentCell.Value)
-        With SPAS
-            .TC_Main.SelectedIndex = 4
-            .Cmx_Journal_List.SelectedIndex = 0
-            .Searchbox.Text = dgv.CurrentCell.Value
-            If SPAS.Lv_Journal_List.Items.Count > 0 Then
-                .Lv_Journal_List.Items(0).Focused = True
-                .Lv_Journal_List.Items(0).Selected = True
-            End If
-        End With
+    Sub Close_Year()
+        '----------- uitvoeren controles
+
+        If Check_administratie() = False Then Exit Sub
+        If MsgBox("Wilt u het jaar " & report_year & " definitief afsluiten? Dit kan niet meer worden teruggedraaid!", vbYesNo) = vbNo Then Exit Sub
+
+        'Ophalen transitieposten ten behoeve van table t1
+        Dim Sql1 As String = QuerySQL("Select sql from query where category = 'Overzicht' and name='Transitieposten'")
+        Sql1 = Sql1.Replace("[Year]", report_year)
+        Dim Sql2 As String = QuerySQL("Select sql from query where category = 'Transaction' and name='Jaarafsluiting'")
+        Sql2 = Sql2.Replace("[Year]", report_year)
+        Dim Sql As String = Sql1 & vbCr & Sql2
+
+        'Uitvoeren jaarafsluiting
+        Clipboard.Clear()
+        Clipboard.SetText(Sql)
+
+        RunSQL(Sql, "NULL", "Close_Year")
+
+        If MsgBox("Wilt u de budgetten voor " & Now.Year & " berekenen (eventuele handmatige aanpassen gaan verloren)? ", vbYesNo) = vbYes Then
+            Calculate_Budget("")
+        End If
     End Sub
 
+    Function Check_administratie()
 
+
+        Collect_data(QuerySQL("Select sql from query where name= 'Haal checks op'"))
+        Dim result As VariantType
+        Dim response As String = "Uitkomsten controles:" & vbCr
+        Dim Res As Boolean = True
+
+
+        For c = 0 To dst.Tables(0).Rows.Count - 1
+            'dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("p1", Bank_table(rep_year))
+            'dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("p2", Report_table(rep_year))
+            dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("[year]", report_year)
+            Debug.Print(dst.Tables(0).Rows(c)(1))
+            'result = QuerySQL(dst.Tables(0).Rows(c)(1))
+
+            If Not IsDBNull(QuerySQL(dst.Tables(0).Rows(c)(1))) Then
+
+                result = QuerySQL(dst.Tables(0).Rows(c)(1))
+                If result <> 0 Then
+                    dst.Tables(0).Rows(c)(2) = dst.Tables(0).Rows(c)(2).Replace("#", result)
+                    dst.Tables(0).Rows(c)(2) = "- FOUT: " & dst.Tables(0).Rows(c)(2)
+                    response &= dst.Tables(0).Rows(c)(2) & vbCr
+                    Res = False
+
+                End If
+            End If
+            If Strings.Left(dst.Tables(0).Rows(c)(2), 6) <> "- FOUT" Then
+                dst.Tables(0).Rows(c)(3) = "- " & dst.Tables(0).Rows(c)(3) & " OK"
+                response &= dst.Tables(0).Rows(c)(3) & vbCr
+            End If
+
+        Next c
+
+        MsgBox(response, IIf(Res, vbInformation, vbCritical))
+        If Res Then Return True Else Return False
+
+    End Function
 End Module

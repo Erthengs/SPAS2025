@@ -1,9 +1,13 @@
-﻿Imports System.IO
+﻿Imports System.Drawing.Imaging
+Imports System.IO
 Imports System.Security.Cryptography
 Imports System.Text.RegularExpressions
 Imports Npgsql
 Imports NpgsqlTypes
 Imports PdfSharp.Pdf.IO
+Imports System.Runtime.CompilerServices
+Imports System.Runtime.InteropServices
+
 
 Module DataManagement
     Public connection As NpgsqlConnection
@@ -67,7 +71,7 @@ connstart:
 
     End Sub
 
-    Public Sub RunSQL(ByVal sql As String, jpg As String, msg As String)
+    Public Sub RunSQL(ByVal sql As String, jpg As String, msg As String, <CallerMemberName> Optional ByVal caller As String = "")
         Try
             Connect(sql)
             Dim cmd As New NpgsqlCommand
@@ -78,7 +82,7 @@ connstart:
             cmd.ExecuteNonQuery()
             cmd.Dispose()
             connection.Close()
-
+            WriteLog(sql, caller)
         Catch ex As Exception
             Dim e1 As Integer = ex.ToString.IndexOf("UNIQUE constraint failed")
             If e1 > 0 Then MessageBox.Show("Name already exists.") Else MsgBox("RunSQL error while running procedure " & msg & vbCrLf & vbCrLf & Left(ex.ToString, 1000))
@@ -354,7 +358,7 @@ connstart:
     End Sub
     Public Sub Run_SQL_Journal(ByVal caller As String, operation As String, id As Integer, name As String, datum As Date, status As String,
         amt1 As Decimal, amt2 As Decimal, description As String, source As String, fk_account As Integer,
-        fk_relation As Integer, fk_bank As Integer, type As String, cpinfo As String, iban As String)
+        fk_relation As Integer, fk_bank As Integer, type As String, cpinfo As String, iban As String, <CallerMemberName> Optional ByVal caller2 As String = "")
 
         Dim sql As String = ""
         Dim upd_qt As Integer = 0
@@ -362,6 +366,9 @@ connstart:
         Dim operationDetails As String = $"id:'{id}';name:'{name}';date:'{datum}', status:'{status}' ,
         amt1:'{amt1}';amt2:'{amt2}', description:'{description}';source:'{source}';fk_account:'{fk_account}',
         fk_relation:'{fk_relation}';fk_bank:'{fk_bank}';type:'{type}';cpinfo:'{cpinfo}';iban:'{iban}'"
+
+        MsgBox(operationDetails)
+        db = "Journal"
 
         Select Case operation
             Case "UPDATE"
@@ -407,24 +414,8 @@ connstart:
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
-        MsgBox(db)
-        Dim logSql As String = "INSERT INTO public.operation_logs (db_name, caller, operation_type, username, operation_details) " &
-                       "VALUES (@db_name, @caller, @operation_type, @username, @operation_details);"
-        Try
 
-            Dim logCmd As New NpgsqlCommand(logSql, connection)
-            logCmd.Connection = connection
-            logCmd.Parameters.AddWithValue("@db_name", db)
-            logCmd.Parameters.AddWithValue("@caller", caller)
-            logCmd.Parameters.AddWithValue("@operation_type", operation)
-            logCmd.Parameters.AddWithValue("@username", username)
-            logCmd.Parameters.AddWithValue("@operation_details", operationDetails)
-            logCmd.ExecuteNonQuery()
-            logCmd.Dispose()
-        Catch ex As Exception
-            Console.WriteLine("Logging failed: " & ex.Message)
-            MsgBox(ex.Message)
-        End Try
+        WriteLog(sql, caller2)
 
     End Sub
 
@@ -465,71 +456,118 @@ connstart:
     End Sub
 
     Sub Populate_DataTree(ByVal sql As String, ByVal tview As TreeView)
-        Collect_data("select name from query where sql ilike '%[year]%'")
+
         Dim conn = New NpgsqlConnection(connect_string)
         conn.Open()
         Dim cmd As New NpgsqlCommand(sql, conn)
-        Dim cat As String
-        Dim name1 As String
-        Dim cat2 As String = ""
-
-
+        Dim level1 As String
+        Dim level2 As String
+        Dim level3 As String = ""
+        Dim level As String = ""
         Dim dt As NpgsqlDataReader = cmd.ExecuteReader
 
 
         While dt.Read
-            cat = dt.Item("module")
-            name1 = dt.Item("name")
+            'level1 = dt.Item("module")
+            'level2 = dt.Item("name")
+            'If level3 IsNot Nothing Then level3 = dt.Item("level3")
+
+            level1 = dt.GetValue(0).ToString()  ' First column
+            level2 = dt.GetValue(1).ToString()  ' Second column
+
             Dim node1 As New TreeNode
 
-            If cat2 = cat Then
-                Dim childNode As New TreeNode(name1)
+            If level3 = level1 Then
+                Dim childNode As New TreeNode(level2)
                 childNode.Tag = "Child"
-                childNode.Name = name1
-                'SPAS.BankTree.SelectedNode.Nodes.Add(childNode) '
+                childNode.Name = level2
+
                 tview.SelectedNode.Nodes.Add(childNode)
-                For i = 0 To dst.Tables(0).Rows.Count - 1
-                    If name1 = dst.Tables(0).Rows(i)(0) Then
-                        'AddLevel2Nodes(childNode)
-                    End If
-                Next
+
 
             Else
-                'node1 = SPAS.BankTree.Nodes.Add(cat)
-                node1 = tview.Nodes.Add(cat)
-                cat2 = cat
+                node1 = tview.Nodes.Add(level1)
+                level3 = level1
                 tview.SelectedNode = node1
-                Dim childNode As New TreeNode(name1)
+                Dim childNode As New TreeNode(level2)
                 childNode.Tag = "Child"
+                childNode.Name = level2
                 tview.SelectedNode.Nodes.Add(childNode)
 
-                For i = 0 To dst.Tables(0).Rows.Count - 1
-                    If name1 = dst.Tables(0).Rows(i)(0) Then
-                        'AddLevel2Nodes(childNode)
-                    End If
-                Next
+            End If
+        End While
+    End Sub
+    Sub Populate_DataTree_New(ByVal sql As String, ByVal tview As TreeView)
+        Collect_data("select name from query where sql ilike '%[year]%'")
+
+        Dim conn = New NpgsqlConnection(connect_string)
+        conn.Open()
+
+        Dim cmd As New NpgsqlCommand(sql, conn)
+        Dim dt As NpgsqlDataReader = cmd.ExecuteReader()
+
+        Dim level1 As String = ""
+        Dim level2 As String = ""
+        Dim level3 As String = ""
+        Dim cat2 As String = ""
+
+        While dt.Read
+            ' Dynamically detect the number of columns in the result set
+            level1 = dt.GetValue(0).ToString()  ' First column
+            level2 = dt.GetValue(1).ToString()  ' Second column
+
+            ' Check if there's a third column
+            If dt.FieldCount > 2 Then
+                level3 = dt.GetValue(2).ToString()  ' Third column (if present)
+            Else
+                level3 = Nothing  ' No third level
             End If
 
+            Dim node1 As TreeNode = Nothing
+
+            ' Check if the level1 value has already been added to the tree
+            If cat2 = level1 Then
+                Dim childNode As New TreeNode(level2)
+                childNode.Tag = "Child"
+                childNode.Name = level2
+                tview.SelectedNode.Nodes.Add(childNode)
+
+                ' If there's a third level, add it as a child of level2
+                If Not String.IsNullOrEmpty(level3) Then
+                    Dim grandChildNode As New TreeNode(level3)
+                    grandChildNode.Tag = "GrandChild"
+                    grandChildNode.Name = level3
+                    childNode.Nodes.Add(grandChildNode)
+                End If
+            Else
+                ' Add a new level1 node
+                node1 = tview.Nodes.Add(level1)
+                cat2 = level1
+                tview.SelectedNode = node1
+
+                ' Add level2 as a child of level1
+                Dim childNode As New TreeNode(level2)
+                childNode.Tag = "Child"
+                childNode.Name = level2
+                tview.SelectedNode.Nodes.Add(childNode)
+
+                ' If there's a third level, add it as a child of level2
+                If Not String.IsNullOrEmpty(level3) Then
+                    Dim grandChildNode As New TreeNode(level3)
+                    grandChildNode.Tag = "GrandChild"
+                    grandChildNode.Name = level3
+                    childNode.Nodes.Add(grandChildNode)
+                End If
+            End If
         End While
 
+        conn.Close()
     End Sub
 
-    Private Sub AddLevel2Nodes(parentNode As TreeNode)
-
-        Dim yearlist As DataSet = Nothing
-        Collect_data_new("Select distinct extract(year from date) from journal_archive", yearlist)
-
-        For i = 0 To yearlist.Tables(0).Rows.Count - 1
-
-            Dim level2Node As New TreeNode(yearlist.Tables(0).Rows(i)(0))
-            level2Node.Tag = "Level2"
-            parentNode.Nodes.Add(level2Node)
-        Next
-
-    End Sub
 
     Sub SelectNodeByName(treeView As TreeView, nodeName As String)
         Dim node As TreeNode = FindNodeByName(treeView.Nodes, nodeName)
+
         If node IsNot Nothing Then
             treeView.SelectedNode = node
             treeView.SelectedNode.EnsureVisible() ' Ensure the selected node is visible
@@ -540,6 +578,7 @@ connstart:
 
     Private Function FindNodeByName(nodes As TreeNodeCollection, name As String) As TreeNode
         For Each node As TreeNode In nodes
+            'MsgBox($"{node.Text} versus {name}")
             If node.Name = name Then
                 Return node
             End If
@@ -554,19 +593,15 @@ connstart:
     Sub Populate_Single_Combobox(ByVal cmbx As ComboBox, sql As String)
 
         Try
-
             Connect(sql)
             Dim cmd As New NpgsqlCommand(sql, connection)
             Dim reader As NpgsqlDataReader = cmd.ExecuteReader()
-
             Dim listitems As New List(Of String)
-
-            ' Clear existing items in the ComboBox
-
 
             ' Add each year to the ComboBox
             While reader.Read()
-                listitems.Add(reader("year").ToString())
+                'listitems.Add(reader("year").ToString())
+                listitems.Add(reader.GetValue(0).ToString())
             End While
 
             ' Close the reader and connection
@@ -585,6 +620,73 @@ connstart:
             MsgBox("Error populating reporting year: " & ex.Message)
         End Try
     End Sub
+    Sub Populate_Combobox(ByVal cmbx As ComboBox, sql As String)
+        Try
+            Connect(sql)
+            Dim cmd As New NpgsqlCommand(sql, connection)
+            Dim reader As NpgsqlDataReader = cmd.ExecuteReader()
+            Dim listitems As New List(Of ComboBoxItem)
 
+            ' Add each row to the ComboBox
+            While reader.Read()
+                Dim col1 As String = reader.GetValue(0).ToString()
+                Dim col2 As String = reader.GetValue(1).ToString()
+                Dim col3 As String = reader.GetValue(2).ToString()
+
+                listitems.Add(New ComboBoxItem(col1, col2, col3))
+            End While
+
+            ' Close the reader and connection
+            reader.Close()
+            connection.Close()
+
+            ' Populate the ComboBox
+            cmbx.Items.Clear()
+            cmbx.Items.AddRange(listitems.ToArray())
+
+            ' Optionally set the selected index to the first item
+            If cmbx.Items.Count > 0 Then
+                cmbx.SelectedIndex = 0
+            End If
+
+        Catch ex As Exception
+            MsgBox("Error populating ComboBox: " & ex.Message)
+        End Try
+    End Sub
+
+    ' Define the ComboBoxItem class
+    Public Class ComboBoxItem
+        Public Property Column1 As String ' Hidden column
+        Public Property Column2 As String ' Visible column
+        Public Property Column3 As String ' Visible column
+
+        Public Sub New(col1 As String, col2 As String, col3 As String)
+            Column1 = col1
+            Column2 = col2
+            Column3 = col3
+        End Sub
+
+        Public Overrides Function ToString() As String
+            ' Display only Column1 in the ComboBox
+            Return $"{Column2} ({Column3})"
+        End Function
+    End Class
+
+
+
+    Public Class HtmlHelpAPI
+        <DllImport("hhctrl.ocx", CharSet:=CharSet.Auto)>
+        Public Shared Function HtmlHelp(
+        hwndCaller As IntPtr,
+        pszFile As String,
+        uCommand As Integer,
+        dwData As String
+    ) As IntPtr
+        End Function
+
+        ' Commands for HtmlHelp
+        Public Const HH_DISPLAY_TOPIC As Integer = &H0
+        Public Const HH_HELP_CONTEXT As Integer = &HF
+    End Class
 
 End Module
