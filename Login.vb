@@ -38,7 +38,7 @@ Public Class Login
                 SPAS.ToolStripTextBox1.BackColor = Color.GreenYellow
             Case "Test"
                 'db ='TEST'
-                connect_string = $"User ID={username};Password=Hek4DEaswo8ApdFnTOwk;Host=hw26607-002.eu.clouddb.ovh.net;Port=35168;Database=SPAS-PROD" 'My.Settings._tstovh
+                connect_string = $"User ID={username};Password=" & Me.Tbx_login_password.Text & ";Host=hw26607-002.eu.clouddb.ovh.net;Port=35168;Database=SPAS-PROD" 'My.Settings._tstovh
                 SPAS.Pan_Test.Visible = True
                 SPAS.Pan_Test.Visible = True
                 SPAS.Lbl_Excasso_Items_Contract.Visible = True

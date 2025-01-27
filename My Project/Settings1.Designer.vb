@@ -15,7 +15,7 @@ Option Explicit On
 Namespace My
     
     <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.5.0.0"),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.12.0.0"),  _
      Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
     Partial Friend NotInheritable Class MySettings
         Inherits Global.System.Configuration.ApplicationSettingsBase
@@ -104,7 +104,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute(";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-H")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute(";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-PROD")>  _
         Public Property _prod() As String
             Get
                 Return CType(Me("_prod"),String)
@@ -140,7 +140,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute(";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-D")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute(";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-TEST")>  _
         Public Property _tstovh() As String
             Get
                 Return CType(Me("_tstovh"),String)
@@ -152,7 +152,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute(";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute(";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=ACC")>  _
         Public Property _accovh() As String
             Get
                 Return CType(Me("_accovh"),String)
@@ -171,30 +171,6 @@ Namespace My
             End Get
             Set
                 Me("_lastdb") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute(";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-TEST")>  _
-        Public Property _db_test() As String
-            Get
-                Return CType(Me("_db_test"),String)
-            End Get
-            Set
-                Me("_db_test") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute(";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-ACCEPTATIE")>  _
-        Public Property _db_accept() As String
-            Get
-                Return CType(Me("_db_accept"),String)
-            End Get
-            Set
-                Me("_db_accept") = value
             End Set
         End Property
     End Class
