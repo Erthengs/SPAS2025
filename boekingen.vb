@@ -5,38 +5,145 @@ Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports Microsoft.EntityFrameworkCore.Metadata.Conventions
 Imports Microsoft.EntityFrameworkCore.Update.Internal
 
-Module acct
+Module boekingen
+
+    Sub Save_modified_journaalposts()
+        Dim name As String = SPAS.Lbl_Journaalposten_header.Text
+        Dim datum As Date = SPAS.Lbl_Journaalposten_datum.Text
+        Dim status As String = Trim(SPAS.Lbl_journaalposten_status.Text)
+        Dim amt1 As Decimal
+        Dim bij As Decimal
+        Dim af As Decimal
+        Dim amt2 As Decimal
+        Dim description As String
+        Dim source As String = Trim(SPAS.Lbl_Journaalposten_bron.Text)
+        Dim id As Integer
+        Dim fk_account As Integer
+        Dim fk_relation As Integer
+        Dim fk_bank As Integer = Integer.Parse(SPAS.Banklink.Text)
+        Dim Type As String = Trim(SPAS.Lbl_journaalposten_type.Text)
+        Dim cpinfo As String
+        Dim iban As String = Trim(SPAS.Lbl_journaalposten_iban.Text)
+        Dim transactiesaldo = CInt(Math.Round(Decimal.Parse(SPAS.Tbx_Journal_Saldo.Text)))
+
+        Dim errmsg As String = ""
 
 
+        ' ---------------------1 Uitvoeren van controles ----------
+        'a) Intern: saldo moet altijd 0 zijn
+
+        If source = "Intern" And SPAS.Tbx_Journal_Saldo.Text <> "0,00" Then
+            errmsg &= "- Interne transacties moeten altijd een nulsaldo hebben." & vbCr
+        End If
+        'b) Bank: bankbedrag moet altijd gelijk zijn aan journaaltransactie
+        If source <> "Intern" And status <> "Open" Then
+            'Dim bankcheck QuerySQL("select sum(credit-debit) from bank where id=" & fk_bank) & "---" & transactiesaldo)
+            If QuerySQL("select sum(credit-debit) from bank where id=" & fk_bank) - transactiesaldo <> 0 Then
+                errmsg &= "- Mismatch tussen bankbedrag and journaaltransactiesaldo" & vbCr
+            End If
+        End If
+        'c) Open: geen bewerkingen toestaan
+        If status = "Open" Then
+            errmsg &= "- Deze transactie is nog niet verwerkt, doe eventuele aanpassingen in het tabblad '" _
+                & source & "'" & vbCr
+        End If
+        '-- de volgende controls betreffende de aanpasbare inhoud 
+        'For Each row As DataGridViewRow In .
+        For x As Integer = 0 To SPAS.Dgv_journaalposten.Rows.Count - 2
+            With SPAS.Dgv_journaalposten
+                bij = .Rows(x).Cells(2).Value
+                af = .Rows(x).Cells(3).Value
+                fk_account = IIf(IsDBNull(.Rows(x).Cells(11).Value), "0", .Rows(x).Cells(11).Value)
+                'd) Als bij gevuld is moet af 0 zijn en viceversa
+                If bij <> 0 And af <> 0 Then
+                    errmsg &= "- BIJ en AF kunnen niet beide een bedrag zijn" & vbCr
+                End If
+                'e) Fk_account moet altijd ingevuld zijn (standaard "Niet toegewezen"?
+                If fk_account = 0 Then
+                    errmsg &= "- Account ontbreekt in journaalpost, dit is verplicht" & vbCr
+                End If
+            End With
+        Next
+        If errmsg = "" Then
+            If MsgBox("Weet u zeker dat u deze handmatige aanpassingen in het grootboek wil aanbrengen?", vbYesNo) = vbNo Then Exit Sub
+        Else
+            MsgBox("De wijzigingen kunnen niet worden opgeslagen vanwege:" & vbCr & errmsg)
+            Exit Sub
+        End If
+
+        For Each row As DataGridViewRow In SPAS.Dgv_journaalposten.Rows
+            If row.Tag IsNot Nothing Then
+                id = IIf(IsDBNull(row.Cells("id").Value), Nothing, row.Cells("id").Value.ToString)
+
+                amt2 = 0  '@@@ nog aanpassen
+                If row.Cells("bij").Value > 0 Then
+                    amt1 = row.Cells("bij").Value.ToString
+                Else
+                    amt1 = "-" & row.Cells("af").Value.ToString
+                End If
+                description = row.Cells("omschrijving").Value.ToString
+                fk_account = row.Cells("accountnr").Value.ToString
+                fk_relation = IIf(IsDBNull(row.Cells("relatie").Value), Nothing, row.Cells("relatie").Value.ToString)
+                cpinfo = row.Cells("cpinfo").Value.ToString
+                Dim ops As String
+                If row.Tag.ToString = "Modified" Then
+                    If Len(row.Cells("id").Value.ToString) = 0 Then 'new record
+                        ops = "INSERT"
+                    Else 'updated record
+                        ops = "UPDATE"
+
+                    End If
+                    'MsgBox(row.Tag.ToString & "---" & description)
+                    'MsgBox($"relatie: {fk_relation}, fk_bank {fk_bank}")
+                    Run_SQL_Journal("Save_modified_journaalposts", ops, id, name, datum, status, amt1, amt2, description,
+                                             source, fk_account, fk_relation, fk_bank, Type, cpinfo, iban)
+
+                End If
+            End If
+
+        Next
+
+
+    End Sub
+
+    Sub Calculate_Journaalposten_totalen(dgv As DataGridView)
+        Dim cred, deb As Decimal
+
+        Try
+            For r = 0 To dgv.RowCount - 1
+                cred += dgv.Rows(r).Cells(2).Value
+                deb += dgv.Rows(r).Cells(3).Value
+                'cred += IIf(IsDBNull(dgv.Rows(r).Cells(2).Value) = 0, 0, dgv.Rows(r).Cells(2).Value)
+                'deb += IIf(IsDBNull(dgv.Rows(r).Cells(3).Value) = 0, 0, dgv.Rows(r).Cells(3).Value)
+            Next
+            SPAS.Tbx_Journal_Credit.Text = cred.ToString("#0.00")
+            SPAS.Tbx_Journal_Debit.Text = deb.ToString("#0.00")
+            SPAS.Tbx_Journal_Saldo.Text = cred - deb
+        Catch ex As Exception
+
+        End Try
+    End Sub
     Sub Fill_Cmx_Journal_List()
 
-        Dim k As String = "", lf As String = ""
         Dim f As String = SPAS.Searchbox.Text 'SPAS.Tbx_Journal_Filter.Text
         Dim act As Boolean = (SPAS.Cbx_LifeCycle.Text = "Actief")
         Dim verwerkt As Boolean = SPAS.Cbx_Journal_Status_Verwerkt.Checked
         Dim open As Boolean = SPAS.Cbx_Journal_Status_Open.Checked
-        Dim sqlstr As String
+        Dim st As String
+        If open And verwerkt Then st &= "IN ('Open','Verwerkt')"
+        If open And Not verwerkt Then st &= "= 'Open'"
+        If Not open And verwerkt Then st &= "='Verwerkt'"
+        If Not open And Not verwerkt Then st &= "Not IN ('Open','Verwerkt')"
 
-        Dim nulsaldo As String = ""
-
-        Dim st As String = " AND (j.status "
-        If open And verwerkt Then st &= "IN ('Open','Verwerkt') or j.status isnull)"
-        If open And Not verwerkt Then st &= "IN ('Open') or j.status isnull)"
-        If Not open And verwerkt Then st &= "IN ('Verwerkt') or j.status isnull)"
-        If Not open And Not verwerkt Then st &= "Not IN ('Open','Verwerkt') or j.status isnull)"
-        If SPAS.Cbx_Journal_Saldo_Open.Checked Then nulsaldo = "having sum(amt1) !=0::money "
-
-        Load_Listview(SPAS.Lv_Journal_List, "SELECT DISTINCT name, name, date FROM journal j
-                                                WHERE name ILIKE '%" & f & "%'" & st & " 
-                                                ORDER BY date desc, name")
+        Load_Listview(SPAS.Lv_Journal_List, $"
+        SELECT DISTINCT name As Naam0, name As Naam , date As Datum FROM journal j
+        WHERE name ILIKE '%{f}&' and j.status isnull or j.status {st} ORDER BY date desc, name")
 
 
         With SPAS.Lv_Journal_List
             .Columns.Item(0).Width = 0
-            .Columns(1).Text = "Naam"
             .Columns.Item(1).Width = 150
             .Columns.Item(2).Width = 100
-            .Columns(2).Text = "Date"
         End With
 
 
@@ -313,7 +420,7 @@ Module acct
 
 
         End With
-        SPAS.Calculate_Journaalposten_totalen(SPAS.Dgv_journaalposten)
+        Calculate_Journaalposten_totalen(SPAS.Dgv_journaalposten)
 
     End Sub
     Sub Calculate_Budget(ByVal id As String)

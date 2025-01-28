@@ -21,7 +21,7 @@ Public Class Login
                 SPAS.BackColor = Color.WhiteSmoke
                 SPAS.MenuStrip1.BackColor = Color.LightSteelBlue
                 SPAS.ToolStripTextBox1.BackColor = Color.LightSteelBlue
-                'SPAS.TC_Main.TabPages.Remove(SPAS.TC_Main.TabPages(7))
+
             Case "Acceptatie"
                 'db ='ACC'
                 connect_string = "User ID=" & username & ";Password=" & Me.Tbx_login_password.Text & ";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=ACC" 'My.Settings._accovh
@@ -38,7 +38,7 @@ Public Class Login
                 SPAS.ToolStripTextBox1.BackColor = Color.GreenYellow
             Case "Test"
                 'db ='TEST'
-                connect_string = $"User ID={username};Password=" & Me.Tbx_login_password.Text & ";Host=hw26607-002.eu.clouddb.ovh.net;Port=35168;Database=SPAS-PROD" 'My.Settings._tstovh
+                connect_string = "User ID=" & username & ";Password=" & Me.Tbx_login_password.Text & ";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-TEST" 'My.Settings._tstovh
                 SPAS.Pan_Test.Visible = True
                 SPAS.Pan_Test.Visible = True
                 SPAS.Lbl_Excasso_Items_Contract.Visible = True
@@ -62,7 +62,7 @@ Public Class Login
             connection = New NpgsqlConnection(connect_string)
             connection.Open()
         Catch ex
-            MsgBox("Inloggen niet gelukt, probeer het nogmaals (controleer of gebruikersnaam en wachtwoord correct zijn). ")
+            MsgBox("Inloggen niet gelukt, probeer het nogmaals (controleer of gebruikersnaam, wachtwoord en IP-adres correct zijn). ")
         End Try
         If ex Is Nothing Then
 

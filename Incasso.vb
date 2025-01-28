@@ -4,7 +4,104 @@ Imports System.Net
 Imports System.Text.RegularExpressions
 
 Module Incasso
+    Sub Create_Incassolist()
 
+        Dim d As DateTime
+        Dim t1 As String
+        Dim t2 As String
+        Dim newDate As Date = Date.Now.AddMonths(1)
+        Dim maxDate As Date = Date.Now.AddMonths(2)
+        Dim minDate1 As Date = Date.Now.AddMonths(-1)
+
+        SPAS.Dtp_Incasso_start.MinDate = CDate("01-" & minDate1.Month & "-" & minDate1.Year)
+
+        SPAS.Dtp_Incasso_start.Value = CDate("01-" & SPAS.Dtp_Incasso_start.Value.Month & "-" & SPAS.Dtp_Incasso_start.Value.Year)
+        If SPAS.Dtp_Incasso_start.Value.Year <> Date.Today.Year Then
+            SPAS.Dtp_Incasso_start.Value = CDate("01-" & newDate.Month & "-" & newDate.Year)
+
+        End If
+
+
+        d = SPAS.Dtp_Incasso_start.Value.AddMonths(1)
+        SPAS.Dtp_Incasso_end.Value = New DateTime(d.Year, d.Month, 1).AddDays(-1)
+        'SPAS.Dtp_Incasso_start.MinDate = New Date(minDate1.Year, 1, 1)
+        SPAS.Dtp_Incasso_start.MaxDate = New Date(maxDate.Year, maxDate.Month, 1)
+
+        Dim isd As Date = SPAS.Dtp_Incasso_start.Value
+        Dim MsgId = "Contract incasso " & Month(isd) & "-" & Year(isd)
+        SPAS.Lbl_Incasso_job_name.Text = MsgId
+        Dim qtopen, qtverwerkt As Integer
+
+        t1 = Year(SPAS.Dtp_Incasso_start.Value) & "-" & Month(SPAS.Dtp_Incasso_start.Value) & "-01"
+        t2 = Year(SPAS.Dtp_Incasso_end.Value) & "-" &
+            Month(SPAS.Dtp_Incasso_end.Value) & "-" & SPAS.Dtp_Incasso_end.Value.Day
+
+        'load lists and overview
+        If SPAS.Rbn_Incasso_SEPA.Checked Then
+
+            Load_Datagridview(SPAS.Dgv_Incasso, Create_Incasso(t1), "Me.Dtp_Incasso_start.ValueChanged")
+            Format_dvg_incasso()
+        Else
+            Load_Datagridview(SPAS.Dgv_Incasso, Create_Incasso_Bookings(t1), "Me.Dtp_Incasso_start.ValueChanged")
+            Format_dvg_incasso_bookings()
+        End If
+
+        Load_Datagridview(SPAS.Dgv_incasso_totals, Create_Incasso_Totals(t1), "Create_Incassolist")
+        SPAS.Format_Datagridview(SPAS.Dgv_incasso_totals, {"T100", "T60", "N080"}, True)
+
+
+        Dim Tot_amt = QuerySQL($"SELECT sum((co.donation+co.overhead)/term)
+            FROM contract co  LEFT JOIN Target ta ON co.fk_target_id = ta.id LEFT JOIN Relation r ON co.fk_relation_id = r.id
+            WHERE co.autcol = True AND co.startdate <= '{t1}' AND co.enddate > '{t1}'")
+
+        Dim sql = QuerySQL($"select sql from query where name='Check_incasso'")
+        sql = sql.replace("[date]", $"'{Year(SPAS.Dtp_Incasso_start.Value)}-{Month(SPAS.Dtp_Incasso_start.Value)}-01'")
+
+
+        'Check_Existing_Incasso()
+        SPAS.Lbl_Incasso_Error.Visible = False
+        Dim journal_name As String = SPAS.Lbl_Incasso_job_name.Text
+        qtopen = QuerySQL("select count(id) from journal where status = 'Open' and name ='" & journal_name & "'")
+        qtverwerkt = QuerySQL("select count(id) from journal where status = 'Verwerkt' and name ='" & journal_name & "'")
+
+        If qtopen > 0 Then
+            SPAS.Lbl_Incasso_Status.Text = "Open"
+            SPAS.MenuDelete.Enabled = True
+            SPAS.MenuSave.Enabled = False
+            SPAS.Menu_Print.Enabled = True
+
+
+            Dim Checksum = QuerySQL("Select Sum(amt1) from journal where name ='" & journal_name & "'")
+            If Tot_amt <> Checksum Then
+                Dim msg = $"Het totaalbedrag ({Tot_amt}) verschilt van de eerder gecreëerde incassojob ({Checksum}). De details zijn te zien via de radiobutton 'Verschillen' op deze pagina."
+                SPAS.Lbl_Incasso_Error.Text = msg
+                SPAS.Lbl_Incasso_Error.Visible = True
+                SPAS.Rbn_Incasso_Verschillen.BackColor = Color.MistyRose
+            Else
+                SPAS.Rbn_Incasso_Verschillen.BackColor = Color.Transparent
+            End If
+        ElseIf qtverwerkt > 0 Then
+            SPAS.Lbl_Incasso_Status.Text = "Verwerkt"
+
+            SPAS.MenuDelete.Enabled = False
+            SPAS.MenuSave.Enabled = False
+            SPAS.Menu_Print.Enabled = True
+
+            Dim Checksum = QuerySQL("SELECT Sum(amt1) from journal where name ='" & journal_name & "'")
+            If Tot_amt <> Checksum Then
+                SPAS.Lbl_Incasso_Error.Text = "Opgeslagen incassojob is niet in lijn met contractdata"
+            End If
+        Else
+            SPAS.Lbl_Incasso_Status.Text = "Nieuw"
+
+            SPAS.MenuDelete.Enabled = False
+            SPAS.MenuSave.Enabled = True
+            SPAS.Menu_Print.Enabled = False
+
+
+        End If
+        Format_dvg_incasso()
+    End Sub
     Sub Create_Incasso_Journals()
         'goed nadenken over het genereren van een naam voor een (groep) journaaltransactie
         'Dgv_incasso vervangen door dst

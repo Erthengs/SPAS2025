@@ -103,7 +103,6 @@ Public Class SPAS
         Load_Combobox(Cmx_00_Contract__fk_account_id, "id", "name", "SELECT id, CONCAT(id, ' ',name) As name FROM account 
                                           WHERE active=TRUE AND source='cat' AND type = 'Inkomsten' ORDER BY name")
         Load_Combobox(Cmx_01_account__fk_accgroup_id, "id", "name", "SELECT id, name FROM accgroup WHERE active=True ORDER BY name")
-
         Populate_Single_Combobox(Cmbx_Reporting_Year, "select distinct extract (year from date) As Year from journal_archive 
                                             union select distinct min(extract (year from date)) from journal")
 
@@ -114,7 +113,6 @@ Public Class SPAS
         Fill_Cmx_Journal_List()
 
         If Me.Dgv_Mgnt_Tables.Rows(8).Cells(1).Value > 0 Then
-
             Load_Combobox(Cmx_01_contract__fk_target_id, "id", "name", "SELECT id, name||', '||name_add as name FROM target WHERE active=TRUE ORDER BY name")
         End If
         '@@@ hier gaat iets fout
@@ -196,10 +194,8 @@ Public Class SPAS
             Rbn_00_contract_child.Checked = True
             Pan_contract_select_target.Enabled = True
             Lbl_00_Contract__name.Text = Contract_number("K")
-            Load_Combobox(Cmx_01_contract__fk_target_id, "id", "name", "SELECT id, 
-            name||', '||name_add) as name FROM target
-            WHERE ttype='" & Rbn_00_contract_child.Text & "' 
-            And active=true ORDER BY name")
+            Load_Combobox(Cmx_01_contract__fk_target_id, "id", "name", $"SELECT id, 
+            name||', '||name_add) as name FROM target WHERE ttype='{Rbn_00_contract_child.Text}' And active=true ORDER BY name")
             Cmx_01_contract__fk_target_id.Text = ""
             Chx_00_contract__autcol.Enabled = False
 
@@ -286,11 +282,11 @@ Public Class SPAS
                         sqlstr = "UPDATE contract SET enddate='" & _d2 & "', active=" & act & " WHERE id=" & val & ";"
 
                         '2 Create a new contractversion 
-                        sqlstr &= "INSERT INTO public.contract(fk_target_id, fk_relation_id, 
+                        sqlstr &= $"INSERT INTO public.contract(fk_target_id, fk_relation_id, 
                                     donation, overhead, description, autcol, name, term,intern, fk_account_id) 
                                     SELECT fk_target_id, fk_relation_id, 
                                     donation, overhead, description, autcol, name, term,  
-                                    intern, fk_account_id FROM contract WHERE id=" & val & ";"
+                                    intern, fk_account_id FROM contract WHERE id={val};"
 
 
                         RunSQL(sqlstr, "NULL", "MenuSave.Click upsert new version")
@@ -302,9 +298,8 @@ Public Class SPAS
                            overhead='" & Cur2(Replace(Tbx_11_contract__overhead.Text, ".", "")) & "', 
                            enddate ='2999-12-31',active=true  
                            WHERE id=" & val2 & ";"
-                        Clipboard.Clear()
-                        Clipboard.SetText(sqlstr)
-                        MsgBox(Cur2(Replace(Tbx_11_Contract__donation.Text, ".", "")))
+
+                        'MsgBox(Cur2(Replace(Tbx_11_Contract__donation.Text, ".", "")))
                         RunSQL(sqlstr, "NULL", "MenuSave.Click update New version")
                         'reload = True
                         msg = "Een nieuwe versie van het contract is aangemaakt."
@@ -449,16 +444,11 @@ Public Class SPAS
     End Sub
 
     Private Sub Tbx_Target__name_Leave(sender As Object, e As EventArgs) Handles Tbx_01_Target__name.Leave
-        If Lbx_Basis.Items.Count <> 0 Then
-            ind1 = Lbx_Basis.SelectedItem(Me.Lbx_Basis.ValueMember)
-        End If
-
+        If Lbx_Basis.Items.Count <> 0 Then ind1 = Lbx_Basis.SelectedItem(Me.Lbx_Basis.ValueMember)
     End Sub
 
     Private Sub Tbx_Target__name_add_Leave(sender As Object, e As EventArgs) Handles Tbx_01_Target__name_add.Leave
-        If Lbx_Basis.Items.Count <> 0 Then
-            ind1 = Lbx_Basis.SelectedItem(Me.Lbx_Basis.ValueMember)
-        End If
+        If Lbx_Basis.Items.Count <> 0 Then ind1 = Lbx_Basis.SelectedItem(Me.Lbx_Basis.ValueMember)
     End Sub
 
     Private Sub Tbx_CP__name_TextChanged(sender As Object, e As EventArgs) Handles Tbx_01_CP__name.TextChanged
@@ -467,33 +457,6 @@ Public Class SPAS
         If Lbx_Basis.Items.Count = 0 Then Add_Mode = True
     End Sub
 
-
-    Private Sub Button4_Click(sender As Object, e As EventArgs)
-        MsgBox(sender.ToString)
-
-        Exit Sub
-        Dim str As String = "one,two,three"
-        Dim str2() As String = Split(str, ",")
-
-        'Load_Listbox(Me.Lbx_Basis, "Select id, name FROM Bankacc WHERE name ilike '%%' AND active=True ORDER BY name")
-        'MsgBox(Me.Dgv_Mgnt_Tables.Rows(1).Cells(0).Value)
-        Dim amt1 = QuerySQL("select max(startbalance) from bankacc")
-
-
-        Dim LocalFilePath As String = "C:\temp\lcal.html"
-        Dim objWebClient As New System.Net.WebClient
-        'objWebClient.DownloadFile("https://www.google.com/search?newwindow=1&sxsrf=ALeKk00tqujhzWGn2oO1UiVUC8hWGsGjvw%3A1596922685176&ei=PRsvX5KlCoHisAfjxqjQAQ&q=exchange+rate+eur+mdl&oq=exchange+ra&gs_lcp=CgZwc3ktYWIQARgAMgYIIxAnEBMyBQgAELEDMgIIADICCAAyAggAMgIIADICCAAyAggAMgIIADICCAA6BAgjECc6AgguOggIABCxAxCDAToECAAQAzoECAAQQzoHCAAQsQMQQzoICC4QsQMQgwFQ8f8YWIORGWCLnxloAHAAeACAAdoBiAGVCJIBBjExLjAuMZgBAKABAaoBB2d3cy13aXrAAQE&sclient=psy-ab", LocalFilePath)
-        objWebClient.DownloadFile("https://eur.fxexchangerate.com/mdl-exchange-rates-history.html", LocalFilePath)
-
-        Dim text As String = File.ReadAllText("C:\Temp\lcal.html")
-        Dim index As Integer = text.IndexOf("<td>1 EUR =</td>")
-        If index >= 0 Then
-            MsgBox(Strings.Mid(text, index + 22, 8))
-        Else
-            MsgBox("Wisselkoers niet gevonden.")
-        End If
-
-    End Sub
 
     Private Sub navigation_complete(ByVal sender As System.Object,
            ByVal e As System.Windows.Forms.WebBrowserDocumentCompletedEventArgs)
@@ -532,7 +495,6 @@ Public Class SPAS
             Tbx_01_BankAcc__accountno.Focus()
         End If
     End Sub
-
 
     Private Sub Tbx_10_Relation__name_TextChanged(sender As Object, e As EventArgs) Handles Tbx_01_relation__name.TextChanged
         If Edit_Mode Then
@@ -586,9 +548,6 @@ Public Class SPAS
         End If
         Calculate_contract_amounts()
     End Sub
-    Private Sub TextBox3_TextChanged(sender As Object, e As EventArgs)
-        Calculate_contract_amounts()
-    End Sub
 
     Private Sub Cbx_00_BankAcc__active_CheckedChanged(sender As Object, e As EventArgs) Handles _
             Cbx_00_BankAcc__active.CheckedChanged, Rbtn_Account_Income.CheckedChanged,
@@ -602,13 +561,8 @@ Public Class SPAS
 
     Private Sub Cbx_00_cp__active_CheckedChanged(sender As Object, e As EventArgs) Handles Cbx_00_cp__active.CheckedChanged
         If Edit_Mode Then Manage_Buttons_Target(False, False, False, True, True, "Cbx_00_cp__active_CheckedChanged")
-
-
     End Sub
 
-    Private Sub Cbx_00_relation__active_CheckedChanged(sender As Object, e As EventArgs) Handles Cbx_00_relation__active.CheckedChanged
-        'If Edit_Mode Then Manage_Buttons_Target(False, False, False, True, True)
-    End Sub
     Private Sub Pic_cp__photo_DoubleClick(sender As Object, e As EventArgs) Handles Pic_cp__photo.DoubleClick
         Save_Image(Pic_cp__photo)
     End Sub
@@ -620,7 +574,6 @@ Public Class SPAS
     Private Sub Tbx_11_Contract__donation_Leave(sender As Object, e As EventArgs) Handles Tbx_11_Contract__donation.Leave
         Tbx_11_Contract__donation.Text = Tbx2Dec(Tbx_11_Contract__donation.Text)
     End Sub
-
     Private Sub Tbx_11_contract__overhead_Leave(sender As Object, e As EventArgs) Handles Tbx_11_contract__overhead.Leave
         Tbx_11_contract__overhead.Text = Tbx2Dec(Tbx_11_contract__overhead.Text)
     End Sub
@@ -645,7 +598,6 @@ Public Class SPAS
         'Tbx_Contract_ttype.Text = QuerySQL("Select ttype FROM target WHERE id=" & id)
         Try
             Pic_Contract_Target_photo.Image = BlobToImage(QuerySQL("SELECT photo FROM target WHERE id='" & id & "'"))
-
         Catch ex As Exception
             Pic_Contract_Target_photo.Image = Nothing
         End Try
@@ -671,8 +623,8 @@ Public Class SPAS
     Private Sub Rbn_00_contract_elder_Click(sender As Object, e As EventArgs) Handles Rbn_00_contract_elder.Click
         Tbx_Contract_ttype.Text = "Oudere"
         Lbl_00_Contract__name.Text = Contract_number("O")
-        Load_Combobox(Cmx_01_contract__fk_target_id, "id", "name", "SELECT id, name||', '||name_add as name FROM target
-                                                        WHERE ttype='" & Rbn_00_contract_elder.Text & "' ORDER BY name")
+        Load_Combobox(Cmx_01_contract__fk_target_id, "id", "name",
+                      $"SELECT id, name||', '||name_add as name FROM target WHERE ttype='{Rbn_00_contract_elder.Text}' ORDER BY name")
         Collect_data("select value from settings where label ilike 'standaard_%_oudere' order by label")
         Tbx_11_Contract__donation.Text = dst.Tables(0).Rows(0)(0)
         Tbx_11_contract__overhead.Text = dst.Tables(0).Rows(1)(0)
@@ -780,14 +732,10 @@ Public Class SPAS
         If autcol_date > Date.Now Then
             MsgBox("De sponsor heeft nog geen geldige incassomachtiging voor " & ttype &
                    "; Automatische incasso kan (nog) niet geactiveerd worden voor dit contract.", vbCritical)
-            'Dim ans = MsgBox("Weet u zeker dat u automatische incasso wilt instellen?", vbYesNo)
-            'If vbYes Then
-            'RunSQL("UPDATE contract SET autcol=True WHERE id=" & Lbl_Contract_pkid.Text, "NULL", "")
-            'Else
             Chx_00_contract__autcol.Checked = False
-            'End If
+
         Else
-            RunSQL("UPDATE contract SET autcol=True WHERE id=" & Lbl_Contract_pkid.Text, "NULL", "")
+            RunSQL($"UPDATE contract SET autcol=True WHERE id={Lbl_Contract_pkid.Text}", "NULL", "")
         End If
 
     End Sub
@@ -919,9 +867,6 @@ Tbx_00_CP__city.TextChanged, Tbx_00_CP__country.TextChanged, Tbx_00_CP__email.Te
 
         If Dgv_Bank.Rows.Count = 0 Or Dgv_Bank.DataSource Is Nothing Then Exit Sub
 
-
-
-
         Try
             If Not IsDBNull(Dgv_Bank.SelectedCells(3).Value) Then
                 If Strings.Left(Dgv_Bank.SelectedCells(3).Value, 16) = "Contract incasso" _
@@ -944,7 +889,6 @@ Tbx_00_CP__city.TextChanged, Tbx_00_CP__country.TextChanged, Tbx_00_CP__email.Te
                 End If
             End If
 
-
             If Not IsDBNull(Dgv_Bank.SelectedCells(8).Value) Then Tbx_Bank_Relation_account.Text = Dgv_Bank.SelectedCells(8).Value
             If Not IsDBNull(Dgv_Bank.SelectedCells(6).Value) Then
                 Tbx_Bank_Code.Text = Dgv_Bank.SelectedCells(6).Value
@@ -964,12 +908,12 @@ Tbx_00_CP__city.TextChanged, Tbx_00_CP__country.TextChanged, Tbx_00_CP__email.Te
 
             If Dgv_Bank.Rows(Dgv_Bank.SelectedCells(2).RowIndex).DefaultCellStyle.ForeColor = Color.DarkRed And Trim(Tbx_Bank_Code.Text) = "cb" Then
 
-                Dim sqlstr = "
+                Dim sqlstr = $"
                 Select ac.name From account ac
                 Left Join target t on t.id = ac.f_key And source='Doel'
                 Left Join contract c on c.fk_target_id = t.id
                 Left Join relation r on r.id = c.fk_relation_id
-                Where R.iban = '" & Tbx_Bank_Relation_account.Text & "' 
+                Where R.iban = '{Tbx_Bank_Relation_account.Text}' 
                 And R.active = True limit 1
                 "
                 Cmx_Bank_Account.Text = QuerySQL(sqlstr)
@@ -1159,9 +1103,6 @@ Tbx_00_CP__city.TextChanged, Tbx_00_CP__country.TextChanged, Tbx_00_CP__email.Te
         End If
     End Sub
 
-
-
-
     Private Sub Cbx_Uitkering_Kind_Click(sender As Object, e As EventArgs) Handles Cbx_Uitkering_Kind.Click,
             Cbx_Uitkering_Oudere.Click, Cbx_Uitkering_Overig.Click
 
@@ -1177,8 +1118,6 @@ Tbx_00_CP__city.TextChanged, Tbx_00_CP__country.TextChanged, Tbx_00_CP__email.Te
     Private Sub Dtp_Excasso_Start_ValueChanged(sender As Object, e As EventArgs) Handles Dtp_Excasso_Start.ValueChanged
         'Dtp_Excasso_Start.Value = CDate("01-" & Dtp_Excasso_Start.Value.Month & "-" & Dtp_Excasso_Start.Value.Year)
         Dtp_Excasso_Start.MaxDate = Date.Today
-
-
     End Sub
 
     Private Sub Dgv_Excasso2_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Excasso2.CellEndEdit
@@ -1225,8 +1164,6 @@ fin:
         e.ThrowException = False
 
     End Sub
-
-
 
     Private Sub Tbx_Excasso_CP2_TextChanged(sender As Object, e As EventArgs) Handles Tbx_Excasso_CP2.TextChanged,
         Tbx_Excasso_CP3.TextChanged, Tbx_Excasso_CP1.TextChanged
@@ -1301,7 +1238,6 @@ fin:
             Tbx_10_Account__b_apr.Leave, Tbx_10_Account__b_may.Leave, Tbx_10_Account__b_jun.Leave,
             Tbx_10_Account__b_jul.Leave, Tbx_10_Account__b_aug.Leave, Tbx_10_Account__b_sep.Leave,
             Tbx_10_Account__b_oct.Leave, Tbx_10_Account__b_nov.Leave, Tbx_10_Account__b_dec.Leave
-
         Calculate_Manual_Budgets()
     End Sub
 
@@ -1357,105 +1293,8 @@ fin:
         Select_Obj2("Btn_Account_Budget_All_Click")
 
     End Sub
-    Sub Create_Incassolist()
 
 
-        Dim d As DateTime
-        Dim t1 As String
-        Dim t2 As String
-        Dim newDate As Date = Date.Now.AddMonths(1)
-        Dim maxDate As Date = Date.Now.AddMonths(2)
-        Dim minDate1 As Date = Date.Now.AddMonths(-1)
-
-        Me.Dtp_Incasso_start.MinDate = CDate("01-" & minDate1.Month & "-" & minDate1.Year)
-
-        Me.Dtp_Incasso_start.Value = CDate("01-" & Me.Dtp_Incasso_start.Value.Month & "-" & Me.Dtp_Incasso_start.Value.Year)
-        If Me.Dtp_Incasso_start.Value.Year <> Date.Today.Year Then
-            Me.Dtp_Incasso_start.Value = CDate("01-" & newDate.Month & "-" & newDate.Year)
-
-        End If
-
-
-        d = Me.Dtp_Incasso_start.Value.AddMonths(1)
-        Me.Dtp_Incasso_end.Value = New DateTime(d.Year, d.Month, 1).AddDays(-1)
-        'Me.Dtp_Incasso_start.MinDate = New Date(minDate1.Year, 1, 1)
-        Me.Dtp_Incasso_start.MaxDate = New Date(maxDate.Year, maxDate.Month, 1)
-
-        Dim isd As Date = Me.Dtp_Incasso_start.Value
-        Dim MsgId = "Contract incasso " & Month(isd) & "-" & Year(isd)
-        Me.Lbl_Incasso_job_name.Text = MsgId
-        Dim qtopen, qtverwerkt As Integer
-
-        t1 = Year(Me.Dtp_Incasso_start.Value) & "-" & Month(Me.Dtp_Incasso_start.Value) & "-01"
-        t2 = Year(Me.Dtp_Incasso_end.Value) & "-" &
-            Month(Me.Dtp_Incasso_end.Value) & "-" & Me.Dtp_Incasso_end.Value.Day
-
-        'load lists and overview
-        If Me.Rbn_Incasso_SEPA.Checked Then
-
-            Load_Datagridview(Me.Dgv_Incasso, Create_Incasso(t1), "Me.Dtp_Incasso_start.ValueChanged")
-            Format_dvg_incasso()
-        Else
-            Load_Datagridview(Me.Dgv_Incasso, Create_Incasso_Bookings(t1), "Me.Dtp_Incasso_start.ValueChanged")
-            Format_dvg_incasso_bookings()
-        End If
-
-        Load_Datagridview(Dgv_incasso_totals, Create_Incasso_Totals(t1), "Create_Incassolist")
-        Format_Datagridview(Dgv_incasso_totals, {"T100", "T60", "N080"}, True)
-
-
-        Dim Tot_amt = QuerySQL($"SELECT sum((co.donation+co.overhead)/term)
-            FROM contract co  LEFT JOIN Target ta ON co.fk_target_id = ta.id LEFT JOIN Relation r ON co.fk_relation_id = r.id
-            WHERE co.autcol = True AND co.startdate <= '{t1}' AND co.enddate > '{t1}'")
-
-        Dim sql = QuerySQL($"select sql from query where name='Check_incasso'")
-        sql = sql.replace("[date]", $"'{Year(Me.Dtp_Incasso_start.Value)}-{Month(Me.Dtp_Incasso_start.Value)}-01'")
-
-
-        'Check_Existing_Incasso()
-        Me.Lbl_Incasso_Error.Visible = False
-        Dim journal_name As String = Me.Lbl_Incasso_job_name.Text
-        qtopen = QuerySQL("select count(id) from journal where status = 'Open' and name ='" & journal_name & "'")
-        qtverwerkt = QuerySQL("select count(id) from journal where status = 'Verwerkt' and name ='" & journal_name & "'")
-
-        If qtopen > 0 Then
-            Me.Lbl_Incasso_Status.Text = "Open"
-            MenuDelete.Enabled = True
-            MenuSave.Enabled = False
-            Menu_Print.Enabled = True
-
-
-            Dim Checksum = QuerySQL("Select Sum(amt1) from journal where name ='" & journal_name & "'")
-            If Tot_amt <> Checksum Then
-                Dim msg = $"Het totaalbedrag ({Tot_amt}) verschilt van de eerder gecreëerde incassojob ({Checksum}). De details zijn te zien via de radiobutton 'Verschillen' op deze pagina."
-                Me.Lbl_Incasso_Error.Text = msg
-                Me.Lbl_Incasso_Error.Visible = True
-                Me.Rbn_Incasso_Verschillen.BackColor = Color.MistyRose
-            Else
-                Me.Rbn_Incasso_Verschillen.BackColor = Color.Transparent
-            End If
-        ElseIf qtverwerkt > 0 Then
-            Me.Lbl_Incasso_Status.Text = "Verwerkt"
-
-            MenuDelete.Enabled = False
-            MenuSave.Enabled = False
-            Menu_Print.Enabled = True
-
-            Dim Checksum = QuerySQL("SELECT Sum(amt1) from journal where name ='" & journal_name & "'")
-            If Tot_amt <> Checksum Then
-                Me.Lbl_Incasso_Error.Text = "Opgeslagen incassojob is niet in lijn met contractdata"
-            End If
-        Else
-            Me.Lbl_Incasso_Status.Text = "Nieuw"
-
-            MenuDelete.Enabled = False
-            MenuSave.Enabled = True
-            Menu_Print.Enabled = False
-
-
-        End If
-        Format_dvg_incasso()
-    End Sub
     Private Sub Cmx_Excasso_Select_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmx_Excasso_Select.SelectedIndexChanged
         Load_Excasso_Form()
         Call_Excasso_form(sender)
@@ -2214,8 +2053,6 @@ fin:
                     ApplyFilter(Dgv_Rapportage_Overzicht.DataSource)
                     Format_Datagridview(Dgv_Rapportage_Overzicht, LbL_Formatting.Text.Split(","c), False)
                 End If
-
-
         End Select
 
 
@@ -2491,8 +2328,6 @@ fin:
                 MenuCancel.Enabled = True
                 Load_Account_Settings()
 
-
-
             Case Else
 
 
@@ -2562,10 +2397,6 @@ fin:
 
     End Sub
 
-    Private Sub Cbx_Journal_Status_Click(sender As Object, e As EventArgs) Handles Cbx_Journal_Status_Open.Click, Cbx_Journal_Status_Verwerkt.Click,
-            Cbx_Journal_Saldo_Open.Click
-        Fill_Cmx_Journal_List()
-    End Sub
 
     Sub Call_Excasso_form(sender As Object)
 
@@ -2604,9 +2435,6 @@ fin:
         Dim s2 As String = Get_Excasso_data2(cp, t1, t2, t3, naam1, naam2, dat)
         'If s = "" Then Exit Sub
         If s2 = "" Then Exit Sub
-
-        Clipboard.Clear()
-        Clipboard.SetText(s2)
 
 
         'Load_Datagridview(Me.Dgv_Excasso2, s, "Call_Excasso_form")
@@ -2698,110 +2526,12 @@ end as e_intern,
     order by ac.name
 
 "
-        Clipboard.Clear()
-        Clipboard.SetText(Sqlstr)
         Return Sqlstr
 
 
 
     End Function
-    Function Get_Excasso_data(ByVal cp As String, type1 As String, type2 As String, type3 As String, u_form As String, dat As String, nieuw As Boolean, prefill_contract As Boolean)
 
-        Dim Sqlstr As String =
-            "
-        -- UITKERINGEN
-
-        select id, name, case when (round(max(plan::numeric)) is distinct from null and not " & nieuw & ") or 
-            (" & nieuw & " and (select count(*) from journal where extract(month from date) = extract(month from current_date) 
-                and source = 'Uitkering' and fk_account = it1.id and type = 'Contract')=0)
-
-            
-            then round(max(plan::numeric)) else 0 end as plan
-	        ,round(sum(contr::numeric)) as saldo, round(sum(extra::numeric))as extra, round(sum(intern::numeric)) as intern 
-	        ,case when not " & nieuw & " --ophalen incassoformulier
-			        then 
-			        case when (select round(sum(j2.amt1::numeric)) from journal j2 where j2.name like '" & u_form & "' and j2.fk_account = it1.id and j2.type ilike '%contract%') is distinct from null 
-			     	        then (select -round(sum(j2.amt1::numeric)) from journal j2 where j2.name like '" & u_form & "' and j2.fk_account = it1.id and j2.type ilike '%contract%') else 0 end
-			        else
-			        case --lijst vullen met contractbudget of saldo contractbetalingen
-				        when " & prefill_contract & " 
-					        then case when round(max(plan::numeric)) is distinct from null  
-                        
-                        and (select count(*) from journal where extract(month from date) = extract(month from current_date) 
-                and source = 'Uitkering' and fk_account = it1.id and type = 'Contract')=0
-                        
-                        
-                        then round(max(plan::numeric)) else 0 end else 
-				        case when round(sum(contr::numeric)) is distinct from null then 
-                        case when round(sum(contr::numeric))>0 then round(sum(contr::numeric)) else 0 end  else 0 end
-			        end	end as e_cont
-	        ,case when not " & nieuw & " --ophalen incassoformulier
-			    then (case when (select round(sum(j2.amt1::numeric)) from journal j2 where j2.name like '%" & u_form & "%' and j2.fk_account = it1.id and (j2.type ilike '%extra%')) is distinct from null 
-	 					    then (select -round(sum(j2.amt1::numeric)) from journal j2 where j2.name like '" & u_form & "' and j2.fk_account = it1.id and (j2.type ilike '%extra%')) else 0::numeric end) 
-	 				        else round(sum(extra::numeric))
-	            end as e_extra 
-	 	    ,case when not " & nieuw & " --ophalen incassoformulier
-			    then (case when (select round(sum(j2.amt1::numeric)) from journal j2 where j2.name like '%" & u_form & "%' and j2.fk_account = it1.id and (j2.type ilike '%intern%')) is distinct from null 
-	 					    then (select -round(sum(j2.amt1::numeric)) from journal j2 where j2.name like '%" & u_form & "%' and j2.fk_account = it1.id and (j2.type ilike '%intern%')) else 0::numeric end)
-	 					    else round(sum(intern::numeric))
-	            end as e_intern
-            ,0::numeric as e_tot
-	        ,0::numeric as m_tot
-
-	        FROM
-		        (
-                SELECT 
-                    ac.id as id, ac.name as name
-                    ,CASE 
-                        WHEN extract(month from timestamp '" & dat & "')=1 Then case when round(max(ac.b_jan)::numeric,0) is distinct from null 
-	                    THEN round(max(ac.b_jan)::numeric,0) else 0::numeric end 
-                        WHEN extract(month from timestamp '" & dat & "')=2 Then case when round(max(ac.b_feb)::numeric,0) is distinct from null 
-	                    THEN round(max(ac.b_feb)::numeric,0) else 0::numeric end 
-                        WHEN extract(month from timestamp '" & dat & "')=3 Then case when round(max(ac.b_mar)::numeric,0) is distinct from null 
-	                    THEN round(max(ac.b_mar)::numeric,0) else 0::numeric end 
-                        WHEN extract(month from timestamp '" & dat & "')=4 Then case when round(max(ac.b_apr)::numeric,0) is distinct from null 
-	                    THEN round(max(ac.b_apr)::numeric,0) else 0::numeric end 
-                        WHEN extract(month from timestamp '" & dat & "')=5 Then case when round(max(ac.b_may)::numeric,0) is distinct from null 
-	                    THEN round(max(ac.b_may)::numeric,0) else 0::numeric end 
-                        WHEN extract(month from timestamp '" & dat & "')=6 Then case when round(max(ac.b_jun)::numeric,0) is distinct from null 
-	                    THEN round(max(ac.b_jun)::numeric,0) else 0::numeric end 
-                        WHEN extract(month from timestamp '" & dat & "')=7 Then case when round(max(ac.b_jul)::numeric,0) is distinct from null 
-	                    THEN round(max(ac.b_jul)::numeric,0) else 0::numeric end 
-                        WHEN extract(month from timestamp '" & dat & "')=8 Then case when round(max(ac.b_aug)::numeric,0) is distinct from null 
-	                    THEN round(max(ac.b_aug)::numeric,0) else 0::numeric end 
-                        WHEN extract(month from timestamp '" & dat & "')=9 Then case when round(max(ac.b_sep)::numeric,0) is distinct from null 
-	                    THEN round(max(ac.b_sep)::numeric,0) else 0::numeric end 
-                        WHEN extract(month from timestamp '" & dat & "')=10 Then case when round(max(ac.b_oct)::numeric,0) is distinct from null 
-	                    THEN round(max(ac.b_oct)::numeric,0) else 0::numeric end 
-                        WHEN extract(month from timestamp '" & dat & "')=11 Then case when round(max(ac.b_nov)::numeric,0) is distinct from null 
-	                    THEN round(max(ac.b_nov)::numeric,0) else 0::numeric end 
-                        WHEN extract(month from timestamp '" & dat & "')=12 Then case when round(max(ac.b_dec)::numeric,0) is distinct from null 
-	                    THEN round(max(ac.b_dec)::numeric,0) else 0::numeric end 
-
-                     END As Plan
-			        ,CASE when j.type ilike '%contract%' and j.name not like '" & u_form & "' then sum(j.amt1) else 0::money end as Contr
-			        ,CASE when j.type ilike '%extra%' and j.name not like '" & u_form & "' then sum(j.amt1) else 0::money end as Extra
-			        ,CASE when j.type ilike '%intern%' and j.name not like '" & u_form & "' then sum(j.amt1) else 0::money end as Intern
-			        ,case when (select sum(j2.amt1) from journal j2 where j2.name not like '" & u_form & "' and j2.fk_account = ac.id and j2.type ilike '%contract%') is distinct from null 
-			        then (select sum(j2.amt1) from journal j2 where j2.name not like '" & u_form & "' and j2.fk_account = ac.id and j2.type ilike '%contract%') else 0::money end
-			        as ctr1
-                FROM account ac
-                    LEFT JOIN journal j ON j.fk_account = ac.id
-                    LEFT JOIN target ta ON ta.id = ac.f_key
-                    LEFT JOIN cp ON cp.id = ta.fk_cp_id
-                    WHERE (ta.ttype='" & type1 & "' or  ta.ttype='" & type2 & "' or ta.ttype='" & type3 & "')
-                    AND ta.active=true 
-                    and cp.id=" & cp & "
-			        GROUP BY ac.id, ac.name, j.name, j.type ORDER BY ac.name asc
-                    ) as it1
-        group by id, name
-        order by name
-        "
-        Clipboard.SetText(Sqlstr)
-
-        Return Sqlstr
-        '
-    End Function
 
 
     Private Sub Rbn_uitkering_saldo_Click(sender As Object, e As EventArgs) Handles Rbn_uitkering_saldo.Click
@@ -2855,13 +2585,6 @@ end as e_intern,
                 For c = 9 To 10
                     .Columns(c).DefaultCellStyle.ForeColor = Color.Green
                 Next
-                '.Columns(6).DefaultCellStyle.ForeColor = Color.Blue
-                '.Columns(6).ReadOnly = False
-                '.Columns(6).DefaultCellStyle.Format = "G"
-                '.Columns(6).ValueType = GetType(Decimal)
-                '.Columns(7).DefaultCellStyle.ForeColor = Color.Green
-                '.Columns(7).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                '.Columns(7).Width = 80
 
 
             End With
@@ -2915,8 +2638,6 @@ end as e_intern,
             Dgv_Excasso2.Rows(x).Cells(8).Value = Dgv_Excasso2.Rows(x).Cells(5).Value
 
         Next x
-
-
 
     End Sub
 
@@ -3367,122 +3088,7 @@ end as e_intern,
     End Sub
 
 
-    Sub Save_modified_journaalposts()
-        Dim name As String = Lbl_Journaalposten_header.Text
-        Dim datum As Date = Lbl_Journaalposten_datum.Text
-        Dim status As String = Trim(Lbl_journaalposten_status.Text)
-        Dim amt1 As Decimal
-        Dim bij As Decimal
-        Dim af As Decimal
-        Dim amt2 As Decimal
-        Dim description As String
-        Dim source As String = Trim(Lbl_Journaalposten_bron.Text)
-        Dim id As Integer
-        Dim fk_account As Integer
-        Dim fk_relation As Integer
-        Dim fk_bank As Integer = Integer.Parse(Banklink.Text)
-        Dim Type As String = Trim(Lbl_journaalposten_type.Text)
-        Dim cpinfo As String
-        Dim iban As String = Trim(Lbl_journaalposten_iban.Text)
-        Dim transactiesaldo = CInt(Math.Round(Decimal.Parse(Tbx_Journal_Saldo.Text)))
 
-        Dim errmsg As String = ""
-
-
-        ' ---------------------1 Uitvoeren van controles ----------
-        'a) Intern: saldo moet altijd 0 zijn
-
-        If source = "Intern" And Tbx_Journal_Saldo.Text <> "0,00" Then
-            errmsg &= "- Interne transacties moeten altijd een nulsaldo hebben." & vbCr
-        End If
-        'b) Bank: bankbedrag moet altijd gelijk zijn aan journaaltransactie
-        If source <> "Intern" And status <> "Open" Then
-            'Dim bankcheck QuerySQL("select sum(credit-debit) from bank where id=" & fk_bank) & "---" & transactiesaldo)
-            If QuerySQL("select sum(credit-debit) from bank where id=" & fk_bank) - transactiesaldo <> 0 Then
-                errmsg &= "- Mismatch tussen bankbedrag and journaaltransactiesaldo" & vbCr
-            End If
-        End If
-        'c) Open: geen bewerkingen toestaan
-        If status = "Open" Then
-            errmsg &= "- Deze transactie is nog niet verwerkt, doe eventuele aanpassingen in het tabblad '" _
-                & source & "'" & vbCr
-        End If
-        '-- de volgende controls betreffende de aanpasbare inhoud 
-        'For Each row As DataGridViewRow In .
-        For x As Integer = 0 To Dgv_journaalposten.Rows.Count - 2
-            With Dgv_journaalposten
-                bij = .Rows(x).Cells(2).Value
-                af = .Rows(x).Cells(3).Value
-                fk_account = IIf(IsDBNull(.Rows(x).Cells(11).Value), "0", .Rows(x).Cells(11).Value)
-                'd) Als bij gevuld is moet af 0 zijn en viceversa
-                If bij <> 0 And af <> 0 Then
-                    errmsg &= "- BIJ en AF kunnen niet beide een bedrag zijn" & vbCr
-                End If
-                'e) Fk_account moet altijd ingevuld zijn (standaard "Niet toegewezen"?
-                If fk_account = 0 Then
-                    errmsg &= "- Account ontbreekt in journaalpost, dit is verplicht" & vbCr
-                End If
-            End With
-        Next
-        If errmsg = "" Then
-            If MsgBox("Weet u zeker dat u deze handmatige aanpassingen in het grootboek wil aanbrengen?", vbYesNo) = vbNo Then Exit Sub
-        Else
-            MsgBox("De wijzigingen kunnen niet worden opgeslagen vanwege:" & vbCr & errmsg)
-            Exit Sub
-        End If
-
-        For Each row As DataGridViewRow In Dgv_journaalposten.Rows
-            If row.Tag IsNot Nothing Then
-                id = IIf(IsDBNull(row.Cells("id").Value), Nothing, row.Cells("id").Value.ToString)
-
-                amt2 = 0  '@@@ nog aanpassen
-                If row.Cells("bij").Value > 0 Then
-                    amt1 = row.Cells("bij").Value.ToString
-                Else
-                    amt1 = "-" & row.Cells("af").Value.ToString
-                End If
-                description = row.Cells("omschrijving").Value.ToString
-                fk_account = row.Cells("accountnr").Value.ToString
-                fk_relation = IIf(IsDBNull(row.Cells("relatie").Value), Nothing, row.Cells("relatie").Value.ToString)
-                cpinfo = row.Cells("cpinfo").Value.ToString
-                Dim ops As String
-                If row.Tag.ToString = "Modified" Then
-                    If Len(row.Cells("id").Value.ToString) = 0 Then 'new record
-                        ops = "INSERT"
-                    Else 'updated record
-                        ops = "UPDATE"
-
-                    End If
-                    'MsgBox(row.Tag.ToString & "---" & description)
-                    'MsgBox($"relatie: {fk_relation}, fk_bank {fk_bank}")
-                    Run_SQL_Journal("Save_modified_journaalposts", ops, id, name, datum, status, amt1, amt2, description,
-                                             source, fk_account, fk_relation, fk_bank, Type, cpinfo, iban)
-
-                End If
-            End If
-
-        Next
-
-
-    End Sub
-
-    Sub Calculate_Journaalposten_totalen(dgv As DataGridView)
-        Dim cred, deb As Decimal
-
-        Try
-            For r = 0 To dgv.RowCount - 1
-                cred += dgv.Rows(r).Cells(2).Value
-                deb += dgv.Rows(r).Cells(3).Value
-                'cred += IIf(IsDBNull(dgv.Rows(r).Cells(2).Value) = 0, 0, dgv.Rows(r).Cells(2).Value)
-                'deb += IIf(IsDBNull(dgv.Rows(r).Cells(3).Value) = 0, 0, dgv.Rows(r).Cells(3).Value)
-            Next
-            Tbx_Journal_Credit.Text = cred.ToString("#0.00")
-            Tbx_Journal_Debit.Text = deb.ToString("#0.00")
-            Tbx_Journal_Saldo.Text = cred - deb
-        Catch ex As Exception
-
-        End Try
-    End Sub
 
     Private Sub Grp_Journaalposten_Enter(sender As Object, e As EventArgs) Handles Grp_Journaalposten.Enter
 
@@ -3551,13 +3157,6 @@ end as e_intern,
 
     End Sub
 
-
-
-    Private Sub Btn_Rap_Expand_Collapse_Click(sender As Object, e As EventArgs) Handles Btn_Rap_Expand_Collapse.Click
-
-
-    End Sub
-
     Sub Expand_Collapse(ByRef but As Button, ByRef tv As TreeView)
         If Btn_Rap_Expand_Collapse.Text = "Alles uitklappen" Then
             BankTree.ExpandAll()
@@ -3615,7 +3214,6 @@ end as e_intern,
                 End If
 
         End Select
-
 
     End Sub
 
@@ -3735,10 +3333,6 @@ end as e_intern,
         isProgrammaticChange = False
     End Sub
 
-    Private Sub BankTree_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles BankTree.AfterSelect
-
-    End Sub
-
     Private Sub Btn_Boeking_Expand_Collapse_Click(sender As Object, e As EventArgs) Handles Btn_Boeking_Expand_Collapse.Click
         If Btn_Boeking_Expand_Collapse.Text = "Alles uitklappen" Then
             AccountTree.ExpandAll()
@@ -3748,7 +3342,6 @@ end as e_intern,
             Btn_Boeking_Expand_Collapse.Text = "Alles uitklappen"
         End If
     End Sub
-
 
 End Class
 

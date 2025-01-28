@@ -217,7 +217,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="acct.vb" />
+    <Compile Include="boekingen.vb" />
     <Compile Include="bank.vb" />
     <Compile Include="Banksplit.Designer.vb">
       <DependentUpon>Banksplit.vb</DependentUpon>

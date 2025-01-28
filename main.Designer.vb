@@ -192,7 +192,6 @@ Partial Class SPAS
         Me.Cmbx_journaalposten_account = New System.Windows.Forms.ComboBox()
         Me.Tbx_Journal_Credit = New System.Windows.Forms.TextBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Cbx_Journal_Saldo_Open = New System.Windows.Forms.CheckBox()
         Me.Cbx_Journal_Status_Verwerkt = New System.Windows.Forms.CheckBox()
         Me.Lbl_Journal_Status = New System.Windows.Forms.Label()
         Me.Cbx_Journal_Status_Open = New System.Windows.Forms.CheckBox()
@@ -2204,7 +2203,6 @@ Partial Class SPAS
         '
         'Panel2
         '
-        Me.Panel2.Controls.Add(Me.Cbx_Journal_Saldo_Open)
         Me.Panel2.Controls.Add(Me.Cbx_Journal_Status_Verwerkt)
         Me.Panel2.Controls.Add(Me.Lbl_Journal_Status)
         Me.Panel2.Controls.Add(Me.Cbx_Journal_Status_Open)
@@ -2217,24 +2215,13 @@ Partial Class SPAS
         Me.Panel2.Size = New System.Drawing.Size(186, 503)
         Me.Panel2.TabIndex = 134
         '
-        'Cbx_Journal_Saldo_Open
-        '
-        Me.Cbx_Journal_Saldo_Open.AutoSize = True
-        Me.Cbx_Journal_Saldo_Open.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Journal_Saldo_Open.Location = New System.Drawing.Point(9, 53)
-        Me.Cbx_Journal_Saldo_Open.Name = "Cbx_Journal_Saldo_Open"
-        Me.Cbx_Journal_Saldo_Open.Size = New System.Drawing.Size(103, 18)
-        Me.Cbx_Journal_Saldo_Open.TabIndex = 138
-        Me.Cbx_Journal_Saldo_Open.Text = "Saldo niet nul"
-        Me.Cbx_Journal_Saldo_Open.UseVisualStyleBackColor = True
-        '
         'Cbx_Journal_Status_Verwerkt
         '
         Me.Cbx_Journal_Status_Verwerkt.AutoSize = True
         Me.Cbx_Journal_Status_Verwerkt.Checked = True
         Me.Cbx_Journal_Status_Verwerkt.CheckState = System.Windows.Forms.CheckState.Checked
         Me.Cbx_Journal_Status_Verwerkt.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Journal_Status_Verwerkt.Location = New System.Drawing.Point(70, 29)
+        Me.Cbx_Journal_Status_Verwerkt.Location = New System.Drawing.Point(107, 6)
         Me.Cbx_Journal_Status_Verwerkt.Name = "Cbx_Journal_Status_Verwerkt"
         Me.Cbx_Journal_Status_Verwerkt.Size = New System.Drawing.Size(73, 18)
         Me.Cbx_Journal_Status_Verwerkt.TabIndex = 135
@@ -2254,8 +2241,10 @@ Partial Class SPAS
         'Cbx_Journal_Status_Open
         '
         Me.Cbx_Journal_Status_Open.AutoSize = True
+        Me.Cbx_Journal_Status_Open.Checked = True
+        Me.Cbx_Journal_Status_Open.CheckState = System.Windows.Forms.CheckState.Checked
         Me.Cbx_Journal_Status_Open.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cbx_Journal_Status_Open.Location = New System.Drawing.Point(9, 32)
+        Me.Cbx_Journal_Status_Open.Location = New System.Drawing.Point(53, 6)
         Me.Cbx_Journal_Status_Open.Name = "Cbx_Journal_Status_Open"
         Me.Cbx_Journal_Status_Open.Size = New System.Drawing.Size(55, 18)
         Me.Cbx_Journal_Status_Open.TabIndex = 134
@@ -2265,7 +2254,7 @@ Partial Class SPAS
         'Tbx_Journal_Filter
         '
         Me.Tbx_Journal_Filter.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_Journal_Filter.Location = New System.Drawing.Point(148, 4)
+        Me.Tbx_Journal_Filter.Location = New System.Drawing.Point(2, 2)
         Me.Tbx_Journal_Filter.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Journal_Filter.Name = "Tbx_Journal_Filter"
         Me.Tbx_Journal_Filter.Size = New System.Drawing.Size(18, 25)
@@ -2282,10 +2271,10 @@ Partial Class SPAS
         Me.Lv_Journal_List.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Lv_Journal_List.FullRowSelect = True
         Me.Lv_Journal_List.HideSelection = False
-        Me.Lv_Journal_List.Location = New System.Drawing.Point(2, 76)
+        Me.Lv_Journal_List.Location = New System.Drawing.Point(2, 32)
         Me.Lv_Journal_List.Margin = New System.Windows.Forms.Padding(2)
         Me.Lv_Journal_List.Name = "Lv_Journal_List"
-        Me.Lv_Journal_List.Size = New System.Drawing.Size(182, 425)
+        Me.Lv_Journal_List.Size = New System.Drawing.Size(182, 469)
         Me.Lv_Journal_List.TabIndex = 54
         Me.Lv_Journal_List.UseCompatibleStateImageBehavior = False
         '
@@ -3399,7 +3388,6 @@ Partial Class SPAS
         '
         'Panel5
         '
-        Me.Panel5.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Panel5.Controls.Add(Me.Rbn_Incasso_Verschillen)
         Me.Panel5.Controls.Add(Me.Dtp_Incasso_start)
         Me.Panel5.Controls.Add(Me.Cmx_Incasso_Bankaccount)
@@ -7375,7 +7363,6 @@ Partial Class SPAS
     Friend WithEvents Lbl_Report_total As Label
     Friend WithEvents Btn_Report_YearEnd_Post As Button
     Friend WithEvents Panel2 As Panel
-    Friend WithEvents Cbx_Journal_Saldo_Open As CheckBox
     Friend WithEvents Cbx_Journal_Status_Verwerkt As CheckBox
     Friend WithEvents Lbl_Journal_Status As Label
     Friend WithEvents Cbx_Journal_Status_Open As CheckBox
