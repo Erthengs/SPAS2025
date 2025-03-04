@@ -121,21 +121,7 @@ connstart:
         connection.Close()
 
     End Sub
-    Sub Collect_data(ByVal sql As String)
-        Try
-            Connect(sql)
-            Dim da = New NpgsqlDataAdapter(sql, connection)
-            connection.Close()
-            Dim ds = New DataSet
-            da.Fill(ds, "Table")
-            dst = ds
-        Catch
-            MsgBox("De data kon niet opgehaald worden.")
-            Clipboard.Clear()
-            Clipboard.SetText(sql)
-        End Try
 
-    End Sub
     Sub Collect_data1(ByVal sql As String)
         Try
             Connect(sql)
@@ -151,38 +137,23 @@ connstart:
         End Try
     End Sub
 
-    Sub Collect_data_new(ByVal sql As String, ByRef dtst As DataSet)
-
+    Function Collect_data2(ByVal sql As String) As DataTable
         Try
             Connect(sql)
-            Dim da = New NpgsqlDataAdapter(sql, connection)
+            Dim da As New NpgsqlDataAdapter(sql, connection)
             connection.Close()
-            Dim ds = New DataSet
+            Dim ds As New DataSet
             da.Fill(ds, "Table")
-            dtst = ds
-
+            Return ds.Tables(0)
         Catch
             MsgBox("De data kon niet opgehaald worden.")
             Clipboard.Clear()
             Clipboard.SetText(sql)
+            Return Nothing
         End Try
-    End Sub
+    End Function
 
-    Sub Collect_bankdata(ByVal sql As String)
-        Try
-            Connect(sql)
-            Dim da = New NpgsqlDataAdapter(sql, connection)
-            connection.Close()
-            Dim ds = New DataSet
-            da.Fill(ds, "Table")
-            dstbank = ds
-        Catch
-            MsgBox("De data kon niet opgehaald worden.")
-            Clipboard.Clear()
-            Clipboard.SetText(sql)
-        End Try
 
-    End Sub
     Function QuerySQL(ByVal sql As String)
         Try
             Connect(sql)
@@ -223,6 +194,8 @@ connstart:
         Next
         connection.Close() 'later toegevoegd
     End Sub
+
+
     Sub Load_Datagridview(ByVal dgv As DataGridView, sql As String, errmsg As String)
 
         dgv.DataSource = Nothing
@@ -325,7 +298,7 @@ connstart:
             ' Export rows and apply formatting
             For i = 1 To dgv.RowCount
                 For j = 0 To dgv.Columns.Count - 1
-                    ' Export cell value
+
                     .Cells(i + 1, j + 1) = dgv.Rows(i - 1).Cells(j).Value
 
                     If cols Then
@@ -353,9 +326,79 @@ connstart:
         ExcelBook = Nothing
         ExcelApp = Nothing
 
-
-
     End Sub
+
+
+
+    Sub Export2Excel()
+        Dim activeTab As TabPage = If(TypeOf SPAS.TC_Main.SelectedTab.Controls(0) Is TabControl,
+                                  DirectCast(SPAS.TC_Main.SelectedTab.Controls(0), TabControl).SelectedTab,
+                                  SPAS.TC_Main.SelectedTab)
+
+        Dim dgvList As New List(Of DataGridView)
+        FindDataGridViews(activeTab, dgvList)
+
+        If dgvList.Count = 0 OrElse dgvList.All(Function(dgv) dgv.Rows.Count = 0) Then
+            MsgBox("Nothing to export to Excel")
+            Exit Sub
+        End If
+
+        Dim applyColors As Boolean = (MsgBox("Wilt u kleuren in de export meenemen (duurt iets langer)?", vbYesNo) = vbYes)
+        Dim ExcelApp As Object = CreateObject("Excel.Application")
+        Dim ExcelBook As Object = ExcelApp.WorkBooks.Add
+
+        For index As Integer = 0 To dgvList.Count - 1
+            Dim dgv = dgvList(index)
+            Dim ExcelSheet As Object = If(index = 0, ExcelBook.WorkSheets(1), ExcelBook.WorkSheets.Add)
+            ExcelSheet.Name = dgv.Name
+
+            With ExcelSheet
+                For Each column As DataGridViewColumn In dgv.Columns
+                    .Cells(1, column.Index + 1) = column.HeaderText
+                    .Columns(column.Index + 1).ColumnWidth = column.Width / 7 ' Adjusting width proportionally
+                Next
+
+                For i As Integer = 0 To dgv.RowCount - 1
+                    Dim rowStyle = dgv.Rows(i).DefaultCellStyle ' Ensure default row style is captured
+                    For j As Integer = 0 To dgv.Columns.Count - 1
+                        Dim cell = dgv.Rows(i).Cells(j)
+                        .Cells(i + 2, j + 1) = If(IsDBNull(cell.Value), "", cell.Value)
+
+                        If applyColors Then
+                            Dim cellStyle = If(Not cell.Style.BackColor.IsEmpty, cell.Style, rowStyle)
+                            Dim backColor = If(Not cellStyle.BackColor.IsEmpty, cellStyle.BackColor, dgv.DefaultCellStyle.BackColor)
+                            Dim foreColor = If(Not cellStyle.ForeColor.IsEmpty, cellStyle.ForeColor, dgv.DefaultCellStyle.ForeColor)
+
+                            ' Apply colors only if they are explicitly set
+                            If Not backColor.IsEmpty Then
+                                .Cells(i + 2, j + 1).Interior.Color = RGB(backColor.R, backColor.G, backColor.B)
+                            End If
+                            If Not foreColor.IsEmpty Then
+                                .Cells(i + 2, j + 1).Font.Color = RGB(foreColor.R, foreColor.G, foreColor.B)
+                            End If
+                        End If
+                    Next
+                Next
+            End With
+        Next
+
+        ExcelApp.Visible = True
+    End Sub
+
+    Private Sub FindDataGridViews(ByVal container As Control, ByRef dgvList As List(Of DataGridView))
+        For Each ctrl As Control In container.Controls
+            If TypeOf ctrl Is DataGridView Then
+                dgvList.Add(DirectCast(ctrl, DataGridView))
+            ElseIf ctrl.HasChildren Then
+                FindDataGridViews(ctrl, dgvList)
+            End If
+        Next
+    End Sub
+
+
+
+
+
     Public Sub Run_SQL_Journal(ByVal caller As String, operation As String, id As Integer, name As String, datum As Date, status As String,
         amt1 As Decimal, amt2 As Decimal, description As String, source As String, fk_account As Integer,
         fk_relation As Integer, fk_bank As Integer, type As String, cpinfo As String, iban As String, <CallerMemberName> Optional ByVal caller2 As String = "")
@@ -498,7 +541,7 @@ connstart:
         End While
     End Sub
     Sub Populate_DataTree_New(ByVal sql As String, ByVal tview As TreeView)
-        Collect_data("select name from query where sql ilike '%[year]%'")
+        Dim treedata = Collect_data2("select name from query where sql ilike '%[year]%'")
 
         Dim conn = New NpgsqlConnection(connect_string)
         conn.Open()
@@ -572,7 +615,7 @@ connstart:
             treeView.SelectedNode = node
             treeView.SelectedNode.EnsureVisible() ' Ensure the selected node is visible
             Dim args As New TreeNodeMouseClickEventArgs(node, MouseButtons.Left, 1, 0, 0)
-            SPAS.BankTree_NodeMouseClick(treeView, args)
+            SPAS.ReportTree_NodeMouseClick(treeView, args)
         End If
     End Sub
 

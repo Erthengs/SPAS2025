@@ -111,12 +111,12 @@ skipit:
         If rst = 0 Then
             RunSQL("DELETE from journal WHERE fk_bank = '" & Lbl_Split_Bank_id.Text & "';", "NULL", "Btn_Split_Save_Click2")
         Else
-            RunSQL("UPDATE journal j set status = 'Verwerkt', amt1 = '" & Lbl_Split_Diff.Text & "' WHERE fk_bank = '" & Lbl_Split_Bank_id.Text & "';", "NULL", "Btn_Split_Save_Click_3")
+            RunSQL($"UPDATE journal j set status = 'Verwerkt', amt1 = '{Lbl_Split_Diff.Text}' WHERE fk_bank = '{Lbl_Split_Bank_id.Text}';", "NULL", "Btn_Split_Save_Click_3")
         End If
 
         Me.Close()
         Categorize_Bank_Transactions(False, True, False, False, True, False, False)
-        SPAS.Fill_bank_transactions("Btn_Split_Save_Click")
+        Fill_bank_transactions("Btn_Split_Save_Click", Nothing)
         Fill_Cmx_Excasso_Select_Combined()
 
     End Sub
@@ -129,30 +129,14 @@ skipit:
         'uitvoeren van checks
 
 
-        Collect_data1("SELECT description As Omschrijving, credit-debit As Bedrag FROM bank 
-                     WHERE seqorder='" & Lbl_Split_seqorder.Text & "'")
+        Dim sql = $"SELECT description As Omschrijving, credit-debit As Bedrag FROM bank 
+                     WHERE seqorder='{Lbl_Split_seqorder.Text}'"
+        SPAS.Prepare_Datagridview(Dgv_Split, sql, {"TZ360", "NB080"})
 
-        Dgv_Split.DataSource = dst1.Tables(0)
-
-
-        SPAS.Format_Datagridview(Dgv_Split, {"T360", "N080"}, True)
-
-        Exit Sub
-        Try
-            With Dgv_Split
-
-                .Columns(1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                .Columns(1).DefaultCellStyle.Format = "N2"
-                .Columns(1).DefaultCellStyle.ForeColor = Color.Blue
-                .Columns(1).Width = 75
-
-            End With
-        Catch
-        End Try
     End Sub
 
     Private Sub Dgv_Split_DataError(sender As Object, e As DataGridViewDataErrorEventArgs) Handles Dgv_Split.DataError
-        MsgBox("Ongeldige invoer")
+        MsgBox("Transactiesplitsing: ongeldige invoer")
         e.ThrowException = False
     End Sub
 
@@ -167,8 +151,8 @@ skipit:
                     SELECT name As Omschrijving, SUM(AMt1) AS Bedrag FROM journal
                     WHERE name ILIKE 'Excasso%' AND status = 'Open' GROUP By name, status
 "
-        Load_Datagridview(Dgv_Split, sql, "Btn_Prefill_Split")
-        SPAS.Format_Datagridview(Dgv_Split, {"T360", "N080"}, True)
+        'Load_Datagridview(Dgv_Split, sql, "Btn_Prefill_Split")
+        SPAS.Prepare_Datagridview(Dgv_Split, sql, {"TZ360", "NB080"})
         Calculate_Split_Totals()
     End Sub
 

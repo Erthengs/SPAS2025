@@ -1,8 +1,32 @@
-﻿Imports System.Windows.Forms.VisualStyles
+﻿Imports System.Text.RegularExpressions
+Imports System.Windows.Forms.VisualStyles
 Imports System.Xml
 Imports Microsoft.EntityFrameworkCore.Metadata
 
 Module report
+    Sub Run_ReportTree(ByVal rep As String)
+        Dim arr_format() As String = Nothing
+        Dim sql As String = ""
+        Dim formatting As String
+
+
+        sql = QuerySQL($"Select sql from query where category ilike 'Overzicht%' and name='{rep}'")
+        If IsNothing(sql) Then Exit Sub
+
+        formatting = QuerySQL($"Select formatting from query where category ilike 'Overzicht%' and name='{rep}'")
+        SPAS.LbL_Formatting.Text = formatting
+        If Not IsNothing(SPAS.LbL_Formatting.Text) Then arr_format = SPAS.LbL_Formatting.Text.Split(","c)
+
+        sql = Replace(sql, "[year]", report_year)
+        If SPAS.Cmbx_Reporting_Year.SelectedIndex > 0 Then
+            sql = sql.Replace("from bank ", "from bank_archive ")
+            sql = sql.Replace("from journal ", "from journal_archive ")
+        End If
+        'Load_Datagridview(SPAS.Dgv_Rapportage_Overzicht, sql, "ReportTree.NodeMouseClick-level2")
+        SPAS.Prepare_Datagridview(SPAS.Dgv_Rapportage_Overzicht, sql, arr_format)
+    End Sub
+
+
     Function Report_table(report_year)
         If CInt(report_year) >= CInt(QuerySQL("select min(extract (year from date)) from journal")) Then
             Return "journal"
@@ -39,44 +63,42 @@ Module report
         Dim bedrag As Integer = SPAS.Dgv_Rapportage_Overzicht.CurrentCell.Value
 
         accgroup = SPAS.Dgv_Rapportage_Overzicht.Rows(i).Cells(1).Value
-        'MsgBox(accgroup & " " & source & " " & bedrag)
 
         Dim sql As String = "
                 select j.date As Datum, a.name Account,j.amt1 As Bedrag,j.name As Journaalnaam, j.type As Journaaltype, j.description As Omschrijving, j.iban As Iban,  ag.name as Accountgroep,  j.fk_bank, j.id 
                 from " & Report_table(report_year) & " j left join account a on a.id = j.fk_account  left join accgroup ag on ag.id = a.fk_accgroup_id
                 where extract(year from j.date)=" & report_year & "and j.source='" & source & "' and ag.name='" & accgroup & "' and j.status != 'Open' order by j.date desc;
 "
-        Load_Datagridview(SPAS.Dgv_Report_6, sql, "boekingen")
-        Format_drill_down()
-        'SPAS.TC_Main.SelectedIndex = 5
-        'SPAS.TC_Rapportage.SelectedTab = SPAS.TC_Boekingen
-
+        'Load_Datagridview(SPAS.Dgv_Report_6, sql, "boekingen")
+        SPAS.Prepare_Datagridview(SPAS.Dgv_Report_6, sql, {"DZ080", "TZ140", "NG070", "TZ220", "HZ070", "TZ150", "HZ500", "TZ200", "HZ080", "HZ080"})
     End Sub
 
     Sub Drill_down_Bank_overview(ByVal i As Integer, ByVal j As Integer)
 
-        MsgBox("drilldown_bank")
+
         Dim sqlpart1 As String = ""
 
         Select Case j
-            Case 3 : sqlpart1 = " and b.name='_startsaldo_'"
-            Case 4, 5, 6
-            Case 7 : sqlpart1 = " and iban2 in (select accountno from bankacc)"
+            Case 1 : sqlpart1 = " and b.name ilike '%startsaldo%'"
+            Case 2 : sqlpart1 = " and b.credit >0::money"
+            Case 3 : sqlpart1 = " and b.debit >0::money"
+            Case 4
+            Case 5
             Case Else
                 Exit Sub
         End Select
 
         Dim bedrag As Integer = SPAS.Dgv_Rapportage_Overzicht.CurrentCell.Value
-        Dim sql As String = "select b.date, b.seqorder, b.name, b.credit, b.debit, b.code, b.description, fk_journal_name
+        Dim sql As String = "select b.date As Datum, b.seqorder As Afschrift, b.name As Naam, b.credit As Bij, b.debit As Af, b.code, b.description As omschrijving, fk_journal_name
                              from " & Bank_table(report_year) & " b 
-                             where iban='" & Trim(SPAS.Dgv_Rapportage_Overzicht.Rows(i).Cells(1).Value) & "' and extract(year from b.date)= " & report_year & sqlpart1 &
+                             where iban='" & Trim(SPAS.Dgv_Rapportage_Overzicht.Rows(i).Cells(0).Value) & "' and extract(year from b.date)= " & report_year & sqlpart1 &
                              " order by b.seqorder desc"
 
-
+        ToClipboard(sql, True)
 
         Load_Datagridview(SPAS.Dgv_Report_6, sql, "drilldown banktransacties")
-        Format_drill_down_bank()
-        'SPAS.TC_Rapportage.SelectedTab = SPAS.TC_Boekingen
+        SPAS.Prepare_Datagridview(SPAS.Dgv_Report_6, sql, {"DZ080", "TZ050", "TZ140", "NZ070", "NZ070", "TG040", "TZ500", "HZ050"})
+
 
     End Sub
 
@@ -93,77 +115,9 @@ Module report
         Dim arr_format() As String = Nothing
         If Not IsNothing(formatting) Then arr_format = formatting.Split(",")
 
-        Load_Datagridview(SPAS.Dgv_Report_Year_Closing, Sqlc, "...")
-        SPAS.Format_Datagridview(SPAS.Dgv_Report_Year_Closing, arr_format, False)
+        'Load_Datagridview(SPAS.Dgv_Report_Year_Closing, Sqlc, "...")
+        SPAS.Prepare_Datagridview(SPAS.Dgv_Report_Year_Closing, Sqlc, arr_format)
 
-    End Sub
-
-    Sub Format_drill_down()
-        'select j.date, a.name,j.amt1,j.name, j.type, j.description, j.iban,  ag.name,  j.fk_bank 
-        Try
-            With SPAS.Dgv_Report_6
-
-                .Columns(0).HeaderText = "Datum"
-                .Columns(0).Width = 80
-                .Columns(0).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                .Columns(1).HeaderText = "Account"
-                .Columns(1).Width = 140
-                .Columns(2).HeaderText = "Bedrag"
-                .Columns(2).Width = 70
-                .Columns(2).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                .Columns(2).DefaultCellStyle.Format = "N2"
-                .Columns(2).ReadOnly = True
-                .Columns(3).HeaderText = "Naam transactie"
-                .Columns(3).Width = 150
-                .Columns(4).HeaderText = "Type"
-                .Columns(4).Visible = False
-                .Columns(5).HeaderText = "Omschrijving transactie"
-                .Columns(5).Width = 400
-                .Columns(6).HeaderText = "IBAN"
-                .Columns(6).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                .Columns(6).Visible = False
-                .Columns(7).HeaderText = "Accountgroep"
-                .Columns(7).Width = 125
-                .Columns(8).Visible = False
-                .Columns(9).Visible = False
-
-            End With
-        Catch ex As Exception
-        End Try
-    End Sub
-
-    Sub Format_drill_down_bank()
-        'select j.date, a.name,j.amt1,j.name, j.type, j.description, j.iban,  ag.name,  j.fk_bank 
-        Try
-            With SPAS.Dgv_Report_6
-
-                .Columns(0).HeaderText = "Datum"
-                .Columns(0).Width = 80
-                .Columns(0).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                .Columns(1).HeaderText = "Afschrift"
-                .Columns(1).Width = 50
-                .Columns(2).HeaderText = "Naam"
-                .Columns(2).Width = 140
-                .Columns(3).HeaderText = "Bij"
-                .Columns(4).HeaderText = "Bij"
-                For k = 3 To 4
-                    .Columns(k).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-                    .Columns(k).DefaultCellStyle.Format = "N2"
-                    .Columns(k).ReadOnly = True
-                    .Columns(k).Width = 70
-                Next k
-                .Columns(5).HeaderText = "code"
-                .Columns(5).Width = 40
-                .Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-                .Columns(5).DefaultCellStyle.ForeColor = Color.Gray
-                .Columns(6).HeaderText = "Omschrijving"
-                .Columns(6).Width = 500
-                .Columns(7).Visible = False
-
-
-            End With
-        Catch ex As Exception
-        End Try
     End Sub
 
 End Module

@@ -9,6 +9,7 @@ Imports System.ComponentModel
 Imports Microsoft.EntityFrameworkCore.Metadata.Internal
 Imports System.Dynamic
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+Imports PdfSharp.Pdf.Content.Objects
 
 Module bank
 
@@ -27,7 +28,7 @@ Module bank
 
         Upload_CSV(csv)
 
-        SPAS.Fill_bank_transactions("Download_Bank_Transactions")
+        Fill_bank_transactions("Download_Bank_Transactions", Nothing)
         'Categorize_Bank_Transactions()
     End Sub
     Sub Load_Bank_csv_from_folder()
@@ -48,7 +49,6 @@ Module bank
         End If
 
 
-
         Dim dir As New DirectoryInfo(fold)
         'Dim newdir As String
 
@@ -56,7 +56,7 @@ Module bank
             If Strings.Right(f.Name, 4) = ".csv" Then Upload_CSV(SelectFolder.SelectedPath & "\" & f.Name)
         Next
         Categorize_Bank_Transactions(True, True, True, True, True, True, True)
-        SPAS.Fill_bank_transactions("Load_Bank_csv_from_folder")
+        Fill_bank_transactions("Load_Bank_csv_from_folder", Nothing)
 
     End Sub
 
@@ -267,12 +267,9 @@ Module bank
 
         Dim nocat As String = QuerySQL("Select value from settings where label='nocat'")
 
-
         'controle op null toevoegen
 
         If inc Then RunQuery("Categoriseer contractincasso")
-
-
         If uitk Then
             RunQuery("Categoriseer uitkering")
             Fill_Cmx_Excasso_Select_Combined()
@@ -289,25 +286,27 @@ Module bank
 
     Sub Fill_Journals_by_bank(ByVal journal_name As Integer)
 
+        SPAS.isManualChange = False
         'If Strings.Left(journal_name, 1) = "0" Then Exit Sub
 
-        Dim SQLstr = "SELECT account.id, account.name, journal.amt1, journal.type FROM journal
-                     JOIN account ON journal.fk_account = account.id
-                     JOIN bank ON bank.id = journal.fk_bank
-                     WHERE bank.id =" & journal_name
+        Dim SQLstr = "SELECT a.id, a.name As Accountnaam, j.amt1 As Bedrag, j.type As Type, j.source As Bron FROM journal j
+                     JOIN account a ON j.fk_account = a.id
+                     JOIN bank b ON b.id = j.fk_bank
+                     WHERE b.id =" & journal_name
 
-        Collect_bankdata(SQLstr)
-        ToClipboard(SQLstr, True)
 
-        Dim Amt_In = CDec(SPAS.Dgv_Bank.SelectedCells(4).Value)
+        SPAS.Prepare_Datagridview(SPAS.Dgv_Bank_Account, SQLstr, {"HZ010", "TZ200", "NB075", "HZ040", "HZ040"})
+
         Dim cod As String = SPAS.Dgv_Bank.SelectedCells(6).Value
-        Dim cnt As Integer = SPAS.Dgv_Bank.SelectedCells(17).Value
 
-        SPAS.Dgv_Bank_Account.DataSource = dstbank.Tables(0)
+        'Binnen een banktransacties hebben alle journaalposten hetzelfde type
+        Dim jtype = SPAS.Dgv_Bank_Account.Rows(0).Cells(3).Value
+
+        'SPAS.Dgv_Bank_Account.DataSource = bankdata
 
         If Trim(cod) = "cb" Then
             SPAS.Pan_Bank_jtype.Visible = True
-            Dim jtype = dstbank.Tables(0).Rows(0)(3)
+            'Dim jtype = bankdata.Rows(0)(3)
             SPAS.Rbn_Bank_jtype_con.Checked = False
             SPAS.Rbn_Bank_jtype_ext.Checked = False
             SPAS.Rbn_Bank_jtype_int.Checked = False
@@ -326,23 +325,19 @@ Module bank
                 End Select
             End If
         Else
-
             SPAS.Pan_Bank_jtype.Visible = False
-
         End If
 
-
+        SPAS.isManualChange = True
     End Sub
 
     Sub Calculate_Bank_Balance()
         If Strings.InStr(SPAS.Cmx_Bank_bankacc.Text, "NL") = 0 Then Exit Sub
 
-        Dim balance As Decimal = QuerySQL("
+        Dim balance As Decimal = QuerySQL($"
          select case when sum(credit)-sum(debit)::money isnull then 0::money else sum(credit-debit)::money end 
-  		from bank ba WHERE iban = '" & Strings.Right(SPAS.Cmx_Bank_bankacc.Text, 18) & "' 
-")
+  		from bank ba WHERE iban = '{Strings.Right(SPAS.Cmx_Bank_bankacc.Text, 18)}'")
         SPAS.Lbl_Bank_Saldo.Text = Format(balance, "#,##0.00")
-
     End Sub
 
 
@@ -365,42 +360,205 @@ Module bank
 
 
 
-    Private Function GetBankData() As DataTable
-        Dim connString As String = connect_string
-        Dim query As String = "SELECT seqorder, date, credit, debit, code FROM Bank ORDER BY seqorder, date;"
-        Dim dt As New DataTable()
-        Using conn As New NpgsqlConnection(connString)
-            conn.Open()
-            Dim cmd As New NpgsqlCommand(query, conn)
-            Dim da As New NpgsqlDataAdapter(cmd)
-            da.Fill(dt)
-        End Using
-        Return dt
-    End Function
+    Sub Calculate_Total_Booked(sender)
 
-    Sub Populate_treeview()
+        Dim Amt_In = CDec(SPAS.Dgv_Bank.SelectedCells(4).Value)
+        Dim Amt_Out = CDec(SPAS.Dgv_Bank.SelectedCells(5).Value)
+        Dim total As Decimal = 0
+        Dim nill As Integer = -1
+        Dim or_amt = Amt_In - Amt_Out
+        Dim bankdata = SPAS.Dgv_Bank_Account.DataSource
 
+        If bankdata.Rows.Count <> 0 Then
 
-        'Populate table here.
-        'GetBankData()
+            Dim amt As Decimal
+            For x As Integer = 0 To bankdata.Rows.Count - 1
+                If bankdata.Rows(x)(0) = nocat Then
+                    nill = x
+                Else
+                    If IsDBNull(bankdata.Rows(x)(2)) Then amt = 0 Else amt = CDec(bankdata.Rows(x)(2))
+                    total = total + amt
+                End If
+            Next
+            Dim diff = or_amt - total
+            If nill = -1 Then
 
+                If diff <> 0 Then  'account 'uncategorized not present
+                    Dim R As DataRow
+                    R = bankdata.Rows.Add
+                    R(0) = nocat
+                    R(1) = QuerySQL("SELECT name FROM account WHERE id='" & nocat & "'")
+                    R(2) = diff
+                End If
+            Else
+                bankdata.Rows(nill)(2) = or_amt - total
+            End If
+            SPAS.Tbx_Bank_Amount.Text = diff
 
-        AddNodes(SPAS.BankTree.Nodes, GetBankData(), Nothing)
+        End If
+
     End Sub
 
-    Private Sub AddNodes(nodes As TreeNodeCollection, table As DataTable, id As Integer?)
-        Dim filter = If(id.HasValue, "id = " & id, "id IS NULL")
-        Dim rows = table.Select(filter)
+    Sub Add_Journal_post_to_banktransaction()
+        Dim bankdata = SPAS.Dgv_Bank_Account.DataSource
+        If Check_Change_Bank_Categories(True) = False Then Exit Sub
+        SPAS.isManualChange = True
+        If (Not SPAS.Rbn_Bank_jtype_con.Checked And Not SPAS.Rbn_Bank_jtype_ext.Checked And Not SPAS.Rbn_Bank_jtype_int.Checked) And SPAS.Pan_Bank_jtype.Visible Then
+            MsgBox("Selecteer eerst of dit een contractgift, extra gift of een andere banktransactie betreft")
+            'Exit Sub
+        End If
 
-        For Each row In rows
-            Dim nid = row.Field(Of Integer)("name")
-            Dim node = nodes.Add(nid.ToString(), row.Field(Of String)("seq_order"))
+        If SPAS.Cmx_Bank_Account.Text = "" Or (Not IsNumeric(SPAS.Tbx_Bank_Amount.Text)) Or SPAS.Tbx_Bank_Amount.Text = "" Or SPAS.Cmx_Bank_Account.SelectedIndex = -1 Then
+            'MsgBox("Nieuwe categorie: Ongeldige invoer")
+            Exit Sub
+        Else
+            If SPAS.Cmx_Bank_Account.SelectedValue = QuerySQL("Select value from settings where label='nocat'") Then Exit Sub
+            Dim R As DataRow
+            R = bankdata.Rows.Add
+            R(0) = SPAS.Cmx_Bank_Account.SelectedValue
+            R(1) = SPAS.Cmx_Bank_Account.Text
+            R(2) = SPAS.Tbx_Bank_Amount.Text
+            Dim newRowIndex As Integer = SPAS.Dgv_Bank_Account.Rows.Count - 1
+            SPAS.Dgv_Bank_Account.Rows(newRowIndex).Tag = "Modified"
 
-            'Make a recursive call to add child nodes to this node.
-            'AddNodes(node.Nodes, table, id)
+            Calculate_Total_Booked("Btn_Bank_Add_Journal_Click")
+
+            'Save_Banktransaction_Accounts()
+            'Update_Category_Status()
+        End If
+
+    End Sub
+
+
+    Sub Save_Banktransaction_Accounts()
+        'Opslaan van aanpasbare banktransactiedata (description)
+        ' Dit mag in alle gevallen worden aanpast
+
+        Dim SQLstr As String
+        Dim bankid = SPAS.Dgv_Bank.SelectedCells(0).Value
+
+        '' 1) banktransactieomschrijving opslaan
+        SQLstr = $"UPDATE bank SET description='{SPAS.Tbx_Bank_Description.Text}' WHERE id='{bankid}'"
+        RunSQL(SQLstr, "NULL", "Save_Banktransaction_Accounts")
+        SPAS.Dgv_Bank.SelectedCells(3).Value = SPAS.Tbx_Bank_Description.Text
+
+        '' 2) Opslaan van de journaalposten waarmee de banktransacties gecategoriseerd zijn
+        '' Hierbij wordt ook fk_journal_name aangepast
+        '' Hiervoor vindt een check plaats of een banktransactie een incasso of excasso betreft, deze mogen niet
+        '' aangepast c.q. opgeslagen worden
+
+
+        Dim modified As Boolean = False
+        Dim red As Boolean = False
+        For Each row As DataGridViewRow In SPAS.Dgv_Bank_Account.Rows
+            If row.Tag IsNot Nothing Then
+                If row.Tag.ToString = "Modified" Then
+                    modified = True
+                End If
+            End If
+            If row.Cells(0).Value = nocat And row.Cells(2).Value <> 0 Then red = True Else red = False
+            'Eerste blokkade voor het corrumperen van uitkering/incassoboekingen
+            If Not IsDBNull(row.Cells(4).Value) Then
+                If Trim(row.Cells(4).Value) <> "Bank" Then
+                    Exit Sub
+                End If
+            End If
         Next
+
+
+        If modified Then
+            Dim bid As Integer = SPAS.Dgv_Bank.SelectedCells(0).Value
+            Dim _dat As Date = SPAS.Dgv_Bank.SelectedCells(1).Value
+            Dim dat As String = _dat.Year & "-" & _dat.Month & "-" & _dat.Day
+            Dim des As String = SPAS.Dgv_Bank.SelectedCells(3).Value  'dit gaat fout met een bestaande excassojob waar al een beschrijving aanwezig is
+            Dim afschrift As String = SPAS.Dgv_Bank.SelectedCells(9).Value
+            Dim typ As String = "---"
+            Dim nam As String
+            Dim iban As String = Strings.Right(SPAS.Cmx_Bank_bankacc.Text, 18)
+            Dim source As String = SPAS.Dgv_Bank.SelectedCells(12).Value
+            Dim bankdata = SPAS.Dgv_Bank_Account.DataSource
+
+
+            If source = "Uitkering" Or source = "Incasso" Then
+                'Tweede blokkade voor het corrumperen van uitkering/incassoboekingen
+                MsgBox("Incasso- & uitkeringslijsten kunnen niet in de bankapplicatie aangepast worden")
+                Exit Sub
+            End If
+
+            If SPAS.Rbn_Bank_jtype_con.Checked Then
+                typ = "Contract"
+                nam = $"Contractgift ({afschrift})"
+            ElseIf SPAS.Rbn_Bank_jtype_ext.Checked Then
+                typ = "Extra"
+                nam = $"Extra gift ({afschrift})"
+            Else
+                typ = "Internal"
+                nam = $"Fondsgift ({afschrift})"
+            End If
+
+            SQLstr = $"DELETE FROM journal WHERE fk_bank={bid};" &
+                         "INSERT INTO journal(date,status,amt1,description,source, fk_account,fk_bank,name,type,iban) VALUES "
+
+            For x As Integer = 0 To bankdata.Rows.Count - 1
+                If Not IsDBNull(bankdata.Rows(x)(2)) Then
+                    nam = IIf(bankdata.Rows(x)(0) = nocat, "nog te bepalen", nam)
+                    If nam = "Betaling intern account" Then nam = nam & "/" & bankdata.Rows(x)(0)
+                    If bankdata.Rows(x)(2) <> 0 Then
+                        SQLstr &= $"('{dat}','Verwerkt','{Cur2(bankdata.Rows(x)(2))}','{des}','Bank',{bankdata.Rows(x)(0)},{bid},'{nam}','{typ}','{iban}'),"
+                    End If
+                End If
+            Next
+
+            SQLstr = Strings.Left(SQLstr, Strings.Len(SQLstr) - 1) 'remove the last comma
+            If SPAS.Chbx_test.Checked Then MsgBox(SQLstr)
+            RunSQL(SQLstr, "NULL", "")
+
+            RunSQL("update bank b set fk_journal_name = j.source from journal j where b.id = j.fk_bank and j.fk_account !=" & nocat & " and b.fk_journal_name='nog te bepalen';
+            update bank b set fk_journal_name='nog te bepalen' from journal j where b.id = j.fk_bank and j.fk_account =" & nocat, "NULL", "Categorize_Bank_Transactions / Set journal Name")
+
+        End If
+        'tekstkleur aanpassen op basis van aanwezigheid nocat (niet toegewezen)'
+        SPAS.Dgv_Bank.Rows(SPAS.Dgv_Bank.CurrentRow.Index).DefaultCellStyle.ForeColor = IIf(red, Color.DarkRed, Color.DarkGreen)
+
+
     End Sub
+    Sub Fill_bank_transactions(sender, rowindex)
 
+        SPAS.isManualChange = False
+        If SPAS.Cmx_Bank_bankacc.SelectedIndex = -1 Then SPAS.Cmx_Bank_bankacc.SelectedIndex = 0
+        Calculate_Bank_Balance()
+        If Strings.InStr(SPAS.Cmx_Bank_bankacc.Text, "NL") = 0 Then Exit Sub
 
+        Dim bankacc = Strings.Right(SPAS.Cmx_Bank_bankacc.Text, 18)
 
+        Dim SQLstr = $"SELECT id, date As Datum, name As Naam, description As Omschrijving, 
+                      credit As bij, debit as Af, code As cod, exch_rate, iban2, seqorder As Afschrift,
+                      batchid, amt_cur, fk_journal_name As Journaalnaam,filename,cost,iban, id As Bankid,
+                      (select count(j.id) from journal j left join bank b2 on b2.id=j.fk_bank where j.fk_account='" & nocat & "' and b.id = b2.id)
+                      FROM bank b WHERE iban ='" & bankacc & "' ORDER BY seqorder DESC, date DESC"
+
+        SPAS.Prepare_Datagridview(SPAS.Dgv_Bank, SQLstr, {"HZ010", "FZ050", "TZ150", "TZ300", "NZ070", "NZ070", "HZ030", "HZ030", "HZ030", "TZ040", "HZ030", "HZ030", "TZ070", "HZ030", "HZ030", "HZ030", "TZ040", "TZ020"})
+        SPAS.Format_dvg_bank()
+
+        If rowindex = Nothing Then rowindex = 0
+        If SPAS.Dgv_Bank.RowCount > 0 Then SPAS.Dgv_Bank.Rows(rowindex).Selected = True
+        SPAS.Dgv_Bank.Enabled = True
+        SPAS.isManualChange = True
+
+    End Sub
+    Function Check_Change_Bank_Categories(ByVal msg As Boolean)
+        If SPAS.Dgv_Bank.Rows.Count = 0 Or SPAS.Dgv_Bank_Account.Rows.Count = 0 Then
+            Return False
+            Exit Function
+        End If
+        If Not IsDBNull(SPAS.Dgv_Bank.SelectedCells(12).Value) Then
+            If SPAS.Dgv_Bank.SelectedCells(12).Value = "Uitkering" Or SPAS.Dgv_Bank.SelectedCells(12).Value = "Incasso" Then
+                If msg Then MsgBox("Incasso- & uitkeringslijsten kunnen niet in de bankapplicatie aangepast worden")
+                Fill_Journals_by_bank(SPAS.Dgv_Bank.SelectedCells(0).Value)
+                Return False
+            End If
+        End If
+        Return True
+
+    End Function
 End Module

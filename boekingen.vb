@@ -125,19 +125,20 @@ Module boekingen
     End Sub
     Sub Fill_Cmx_Journal_List()
 
-        Dim f As String = SPAS.Searchbox.Text 'SPAS.Tbx_Journal_Filter.Text
-        Dim act As Boolean = (SPAS.Cbx_LifeCycle.Text = "Actief")
+        Dim f As String = SPAS.Searchbox2.Text 'SPAS.Tbx_Journal_Filter.Text
+        Dim act As Boolean = (SPAS.Cbx_LifeCycle2.Text = "Actief")
         Dim verwerkt As Boolean = SPAS.Cbx_Journal_Status_Verwerkt.Checked
         Dim open As Boolean = SPAS.Cbx_Journal_Status_Open.Checked
-        Dim st As String
+        Dim st As String = ""
         If open And verwerkt Then st &= "IN ('Open','Verwerkt')"
         If open And Not verwerkt Then st &= "= 'Open'"
         If Not open And verwerkt Then st &= "='Verwerkt'"
         If Not open And Not verwerkt Then st &= "Not IN ('Open','Verwerkt')"
 
+
         Load_Listview(SPAS.Lv_Journal_List, $"
         SELECT DISTINCT name As Naam0, name As Naam , date As Datum FROM journal j
-        WHERE name ILIKE '%{f}&' and j.status isnull or j.status {st} ORDER BY date desc, name")
+        WHERE name ILIKE '%{f}%' and (j.status isnull or j.status {st}) ORDER BY date desc, name")
 
 
         With SPAS.Lv_Journal_List
@@ -229,7 +230,7 @@ Module boekingen
         End Try
         MsgBox("Deze interne boeking is opgeslagen met de naam " & name & ".")
         SPAS.Leeg_overboeking_scherm()
-
+        Fill_Cmx_Journal_List()
 
     End Sub
     Sub Add_Internal_Contract_Bookings(ByVal accnt1 As String, accnt2 As String, amt1 As Decimal,
@@ -263,7 +264,7 @@ Module boekingen
     Sub Calculate_Journal_Booking_Data()
         'calculate values of target accounts
         Dim tgt_tot As Decimal = 0
-        Dim tname As String
+        Dim tname As String = ""
         Dim selectedItem As ComboBoxItem = TryCast(SPAS.Cmbx_Overboeking_Bron.SelectedItem, ComboBoxItem)
         If SPAS.Cmbx_Overboeking_Bron.SelectedIndex = -1 Then
             MsgBox("Selecteer eerst een bronaccount.")
@@ -563,9 +564,9 @@ Module boekingen
 
         Load_Datagridview(SPAS.Dgv_Settings, QuerySQL("select sql from query where name='Haal settings op'"), "load account settings")
         Dim formatting As String = QuerySQL("select formatting from query where name='Haal settings op'")
-        Dim arr_format() As String
+        Dim arr_format() As String = Nothing
         If Not IsNothing(formatting) Then arr_format = formatting.Split(",")
-        SPAS.Format_Datagridview(SPAS.Dgv_Settings, arr_format, False)
+        SPAS.Prepare_Datagridview(SPAS.Dgv_Settings, Nothing, arr_format)
 
         With SPAS.Dgv_Settings
             Dim unit As String = ""
@@ -672,35 +673,31 @@ Module boekingen
     Function Check_administratie()
 
 
-        Collect_data(QuerySQL("Select sql from query where name= 'Haal checks op'"))
+        Dim querydata = Collect_data2(QuerySQL("Select sql from query where name= 'Haal checks op'"))
         Dim result As VariantType
         Dim response As String = "Uitkomsten controles:" & vbCr
         Dim Res As Boolean = True
 
 
-        For c = 0 To dst.Tables(0).Rows.Count - 1
-            'dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("p1", Bank_table(rep_year))
-            'dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("p2", Report_table(rep_year))
-            dst.Tables(0).Rows(c)(1) = dst.Tables(0).Rows(c)(1).Replace("[year]", report_year)
-            Debug.Print(dst.Tables(0).Rows(c)(1))
-            'result = QuerySQL(dst.Tables(0).Rows(c)(1))
+        For c = 0 To querydata.Rows.Count - 1
 
-            If Not IsDBNull(QuerySQL(dst.Tables(0).Rows(c)(1))) Then
+            querydata.Rows(c)(1) = querydata.Rows(c)(1).Replace("[year]", report_year)
+            Debug.Print(querydata.Rows(c)(1))
 
-                result = QuerySQL(dst.Tables(0).Rows(c)(1))
+            If Not IsDBNull(QuerySQL(querydata.Rows(c)(1))) Then
+
+                result = QuerySQL(querydata.Rows(c)(1))
                 If result <> 0 Then
-                    dst.Tables(0).Rows(c)(2) = dst.Tables(0).Rows(c)(2).Replace("#", result)
-                    dst.Tables(0).Rows(c)(2) = "- FOUT: " & dst.Tables(0).Rows(c)(2)
-                    response &= dst.Tables(0).Rows(c)(2) & vbCr
+                    querydata.Rows(c)(2) = querydata.Rows(c)(2).Replace("#", result)
+                    querydata.Rows(c)(2) = "- FOUT: " & querydata.Rows(c)(2)
+                    response &= querydata.Rows(c)(2) & vbCr
                     Res = False
-
                 End If
             End If
-            If Strings.Left(dst.Tables(0).Rows(c)(2), 6) <> "- FOUT" Then
-                dst.Tables(0).Rows(c)(3) = "- " & dst.Tables(0).Rows(c)(3) & " OK"
-                response &= dst.Tables(0).Rows(c)(3) & vbCr
+            If Strings.Left(querydata.Rows(c)(2), 6) <> "- FOUT" Then
+                querydata.Rows(c)(3) = "- " & querydata.Rows(c)(3) & " OK"
+                response &= querydata.Rows(c)(3) & vbCr
             End If
-
         Next c
 
         MsgBox(response, IIf(Res, vbInformation, vbCritical))

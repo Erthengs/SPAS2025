@@ -18,22 +18,19 @@ Public Class Login
                 db ='PROD'
                 SPAS.Pan_Test.Visible = False
                 SPAS.Text &= " " & username
-                SPAS.BackColor = Color.WhiteSmoke
+                SPAS.BackColor = Color.LightSteelBlue  'Color.WhiteSmoke
                 SPAS.MenuStrip1.BackColor = Color.LightSteelBlue
+                SPAS.Testpanel.BackColor = Color.LightSteelBlue
                 SPAS.ToolStripTextBox1.BackColor = Color.LightSteelBlue
 
             Case "Acceptatie"
                 'db ='ACC'
                 connect_string = "User ID=" & username & ";Password=" & Me.Tbx_login_password.Text & ";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=ACC" 'My.Settings._accovh
                 SPAS.Pan_Test.Visible = True
-                SPAS.Lbl_Excasso_Items_Contract.Visible = True
-                SPAS.Lbl_Excasso_Items_Extra.Visible = True
-                SPAS.Lbl_Excasso_Items_Intern.Visible = True
-                SPAS.Lbl_Excasso_Contractwaarde.Visible = True
-                SPAS.Lbl_Excasso_Extra.Visible = True
-                SPAS.Lbl_Excasso_Intern.Visible = True
+
                 SPAS.Text &= " " & username & " (TIJDELIJKE ACCEPTATIE DATABASE)"
                 SPAS.BackColor = Color.YellowGreen
+                SPAS.Testpanel.BackColor = Color.GreenYellow
                 SPAS.MenuStrip1.BackColor = Color.GreenYellow
                 SPAS.ToolStripTextBox1.BackColor = Color.GreenYellow
             Case "Test"
@@ -41,15 +38,10 @@ Public Class Login
                 connect_string = "User ID=" & username & ";Password=" & Me.Tbx_login_password.Text & ";Host=hw26607-001.dbaas.ovh.net;Port=35263;Database=SPAS-TEST" 'My.Settings._tstovh
                 SPAS.Pan_Test.Visible = True
                 SPAS.Pan_Test.Visible = True
-                SPAS.Lbl_Excasso_Items_Contract.Visible = True
-                SPAS.Lbl_Excasso_Items_Extra.Visible = True
-                SPAS.Lbl_Excasso_Items_Intern.Visible = True
-                SPAS.Lbl_Excasso_Contractwaarde.Visible = True
-                SPAS.Lbl_Excasso_Extra.Visible = True
-                SPAS.Lbl_Excasso_Intern.Visible = True
                 SPAS.Text &= " " & username & " (TEST DATABASE)"
                 SPAS.BackColor = Color.Orange
                 SPAS.MenuStrip1.BackColor = Color.Orange
+                SPAS.Testpanel.BackColor = Color.Orange
                 SPAS.ToolStripTextBox1.BackColor = Color.Orange
 
         End Select

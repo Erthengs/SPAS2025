@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports Npgsql
+Imports PdfSharp.Pdf.Content.Objects
 Module Basisadmin
     Public group As String
     Public reload As Boolean = False
@@ -42,7 +43,7 @@ Module Basisadmin
         PopulateDataGridView()
         Exit Sub
 
-        Collect_data("
+        Dim metadata = Collect_data2("
                 select 
                 (select count(*) from account) As Accounts,
                 (select count(*) from accgroup) As Accountgroepen,
@@ -56,14 +57,14 @@ Module Basisadmin
                 (select count(*) from target) As Doel
                 ")
 
-        For i = 0 To dst.Tables(0).Columns.Count - 1
+        For i = 0 To metadata.Columns.Count - 1
 
-            qty = IIf(IsDBNull(dst.Tables(0).Rows(0)(i)), 0, dst.Tables(0).Rows(0)(i))
+            qty = IIf(IsDBNull(metadata.Rows(0)(i)), 0, metadata.Rows(0)(i))
 
             SPAS.Dgv_Mgnt_Tables.ColumnCount = 2
             SPAS.Dgv_Mgnt_Tables.Columns(0).Name = "Tabel"
             SPAS.Dgv_Mgnt_Tables.Columns(1).Name = "Aantal records"
-            SPAS.Dgv_Mgnt_Tables.Rows.Add(dst.Tables(0).Columns(i).ColumnName)
+            SPAS.Dgv_Mgnt_Tables.Rows.Add(metadata.Columns(i).ColumnName)
             SPAS.Dgv_Mgnt_Tables.Rows(SPAS.Dgv_Mgnt_Tables.Rows.Count - 1).Cells(1).Value = qty
         Next i
         MsgBox(SPAS.Dgv_Mgnt_Tables.Rows(3).Cells(1).Value)
@@ -94,6 +95,8 @@ Module Basisadmin
 
     Sub Select_Obj2(sender As String)
 
+        SPAS.isManualChange = False
+
         '@@@deze module moet nog verbeterd worden via gebruik van een dataset en het kunnen hanteren van 0-waarden
 
 
@@ -103,15 +106,15 @@ Module Basisadmin
         Dim tbl As String = SPAS.TC_Object.TabPages(tb).Name
         Dim tmp
         Dim col As Integer = -1
-        Edit_Mode = False
-        'SPAS.Manage_Buttons_Target(True, True, True, False, False, "Select_Obj2")
+        'Edit_Mode = False
+
 
         Try
             id = SPAS.Lbx_Basis.Items(SPAS.Lbx_Basis.SelectedIndex)(SPAS.Lbx_Basis.ValueMember)
         Catch ex As Exception
             Exit Sub
         End Try
-        Collect_data("SELECT * FROM " & tbl & " WHERE id='" & id & "'")
+        Dim objectdata = Collect_data2("SELECT * FROM " & tbl & " WHERE id='" & id & "'")
 
         Empty_Tabpage()
 
@@ -123,8 +126,8 @@ Module Basisadmin
             If pos > 0 Then
                 fld = Mid(ctl.Name, pos + 2, Len(ctl.Name) - pos)
                 'retrieve the name of accompanying columns
-                For i = 0 To dst.Tables(0).Columns.Count - 1
-                    If fld = dst.Tables(0).Columns(i).ColumnName Then
+                For i = 0 To objectdata.Columns.Count - 1
+                    If fld = objectdata.Columns(i).ColumnName Then
                         col = i
                         Exit For
                     End If
@@ -134,7 +137,7 @@ Module Basisadmin
                 If TypeOf ctl Is TextBox Or TypeOf ctl Is Label Then
                     Select Case Strings.Mid(ctl.Name, 5, 1)
                         Case 1
-                            tmp = dst.Tables(0).Rows(0)(col)
+                            tmp = objectdata.Rows(0)(col)
                             If IsDBNull(tmp) Then
                                 ctl.Text = 0
                             Else
@@ -142,18 +145,17 @@ Module Basisadmin
                                 '@@@currency_converter
                             End If
                         Case Else
-
-                            If IsDBNull(dst.Tables(0).Rows(0)(col)) Then ctl.Text = "" Else ctl.Text = dst.Tables(0).Rows(0)(col)
+                            If IsDBNull(objectdata.Rows(0)(col)) Then ctl.Text = "" Else ctl.Text = objectdata.Rows(0)(col)
 
                     End Select
                 ElseIf TypeOf ctl Is CheckBox Then
 
-                    ctl.Checked = dst.Tables(0).Rows(0)(col)
+                    ctl.Checked = objectdata.Rows(0)(col)
                 ElseIf TypeOf ctl Is PictureBox Then
 
                     Dim img As Image
                     Try
-                        Dim photo = dst.Tables(0).Rows(0)(col) 'QuerySQL("SELECT " & fld & " FROM " & tbl & " WHERE id='" & id & "'")
+                        Dim photo = objectdata.Rows(0)(col) 'QuerySQL("SELECT " & fld & " FROM " & tbl & " WHERE id='" & id & "'")
                         img = BlobToImage(photo)
                         ctl.Image = img
                     Catch ex As Exception
@@ -165,25 +167,22 @@ Module Basisadmin
                     pos1 = Strings.InStr(ctl.Name, "fk_")
                     If pos1 > 0 Then
                         pos2 = Strings.InStr(ctl.Name, "_id")
-                        fk_id = dst.Tables(0).Rows(0)(col) 'QuerySQL("SELECT " & fld & " FROM " & tbl & " WHERE id='" & id & "'")
+                        fk_id = objectdata.Rows(0)(col) 'QuerySQL("SELECT " & fld & " FROM " & tbl & " WHERE id='" & id & "'")
                         fk_tbl = Mid(fld, 4, Len(fld) - 6) ', pos2 - pos1
-
                         If fk_tbl = "bank" Then fk_tbl = "bankacc"
                         If fk_tbl = "acco" Then fk_tbl = "account"
-
                         If fk_tbl = "bankacc" Or fk_tbl = "account" Or fk_tbl = "accgroup" Then  '@@@ workaround
-
                             ctl.Text = QuerySQL("SELECT name FROM " & fk_tbl & " WHERE id='" & fk_id & "'")
                         Else
                             ctl.Text = QuerySQL("SELECT Concat(name, ', ', name_add) as name 
                             FROM " & fk_tbl & " WHERE id='" & fk_id & "'")
                         End If
                     Else
-                        ctl.Text = dst.Tables(0).Rows(0)(col).ToString
+                        ctl.Text = objectdata.Rows(0)(col).ToString
                     End If
 
                 ElseIf TypeOf ctl Is DateTimePicker Then
-                    ctl.Value = dst.Tables(0).Rows(0)(col)
+                    ctl.Value = objectdata.Rows(0)(col)
                 End If
             End If
         Next
@@ -200,15 +199,15 @@ Module Basisadmin
                         LEFT join bankacc ba ON ba.accountno = r.iban 
                         WHERE co.id = '" & id & "'
                         "
-            Collect_data(sqlstr)
-            'SPAS.Tbx_Contract_ttype.Text = dst.Tables(0).Rows(0)(0)
-            If dst.Tables(0).Rows(0)(0) = "Kind" Then SPAS.Rbn_00_contract_child.Checked = True
-            If dst.Tables(0).Rows(0)(0) = "Oudere" Then SPAS.Rbn_00_contract_elder.Checked = True
-            If dst.Tables(0).Rows(0)(0) = "Overig" Then SPAS.Rbn_00_contract_other.Checked = True
+            Dim contractdata = Collect_data2(sqlstr)
+            'SPAS.Tbx_Contract_ttype.Text = contractdata.Rows(0)(0)
+            If contractdata.Rows(0)(0) = "Kind" Then SPAS.Rbn_00_contract_child.Checked = True
+            If contractdata.Rows(0)(0) = "Oudere" Then SPAS.Rbn_00_contract_elder.Checked = True
+            If contractdata.Rows(0)(0) = "Overig" Then SPAS.Rbn_00_contract_other.Checked = True
 
             'SPAS.Dtp_30_Contract_Change.Value = Date.Today
-            SPAS.Lbl_Contract_Bronaccount.Visible = Not IsDBNull(dst.Tables(0).Rows(0)(2))
-            SPAS.Cmx_00_Contract__fk_account_id.Visible = Not IsDBNull(dst.Tables(0).Rows(0)(2))
+            SPAS.Lbl_Contract_Bronaccount.Visible = Not IsDBNull(contractdata.Rows(0)(2))
+            SPAS.Cmx_00_Contract__fk_account_id.Visible = Not IsDBNull(contractdata.Rows(0)(2))
             SPAS.Lbl_Contract_tgt.Text = SPAS.Cmx_01_contract__fk_target_id.Text
             'Cmx_01_Target__fk_cp_id
 
@@ -256,7 +255,8 @@ Module Basisadmin
                                                 where b.name='_startsaldo_' and b.iban ='" & SPAS.Tbx_01_BankAcc__accountno.Text & "'")
 
         End If
-
+        SPAS.isManualChange = True
+        SPAS.StoreInitialValues(SPAS.Controls)
     End Sub
 
     Sub Load_Table()
@@ -265,12 +265,13 @@ Module Basisadmin
         Dim SQLstr, SQLstr1, SQLstr2 As String
 
         ' Dim arg = SPAS.Tbx_Basis_Filter.Text.ToUpper
-        Dim arg = SPAS.Searchbox.Text.ToUpper
+        'Dim arg = SPAS.Searchbox.Text.ToUpper
+        Dim arg = SPAS.Searchbox2.Text.ToUpper
         Dim sel_act As String = ""
-        If SPAS.Cbx_LifeCycle.Text = "Actief" Then
+        If SPAS.Cbx_LifeCycle2.Text = "Actief" Then
             sel_act = " AND active=True"
         End If
-        If SPAS.Cbx_LifeCycle.Text = "Inactief" Then
+        If SPAS.Cbx_LifeCycle2.Text = "Inactief" Then
             sel_act = " AND active=False"
         End If
 
@@ -291,7 +292,7 @@ Module Basisadmin
             SQLstr = "SELECT contract.id, CONCAT(relation.name, ',', relation.name_add, ' - ', target.name, ',', target.name_add) as name FROM contract 
                           JOIN target ON contract.fk_target_id = target.id 
                           JOIN relation ON contract.fk_relation_id = relation.id 
-                          WHERE contract.active=" & IIf(SPAS.Cbx_LifeCycle.Text = "Inactief", False, True) & "
+                          WHERE contract.active=" & IIf(SPAS.Cbx_LifeCycle2.Text = "Inactief", False, True) & "
                           " & filtersql & "
                           ORDER BY relation.name, target.name"
             Load_Listbox(SPAS.Lbx_Basis, SQLstr)
@@ -315,7 +316,7 @@ Module Basisadmin
                         cp.name) as name 
                         FROM " & tbl & " t 
                         LEFT JOIN cp ON cp.id = t.fk_cp_id
-                        WHERE t.active=" & IIf(SPAS.Cbx_LifeCycle.Text = "Inactief", False, True) & " 
+                        WHERE t.active=" & IIf(SPAS.Cbx_LifeCycle2.Text = "Inactief", False, True) & " 
                          " & filtersql & "
                         ORDER BY t.name"
 
@@ -326,7 +327,7 @@ Module Basisadmin
                        WHERE (name iLike '%" & arg & "%'" & sel_act & " 
                        OR accgroup iLike '%" & arg & "%' 
                        OR source iLike '%" & arg & "%')
-                       AND (active=" & IIf(SPAS.Cbx_LifeCycle.Text = "Inactief", False, True) & ") 
+                       AND (active=" & IIf(SPAS.Cbx_LifeCycle2.Text = "Inactief", False, True) & ") 
                        ORDER BY source, accgroup, name"
             Load_Listbox(SPAS.Lbx_Basis, SQLstr1)
 
@@ -350,6 +351,7 @@ Module Basisadmin
 
         End If
 
+        SPAS.isManualChange = True
     End Sub
 
     Sub Locate_Listbox_Position(ByVal valit1 As String)
@@ -903,6 +905,98 @@ Module Basisadmin
 
     End Function
 
+    Sub Basis_Delete()
+        Dim id As Integer
+        Dim sqlstr As String = ""
+        Dim t As Integer = SPAS.TC_Object.SelectedIndex
+        If SPAS.Lbx_Basis.SelectedIndex <> -1 Then id = SPAS.Lbx_Basis.SelectedItem(SPAS.Lbx_Basis.ValueMember) Else Exit Sub
 
+        Select Case t
+            Case 0
+                If SPAS.Dtp_31_contract__startdate.Value <= Date.Today Then
+                    MsgBox("Alleen contracten die nog niet zijn ingegaan kunnen verwijderd worden.")
+                    Exit Sub
+                Else
+                    If MsgBox("Weet u zeker dat u dit contract wilt verwijderen (vergeet niet eventueel de einddatum van eerdere versie van dit contract terug te zetten)?", vbYesNo) = vbNo Then
+                        Exit Sub
+                    Else
+
+                        QuerySQL("Update account set b_jan=0, b_feb=0, b_mar=0, b_apr=0, b_may=0, b_jun=0, b_jul=0, b_aug=0, b_sep=0, b_oct=0, b_nov=0, b_dec=0 
+                        where source ilike 'Doel' and f_key=" & SPAS.Cmx_01_contract__fk_target_id.SelectedValue)
+
+                        sqlstr = "DELETE FROM contract WHERE id=" & id
+
+                    End If
+                End If
+
+            Case 1
+                Dim targetdata = Collect_data2("SELECT t.id, t.name, t.active, ac.name, ac.id, j.id As journal, c.id As Contract
+                                From target t
+                                LEFT join account ac on t.id= ac.f_key
+                                LEFT join journal j on j.fk_account = ac.id
+                                LEFT join contract c on c.fk_target_id = t.id
+                                WHERE (j.id is null or c.id is null)
+                                AND t.id =" & id)
+                If targetdata.Rows.Count = 0 Then
+                    MsgBox("Dit doel maakt nog onderdeel uit van een contract waarop transacties hebben plaatsgevonden." & vbCrLf &
+                           "U kunt het niet verwijderen, maar wel inactief maken zodat er geen contract meer voor kan worden afgesloten of giften aan gegeven.")
+                    Exit Sub
+                End If
+                Dim account_id = targetdata.Rows(0)(4)
+                Dim journal_id = targetdata.Rows(0)(5)
+                Dim contract_id = targetdata.Rows(0)(6)
+
+                Dim Msg As String = "Dit doel: "
+                If Not IsDBNull(contract_id) Then Msg &= vbCrLf & "- maakt onderdeel uit van contract " & contract_id
+                If Not IsDBNull(journal_id) Then Msg &= vbCrLf & "- komt voor in journaalposten"
+                If Len(Msg) > 10 Then
+                    Msg &= vbCrLf & "en kan daarom niet verwijderd worden. U kunt het wel als [inactief] markeren."
+                    MsgBox(Msg)
+                Else
+                    If MsgBox("Weet u zeker dat u het doel " & SPAS.Tbx_01_Target__name.Text & "," & SPAS.Tbx_01_Target__name_add.Text &
+                        " wilt verwijderen?") Then
+                        sqlstr = "Delete from target where id=" & id
+                        'verwijderd totdat er ook in journal_archive een check plaatsvindt'  [;  'DELETE from account WHERE id=" & account_id]
+                    End If
+
+                End If
+
+            Case 2
+                If QuerySQL("select count(id) from contract where fk_relation_id = " & id) > 0 Then
+                    MsgBox("Deze relatie staat geregistreerd bij contracten; deze moeten eerst verwijderd worden")
+                Else
+                    If MsgBox("Weet u zeker dat u deze relatie wilt verwijderen?", vbYesNo) = vbNo Then
+                        Exit Sub
+                    Else
+                        sqlstr = "delete from relation where id = " & id
+                    End If
+                End If
+            Case 3
+                Dim cpdata = Collect_data2("SELECT cp.name, ac.name, j.name As journal, t.name FROM CP
+                                LEFT join account ac on cp.id = ac.f_key
+                                LEFT JOIN journal j on ac.id = j.fk_account
+                                LEFT JOIN target t on t.fk_cp_id = cp.id 
+                                WHERE ac.id is not distinct from null or j.id is not distinct from null 
+                                or cp.id is not distinct from null AND cp.id =" & id)
+                Dim account_id = cpdata.Rows(0)(1)
+                If cpdata.Rows.Count = 0 Then
+                    MsgBox("Deze staat nog geregistreerd bij doel(en) en/of journaalposten." & vbCrLf &
+                           "U kunt het niet verwijderen, maar wel inactief maken zodat deze niet mmer gebruikt kan worden.")
+                    Exit Sub
+                Else
+                    sqlstr = "Delete from cp where id=" & id & ";DELETE from account WHERE id=" & account_id
+                End If
+            Case Else
+                MsgBox("Deze functie Is nog niet voor dit object gedefinieerd")
+
+        End Select
+
+        If sqlstr <> "" Then
+            RunSQL(sqlstr, "NULL", "Menu_Delete_Click")
+            Load_Table()
+            MsgBox("Het object is verwijderd.")
+        End If
+
+    End Sub
 
 End Module

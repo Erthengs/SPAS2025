@@ -7,32 +7,50 @@ Module Output
 
     Sub Print_Excasso_form()
 
-        If SPAS.Lbl_Excasso_Totaal.Text = "0" And SPAS.Lbl_Excasso_CP_Totaal.Text = "0" Then Exit Sub
+        'If SPAS.Lbl_Excasso_Totaal.Text = "0" And SPAS.Lbl_Excasso_CP_Totaal.Text = "0" Then Exit Sub
 
         Dim document As PdfDocument = New PdfDocument
         document.Info.Title = "Sponsor program form"
+        Dim dropboxPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "\Dropbox\HulpoosteuropaTexel\SPAS2\Uitkeringen")
 
         'bepaal filename en locatie
         Dim SelectFolder As New FolderBrowserDialog
+        SelectFolder.ShowNewFolderButton = True
 
-        With SelectFolder
-            .SelectedPath = My.Settings._excassopath
-            .ShowNewFolderButton = True
-        End With
+        ' Check if the directory stored in My.Settings._excassopath exists
+        If Directory.Exists(My.Settings._excassopath) Then
+            ' If it exists, set SelectFolder.SelectedPath to the stored path
+            SelectFolder.SelectedPath = My.Settings._excassopath
+        ElseIf Directory.Exists(dropboxPath) Then
+            SelectFolder.SelectedPath = dropboxPath
+        Else
+            ' If it doesn't exist, default to the application's executable directory
+            SelectFolder.SelectedPath = Application.StartupPath
+        End If
+
         Dim pad As String = SelectFolder.SelectedPath & "\"
-        pad = InputBox("Corrigeer pad:",, pad)
         Dim Journal_name As String = SPAS.Cmx_Excasso_Select.Text
         Dim filename As String = Journal_name
         Dim filenum As Integer = 0
-        Do
-            filename = pad & Journal_name & filenum.ToString & ".pdf"
 
-            If File.Exists(filename) Then
-                filenum += 1
-            Else
-                Exit Do
-            End If
-        Loop
+        If (SelectFolder.ShowDialog() = DialogResult.OK) Then
+            Do
+                Try
+                    filename = $"{SelectFolder.SelectedPath}\{Journal_name & filenum.ToString}.pdf"
+                    ' Check if file exists without causing an error
+                    If File.Exists(filename) Then
+                        filenum += 1
+                    Else
+                        Exit Do
+                    End If
+                Catch
+                    ' Handle unauthorized access
+                    MsgBox("Unauthorized access. Please enter a new path.", vbExclamation)
+                    filenum = 0
+                End Try
+            Loop
+        End If
+
         '-------------------------------------------------
         'Dim plen As Integer = Strings.Len(SelectFolder.SelectedPath)
         Dim filenameShort = Mid(filename, Strings.Len(SelectFolder.SelectedPath) + 2)
@@ -40,19 +58,21 @@ Module Output
         Dim page As PdfPage = document.AddPage
         Dim gfx As XGraphics = XGraphics.FromPdfPage(page)
         Dim pen1 As XPen = New XPen(XColors.Black)
-        pen1.Width = 4
+        pen1.Width = 3
         Dim pen2 As XPen = New XPen(XColors.Black)
         pen2.Width = 1
         Dim pen3 As XPen = New XPen(XColors.Black)
         pen3.DashStyle = XDashStyle.Dot
         pen3.Width = 1
+        Dim pen4 As XPen = New XPen(XColors.Black)
+        pen4.Width = 3
 
         Dim font As XFont = New XFont("Verdana", 12, XFontStyle.Regular)
         Dim font2 As XFont = New XFont("Verdana", 14, XFontStyle.Bold)
         Dim fontbold As XFont = New XFont("Verdana", 12, XFontStyle.Bold)
         Dim fontnumber As XFont = New XFont("Verdana", 12, XFontStyle.Regular)
 
-        Dim totalpages As Integer = Math.Ceiling(SPAS.Lbl_Excasso_Items_Totaal.Text / 14) + 1
+        'Dim totalpages As Integer = Math.Ceiling(SPAS.Lbl_Excasso_Items_Totaal.Text / 14) + 1
         Dim pages As Integer = 1
         Dim line As Integer = 80
         Dim Sponsored As String
@@ -64,34 +84,19 @@ Module Output
                 LEFT JOIN cp on bankacc.id = cp.fk_bankacc_id
                 WHERE cp.id='" & SPAS.Lbl_Excasso_CPid.Text & "'")
         Dim dat As Date = SPAS.Dtp_Excasso_Start.Value.ToString
-
-
-        'Dim img
         Dim ximg As XImage = XImage.FromFile(Application.StartupPath & "\HOEZH3.jpg")
 
-        gfx.DrawImage(ximg, 10, 10)
+        gfx.DrawImage(ximg, 10, 0)
         gfx.DrawString("East Europe Support South Holland", font2, XBrushes.Black,
         New XRect(150, 20, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString("Page " & pages & "/" & totalpages, font, XBrushes.Black,
-                    New XRect(500, 20, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-
+        'gfx.DrawString("Page " & pages & "/" & totalpages, font, XBrushes.Black, New XRect(500, 20, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString("Contact person:", font, XBrushes.Black, New XRect(150, 40, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString("Date:", font, XBrushes.Black, New XRect(150, 60, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString("Bank Account:", font, XBrushes.Black,
-                    New XRect(150, 80, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString("File name:", font, XBrushes.Black,
-                    New XRect(150, 100, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-
-        gfx.DrawString(CP_name, font, XBrushes.Black,
-                    New XRect(270, 40, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString(dat, font, XBrushes.Black,
-                    New XRect(270, 60, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString(CP_bank, font, XBrushes.Black,
-                    New XRect(270, 80, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString(filenameShort, font, XBrushes.Black,
-                    New XRect(270, 100, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-
-        gfx.DrawLine(pen1, New XPoint(20, 140), New XPoint(560, 140))
+        gfx.DrawString("File name:", font, XBrushes.Black, New XRect(150, 80, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+        gfx.DrawString(CP_name, font, XBrushes.Black, New XRect(270, 40, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+        gfx.DrawString(dat, font, XBrushes.Black, New XRect(270, 60, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+        gfx.DrawString(filenameShort, font, XBrushes.Black, New XRect(270, 80, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+        gfx.DrawLine(pen4, New XPoint(20, 140), New XPoint(560, 140))
 
         'horizontal
         gfx.DrawLine(pen2, New XPoint(20, 200), New XPoint(400, 200))
@@ -112,36 +117,30 @@ Module Output
         gfx.DrawString("EUR", font, XBrushes.Black, New XRect(275, 180, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString("MDL", font, XBrushes.Black, New XRect(350, 180, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
 
-        gfx.DrawString("Distribution", font, XBrushes.Black,
-                    New XRect(30, 210, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString("Monthly gifts", font, XBrushes.Black,
-                    New XRect(30, 240, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-        gfx.DrawString("Extra gifts", font, XBrushes.Black,
-                    New XRect(30, 270, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+        gfx.DrawString("Distribution", font, XBrushes.Black, New XRect(30, 210, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+        gfx.DrawString("Monthly gifts", font, XBrushes.Black, New XRect(30, 240, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+        gfx.DrawString("Extra gifts", font, XBrushes.Black, New XRect(30, 270, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
 
-        Dim Con_tot_qty As Integer = Tbx2Int(SPAS.Lbl_Excasso_Items_Contract.Text)
-        Dim Ext_tot_qty As Integer = Tbx2Dec(SPAS.Lbl_Excasso_Items_Extra.Text) + Tbx2Dec(SPAS.Lbl_Excasso_Items_Intern.Text) * 1
-        Dim CP_tot_eur As Integer = Tbx2Int(SPAS.Lbl_Excasso_CP_Totaal.Text)
-        Dim Con_tot_eur As Integer = Tbx2Dec(SPAS.Lbl_Excasso_Contractwaarde.Text)
-        Dim Ext_tot_eur As Integer = Tbx2Dec(SPAS.Lbl_Excasso_Extra.Text) + Tbx2Dec(SPAS.Lbl_Excasso_Intern.Text) * 1
-        Dim Gen_tot_eur = (GetDouble(Tbx2Dec(SPAS.Lbl_Excasso_Totaal.Text)) + GetDouble(Tbx2Dec(SPAS.Lbl_Excasso_CP_Totaal.Text))).ToString("#.#")
-        Dim xr As Decimal = Tbx2Dec(SPAS.Tbx_Excasso_Exchange_rate.Text)
-        'Dim mld_tot As Integer = Format(Gen_tot_eur * xr, "#,###")
-
-
+        'Dim Con_tot_qty As Integer = Tbx2Int(SPAS.Lbl_Excasso_Items_Contract.Text)
+        'Dim Ext_tot_qty As Integer = Tbx2Dec(SPAS.Lbl_Excasso_Items_Extra.Text) + Tbx2Dec(SPAS.Lbl_Excasso_Items_Intern.Text) * 1
+        'Dim CP_tot_eur As Integer = Tbx2Int(SPAS.Lbl_Excasso_CP_Totaal.Text)
+        'Dim Con_tot_eur As Integer = Tbx2Dec(SPAS.Lbl_Excasso_Contractwaarde.Text)
+        'Dim Ext_tot_eur As Integer = Tbx2Dec(SPAS.Lbl_Excasso_Extra.Text) + Tbx2Dec(SPAS.Lbl_Excasso_Intern.Text) * 1
+        'Dim Gen_tot_eur = (GetDouble(Tbx2Dec(SPAS.Lbl_Excasso_Totaal.Text)) + GetDouble(Tbx2Dec(SPAS.Lbl_Excasso_CP_Totaal.Text))).ToString("#.#")
+        'Dim xr As Decimal = Tbx2Dec(SPAS.Tbx_Excasso_Exchange_rate.Text)
 
         gfx.DrawString("General totals", font2, XBrushes.Black, New XRect(30, 330, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString("1", font, XBrushes.Black, New XRect(190, 210, 50, font.Height), XStringFormats.TopRight)
-        gfx.DrawString(Con_tot_qty, font, XBrushes.Black, New XRect(190, 240, 50, font.Height), XStringFormats.TopRight)
-        gfx.DrawString(Ext_tot_qty, font, XBrushes.Black, New XRect(190, 270, 50, font.Height), XStringFormats.TopRight)
-        gfx.DrawString(CP_tot_eur * 1, font, XBrushes.Black, New XRect(260, 210, 50, font.Height), XStringFormats.TopRight)
-        gfx.DrawString(Con_tot_eur * 1, font, XBrushes.Black, New XRect(260, 240, 50, font.Height), XStringFormats.TopRight)
-        gfx.DrawString(Ext_tot_eur, font, XBrushes.Black, New XRect(260, 270, 50, font.Height), XStringFormats.TopRight)
-        gfx.DrawString(Gen_tot_eur, font2, XBrushes.Black, New XRect(260, 330, 50, font.Height), XStringFormats.TopRight)
-        gfx.DrawString(Tbx2Int(CP_tot_eur * xr), font, XBrushes.Black, New XRect(340, 210, 50, font.Height), XStringFormats.TopRight)
-        gfx.DrawString(Tbx2Int(Con_tot_eur * xr), font, XBrushes.Black, New XRect(340, 240, 50, font.Height), XStringFormats.TopRight)
-        gfx.DrawString(Tbx2Int(Ext_tot_eur * xr), font, XBrushes.Black, New XRect(340, 270, 50, font.Height), XStringFormats.TopRight)
-        gfx.DrawString(Tbx2Int(Gen_tot_eur * xr), font2, XBrushes.Black, New XRect(340, 330, 50, font.Height), XStringFormats.TopRight)
+        'gfx.DrawString(Con_tot_qty, font, XBrushes.Black, New XRect(190, 240, 50, font.Height), XStringFormats.TopRight)
+        'gfx.DrawString(Ext_tot_qty, font, XBrushes.Black, New XRect(190, 270, 50, font.Height), XStringFormats.TopRight)
+        'gfx.DrawString(CP_tot_eur * 1, font, XBrushes.Black, New XRect(260, 210, 50, font.Height), XStringFormats.TopRight)
+        'gfx.DrawString(Con_tot_eur * 1, font, XBrushes.Black, New XRect(260, 240, 50, font.Height), XStringFormats.TopRight)
+        'gfx.DrawString(Ext_tot_eur, font, XBrushes.Black, New XRect(260, 270, 50, font.Height), XStringFormats.TopRight)
+        'gfx.DrawString(Gen_tot_eur, font2, XBrushes.Black, New XRect(260, 330, 50, font.Height), XStringFormats.TopRight)
+        'gfx.DrawString(Tbx2Int(CP_tot_eur * xr), font, XBrushes.Black, New XRect(340, 210, 50, font.Height), XStringFormats.TopRight)
+        'gfx.DrawString(Tbx2Int(Con_tot_eur * xr), font, XBrushes.Black, New XRect(340, 240, 50, font.Height), XStringFormats.TopRight)
+        'gfx.DrawString(Tbx2Int(Ext_tot_eur * xr), font, XBrushes.Black, New XRect(340, 270, 50, font.Height), XStringFormats.TopRight)
+        'gfx.DrawString(Tbx2Int(Gen_tot_eur * xr), font2, XBrushes.Black, New XRect(340, 330, 50, font.Height), XStringFormats.TopRight)
 
 
 
@@ -159,10 +158,9 @@ Module Output
                         pages = pages + 1
                     End If
 
-                    gfx.DrawString("Texel East Europe Support", font2, XBrushes.Black, New XRect(20, 20, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+                    gfx.DrawString("HOEZH", font2, XBrushes.Black, New XRect(20, 20, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
                     gfx.DrawString(Journal_name, font, XBrushes.Black, New XRect(240, 20, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
-                    gfx.DrawString("Page " & pages & "/" & totalpages, font, XBrushes.Black,
-                        New XRect(500, 20, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
+                    'gfx.DrawString("Page " & pages & "/" & totalpages, font, XBrushes.Black,New XRect(500, 20, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
 
                     'column headers
                     gfx.DrawString("Name", font, XBrushes.Black,
@@ -179,8 +177,8 @@ Module Output
                 End If
                 line = line + 50
                 Sponsored = SPAS.Dgv_Excasso2.Rows(x).Cells(1).Value
-                Contract = Tbx2Int(SPAS.Dgv_Excasso2.Rows(x).Cells(6).Value) * xr
-                Extra = (SPAS.Dgv_Excasso2.Rows(x).Cells(7).Value + SPAS.Dgv_Excasso2.Rows(x).Cells(8).Value) * xr
+                'Contract = Tbx2Int(SPAS.Dgv_Excasso2.Rows(x).Cells(6).Value) * xr
+                'Extra = (SPAS.Dgv_Excasso2.Rows(x).Cells(7).Value + SPAS.Dgv_Excasso2.Rows(x).Cells(8).Value) * xr
                 Total = SPAS.Dgv_Excasso2.Rows(x).Cells(10).Value
 
                 gfx.DrawString(Sponsored, font, XBrushes.Black, New XRect(20, line, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
@@ -197,14 +195,10 @@ Module Output
             End If
         Next
 
-        If (SelectFolder.ShowDialog() = DialogResult.OK) Then
-
-
-            document.Save(filename)
-            MsgBox("De uitkeringslijst " & filename & " is opgeslagen.")
-            Process.Start(filename)
-            My.Settings._excassopath = SelectFolder.SelectedPath
-        End If
+        document.Save($"{SelectFolder.SelectedPath}\{Journal_name & filenum.ToString}.pdf")
+        MsgBox("De uitkeringslijst " & filename & " is opgeslagen.")
+        Process.Start(filename)
+        My.Settings._excassopath = SelectFolder.SelectedPath
 
 
     End Sub
