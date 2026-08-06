@@ -1639,7 +1639,7 @@ Public Class SPAS
     End Sub
 
     Private Sub MenuCategoriseer_Click(sender As Object, e As EventArgs) Handles MenuCategoriseer.Click
-        Categorize_Bank_Transactions(True, False, True, True, True, True, True)
+        Categorize_Bank_Transactions(True, True, True, True, True, True, True)
         Fill_bank_transactions("MenuCategoriseer", Me.Dgv_Bank.SelectedCells(3).RowIndex)
     End Sub
 

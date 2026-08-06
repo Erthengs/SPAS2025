@@ -3,6 +3,8 @@ Imports System.Windows
 Imports Npgsql
 'Imports PdfSharp.Pdf
 Imports System.IO
+Imports System.Text.RegularExpressions
+Imports Microsoft.VisualBasic.FileIO
 Imports System.Diagnostics.Tracing
 Imports Microsoft.EntityFrameworkCore.Update.Internal
 Imports System.ComponentModel
@@ -10,26 +12,410 @@ Imports Microsoft.EntityFrameworkCore.Metadata.Internal
 Imports System.Dynamic
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports PdfSharp.Pdf.Content.Objects
+Imports System.Linq ' <-- REQUIRED FOR DB MAPPING SPLIT
 
 Module bank
+    Public Class BankTransactionLoader
+        Private ReadOnly _connectionString As String
+
+        ' Helper class to store Relation data in memory
+        Private Class RelationInfo
+            Public Property Id As Integer
+            Public Property Name As String
+            Public Property NameAdd As String
+        End Class
+
+        Public Sub New(connectionString As String)
+            _connectionString = connectionString
+        End Sub
+
+        ''' <summary>
+        ''' Loads bank transactions from a CSV file into the PostgreSQL 'bank' table.
+        ''' </summary>
+        Public Function Load_Bank_Transactions(csvFilePath As String, ByRef statusMessage As String) As Boolean
+            Try
+                Dim lastDbSeqOrder As Integer? = GetLatestSeqOrder()
+                Dim newRecords As New List(Of Dictionary(Of String, Object))
+                Dim fileMinNewSeqOrder As Integer = Integer.MaxValue
+
+                Dim detectedDelimiter As String = DetectDelimiter(csvFilePath)
+
+                Using parser As New TextFieldParser(csvFilePath)
+                    parser.TextFieldType = FieldType.Delimited
+                    parser.SetDelimiters(detectedDelimiter)
+                    parser.HasFieldsEnclosedInQuotes = True
+
+                    If parser.EndOfData Then
+                        statusMessage = "Het CSV-bestand is leeg."
+                        Return False
+                    End If
+
+                    Dim headers As String() = parser.ReadFields()
+
+                    ' 1. Detect the Bank from the headers
+                    Dim bankCode As String = DetectBankFromHeaders(headers)
+                    If bankCode = "UNKNOWN" Then
+                        statusMessage = "Kan de bank niet identificeren op basis van de CSV kolomnamen."
+                        Return False
+                    End If
+
+                    ' 2. Load mapping and relations from the PostgreSQL database
+                    Dim columnMapping As Dictionary(Of String, String())
+                    Dim relationsDict As Dictionary(Of String, RelationInfo)
+
+                    Using conn As New NpgsqlConnection(_connectionString)
+                        conn.Open()
+                        columnMapping = GetColumnMappingFromDB(bankCode, conn)
+                        relationsDict = GetRelationsFromDB(conn) ' <-- Load all relations once
+                    End Using
+
+                    ' 3. Map header positions for this specific file
+                    Dim headerIndexMap As New Dictionary(Of String, Integer)(StringComparer.OrdinalIgnoreCase)
+                    For i As Integer = 0 To headers.Length - 1
+                        headerIndexMap(headers(i).Trim()) = i
+                    Next
+
+                    Dim seqColName As String = columnMapping("seqorder")(0)
+                    If Not headerIndexMap.ContainsKey(seqColName) Then
+                        statusMessage = $"De vereiste CSV-kolom '{seqColName}' is niet gevonden. Gevonden kolommen: {String.Join(", ", headers)}"
+                        Return False
+                    End If
+
+                    While Not parser.EndOfData
+                        Dim currentRow As String() = parser.ReadFields()
+                        Dim record As New Dictionary(Of String, Object)
+
+                        Dim currentSeqOrder As Integer
+                        Dim seqStr As String = currentRow(headerIndexMap(seqColName))
+
+                        If Not Integer.TryParse(seqStr, currentSeqOrder) Then
+                            Continue While
+                        End If
+
+                        If lastDbSeqOrder.HasValue AndAlso currentSeqOrder <= lastDbSeqOrder.Value Then
+                            Continue While
+                        End If
+
+                        If currentSeqOrder < fileMinNewSeqOrder Then
+                            fileMinNewSeqOrder = currentSeqOrder
+                        End If
+
+                        ' Map columns dynamically, concatenate if needed, and convert types
+                        For Each kvp In columnMapping
+                            Dim dbColName As String = kvp.Key.ToLower()
+                            Dim csvColNames As String() = kvp.Value
+                            Dim combinedValue As String = ""
+
+                            ' 1 & 2. Check for Constant OR Extract and Concatenate CSV columns
+                            If csvColNames.Length > 0 AndAlso csvColNames(0).StartsWith("CONSTANT:", StringComparison.OrdinalIgnoreCase) Then
+                                combinedValue = csvColNames(0).Substring(9)
+                            Else
+                                For Each csvColName In csvColNames
+                                    If headerIndexMap.ContainsKey(csvColName) AndAlso headerIndexMap(csvColName) < currentRow.Length Then
+                                        Dim val As String = currentRow(headerIndexMap(csvColName)).Trim()
+                                        If Not String.IsNullOrWhiteSpace(val) Then
+                                            combinedValue &= val & " "
+                                        End If
+                                    End If
+                                Next
+                                combinedValue = Regex.Replace(combinedValue.Trim(), "\s+", " ")
+                            End If
+
+                            ' 3. Process the combined value
+                            If String.IsNullOrWhiteSpace(combinedValue) Then
+                                If dbColName = "debit" OrElse dbColName = "credit" Then
+                                    record(dbColName) = 0D
+                                Else
+                                    record(dbColName) = DBNull.Value
+                                End If
+                            Else
+                                Try
+                                    ' --- Special Handling for Dutch Bank Amounts ("Bedrag") ---
+                                    If csvColNames.Contains("Bedrag", StringComparer.OrdinalIgnoreCase) Then
+                                        Dim cleanNum As String = combinedValue.Replace(".", "").Replace(",", ".")
+                                        Dim amount As Decimal = Convert.ToDecimal(cleanNum, Globalization.CultureInfo.InvariantCulture)
+
+                                        If amount < 0 Then
+                                            If dbColName = "debit" Then record(dbColName) = Math.Abs(amount)
+                                            If dbColName = "credit" Then record(dbColName) = 0D
+                                        ElseIf amount > 0 Then
+                                            If dbColName = "credit" Then record(dbColName) = amount
+                                            If dbColName = "debit" Then record(dbColName) = 0D
+                                        Else
+                                            If dbColName = "debit" OrElse dbColName = "credit" Then record(dbColName) = 0D
+                                        End If
+                                        Continue For
+                                    End If
+
+                                    ' Convert string to the correct .NET type
+                                    Select Case dbColName
+                                        Case "seqorder", "amt_cur"
+                                            record(dbColName) = Convert.ToInt32(combinedValue)
+                                        Case "date"
+                                            record(dbColName) = Convert.ToDateTime(combinedValue)
+                                        Case "debit", "credit", "exch_rate", "cost"
+                                            Dim cleanNum As String = combinedValue.Replace(".", "").Replace(",", ".")
+                                            record(dbColName) = Convert.ToDecimal(cleanNum, Globalization.CultureInfo.InvariantCulture)
+                                        Case Else
+                                            record(dbColName) = combinedValue
+                                    End Select
+                                Catch ex As Exception
+                                    If dbColName = "debit" OrElse dbColName = "credit" Then
+                                        record(dbColName) = 0D
+                                    Else
+                                        record(dbColName) = DBNull.Value
+                                    End If
+                                End Try
+                            End If
+                        Next
+
+                        ' =====================================================================
+                        ' RELATION LOOKUP LOGIC
+                        ' =====================================================================
+                        ' We check iban2 (Tegenrekening) first, if not available we check iban.
+                        Dim lookupIban As String = ""
+                        If record.ContainsKey("iban2") AndAlso Not IsDBNull(record("iban2")) Then
+                            lookupIban = record("iban2").ToString()
+                        ElseIf record.ContainsKey("iban") AndAlso Not IsDBNull(record("iban")) Then
+                            lookupIban = record("iban").ToString()
+                        End If
+
+                        If Not String.IsNullOrWhiteSpace(lookupIban) Then
+                            ' Clean IBAN (remove spaces, uppercase) for accurate matching
+                            lookupIban = lookupIban.Replace(" ", "").ToUpper()
+
+                            If relationsDict.ContainsKey(lookupIban) Then
+                                Dim rel = relationsDict(lookupIban)
+
+                                ' 1) Format the name (relation.name + ", " + relation.name_add)
+                                Dim newName As String = rel.Name
+                                If Not String.IsNullOrWhiteSpace(rel.NameAdd) Then
+                                    newName &= ", " & rel.NameAdd
+                                End If
+
+                                ' Overwrite the bank.name with the formatted relation name
+                                record("name") = newName
+
+                                ' 2) Store the relation ID for later use
+                                Dim rel_id As String = rel.Id.ToString()
+                                record("rel_id") = rel_id ' <--- This is now available in your record dictionary
+                            End If
+                        End If
+                        ' =====================================================================
+
+                        record("filename") = Path.GetFileName(csvFilePath)
+                        newRecords.Add(record)
+                    End While
+                End Using
+
+                If newRecords.Count = 0 Then
+                    statusMessage = "Er zijn geen nieuwe transacties gevonden om te importeren (alle 'seqorder' nummers in dit bestand bestaan al in de database)."
+                    Return False
+                End If
+
+                If lastDbSeqOrder.HasValue AndAlso fileMinNewSeqOrder > (lastDbSeqOrder.Value + 1) Then
+                    statusMessage = $"Import geannuleerd: Gat in de volgorde ontdekt. Laatste 'seqorder' in database is {lastDbSeqOrder.Value}, maar nieuwe data in CSV begint bij {fileMinNewSeqOrder}."
+                    Return False
+                End If
+
+                InsertTransactions(newRecords)
+                statusMessage = $"{newRecords.Count} nieuwe transactie(s) succesvol geïmporteerd."
+                Return True
+
+            Catch ex As Exception
+                statusMessage = $"Er is een technische fout opgetreden tijdens het inlezen: {ex.Message}"
+                Return False
+            End Try
+        End Function
+
+        ''' <summary>
+        ''' Fetches all relations with an IBAN from the database into memory for quick lookup.
+        ''' </summary>
+        Private Function GetRelationsFromDB(conn As NpgsqlConnection) As Dictionary(Of String, RelationInfo)
+            Dim dict As New Dictionary(Of String, RelationInfo)(StringComparer.OrdinalIgnoreCase)
+
+            ' Only pull records where the iban actually has characters
+            Dim sql As String = "SELECT id, name, name_add, iban FROM public.relation WHERE iban IS NOT NULL AND iban <> ''"
+
+            Using cmd As New NpgsqlCommand(sql, conn)
+                Using reader As NpgsqlDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+                        ' Strip spaces and uppercase to ensure matching works perfectly
+                        Dim dbIban As String = reader("iban").ToString().Replace(" ", "").ToUpper()
+
+                        Dim info As New RelationInfo With {
+                        .Id = Convert.ToInt32(reader("id")),
+                        .Name = If(IsDBNull(reader("name")), "", reader("name").ToString().Trim()),
+                        .NameAdd = If(IsDBNull(reader("name_add")), "", reader("name_add").ToString().Trim())
+                    }
+
+                        ' Add or update the dictionary
+                        dict(dbIban) = info
+                    End While
+                End Using
+            End Using
+
+            Return dict
+        End Function
+
+        Private Function DetectBankFromHeaders(headers As String()) As String
+            Dim headerLine As String = String.Join("|", headers).ToLower()
+
+            If headerLine.Contains("volgnr") AndAlso headerLine.Contains("reden retour") Then
+                Return "RABO"
+            ElseIf headerLine.Contains("af bij") AndAlso headerLine.Contains("mededelingen") Then
+                Return "INGB"
+            ElseIf headerLine.Contains("muntsoort") AndAlso headerLine.Contains("tegenrekening") Then
+                Return "ABNA"
+            End If
+
+            Return "UNKNOWN"
+        End Function
+
+        Private Function GetColumnMappingFromDB(bankCode As String, conn As NpgsqlConnection) As Dictionary(Of String, String())
+            Dim mapping As New Dictionary(Of String, String())(StringComparer.OrdinalIgnoreCase)
+
+            Dim sql As String = "SELECT db_column, csv_headers FROM public.bank_mappings WHERE bank_code = @bank"
+
+            Using cmd As New NpgsqlCommand(sql, conn)
+                cmd.Parameters.AddWithValue("@bank", bankCode)
+
+                Using reader As NpgsqlDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+                        Dim dbCol As String = reader.GetString(0)
+                        Dim rawHeaders As String = reader.GetString(1)
+                        Dim csvCols As String() = rawHeaders.Split(","c).Select(Function(s) s.Trim()).ToArray()
+                        mapping(dbCol) = csvCols
+                    End While
+                End Using
+            End Using
+
+            If mapping.Count = 0 Then
+                Throw New Exception($"Geen mapping gevonden in de database voor bank code: {bankCode}")
+            End If
+
+            Return mapping
+        End Function
+
+        Private Function DetectDelimiter(csvFilePath As String) As String
+            Dim possibleDelimiters() As String = {";", ",", "|", vbTab}
+            Dim bestDelimiter As String = ","
+            Dim maxFieldCount As Integer = 0
+
+            For Each delim In possibleDelimiters
+                Using parser As New TextFieldParser(csvFilePath)
+                    parser.TextFieldType = FieldType.Delimited
+                    parser.SetDelimiters(delim)
+                    parser.HasFieldsEnclosedInQuotes = True
+
+                    Try
+                        If Not parser.EndOfData Then
+                            Dim fields As String() = parser.ReadFields()
+                            If fields IsNot Nothing AndAlso fields.Length > maxFieldCount Then
+                                maxFieldCount = fields.Length
+                                bestDelimiter = delim
+                            End If
+                        End If
+                    Catch ex As Exception
+                    End Try
+                End Using
+            Next
+            Return bestDelimiter
+        End Function
+
+        Private Function GetLatestSeqOrder() As Integer?
+            Using conn As New NpgsqlConnection(_connectionString)
+                conn.Open()
+                Using cmd As New NpgsqlCommand("SELECT MAX(seqorder) FROM public.bank", conn)
+                    Dim result = cmd.ExecuteScalar()
+                    If result IsNot Nothing AndAlso Not DBNull.Value.Equals(result) Then
+                        Return Convert.ToInt32(result)
+                    End If
+                End Using
+            End Using
+            Return Nothing
+        End Function
+
+        Private Sub InsertTransactions(records As List(Of Dictionary(Of String, Object)))
+            Using conn As New NpgsqlConnection(_connectionString)
+                conn.Open()
+                Using trans = conn.BeginTransaction()
+                    For Each rec In records
+                        Dim columns As New List(Of String)
+                        Dim parameters As New List(Of String)
+                        Dim cmd As New NpgsqlCommand() With {
+                        .Connection = conn,
+                        .Transaction = trans
+                    }
+
+                        For Each kvp In rec
+                            ' SKIP inserting "rel_id" into the public.bank table.
+                            ' Since "rel_id" belongs to the future "journal" table, trying to insert it here will cause a PostgreSQL error.
+                            If kvp.Key.Equals("rel_id", StringComparison.OrdinalIgnoreCase) Then Continue For
+
+                            columns.Add($"""{kvp.Key}""")
+                            parameters.Add($"@{kvp.Key}")
+                            cmd.Parameters.AddWithValue($"@{kvp.Key}", kvp.Value)
+                        Next
+
+                        ' Insert into public.bank
+                        cmd.CommandText = $"INSERT INTO public.bank ({String.Join(", ", columns)}) VALUES ({String.Join(", ", parameters)})"
+                        cmd.ExecuteNonQuery()
+
+                        ' Note: When you are ready to insert into the "journal" table, 
+                        ' you can retrieve rec("rel_id") here and execute a second INSERT statement inside this same transaction loop!
+                    Next
+                    trans.Commit()
+                End Using
+            End Using
+        End Sub
+    End Class
 
     Sub Download_Bank_Transactions()
-        'initialize variables
         Dim csv As String = ""
 
-        'get csv
+        ' Get CSV
         SPAS.OpenFileDialog1.Title = "Selecteer een bankafschrift"
         SPAS.OpenFileDialog1.FileName = ""
-        SPAS.OpenFileDialog1.InitialDirectory = "" 'My.Settings._bankpath
-        SPAS.OpenFileDialog1.Filter = "ING/Rabo bestanden|*.csv"
+        SPAS.OpenFileDialog1.InitialDirectory = "" ' My.Settings._bankpath
+        SPAS.OpenFileDialog1.Filter = "Bank bestanden|*.csv"
 
-        If SPAS.OpenFileDialog1.ShowDialog() = DialogResult.OK Then csv = SPAS.OpenFileDialog1.FileName
+        If SPAS.OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+            csv = SPAS.OpenFileDialog1.FileName
+        End If
+
         If csv = "" Then Exit Sub
 
-        Upload_CSV(csv)
+        ' Use your global connection_string variable instead of the dummy string
+        Dim loader As New BankTransactionLoader(connect_string)
+
+        Dim statusMsg As String = ""
+
+        ' Pass the statusMsg variable so the function can fill it
+        Dim isSuccess As Boolean = loader.Load_Bank_Transactions(csv, statusMsg)
+
+        If isSuccess Then
+            ' Shows the success message (e.g. "15 nieuwe transactie(s) succesvol geïmporteerd.")
+            MessageBox.Show(statusMsg, "Import Geslaagd", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Else
+            ' Shows the exact reason it failed or found nothing
+            Clipboard.Clear()
+            Clipboard.SetText(statusMsg)
+            MessageBox.Show(statusMsg, "Import Geannuleerd / Mislukt", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If
+
+        'load journal transactions (with category' niet toegewezen) to maintain bank-journal consistency
+
+        Dim sqlstr As String = "
+        INSERT INTO Public.journal (date, amt1, description, source, fk_account, fk_bank, iban, status, name,fk_relation)
+        Select b.date, COALESCE(b.credit, 0::money) - COALESCE(b.debit, 0::money) AS amt1,'niet toegewezen','Bank'," & nocat & ", b.id, b.iban, 'Verwerkt', 'nog te bepalen',
+        (SELECT id from public.relation r where b.iban2 = r.iban)
+        FROM public.bank b WHERE Not EXISTS (SELECT 1 FROM public.journal j WHERE j.fk_bank = b.id);"
+        RunSQL(sqlstr, "NULL", "BankTransactionLoader")
+
 
         Fill_bank_transactions("Download_Bank_Transactions", Nothing)
-        'Categorize_Bank_Transactions()
+        Categorize_Bank_Transactions(True, True, True, True, True, True, True)
     End Sub
     Sub Load_Bank_csv_from_folder()
         Dim SelectFolder As New FolderBrowserDialog
@@ -53,7 +439,7 @@ Module bank
         'Dim newdir As String
 
         For Each f In dir.GetFiles()
-            If Strings.Right(f.Name, 4) = ".csv" Then Upload_CSV(SelectFolder.SelectedPath & "\" & f.Name)
+            'If Strings.Right(f.Name, 4) = ".csv" Then Upload_CSV(SelectFolder.SelectedPath & "\" & f.Name)
         Next
         Categorize_Bank_Transactions(True, True, True, True, True, True, True)
         Fill_bank_transactions("Load_Bank_csv_from_folder", Nothing)
@@ -61,208 +447,6 @@ Module bank
     End Sub
 
 
-    Sub Upload_CSV(ByVal csv As String)
-
-
-        Dim bank, _dat, _date, des As String
-        Dim amt
-        Dim _exch As Decimal
-        Dim cost As Decimal
-        Dim lastdate As Date
-        Dim amt2 As Decimal
-        Dim filename As String = "testfilename"
-        Dim SQLstr As String = ""
-        Dim relation_name As String
-        Dim SQLstr2 As String = "INSERT INTO journal(name,date,status,description,source,amt1,fk_account,
-                               fk_bank,fk_relation,iban) VALUES "
-        Dim delimiter As String
-        Dim content = IO.File.ReadAllText(csv)  'My.Computer.FileSystem.ReadAllText(csv)
-        delimiter = IIf(content.Contains(""";"""), """;""", """,""")
-
-
-        IO.File.WriteAllText(csv, IO.File.ReadAllText(csv).Replace(delimiter, """|"""))
-        Dim items = (From line In IO.File.ReadAllLines(csv)
-                     Select Array.ConvertAll(line.Split("|"c), Function(v) _
-                     v.ToString.TrimStart(""" ".ToCharArray).TrimEnd(""" ".ToCharArray))).ToArray
-
-        'store output array in datatable
-        Dim Bank_DT As New DataTable
-        For x As Integer = 0 To 50 'items(0).GetUpperBound(0)
-            Bank_DT.Columns.Add()
-        Next
-
-        For Each a In items
-            Dim dr As DataRow = Bank_DT.NewRow
-            dr.ItemArray = a
-            Bank_DT.Rows.Add(dr)
-        Next
-
-        Dim csv1 = StrReverse(csv)
-        filename = StrReverse(Strings.Left(csv1, InStr(csv1, "\") - 1))
-
-        'determine Bank
-        bank = IIf(InStr(Bank_DT.Rows(1)(2), "RABO") > 0, "rabo", "ing")
-
-        'check if there are already bank transactions in database / bank_id not used elsewhere
-        Dim bank_id = QuerySQL("SELECT MAX(id) FROM bank")
-        If IsDBNull(bank_id) Then bank_id = 0  '@@@gaat mogelijk fout als id niet gereset wordt
-
-        '------------------------------------------'specific for RABO
-        'Check on bank account number + sequence number
-
-        If bank = "rabo" Then
-            '=====check is rabo csv is the following one
-            Dim Last_seq_order = QuerySQL("Select MAX(seqorder) FROM bank WHERE iban='" & Bank_DT.Rows(1)(0) & "'")
-            'MsgBox(CInt(Bank_DT.Rows(1)(3)).ToString & " - " & Last_seq_order.ToString)
-            '1) checks on import file
-            If Not IsDBNull(Last_seq_order) Then
-                If (CInt(Bank_DT.Rows(1)(3)) <> Last_seq_order + 1) And (Last_seq_order <> 0) Then
-                    MsgBox($"Afschriftnummer {CInt(Bank_DT.Rows(1)(3))} sluit niet aan op laatst ingeladen bankafschrift ({Last_seq_order}).")
-                    Exit Sub
-                End If
-            End If
-
-            'load contents of datatable into database through composing sql statements
-            For i = 1 To Bank_DT.Rows.Count - 1
-                '==== Transformations =====
-                'a) determine in which column the amount must be stored
-                Dim debit = Cur2(IIf(Bank_DT.Rows(i)(6) < 0, Bank_DT.Rows(i)(6) * -1, 0))
-                Dim credit = Cur2(IIf(Bank_DT.Rows(i)(6) > 0, Bank_DT.Rows(i)(6), 0))
-                Dim descr = Strings.Trim(Bank_DT.Rows(i)(19)) & " " & Strings.Trim(Bank_DT.Rows(i)(20)) & " " _
-                            & Strings.Trim(Bank_DT.Rows(i)(21)) & Strings.Trim(Bank_DT.Rows(i)(14))
-                descr = Replace(descr, "'", "")
-                'b) retrieve relation based on bankacc
-                Dim iban2 = Bank_DT.Rows(i)(8)
-
-                If Len(iban2) > 0 Then
-                    relation_name = QuerySQL("SELECT CONCAT(name, ', ',name_add) FROM relation WHERE iban='" & iban2 & "'")
-                    If relation_name = "" Then relation_name = Bank_DT.Rows(i)(9)
-                Else
-                    relation_name = "-"
-                    iban2 = "-"
-                End If
-
-                '==== Creating SQL strings =====
-                SQLstr &=
-                    "INSERT INTO bank(iban, currency, seqorder, date, debit,credit,iban2,
-                    name, code, batchid,description,exch_rate, fk_journal_name, filename) VALUES('" &
-                    Trim(Bank_DT.Rows(i)(0).ToString()) & "','" &      'iban
-                    Bank_DT.Rows(i)(1).ToString() & "','" &      'currency
-                    Bank_DT.Rows(i)(3) & "','" &  'seqorder
-                    Bank_DT.Rows(i)(4) & "','" &    'date
-                    debit & "','" &    'debit
-                    credit & "','" &    'credit
-                    Bank_DT.Rows(i)(8) & "','" &    'iban2
-                    relation_name & "','" &    'name   
-                    Trim(Bank_DT.Rows(i)(13)) & "','" &    'code
-                    Bank_DT.Rows(i)(14) & "','" &    'batchid
-                    Trim(descr) &    'description
-                     "',1,'" & Left(filename, 4) & "." & i.ToString & "','" & filename & "');" & vbCrLf  'exchange rate
-
-                SQLstr2 &= "('" & Left(filename, 4) & "." & i.ToString & "','" & Bank_DT.Rows(i)(4) & "','Verwerkt','" & descr & "','Bank','" &
-                           Cur2(Bank_DT.Rows(i)(6)) & "','" & nocat & "',0,0,'" & Bank_DT.Rows(i)(0).ToString() & "'),"
-            Next
-
-        Else 'bank is ING
-            '========= check on right file
-            'Check on bank account number, date interval between last and current download
-            Dim csvdate() As String = Split(filename, "_")
-            Dim startdate = CDate(csvdate(1))
-            '1 check if the file has already been uploaded...
-            If QuerySQL("SELECT COUNT(id) FROM bank WHERE filename='" & filename & "'") > 0 Then
-                MsgBox("Dit bankbestand is al geladen")
-                Exit Sub
-            End If
-            Dim ld = QuerySQL("SELECT MAX(date)::date FROM bank WHERE iban='" & Bank_DT.Rows(1)(2).ToString() & "'")
-            If Not IsDBNull(ld) Then
-                lastdate = CDate(ld)
-                'MsgBox(DateDiff(DateInterval.Day, lastdate, startdate)).ToString()
-                If DateDiff(DateInterval.Day, lastdate, startdate) > 30 Then
-                    MsgBox("De laatste banktransactie van deze rekening dateert van " &
-                              lastdate.ToString & ". De startdatum van dit bankbestand is " &
-                              startdate & ". Er zit dus minimaal een maand tussen. " &
-                              "Upload s.v.p. eerst de tussenliggende banktransacties.")
-                    'Exit Sub
-                End If
-            End If
-
-            For i = 1 To Bank_DT.Rows.Count - 1
-                '==== Transformations =====
-                amt = Cur2(Bank_DT.Rows(i)(6))
-                'amt = Replace(amt, ",", ".")
-                des = Bank_DT.Rows(i)(8)
-                _dat = Bank_DT.Rows(i)(0)
-                _exch = 1
-                amt2 = 0
-                cost = 0
-                _date = Strings.Left(_dat, 4) & "-" & Mid(_dat, 5, 2) & "-" & Strings.Right(_dat, 2)
-
-
-                If InStr(des, "MDL Koers: ") > 0 Then
-                    _exch = 1 / Mid(des, Strings.Left(InStr(des, "MDL Koers: ") + 11, 10), 8)
-                    amt2 = CInt(Mid(des, InStr(des, "Valuta: ") + 8, InStr(des, "MDL Koers: ") - InStr(des, "Valuta: ") - 9))
-                End If
-                If InStr(des, "Kosten: ") > 0 Then
-                    cost = Tbx2Dec(Mid(des, InStr(des, "Kosten: ") + 8, InStr(des, "EUR Valutadatum: ") - InStr(des, "Kosten: ") - 9))
-                    'MsgBox(Mid(des, InStr(des, "Kosten: ") + 8, 4))
-                End If
-
-                '==== Creating SQL strings =====
-                SQLstr &=
-                    "INSERT INTO bank(iban, currency, seqorder, date, debit,credit,iban2,
-                    name, code, batchid,description,exch_rate,amt_cur, fk_journal_name,filename,cost) VALUES('" &
-                    Bank_DT.Rows(i)(2).ToString() & "','" &      'iban
-                    "EUR','" &      'currency
-                    "0','" &  'seqorder
-                    _date & "','" &    'date
-                    IIf(Bank_DT.Rows(i)(5) = "Af", amt, 0) & "','" &    'debit
-                    IIf(Bank_DT.Rows(i)(5) = "Bij", amt, 0) & "','" &    'credit
-                    Bank_DT.Rows(i)(3) & "','" &    'iban2
-                    Bank_DT.Rows(i)(1) & "','" &    'name                             
-                    Bank_DT.Rows(i)(4) & "','" &    'code
-                    "','" &    'batchid
-                    Bank_DT.Rows(i)(7) & " " & Strings.RTrim(Bank_DT.Rows(i)(8)) &   'description
-                    "','" & Replace(_exch, ",", ".") & "','" &  'exchange rate 
-                    amt2 & "','" & Left(filename, 4) & "." & i.ToString & "','" &
-                    filename & "','" & Cur2(cost) & "');" & vbCrLf
-
-                SQLstr2 &= "('" & Left(filename, 4) & "." & i.ToString & "','" & _date & "','Verwerkt','" &
-                    Bank_DT.Rows(i)(7) & " " & Bank_DT.Rows(i)(8) & "','Bank','" &
-                    IIf(Bank_DT.Rows(i)(5) = "Af", Cur2(-Bank_DT.Rows(i)(6)), Cur2(Bank_DT.Rows(i)(6))) &
-                    "','" & nocat & "',0,0,'" & Bank_DT.Rows(i)(2).ToString() & "'),"
-            Next
-
-        End If
-        'Clipboard.Clear()
-        'Clipboard.SetText(SQLstr)
-        If SPAS.Chbx_test.Checked Then MsgBox(SQLstr)
-        RunSQL(SQLstr, "NULL", "Download_Bank_Transactions/SQLstr")
-
-
-        SQLstr2 = Strings.Left(SQLstr2, Strings.Len(SQLstr2) - 1) 'remove the last comma
-        'Clipboard.SetText(SQLstr2)
-        If SPAS.Chbx_test.Checked Then MsgBox(SQLstr2)
-        RunSQL(SQLstr2, "NULL", "Download_Bank_Transactions/SQLstr2")
-
-
-        'link journal postings to bank transaction based on temporary link in name/reference field, as bankid
-        'is not yet known before the records are inserted. 
-        Dim SQLstr3 = "UPDATE journal SET 
-                            fk_bank=bank.id, 
-                            name='nog te bepalen',
-                            iban=bank.iban,
-                            amt2=0::money
-                       FROM bank 
-                       WHERE 
-                            bank.fk_journal_name=journal.name AND 
-                            journal.name !='nog te bepalen' AND
-                            journal.status != 'Verwerkt';
-                       UPDATE bank SET fk_journal_name='nog te bepalen' WHERE fk_journal_name ilike 'NL%' or fk_journal_name ilike 'CSV_.%';"
-        If SPAS.Chbx_test.Checked Then MsgBox(SQLstr3)
-        RunSQL(SQLstr3, "NULL", "Download_Bank_Transactions/SQLstr3")
-
-
-    End Sub
 
     Sub Categorize_Bank_Transactions(ByVal contr As Boolean, uitk As Boolean, inc As Boolean, bcode As Boolean, omschr As Boolean, extrag As Boolean, ing As Boolean)
 
@@ -270,7 +454,7 @@ Module bank
 
         'controle op null toevoegen
 
-        'If inc Then RunQuery("Categoriseer contractincasso")
+        If inc Then RunQuery("Categoriseer contractincasso")
         If uitk Then
             RunQuery("Categoriseer uitkering")
             Fill_Cmx_Excasso_Select_Combined()
