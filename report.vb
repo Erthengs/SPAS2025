@@ -23,7 +23,9 @@ Module report
             sql = sql.Replace("from journal ", "from journal_archive ")
         End If
         'Load_Datagridview(SPAS.Dgv_Rapportage_Overzicht, sql, "ReportTree.NodeMouseClick-level2")
+        '
         SPAS.Prepare_Datagridview(SPAS.Dgv_Rapportage_Overzicht, sql, arr_format)
+        Call SPAS.ApplyFilter(SPAS.Dgv_Rapportage_Overzicht.DataSource)
     End Sub
 
 

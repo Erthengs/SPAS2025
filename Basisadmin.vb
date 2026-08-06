@@ -32,6 +32,7 @@ Module Basisadmin
             curamt = "0"
         Else
             curamt = IIf(Not ovh, amt, Replace(amt, ",", "."))
+
         End If
         Return curamt
 
@@ -136,6 +137,7 @@ Module Basisadmin
 
                 If TypeOf ctl Is TextBox Or TypeOf ctl Is Label Then
                     Select Case Strings.Mid(ctl.Name, 5, 1)
+
                         Case 1
                             tmp = objectdata.Rows(0)(col)
                             If IsDBNull(tmp) Then
@@ -174,8 +176,11 @@ Module Basisadmin
                         If fk_tbl = "bankacc" Or fk_tbl = "account" Or fk_tbl = "accgroup" Then  '@@@ workaround
                             ctl.Text = QuerySQL("SELECT name FROM " & fk_tbl & " WHERE id='" & fk_id & "'")
                         Else
-                            ctl.Text = QuerySQL("SELECT Concat(name, ', ', name_add) as name 
-                            FROM " & fk_tbl & " WHERE id='" & fk_id & "'")
+                            Dim sqltext = $"SELECT Concat(name, ', ', name_add) as name FROM {fk_tbl} WHERE id='{fk_id}'"
+                            'Clipboard.SetText(sqltext)
+                            ctl.Text = QuerySQL(sqltext)
+
+                            If ctl.Name = "Cmx_00_contract_fk_relation_id" Then SPAS.Lbl_11_contract__fk_relation_id.Text = fk_id
                         End If
                     Else
                         ctl.Text = objectdata.Rows(0)(col).ToString
@@ -184,6 +189,24 @@ Module Basisadmin
                 ElseIf TypeOf ctl Is DateTimePicker Then
                     ctl.Value = objectdata.Rows(0)(col)
                 End If
+            Else
+
+                If ctl.Name = "Cmx_00_contract_fk_relation_id" Then
+                    Dim relid As String = QuerySQL($"Select fk_relation_id from contract where id = {objectdata.Rows(0)(0)}")
+                    SPAS.Lbl_11_contract__fk_relation_id.Text = relid
+                    SPAS.Cmx_00_contract_fk_relation_id.Text = QuerySQL($"Select concat(name,', ',name_add) from relation where id = {relid}")
+                End If
+                If ctl.Name = "Cmx_01_contract_fk_target_id" Then
+                    Dim tarid As String = QuerySQL($"Select fk_target_id from contract where id = {objectdata.Rows(0)(0)}")
+                    SPAS.Lbl_11_contract__fk_target_id.Text = tarid
+                    SPAS.Cmx_01_contract_fk_target_id.Text = QuerySQL($"Select concat(name,', ',name_add) from target where id = {tarid}")
+                    Try
+                        SPAS.Pic_Contract_Target_photo.Image = BlobToImage(QuerySQL("SELECT photo FROM target WHERE id='" & id & "'"))
+                    Catch ex As Exception
+                        SPAS.Pic_Contract_Target_photo.Image = Nothing
+                    End Try
+                End If
+
             End If
         Next
 
@@ -207,8 +230,8 @@ Module Basisadmin
 
             'SPAS.Dtp_30_Contract_Change.Value = Date.Today
             SPAS.Lbl_Contract_Bronaccount.Visible = Not IsDBNull(contractdata.Rows(0)(2))
-            SPAS.Cmx_00_Contract__fk_account_id.Visible = Not IsDBNull(contractdata.Rows(0)(2))
-            SPAS.Lbl_Contract_tgt.Text = SPAS.Cmx_01_contract__fk_target_id.Text
+            SPAS.Cmx_Contract_fk_account_id.Visible = Not IsDBNull(contractdata.Rows(0)(2))
+            SPAS.Lbl_Contract_tgt.Text = SPAS.Cmx_01_contract_fk_target_id.Text
             'Cmx_01_Target__fk_cp_id
 
         End If
@@ -376,7 +399,7 @@ Module Basisadmin
         For Each f In SPAS.TC_Object.TabPages(tb).Controls
             If Strings.Mid(f.Name, 6, 1) = "1" And f.Text = "" Then
                 pos = Strings.InStr(f.Name, "__")
-                errmsg1 &= "- " & f.Tag & " mag niet leeg zijn" & vbCrLf   '' Mid(f.Tag, pos + 2)
+                errmsg1 &= "- " & f.Tag & " (" & f.name & ") mag niet leeg zijn" & vbCrLf   '' Mid(f.Tag, pos + 2)
             End If
 
         Next
@@ -385,7 +408,7 @@ Module Basisadmin
 
             Case 0
                 'contract: control that either sponsor or intern account is selected
-                If SPAS.Cmx_00_Contract__fk_account_id.Text = "" And SPAS.Cmx_00_contract__fk_relation_id.Text = "" Then
+                If SPAS.Cmx_Contract_fk_account_id.Text = "" And SPAS.Cmx_00_contract_fk_relation_id.Text = "" Then
                     errmsg1 &= "- Kies ofwel een externe sponsor ofwel een intern fondsaccount." & vbCrLf
                 End If
                 'check whether there is an active contract with the same sponsor and sponsoree
@@ -397,8 +420,8 @@ Module Basisadmin
                     LEFT JOIN target t on t.id = c.fk_target_id 
                     LEFT JOIN relation r on r.id = c.fk_relation_id 
                     WHERE '" & startdate & "' < enddate
-                    AND fk_target_id ='" & SPAS.Cmx_01_contract__fk_target_id.SelectedValue & "'
-                    AND fk_relation_id ='" & SPAS.Cmx_00_contract__fk_relation_id.SelectedValue & "'"
+                    AND fk_target_id ='" & SPAS.Cmx_01_contract_fk_target_id.SelectedValue & "'
+                    AND fk_relation_id ='" & SPAS.Cmx_00_contract_fk_relation_id.SelectedValue & "'"
 
                     Clipboard.Clear()
                     Clipboard.SetText(sqlstr)
@@ -513,6 +536,12 @@ Module Basisadmin
                     ElseIf TypeOf f Is TextBox And Mid(f.Name, 5, 1) = "1" Then
                         'currency
                         v = Cur(f.Text)
+                        'v = v.Replace(".00", "")
+                    ElseIf TypeOf f Is Label And Mid(f.Name, 5, 1) = "0" Then
+                        f.Text = Replace(f.Text, "'", "´")
+                        v = "'" & f.Text & "'"
+                    ElseIf TypeOf f Is Label And Mid(f.Name, 5, 1) = "1" Then
+                        v = Cur(f.Text)
                     ElseIf TypeOf f Is DateTimePicker Then
                         'date
                         d = f.Text
@@ -531,6 +560,7 @@ Module Basisadmin
         Next
         SQLstr = Left(s1, Strings.Len(s1) - 1) & ") " & Left(s2, Strings.Len(s2) - 1) & ");"
         If SPAS.Chbx_test.Checked = True Then MsgBox(SQLstr)
+        Clipboard.SetText(SQLstr)
 
         RunSQL(SQLstr, "NULL", "Insert into table " & tbl)
 
@@ -538,12 +568,14 @@ Module Basisadmin
         Select Case tb
             Case 0
                 SPAS.Pan_contract_select_target.Enabled = False
-                Dim Source_Account = QuerySQL("SELECT id FROM account WHERE f_key='" & SPAS.Cmx_01_contract__fk_target_id.SelectedValue & "'")
+                Dim Source_Account = QuerySQL("SELECT id FROM account WHERE f_key='" & SPAS.Cmx_01_contract_fk_target_id.SelectedValue & "'")
                 Calculate_Budget(Source_Account)
+                SPAS.Cmx_00_contract_fk_relation_id.Enabled = False
+                SPAS.Cmx_01_contract_fk_target_id.Enabled = False
             Case 2
-                Load_Combobox(SPAS.Cmx_00_contract__fk_relation_id, "id", "name", "SELECT id, CONCAT(name, ', ', name_add) as name FROM relation WHERE active=TRUE ORDER BY name")
+                Load_Combobox(SPAS.Cmx_00_contract_fk_relation_id, "id", "name", "SELECT r.id, CONCAT(r.name, ', ', r.name_add) as name FROM relation r WHERE r.active=TRUE ORDER BY r.name")
             Case 1, 3 'creating an account for target or cp...
-                Load_Combobox(SPAS.Cmx_01_Target__fk_cp_id, "id", "name", "SELECT id, CONCAT(name, ', ', name_add) as name FROM cp WHERE active=True ORDER BY name")
+                Load_Combobox(SPAS.Cmx_01_Target__fk_cp_id, "id", "name", "SELECT cp.id, CONCAT(cp.name, ', ', cp.name_add) as name FROM cp WHERE cp.active=True ORDER BY cp.name")
                 new_id = QuerySQL("Select Max(id) From " & tbl)
                 Dim tbtxt As String = SPAS.TC_Object.TabPages(tb).Tag
                 SQLstr = "SELECT CONCAT(name,',', name_add) FROM " & tbl & " WHERE id=" & new_id
@@ -683,9 +715,9 @@ Module Basisadmin
     Sub Handle_Contract_Fields()
         'SPAS.Pan_contract_select_target.Visible = Add_Mode
         '
-        SPAS.Cmx_01_contract__fk_target_id.Enabled = Add_Mode
-        SPAS.Cmx_00_contract__fk_relation_id.Enabled = Add_Mode
-        SPAS.Cmx_00_Contract__fk_account_id.Enabled = Add_Mode
+        SPAS.Cmx_01_contract_fk_target_id.Enabled = Add_Mode
+        SPAS.Cmx_00_contract_fk_relation_id.Enabled = Add_Mode
+        SPAS.Cmx_Contract_fk_account_id.Enabled = Add_Mode
 
     End Sub
     Sub Create_Contract_Version()
@@ -694,21 +726,25 @@ Module Basisadmin
     End Sub
     Sub Get_Sponsor_data()
 
-        Dim rel_id = SPAS.Cmx_00_contract__fk_relation_id.SelectedValue
-        Dim d As String = "date"
 
-        If SPAS.Rbn_00_contract_child.Checked Then
-            d &= "1"
-        ElseIf SPAS.Rbn_00_contract_elder.Checked Then
-            d &= "2"
-        Else
-            d &= "3"
-        End If
+        Dim rel_id = QuerySQL($"Select id from relation where concat(name,', ',name_add)='{SPAS.Cmx_00_contract_fk_relation_id.Text}' ")
+        Dim d As String = $"date{IIf(SPAS.Rbn_00_contract_child.Checked, "1", IIf(SPAS.Rbn_00_contract_child.Checked, "2", "3"))}"
+        Dim intern_contract As Boolean = (QuerySQL($"Select iban from relation where id={rel_id}") = "RekeningStichting")
 
-        SPAS.Lbl_00_contract_autcol.Text = QuerySQL("SELECT reference FROM relation WHERE id=" & rel_id)
-        SPAS.dtp_contract_relation_date.Value = QuerySQL("SELECT " & d & " FROM relation WHERE id=" & rel_id)
-        SPAS.Chx_00_contract__autcol.Checked =
-        SPAS.dtp_contract_relation_date.Value < SPAS.Dtp_31_contract__startdate.Value
+        With SPAS
+            .Lbl_11_contract__fk_relation_id.Text = rel_id
+            .Lbl_00_contract_autcol.Text = QuerySQL("SELECT reference FROM relation WHERE id=" & rel_id)
+            .dtp_contract_relation_date.Value = QuerySQL("SELECT " & d & " FROM relation WHERE id=" & rel_id)
+            .Chx_00_contract__autcol.Checked =
+            .dtp_contract_relation_date.Value < SPAS.Dtp_31_contract__startdate.Value
+            .Lbl_Contract_Bronaccount.Visible = intern_contract
+            .Cmx_Contract_fk_account_id.Visible = intern_contract
+            .Lbl_10_Contract__fk_account_id.Visible = intern_contract
+            .Chx_00_contract__autcol.Enabled = Not intern_contract
+            .Lbl_10_Contract__fk_account_id.Text = Strings.Trim(Strings.Left(.Cmx_Contract_fk_account_id.Text, 4))
+        End With
+
+
 
     End Sub
 
@@ -922,7 +958,7 @@ Module Basisadmin
                     Else
 
                         QuerySQL("Update account set b_jan=0, b_feb=0, b_mar=0, b_apr=0, b_may=0, b_jun=0, b_jul=0, b_aug=0, b_sep=0, b_oct=0, b_nov=0, b_dec=0 
-                        where source ilike 'Doel' and f_key=" & SPAS.Cmx_01_contract__fk_target_id.SelectedValue)
+                        where source ilike 'Doel' and f_key=" & SPAS.Cmx_01_contract_fk_target_id.SelectedValue)
 
                         sqlstr = "DELETE FROM contract WHERE id=" & id
 

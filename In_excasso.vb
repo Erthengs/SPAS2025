@@ -5,46 +5,48 @@ Imports System.Text.RegularExpressions
 
 Module In_excasso
     Sub Create_Incassolist()
+        Exit Sub
 
-        Dim d As DateTime
+        'Dim d As DateTime
         Dim t1 As String
-        Dim t2 As String
-        Dim newDate As Date = Date.Now.AddMonths(1)
-        Dim maxDate As Date = Date.Now.AddMonths(2)
-        Dim minDate1 As Date = Date.Now.AddMonths(-1)
+        'Dim t2 As String
+        'Dim newDate As Date = Date.Now.AddMonths(1)
+        'Dim maxDate As Date = Date.Now.AddMonths(2)
+        'Dim minDate1 As Date = Date.Now.AddMonths(-1)
 
-        SPAS.Dtp_Incasso_start.MinDate = CDate("01-" & minDate1.Month & "-" & minDate1.Year)
+        'SPAS.Dtp_Incasso_start.MinDate = CDate("01-" & minDate1.Month & "-" & minDate1.Year)
 
-        SPAS.Dtp_Incasso_start.Value = CDate("01-" & SPAS.Dtp_Incasso_start.Value.Month & "-" & SPAS.Dtp_Incasso_start.Value.Year)
-        If SPAS.Dtp_Incasso_start.Value.Year <> Date.Today.Year Then
-            SPAS.Dtp_Incasso_start.Value = CDate("01-" & newDate.Month & "-" & newDate.Year)
+        'SPAS.Dtp_Incasso_start.Value = CDate("01-" & SPAS.Dtp_Incasso_start.Value.Month & "-" & SPAS.Dtp_Incasso_start.Value.Year)
+        'If SPAS.Dtp_Incasso_start.Value.Year <> Date.Today.Year Then
+        'SPAS.Dtp_Incasso_start.Value = CDate("01-" & newDate.Month & "-" & newDate.Year)
+        'End If
 
-        End If
 
-
-        d = SPAS.Dtp_Incasso_start.Value.AddMonths(1)
-        SPAS.Dtp_Incasso_end.Value = New DateTime(d.Year, d.Month, 1).AddDays(-1)
+        'd = SPAS.Dtp_Incasso_start.Value.AddMonths(1)
+        'SPAS.Dtp_Incasso_end.Value = New DateTime(d.Year, d.Month, 1).AddDays(-1)
         'SPAS.Dtp_Incasso_start.MinDate = New Date(minDate1.Year, 1, 1)
-        SPAS.Dtp_Incasso_start.MaxDate = New Date(maxDate.Year, maxDate.Month, 1)
+        'SPAS.Dtp_Incasso_start.MaxDate = New Date(maxDate.Year, maxDate.Month, 1)
 
-        Dim isd As Date = SPAS.Dtp_Incasso_start.Value
-        Dim MsgId = "Contract incasso " & Month(isd) & "-" & Year(isd)
-        SPAS.Lbl_Incasso_job_name.Text = MsgId
+        'Dim isd As Date = SPAS.Dtp_Incasso_start.Value
+        'Dim MsgId = "Contract incasso " & Day(isd) & "-" & Month(isd) & "-" & Year(isd)
+        'Dim MsgId = "Contract incasso " & isd.ToString("d-M-yyyy")
+        'SPAS.Lbl_Incasso_job_name.Text = MsgId
         Dim qtopen, qtverwerkt As Integer
 
-        t1 = Year(SPAS.Dtp_Incasso_start.Value) & "-" & Month(SPAS.Dtp_Incasso_start.Value) & "-01"
-        t2 = Year(SPAS.Dtp_Incasso_end.Value) & "-" &
-            Month(SPAS.Dtp_Incasso_end.Value) & "-" & SPAS.Dtp_Incasso_end.Value.Day
+        't1 = Year(SPAS.Dtp_Incasso_start.Value) & "-" & Month(SPAS.Dtp_Incasso_start.Value) & "-01"
+        't2 = Year(SPAS.Dtp_Incasso_end.Value) & "-" & Month(SPAS.Dtp_Incasso_end.Value) & "-" & SPAS.Dtp_Incasso_end.Value.Day
 
         'load lists and overview
-        If SPAS.Rbn_Incasso_SEPA.Checked Then
-            Load_Datagridview(SPAS.Dgv_Incasso, Create_Incasso(t1), "Me.Dtp_Incasso_start.ValueChanged")
-        Else
-            Load_Datagridview(SPAS.Dgv_Incasso, Create_Incasso_Bookings(t1), "Me.Dtp_Incasso_start.ValueChanged")
-        End If
+        'If SPAS.Rbn_Incasso_SEPA.Checked Then
+        'Load_Datagridview(SPAS.Dgv_Incasso, Create_Incasso(t1), "Me.Dtp_Incasso_start.ValueChanged")
+        'Else
+        'Load_Datagridview(SPAS.Dgv_Incasso, Create_Incasso_Bookings(t1), "Me.Dtp_Incasso_start.ValueChanged")
+        'End If
 
-        'Load_Datagridview(SPAS.Dgv_incasso_totals, Create_Incasso_Totals(t1), "Create_Incassolist")
-        SPAS.Prepare_Datagridview(SPAS.Dgv_incasso_totals, Create_Incasso_Totals(t1), {"TZ100", "TZ060", "NB080"})
+        'SPAS.Dgv_incasso_totals.DataSource = Nothing
+        'SPAS.Dgv_incasso_totals.Columns.Clear()
+        'SPAS.Dgv_incasso_totals.Rows.Clear()
+        'SPAS.Prepare_Datagridview(SPAS.Dgv_incasso_totals, Create_Incasso_Totals(t1), {"TZ100", "TZ060", "NB080"})
 
 
         Dim Tot_amt = QuerySQL($"SELECT sum((co.donation+co.overhead)/term)
@@ -70,9 +72,9 @@ Module In_excasso
                 Dim msg = $"Het totaalbedrag ({Tot_amt}) verschilt van de eerder gecreëerde incassojob ({Checksum}). De details zijn te zien via de radiobutton 'Verschillen' op deze pagina."
                 SPAS.Lbl_Incasso_Error.Text = msg
                 SPAS.Lbl_Incasso_Error.Visible = True
-                SPAS.Rbn_Incasso_Verschillen.BackColor = Color.MistyRose
+                'SPAS.Rbn_Incasso_Verschillen.BackColor = Color.MistyRose
             Else
-                SPAS.Rbn_Incasso_Verschillen.BackColor = Color.Transparent
+                'SPAS.Rbn_Incasso_Verschillen.BackColor = Color.Transparent
             End If
         ElseIf qtverwerkt > 0 Then
             SPAS.Lbl_Incasso_Status.Text = "Verwerkt"
@@ -86,7 +88,7 @@ Module In_excasso
             SPAS.Lbl_Incasso_Status.Text = "Nieuw"
             SPAS.Menu_Print.Enabled = False
         End If
-        SPAS.Enable_Buttons(False, True)
+        'SPAS.Enable_Buttons(False, True)
 
 
     End Sub
@@ -94,14 +96,17 @@ Module In_excasso
     Sub Create_Incasso_Journals()
         'goed nadenken over het genereren van een naam voor een (groep) journaaltransactie
         'Dgv_incasso vervangen door dst
-        Dim _isd As Date = SPAS.Dtp_Incasso_start.Value
-        Dim isd As String = _isd.Year & "-" & _isd.Month & "-" & _isd.Day
-        Dim s1 = Year(isd) & "-" & Month(isd) & "-01"
+        'Dim _isd As Date = SPAS.Dtp_Incasso_start.Value
+        'Dim isd As String = _isd.Year & "-" & _isd.Month & "-" & _isd.Day
+
+        'Dim s1 = Year(isd) & "-" & Month(isd) & "-01"
+        Dim s1 As String = SPAS.Dtp_Incasso_start.Value.ToString("yyyy-MM-dd")
         Dim overhead As Integer
         Dim iban As String = Trim(SPAS.Cmx_Incasso_Bankaccount.Text)
         overhead = QuerySQL("SELECT value FROM settings WHERE label = 'overhead'")
 
-        Dim journal_name = "Contract incasso " & Month(isd) & "-" & Year(isd)
+        'Dim journal_name = "Contract incasso " & Month(isd) & "-" & Year(isd)
+        Dim journal_name = SPAS.Lbl_Incasso_job_name.Text
         If QuerySQL("Select count(*) FROM journal WHERE name='" & journal_name & "'") > 0 Then
             MsgBox(journal_name & " bestaat al, graag eerst verwijderen alvorens een nieuwe aan te maken.")
             Exit Sub
@@ -114,7 +119,7 @@ Module In_excasso
         For x As Integer = 0 To incassodata.Rows.Count - 1
 
             SQLstr &= "('" &
-                isd & "','Open','Contract','" & 'date/status
+                s1 & "','Open','Contract','" & 'date/status
                 Cur2(incassodata.Rows(x)(4)) & "','" & 'donation->amt1
                 incassodata.Rows(x)(1) & "','Incasso','" & 'description/source
                 incassodata.Rows(x)(6) & "','" & 'fk_account
@@ -123,7 +128,7 @@ Module In_excasso
 
             If incassodata.Rows(x)(5) > 0 Then
                 SQLstr &= "('" &
-                isd & "','Open','Contract','" & 'date/status
+                s1 & "','Open','Contract','" & 'date/status
                 Cur2(incassodata.Rows(x)(5)) & "','" & 'overhead->amt1
                 incassodata.Rows(x)(1) & "','Incasso','" & 'description/source
                 overhead & "','" &   'incasso
@@ -138,10 +143,13 @@ Module In_excasso
 
 
         Dim isd As Date = SPAS.Dtp_Incasso_start.Value
-        Dim s1 = Year(isd) & "-" & Month(isd) & "-01"
-        Dim MsgId = "Contract incasso " & Month(isd) & "-" & Year(isd)
+        'Dim s1 = Year(isd) & "-" & Month(isd) & "-01"
+        Dim s1 As String = SPAS.Dtp_Incasso_start.Value.ToString("yyyy-MM-dd")
+        'Dim MsgId = "Contract incasso " & Month(isd) & "-" & Year(isd)
+        Dim MsgId = SPAS.Lbl_Incasso_job_name.Text
         Dim f As System.IO.StreamWriter
-        Dim filename = "Incassojob_" & Month(isd) & "_" & Year(isd) & ".xml"
+        'Dim filename = "Incassojob_" & Month(isd) & "_" & Year(isd) & ".xml"
+        Dim filename = "Incassojob_" & Replace(s1, "-", "_") & ".xml"
 
         Dim incassodata = Collect_data2(Create_Incasso_Totals(s1))
         Dim nr As Integer = incassodata.Rows(0)(1) + incassodata.Rows(1)(1) + incassodata.Rows(2)(1)
@@ -149,7 +157,9 @@ Module In_excasso
 
         '@@@ moet gewijzigd worden naar nieuwe tabel
         Dim pi = MsgId
-        Dim Inc_date As Date = Format(isd, "yyyy-MM-dd")
+        'Dim Inc_date As Date = Format(isd, "yyyy-MM-dd")
+        Dim Inc_date As Date = Format(SPAS.Dtp_Incasso_start.Value, "yyyy-MM-dd")
+
         Dim text_child = QuerySQL("Select value From settings WHERE label='text_bank_kind'")
         Dim text_elder = QuerySQL("Select value From settings WHERE label='text_bank_oudere'")
         Dim text_other = QuerySQL("Select value From settings WHERE label='text_bank_overig'")
@@ -301,6 +311,7 @@ Module In_excasso
 
     End Sub
 
+
     Function Create_Incasso(date_start As String)
         Dim SQLstr = $"
             SELECT Concat(r.name, ', ', r.name_add) As Donateur
@@ -385,23 +396,15 @@ Module In_excasso
     Sub Fill_Cmx_Excasso_Select_Combined()
         'this module combines existing excasso jobs and potential new ones (based on cp) in one combobox
 
-        SPAS.Cmx_Excasso_Select.Items.Clear()
-
-        Dim journaaldata = Collect_data2("SELECT distinct(name) FROM journal WHERE name ILIKE 'Excasso%' AND status = 'Open' GROUP By name, status")
-
-        For x As Integer = 0 To journaaldata.Rows.Count - 1
-            SPAS.Cmx_Excasso_Select.Items.Add(journaaldata.Rows(x)(0))
-        Next
-
-        Dim cpdata = Collect_data2("SELECT DISTINCT(cp.name), cp.name_add, cp.id FROM cp
-                    LEFT JOIN target ta on fk_cp_id = cp.id LEFT JOIN contract co on fk_target_id = ta.id
-                    WHERE co.enddate > current_date AND cp.active = 'True'")
-
-        For x As Integer = 0 To cpdata.Rows.Count - 1
-            SPAS.Cmx_Excasso_Select.Items.Add($"Nieuwe lijst {cpdata.Rows(x)(0)}, {cpdata.Rows(x)(1)} [{cpdata.Rows(x)(2)}]")
-        Next
-
-
+        Load_Combobox(SPAS.Cmx_Excasso_Select, "id", "name", "
+        SELECT distinct left(j.cpinfo,2)::integer as id, j.name
+        FROM journal j WHERE j.source = 'Uitkering' AND j.status = 'Open' 
+        union SELECT distinct cp.id::integer as id, 'Nieuwe lijst '||cp.name as name FROM cp
+        LEFT JOIN target ta on fk_cp_id = cp.id LEFT JOIN contract co on fk_target_id = ta.id
+        WHERE co.enddate > current_date AND cp.active = 'True'
+        order by name
+        ")
+        SPAS.Cmx_Excasso_Select.SelectedIndex = -1
     End Sub
 
 
@@ -459,7 +462,7 @@ when (select -round(sum(amt1)::numeric) from journal j where j.fk_account = ac.i
 --or (select round(sum(amt1)::numeric) from journal j where j.fk_account = ac.id and j.type = 'Contract' and j.name ilike '%" & naam2 & "%'and j.date <='" & dat & "') < 0
 then 0::numeric
  else (select -round(sum(amt1)::numeric) from journal j where j.fk_account = ac.id and j.type = 'Contract' and j.name ilike '%" & naam2 & "%'and j.date <='" & dat & "')
-end as ""plan "",
+end as ""contr"",
 case 
  when (select -round(sum(amt1)::numeric) from journal j where j.fk_account = ac.id and j.type = 'Extra' and j.name ilike '" & naam1 & "'and j.date <='" & dat & "') is not distinct from null then 0::numeric
  else (select -round(sum(amt1)::numeric) from journal j where j.fk_account = ac.id and j.type = 'Extra' and j.name ilike '" & naam1 & "'and j.date <='" & dat & "')
@@ -488,76 +491,62 @@ end as ""intern "",
 
     End Function
 
-
-
-
     Sub Save_Excasso_job()
         '--------------Controles ------------------------------------------------------------------------------------------------------------:
         Dim exch As Decimal = CDec(SPAS.Tbx_Excasso_Exchange_rate.Text)
         Dim errmsg As String = ""
         Dim overhead = QuerySQL("SELECT value FROM settings WHERE label = 'overhead'")
-        'If SPAS.Lbl_Excasso_Status.Text = "Verwerkt" Then errmsg &= "- verwerkte jobs kunnen niet verwijderd worden." & vbCrLf
-        'If SPAS.Lbl_Excasso_Totaal.Text = "0" And SPAS.Lbl_Excasso_CP_Totaal.Text = "0" Then errmsg &= "- het totaalbedrag is 0. " & vbCrLf
-        'If SPAS.Btn_Excasso_CP_Calculate.Enabled = True Then errmsg &= "- CP berekening is niet ververst." & vbCrLf
-        'If SPAS.Btn_Excasso_Exchrate.Enabled Then errmsg &= "- Wijziging in wisselkoers is niet doorgevoerd." & vbCrLf
-        'If CDec(SPAS.Tbx_Excasso_Exchange_rate.Text) = 0 Then errmsg &= "- Wisselkoers mag niet 0 zijn."
+        Dim lijstnaam = SPAS.Cmx_Excasso_Select.Text
+        Dim cp As String = SPAS.Cmx_Excasso_Select.SelectedValue.ToString
+        Dim j_cpinfo As String = cp
+        Dim j_cp_fk = QuerySQL($"Select id From account where f_key='{cp}'")
+        Dim j_iban = Trim(QuerySQL("select accountno from bankacc where income = True limit 1")) '"NL66RABO0177491310" 
+        Dim j_cp As String = ""
+        Dim nieuw As Boolean = False
+
+        '---------------- controles en verificaties -------------------
+        If SPAS.Dgv_Excasso_numbers.Rows(2).Cells(10).Value = "0" Then errmsg &= "- het totaalbedrag is 0. " & vbCrLf
+        If CDec(SPAS.Tbx_Excasso_Exchange_rate.Text) = 0 Then errmsg &= "- Wisselkoers mag niet 0 zijn."
+
         If errmsg <> "" Then
             MsgBox("Er zijn de volgende fouten geconstateerd:" & vbCrLf & errmsg)
             Exit Sub
         End If
+        If MsgBox("Zijn de CP-bijdrage en wisselkoers correct?", vbYesNo) = vbNo Then Exit Sub
 
-        'If SPAS.Btn_Excasso_CP_Calculate.Enabled = True Then
-        If MsgBox("Heeft u de CP-bijdrage gecalculeerd?", vbYesNo) = vbNo Then Exit Sub
-        'End If
-        If CDec(SPAS.Tbx_Excasso_Exchange_rate.Text) = 0 Then
-            If MsgBox("De wisselkoers is 0 of nog niet ververst. Wilt u doorgaan?", vbYesNo) = vbNo Then Exit Sub
-        End If
-        'Dim cntold As Integer = 0
-        Dim j_name As String
-        If Strings.Left(SPAS.Cmx_Excasso_Select.SelectedItem, 13) <> "Nieuwe lijst " Then
-            j_name = SPAS.Cmx_Excasso_Select.SelectedItem
-            'cntold = QuerySQL("SELECT count(*) FROM journal WHERE name ILIKE '%" & j_name & "'")
-            RunSQL("DELETE FROM journal WHERE name ILIKE '%" & j_name & "'", "NULL", "Save_Excasso_job 1")
+        If Strings.Left(lijstnaam, 13) <> "Nieuwe lijst " Then
+            'oude lijst eerst verwijderen
+            RunSQL("DELETE FROM journal WHERE name ILIKE '%" & lijstnaam & "'", "NULL", "Save_Excasso_job 1")
 
         Else
-            ' j_name = "Excasso-" &
-            '       IIf(SPAS.Cbx_Uitkering_Kind.Checked, "K", "") &
-            '   IIf(SPAS.Cbx_Uitkering_Oudere.Checked, "O", "") &
-            '   IIf(SPAS.Cbx_Uitkering_Overig.Checked, "V", "") & "-" &
-            'Left(Mid(SPAS.Cmx_Excasso_Select.Text, 14), 4) & "-" &
-            '       SPAS.Dtp_Excasso_Start.Value
-            Dim cnt = QuerySQL("SELECT count(distinct name) FROM journal WHERE name LIKE '" & j_name & "%'")
-            j_name &= "-" & (cnt + 1).ToString
-
+            lijstnaam = "Excasso-" &
+               IIf(SPAS.Dgv_Excasso_numbers.Rows(0).Cells(1).Value, "K", "") &
+               IIf(SPAS.Dgv_Excasso_numbers.Rows(1).Cells(1).Value, "O", "") &
+               IIf(SPAS.Dgv_Excasso_numbers.Rows(2).Cells(1).Value, "V", "") & "-" &
+               Left(Mid(SPAS.Cmx_Excasso_Select.Text, 14), 4) & "-" & SPAS.Dtp_Excasso_Start.Value
+            Dim cnt = QuerySQL("SELECT count(distinct name) FROM journal WHERE name LIKE '" & lijstnaam & "%'")
+            lijstnaam &= "-" & (cnt + 1).ToString
+            nieuw = True
         End If
-
-
 
 
         'determine values that are valid for all journalpost within this job:
         Dim j_contr, j_extr, j_inte
         Dim dif1 As Decimal = 0
         Dim j_fkac As Integer
-        'Dim j_name = SPAS.Lbl_Excasso_Job_Name.Text
-        Dim j_date = SPAS.Dtp_Excasso_Start.Value.Year & "-" & SPAS.Dtp_Excasso_Start.Value.Month &
-            "-" & SPAS.Dtp_Excasso_Start.Value.Day
+        Dim j_date = $"{SPAS.Dtp_Excasso_Start.Value.Year}-{SPAS.Dtp_Excasso_Start.Value.Month}-{SPAS.Dtp_Excasso_Start.Value.Day}"
         Dim SQLstr = "INSERT INTO journal(name, date,status,source,amt1,amt2,fk_account,description,type,cpinfo,iban) VALUES"
         Dim j_desc As String = "", j_desc2 As String = ""
+
         'cpinfo: cpid-Tbx_Excasso_Norm1- ..2-..3-Tbx_Excasso_CP1-..2-..3
-        'Dim unit1 As String = IIf(SPAS.Btn_Excasso_Base1.Text = "€", "1", "0")
-        'Dim unit2 As String = IIf(SPAS.Btn_Excasso_Base2.Text = "€", "1", "0")
-        'Dim unit3 As String = IIf(SPAS.Btn_Excasso_Base3.Text = "€", "1", "0")
-
-
-        'Dim j_cpinfo As String = SPAS.Lbl_Excasso_CPid.Text & "-" &
-        'SPAS.Tbx_Excasso_Norm1.Text & "-" & SPAS.Tbx_Excasso_Norm2.Text & "-" & SPAS.Tbx_Excasso_Norm3.Text & "-" &
-        '  SPAS.Tbx_Excasso_CP1.Text & "-" & SPAS.Tbx_Excasso_CP2.Text & "-" & SPAS.Tbx_Excasso_CP3.Text & "-" &
-        '   unit1 & "-" & unit2 & "-" & unit3
-        Dim j_cp_fk = QuerySQL("Select id From account where f_key='" & SPAS.Lbl_Excasso_CPid.Text & "'")
-        'Dim j_iban = Strings.Trim(QuerySQL("
-        'Select Case bankacc.accountno FROM cp LEFT JOIN bankacc ON bankacc.id = cp.fk_bankacc_id WHERE cp.id='" & SPAS.Lbl_Excasso_CPid.Text & "'"))
-        Dim j_iban = "NL66RABO0177491310"  '@@@tijdelijke workaround
-
+        With SPAS.Dgv_Excasso_numbers
+            'percentage of bedrag van hoofdsom die naar CP gaat
+            Dim unit1 As String = IIf(.Rows(0).Cells(7).Value = "€", "1", "0")
+            Dim unit2 As String = IIf(.Rows(0).Cells(7).Value = "€", "1", "0")
+            Dim unit3 As String = IIf(.Rows(0).Cells(7).Value = "€", "1", "0")
+            j_cp = .Rows(1).Cells(10).Value
+            j_cpinfo &= $"-{ .Rows(0).Cells(6).Value}-{ .Rows(1).Cells(6).Value}-{ .Rows(2).Cells(6).Value}-{ .Rows(0).Cells(8).Value}-{ .Rows(1).Cells(8).Value}-{ .Rows(2).Cells(8).Value}-{unit1}-{unit2}-{unit3}"
+        End With
 
 
         For x As Integer = 0 To SPAS.Dgv_Excasso2.Rows.Count - 1
@@ -568,36 +557,34 @@ end as ""intern "",
             j_desc = "Uitkering aan " & SPAS.Dgv_Excasso2.Rows(x).Cells(1).Value
             j_desc2 = "Distribution costs " & SPAS.Cmx_Excasso_Select.SelectedText
 
-
-            If j_contr > 0 Then
-                'SQLstr &= $"('{j_name}','{j_date}','Open','Uitkering','{-j_contr}','{-CInt(j_contr * exch)}','{j_fkac}','{j_desc}','Contract','{j_cpinfo}','{j_iban}'),"
-            End If
-            If j_extr > 0 Then
-                'SQLstr &= $"('{j_name}','{j_date}','Open','Uitkering','{-j_extr}','{-CInt(j_extr * exch)}','{j_fkac}','{j_desc}','Extra','{j_cpinfo}','{j_iban}'),"
-            End If
-            If j_inte > 0 Then
-                'SQLstr &= $"('{j_name}','{j_date}','Open','Uitkering','{-j_inte}','{-CInt(j_inte * exch)}','{j_fkac}','{j_desc}','Internal','{j_cpinfo}','{j_iban}'),"
-            End If
+            If j_contr > 0 Then SQLstr &= $"('{lijstnaam}','{j_date}','Open','Uitkering','{-j_contr}','{-CInt(j_contr * exch)}','{j_fkac}','{j_desc}','Contract','{j_cpinfo}','{j_iban}'),"
+            If j_extr > 0 Then SQLstr &= $"('{lijstnaam}','{j_date}','Open','Uitkering','{-j_extr}','{-CInt(j_extr * exch)}','{j_fkac}','{j_desc}','Extra','{j_cpinfo}','{j_iban}'),"
+            If j_inte > 0 Then SQLstr &= $"('{lijstnaam}','{j_date}','Open','Uitkering','{-j_inte}','{-CInt(j_inte * exch)}','{j_fkac}','{j_desc}','Internal','{j_cpinfo}','{j_iban}'),"
         Next
-        'cp transactie toevoegen
-        ' Dim j_cp = CDec(SPAS.Lbl_Excasso_CP_Totaal.Text)
-        'If j_cp > 0 Then
-        'from overhead
-        'SQLstr &= $"('Intern tbv CP {j_name}','{j_date}','Verwerkt','Intern','{Cur2(j_cp) * -1}','{-CInt(j_cp * exch)}','{overhead}','{j_desc2}', 'CP','{j_cpinfo}',''),"
-        'to CP account
-        'SQLstr &= $"('Intern tbv CP {j_name}','{j_date}','Verwerkt','Intern','{Cur2(j_cp)}','{CInt(j_cp * exch)}','{j_cp_fk}','{j_desc2}', 'CP','{j_cpinfo}',''),"
-        'from CP account 
-        'SQLstr &= $"('{j_name}','{j_date}','Open','Uitkering','{Cur2(j_cp) * -1}','{-CInt(j_cp * exch)}','{j_cp_fk}','{j_desc2}', 'CP','{j_cpinfo}','{j_iban}'),"
-        'End If
+        '--------------- cp transactie toevoegen -------------------------
+
+        If j_cp > 0 Then
+            'from overhead
+            SQLstr &= $"('Intern tbv CP {lijstnaam}','{j_date}','Verwerkt','Intern','{Cur2(j_cp) * -1}','{-CInt(j_cp * exch)}','{overhead}','{j_desc2}', 'CP','{j_cpinfo}',''),"
+            'to CP account
+            SQLstr &= $"('Intern tbv CP {lijstnaam}','{j_date}','Verwerkt','Intern','{Cur2(j_cp)}','{CInt(j_cp * exch)}','{j_cp_fk}','{j_desc2}', 'CP','{j_cpinfo}',''),"
+            'from CP account 
+            SQLstr &= $"('{lijstnaam}','{j_date}','Open','Uitkering','{Cur2(j_cp) * -1}','{-CInt(j_cp * exch)}','{j_cp_fk}','{j_desc2}', 'CP','{j_cpinfo}','{j_iban}'),"
+        End If
         'Clipboard.Clear()
         'Clipboard.SetText(SQLstr)
 
         SQLstr = Strings.Left(SQLstr, Strings.Len(SQLstr) - 1) 'remove the last comma
         RunSQL(SQLstr, "NULL", "Save Excasso job 2")
         'If cntold > 0 Then
-        If Strings.Left(SPAS.Cmx_Excasso_Select.SelectedItem, 13) = "Nieuwe lijst " Then
-            SPAS.Cmx_Excasso_Select.Items.Add(j_name)
-            SPAS.Cmx_Excasso_Select.SelectedIndex = SPAS.Cmx_Excasso_Select.Items.Count - 1
+        If nieuw Then
+            Fill_Cmx_Excasso_Select_Combined()
+            Dim index As Integer = SPAS.Cmx_Excasso_Select.FindStringExact(lijstnaam)
+            If index <> -1 Then
+                SPAS.Cmx_Excasso_Select.SelectedIndex = index
+            Else
+                MessageBox.Show("Item not found")
+            End If
         End If
 
 
@@ -607,76 +594,75 @@ end as ""intern "",
 
 
     Sub Load_Existing_Excasso()
-        '' Loads an excasso form that has already been saved in the past, but is noet yet posted to the G/L.
-        '''
-        If SPAS.Cmx_Excasso_Select.SelectedItem = "" Then Exit Sub 'alleen lijst genereren als gekozen is voor een bestaande of nieuwe lijst
+        'Loads an excasso form that has already been saved in the past, but is noet yet posted to the G/L.
 
-        Dim str1() As String = Split(QuerySQL($"SELECT cpinfo FROM journal WHERE name ='{ SPAS.Cmx_Excasso_Select.SelectedItem}'"), "-")
-        Dim str2() As String = Split(SPAS.Cmx_Excasso_Select.SelectedItem, "-")
-        Dim cp As String = str1(0)
+        'MsgBox($"A. [{SPAS.Cmx_Excasso_Select.Text}]")
+        If SPAS.Cmx_Excasso_Select.SelectedIndex = -1 Then Exit Sub
+        If SPAS.Cmx_Excasso_Select.SelectedValue.ToString = "System.Data.DataRowView" Then Exit Sub 'alleen lijst genereren als gekozen is voor een bestaande of nieuwe lijst
+        Dim cp As String = SPAS.Cmx_Excasso_Select.SelectedValue.ToString
         Dim dat As String = ""
+        Dim lijstnaam = SPAS.Cmx_Excasso_Select.Text
+        Dim cpinfo() As String = Split(QuerySQL($"SELECT cpinfo FROM journal WHERE name ='{lijstnaam}'"), "-")
+        Dim uitkering() As String = Split(lijstnaam, "-")
+
 
         With SPAS
             .Btn_Excasso_Delete.Enabled = True
             .Btn_Excasso_Print.Enabled = True
+            .Cbx_CP_Automatisch.Checked = False
 
             'calculate actual exchange rate
-            Dim exr = QuerySQL($"SELECT sum(amt2)/sum(amt1) FROM journal WHERE name ='{ .Cmx_Excasso_Select.SelectedItem}'")
+            Dim exr = QuerySQL($"SELECT sum(amt2)/sum(amt1) FROM journal WHERE name ='{lijstnaam}'")
             If IsDBNull(exr) Then exr = 0
             .Tbx_Excasso_Exchange_rate.Text = Math.Round(GetDouble(exr), 2)
 
             ' determine date
-            .Dtp_Excasso_Start.Value = CDate(QuerySQL($"SELECT date FROM journal WHERE name='{ .Cmx_Excasso_Select.SelectedItem}'"))
+            .Dtp_Excasso_Start.Value = CDate(QuerySQL($"SELECT date FROM journal WHERE name='{lijstnaam}'"))
             .Dtp_Excasso_Start.Enabled = False
             dat = .Dtp_Excasso_Start.Value.Year & "-" & .Dtp_Excasso_Start.Value.Month & "-" & .Dtp_Excasso_Start.Value.Day
             'Dim cp_amount = QuerySQL($"Select sum(amt1) FROM journal WHERE name ='{ .Cmx_Excasso_Select.SelectedItem}' AND type='CP' AND amt1<='0.00'")
         End With
 
-        Dim s2 As String = Get_Excasso_data2(cp, "Kind", "Oudere", "Overig", SPAS.Cmx_Excasso_Select.SelectedItem, SPAS.Cmx_Excasso_Select.SelectedItem, dat)
+        Dim s2 As String = Get_Excasso_data2(cp, "Kind", "Oudere", "Overig", lijstnaam, lijstnaam, dat)
         If s2 = "" Then Exit Sub
-
-        'Load_Datagridview(SPAS.Dgv_Excasso2, s2, "Call_Excasso_form2")
 
         SPAS.Dgv_Excasso2.DataSource = Collect_data2(s2)
         Prepare_Excasso()
-        With SPAS.Dgv_Excasso_numbers
 
+        With SPAS.Dgv_Excasso_numbers
             .Columns(1).ReadOnly = True
             .Columns(2).Visible = False
-            .Rows(0).Cells(1).Value = InStr(str2(1), "K") > 0
-
-            .Rows(0).Cells(6).Value = str1(1)
-            .Rows(0).Cells(7).Value = IIf(str1(7) = "1", "€", "%")
-            .Rows(0).Cells(8).Value = str1(4)
-
-            .Rows(1).Cells(1).Value = InStr(str2(1), "O") > 0
-            .Rows(1).Cells(6).Value = str1(2)
-            .Rows(1).Cells(7).Value = IIf(str1(8) = "1", "€", "%")
-            .Rows(1).Cells(8).Value = str1(5)
-
-            .Rows(1).Cells(10).Value = CInt(str1(4)) + CInt(str1(5)) + CInt(str1(6))
-            .Rows(1).Cells(11).Value = .Rows(1).Cells(10).Value * CInt(SPAS.Tbx_Excasso_Exchange_rate.Text)
-            .Rows(2).Cells(1).Value = InStr(str2(1), "V") > 0
-
-            .Rows(2).Cells(6).Value = str1(3)
-            .Rows(2).Cells(7).Value = IIf(str1(9) = "1", "€", "%")
-            .Rows(2).Cells(8).Value = str1(6)
-
+            .Rows(0).Cells(1).Value = InStr(uitkering(1), "K") > 0
+            .Rows(0).Cells(6).Value = cpinfo(1)
+            .Rows(0).Cells(7).Value = IIf(cpinfo(7) = "1", "€", "%")
+            .Rows(0).Cells(8).Value = cpinfo(4)
+            .Rows(1).Cells(1).Value = InStr(uitkering(1), "O") > 0
+            .Rows(1).Cells(6).Value = cpinfo(2)
+            .Rows(1).Cells(7).Value = IIf(cpinfo(8) = "1", "€", "%")
+            .Rows(1).Cells(8).Value = cpinfo(5)
+            .Rows(1).Cells(10).Value = CInt(cpinfo(4)) + CInt(cpinfo(5)) + CInt(cpinfo(6))
+            .Rows(1).Cells(11).Value = .Rows(1).Cells(10).Value * Tbx2Dec(SPAS.Tbx_Excasso_Exchange_rate.Text)
+            .Rows(2).Cells(1).Value = InStr(uitkering(1), "V") > 0
+            .Rows(2).Cells(6).Value = cpinfo(3)
+            .Rows(2).Cells(7).Value = IIf(cpinfo(9) = "1", "€", "%")
+            .Rows(2).Cells(8).Value = cpinfo(6)
         End With
-        Calculate_Excasso_Totals(2)
 
+        Calculate_Excasso_Totals(False)
 
+        SPAS.isManualChange = True
     End Sub
 
     Sub Load_New_Excasso(ByVal modus As Boolean)
-        '' Loads an excasso form that has already been saved in the past, but is noet yet posted to the G/L.
-        '''
-        If SPAS.Cmx_Excasso_Select.SelectedItem = "" Then Exit Sub 'alleen lijst genereren als gekozen is voor een bestaande of nieuwe lijst
+        ' Loads an excasso form that has already been saved in the past, but is noet yet posted to the G/L.
 
-        'Dim str1() As String = Split(QuerySQL($"SELECT cpinfo FROM journal WHERE name ='{ SPAS.Cmx_Excasso_Select.SelectedItem}'"), "-")
-        'Dim str2() As String = Split(SPAS.Cmx_Excasso_Select.SelectedItem, "-")
-        Dim pos1 As Integer = Strings.InStr(SPAS.Cmx_Excasso_Select.SelectedItem, "[")
-        Dim cp = Strings.Mid(SPAS.Cmx_Excasso_Select.SelectedItem, pos1 + 1, Len(SPAS.Cmx_Excasso_Select.SelectedItem) - pos1 - 1)
+
+        If SPAS.Cmx_Excasso_Select.SelectedIndex = -1 Then Exit Sub 'alleen lijst genereren als gekozen is voor een bestaande of nieuwe lijst
+
+        Dim lijstnaam = SPAS.Cmx_Excasso_Select.Text
+        'Dim pos1 As Integer = Strings.InStr(SPAS.Cmx_Excasso_Select.SelectedItem, "[")
+        Dim cp = SPAS.Cmx_Excasso_Select.SelectedValue
+        'Strings.Mid(SPAS.Cmx_Excasso_Select.SelectedItem, pos1 + 1, Len(SPAS.Cmx_Excasso_Select.SelectedItem) - pos1 - 1)
         Dim dat As String = ""
         Dim kind As String = "--"
         Dim oudere As String = "--"
@@ -697,10 +683,11 @@ end as ""intern "",
             dat = .Dtp_Excasso_Start.Value.Year & "-" & .Dtp_Excasso_Start.Value.Month & "-" & .Dtp_Excasso_Start.Value.Day
 
             'bepaal defaultwaarde voor doeltype
-            If modus = True Then
+            If modus = True Then  'bepaal welke doeltypes aan de cp gekoppeld zijn
                 kind = IIf(QuerySQL($"Select count(*) from target where fk_cp_id={cp} and ttype= 'Kind' and active") > 0, "Kind", "--")
                 oudere = IIf(QuerySQL($"Select count(*) from target where fk_cp_id={cp} and ttype= 'Oudere' and active") > 0, "Oudere", "--")
                 overig = IIf(QuerySQL($"Select count(*) from target where fk_cp_id={cp} and ttype= 'Overig' and active") > 0, "Overig", "--")
+
             Else
                 kind = IIf(.Dgv_Excasso_numbers.Rows(0).Cells(1).Value, "Kind", "--")
                 oudere = IIf(.Dgv_Excasso_numbers.Rows(1).Cells(1).Value, "Oudere", "--")
@@ -709,44 +696,59 @@ end as ""intern "",
 
         End With
 
-
-        Dim s2 As String = Get_Excasso_data2(cp, kind, oudere, overig, SPAS.Cmx_Excasso_Select.SelectedItem, "", dat)
+        Dim s2 As String = Get_Excasso_data2(cp, kind, oudere, overig, lijstnaam, "", dat)
         If s2 = "" Then Exit Sub
 
-        SPAS.Dgv_Excasso2.DataSource = Collect_data2(s2)
 
-        Prepare_Excasso()
-        With SPAS.Dgv_Excasso_numbers
-            .Rows(0).Cells(2).Style.BackColor = Color.CornflowerBlue
-            .Columns(1).ReadOnly = False
-            .Columns(2).Visible = True
-            .Rows(0).Cells(1).Value = (kind <> "--")
+        With SPAS
+            .Dgv_Excasso2.DataSource = Collect_data2(s2)
 
-            .Rows(0).Cells(6).Value = 4
-            .Rows(0).Cells(7).Value = "€"
-            '.Rows(0).Cells(8).Value = str1(4)
+            Prepare_Excasso()
 
-            .Rows(1).Cells(1).Value = (oudere <> "--")
-            .Rows(1).Cells(6).Value = 3
-            .Rows(1).Cells(7).Value = "€"
-            '.Rows(1).Cells(8).Value = str1(5)
+            With .Dgv_Excasso_numbers
 
-            '.Rows(1).Cells(10).Value = CInt(str1(4)) + CInt(str1(5)) + CInt(str1(6))
-            .Rows(1).Cells(11).Value = .Rows(1).Cells(10).Value * CInt(SPAS.Tbx_Excasso_Exchange_rate.Text)
-            .Rows(2).Cells(1).Value = (overig <> "--")
+                .Columns(1).ReadOnly = False
+                .Columns(2).Visible = True
+                .Rows(0).Cells(1).Value = (kind <> "--")
 
-            .Rows(2).Cells(6).Value = 3
-            .Rows(2).Cells(7).Value = "€"
-            '.Rows(2).Cells(8).Value = str1(6)
+                .Rows(0).Cells(6).Value = IIf(oudere <> "--", 2, 4)
+                .Rows(0).Cells(7).Value = "€"
+
+                .Rows(1).Cells(1).Value = (oudere <> "--")
+                .Rows(1).Cells(6).Value = 3
+                .Rows(1).Cells(7).Value = "€"
+
+                .Rows(1).Cells(11).Value = .Rows(1).Cells(10).Value * Tbx2Dec(SPAS.Tbx_Excasso_Exchange_rate.Text)
+                .Rows(2).Cells(1).Value = (overig <> "--")
+
+                .Rows(2).Cells(6).Value = 3
+                .Rows(2).Cells(7).Value = "€"
+                .Rows(0).Cells(2).Selected = True
+                .Rows(1).Cells(2).Selected = False
+                .Rows(2).Cells(2).Selected = False
+
+                .Rows(0).Cells(2).Style.BackColor = Color.CornflowerBlue
+                .Rows(1).Cells(2).Style.BackColor = Color.White
+                .Rows(2).Cells(2).Style.BackColor = Color.White
+            End With
+            .Cbx_CP_Automatisch.Checked = True
+            Calculate_Excasso_Totals(True)
 
         End With
-        SPAS.Cbx_CP_Automatisch.Checked = True
-        Calculate_Excasso_Totals(2)
 
 
     End Sub
     Sub Prepare_Excasso()
         With SPAS.Dgv_Excasso_numbers
+
+            Dim btnStyle As New DataGridViewCellStyle()
+            btnStyle.BackColor = Color.White
+            btnStyle.SelectionBackColor = Color.CornflowerBlue
+            btnStyle.SelectionForeColor = Color.Black
+            .Columns(2).DefaultCellStyle = btnStyle
+
+
+
             .RowCount = 3
             For r = 0 To 2
                 .Rows(r).Height = 24
@@ -771,7 +773,8 @@ end as ""intern "",
         End With
     End Sub
 
-    Sub Calculate_Excasso_Totals(ByVal mode As Integer)
+    Sub Calculate_Excasso_Totals(ByVal refresh As Boolean)
+        Dim mode As Integer
 
         If SPAS.Dgv_Excasso2.Rows.Count = 0 Then Exit Sub
         If IsNothing(SPAS.Tbx_Excasso_Exchange_rate.Text) Or SPAS.Tbx_Excasso_Exchange_rate.Text = "" Then SPAS.Tbx_Excasso_Exchange_rate.Text = 0
@@ -788,26 +791,26 @@ end as ""intern "",
 
 
         'after changing value
-        Dim str1() As String = Split(QuerySQL($"SELECT cpinfo FROM journal WHERE name ='{SPAS.Cmx_Excasso_Select.SelectedItem}'"), "-")
- 
+        'Dim str1() As String = Split(QuerySQL($"SELECT cpinfo FROM journal WHERE name ='{SPAS.Cmx_Excasso_Select.SelectedItem}'"), "-")
+
 
         With SPAS.Dgv_Excasso2
+
             For x As Integer = 0 To .Rows.Count - 1
-                If mode > 1 Then
-                    .Rows(x).Cells(6).Value = IIf(.Rows(x).Cells(mode).Value > 0, .Rows(x).Cells(mode).Value, 0)
-                    .Rows(x).Cells(7).Value = IIf(.Rows(x).Cells(4).Value > 0, .Rows(x).Cells(4).Value, 0)
-                    .Rows(x).Cells(8).Value = IIf(.Rows(x).Cells(5).Value > 0, .Rows(x).Cells(5).Value, 0)
-                Else
-                    .Rows(x).Cells(6).Value = 0
-                    .Rows(x).Cells(7).Value = 0
-                    .Rows(x).Cells(8).Value = 0
+                If refresh Then
+                    If mode > 1 Then
+                        .Rows(x).Cells(6).Value = IIf(.Rows(x).Cells(mode).Value > 0, .Rows(x).Cells(mode).Value, 0)
+                        .Rows(x).Cells(7).Value = IIf(.Rows(x).Cells(4).Value > 0, .Rows(x).Cells(4).Value, 0)
+                        .Rows(x).Cells(8).Value = IIf(.Rows(x).Cells(5).Value > 0, .Rows(x).Cells(5).Value, 0)
+                    Else
+                        .Rows(x).Cells(6).Value = 0
+                        .Rows(x).Cells(7).Value = 0
+                        .Rows(x).Cells(8).Value = 0
+                    End If
                 End If
 
                 .Rows(x).Cells(9).Value = CInt(.Rows(x).Cells(6).Value) + CInt(.Rows(x).Cells(7).Value) + CInt(.Rows(x).Cells(8).Value)
-                .Rows(x).Cells(10).Value = Math.Round(.Rows(x).Cells(9).Value * CInt(SPAS.Tbx_Excasso_Exchange_rate.Text), 0)
-
-
-
+                .Rows(x).Cells(10).Value = Math.Round(.Rows(x).Cells(9).Value * Tbx2Dec(SPAS.Tbx_Excasso_Exchange_rate.Text), 0)
             Next x
 
         End With
@@ -822,7 +825,7 @@ end as ""intern "",
 
             .Rows(1).Cells(4).Value = SPAS.CalculateColumnCount(SPAS.Dgv_Excasso2, 7)
             .Rows(1).Cells(5).Value = SPAS.CalculateColumnSum(SPAS.Dgv_Excasso2, 7)
-            '.Rows(1).Cells(11).Value = .Rows(1).Cells(10).Value * CInt(SPAS.Tbx_Excasso_Exchange_rate.Text)
+            '.Rows(1).Cells(11).Value = .Rows(1).Cells(10).Value * Tbx2Dec(SPAS.Tbx_Excasso_Exchange_rate.Text)
 
             .Rows(2).Cells(4).Value = SPAS.CalculateColumnCount(SPAS.Dgv_Excasso2, 8)
             .Rows(2).Cells(5).Value = SPAS.CalculateColumnSum(SPAS.Dgv_Excasso2, 8)
@@ -834,14 +837,15 @@ end as ""intern "",
                 .Rows(1).Cells(8).Value = CInt(.Rows(1).Cells(4).Value) * CInt(.Rows(1).Cells(6).Value)
                 .Rows(2).Cells(8).Value = CInt(.Rows(2).Cells(4).Value) * CInt(.Rows(2).Cells(6).Value)
                 .Rows(1).Cells(10).Value = CInt(.Rows(0).Cells(8).Value) + CInt(.Rows(1).Cells(8).Value) + CInt(.Rows(2).Cells(8).Value)
-                .Rows(1).Cells(11).Value = .Rows(1).Cells(10).Value * CInt(SPAS.Tbx_Excasso_Exchange_rate.Text)
+                .Rows(1).Cells(11).Value = .Rows(1).Cells(10).Value * Tbx2Dec(SPAS.Tbx_Excasso_Exchange_rate.Text)
                 .Rows(2).Cells(10).Value = CInt(.Rows(0).Cells(10).Value) + CInt(.Rows(1).Cells(10).Value)
-                .Rows(2).Cells(11).Value = .Rows(2).Cells(10).Value * CInt(SPAS.Tbx_Excasso_Exchange_rate.Text)
+                .Rows(2).Cells(11).Value = .Rows(2).Cells(10).Value * Tbx2Dec(SPAS.Tbx_Excasso_Exchange_rate.Text)
             End If
 
         End With
 
         SPAS.Prepare_Datagridview(SPAS.Dgv_Excasso2, Nothing, {"HZ010", "TZ122", "JZ052", "JZ052", "JZ052", "JZ052", "JB052", "JB053", "JB052", "IG052", "IG054"})
+        SPAS.Lbl_Excasso_Aantal_doelen.Text = $"MDL        Doelen:  {SPAS.CalculateColumnCount(SPAS.Dgv_Excasso2, 9)}"
     End Sub
 
     Sub Calculate_CP_Values1()
@@ -861,6 +865,42 @@ end as ""intern "",
         Catch ex As Exception
 
         End Try
+
+    End Sub
+
+    Sub Edit_Dgv_Excasso()
+
+        With SPAS.Dgv_Excasso2
+            If .Rows.Count = 0 Then Exit Sub
+            On Error GoTo fin
+
+            'checks of ingevoerde waarden ook beschikbaar zijn
+            Dim i As Integer = .CurrentCell.RowIndex  'Me.Dgv_Excasso2.CurrentRow.Index
+            Dim j As Integer = .CurrentCell.ColumnIndex
+            If j < 6 Or j > 8 Then Exit Sub
+
+            Dim ruimte_contract As Integer = Math.Max(.Rows(i).Cells(2).Value, .Rows(i).Cells(3).Value)
+
+            Select Case j
+                Case 6
+                    If .Rows(i).Cells(6).Value > ruimte_contract Then
+                        MsgBox("Uit te keren bedrag is maximaal binnengekomen bedrag")
+                        .Rows(i).Cells(6).Value = ruimte_contract
+                    End If
+                Case 7, 8
+                    If .Rows(i).Cells(j).Value > .Rows(i).Cells(j - 3).Value Then
+                        MsgBox("Uit te keren bedrag is maximaal binnengekomen bedrag")
+                        .Rows(i).Cells(j).Value = .Rows(i).Cells(j - 3).Value
+                    End If
+
+            End Select
+        End With
+        Calculate_Excasso_Totals(False)
+
+            Exit Sub
+
+fin:
+            MsgBox("Het formulier accepteert alleen uitkeringen in hele euro's")
 
     End Sub
 

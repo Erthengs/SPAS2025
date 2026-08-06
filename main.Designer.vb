@@ -42,6 +42,21 @@ Partial Class SPAS
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -49,21 +64,11 @@ Partial Class SPAS
         Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle40 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle41 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle42 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle43 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle44 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle45 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.MenuAdd = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuSave = New System.Windows.Forms.ToolStripMenuItem()
@@ -107,6 +112,7 @@ Partial Class SPAS
         Me.Cmbx_Query_Select = New System.Windows.Forms.ComboBox()
         Me.Dgv_Query_Test = New System.Windows.Forms.DataGridView()
         Me.TP_Test = New System.Windows.Forms.TabPage()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.TreeView1 = New System.Windows.Forms.TreeView()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
@@ -227,35 +233,65 @@ Partial Class SPAS
         Me.Splitter2 = New System.Windows.Forms.Splitter()
         Me.Panel14 = New System.Windows.Forms.Panel()
         Me.Dgv_Excasso2 = New System.Windows.Forms.DataGridView()
+        Me.Pan_Excasso = New System.Windows.Forms.Panel()
+        Me.Label61 = New System.Windows.Forms.Label()
+        Me.Lbl_Excasso_Aantal_doelen = New System.Windows.Forms.Label()
+        Me.LinkLabel_Wisselkoers = New System.Windows.Forms.LinkLabel()
+        Me.Cbx_CP_Automatisch = New System.Windows.Forms.CheckBox()
+        Me.Tbx_Excasso_Exchange_rate = New System.Windows.Forms.TextBox()
+        Me.Dtp_Excasso_Start = New System.Windows.Forms.DateTimePicker()
+        Me.Label83 = New System.Windows.Forms.Label()
+        Me.Dgv_Excasso_numbers = New System.Windows.Forms.DataGridView()
+        Me.Doel0 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Doel = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.Prefil = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.Bron = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Aantal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Bedrag = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Norm = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Eenheid = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.CPTotaal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Comp = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Euro = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.MLD = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Lbl_Excasso_CPid = New System.Windows.Forms.Label()
+        Me.Btn_Excasso_Copy_to_clipboard = New System.Windows.Forms.Button()
+        Me.Cmx_Excasso_Select = New System.Windows.Forms.ComboBox()
         Me.Btn_Excasso_Save = New System.Windows.Forms.Button()
         Me.Btn_Excasso_Print = New System.Windows.Forms.Button()
         Me.Btn_Excasso_Cancel = New System.Windows.Forms.Button()
         Me.Btn_Excasso_Delete = New System.Windows.Forms.Button()
         Me.Incasso = New System.Windows.Forms.TabPage()
-        Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.Panel10 = New System.Windows.Forms.Panel()
-        Me.Dgv_incasso_totals = New System.Windows.Forms.DataGridView()
-        Me.Label79 = New System.Windows.Forms.Label()
-        Me.Lbl_Incasso_Error = New System.Windows.Forms.Label()
-        Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.Rbn_Incasso_Verschillen = New System.Windows.Forms.RadioButton()
-        Me.Dtp_Incasso_start = New System.Windows.Forms.DateTimePicker()
-        Me.Cmx_Incasso_Bankaccount = New System.Windows.Forms.ComboBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Rbn_Incasso_SEPA = New System.Windows.Forms.RadioButton()
-        Me.Label145 = New System.Windows.Forms.Label()
-        Me.Label94 = New System.Windows.Forms.Label()
-        Me.Rbn_Incasso_journal = New System.Windows.Forms.RadioButton()
-        Me.Label71 = New System.Windows.Forms.Label()
-        Me.Lbl_Incasso_Status = New System.Windows.Forms.Label()
-        Me.Label82 = New System.Windows.Forms.Label()
-        Me.Lbl_Incasso_job_name = New System.Windows.Forms.Label()
-        Me.Dtp_Incasso_end = New System.Windows.Forms.DateTimePicker()
+        Me.Pan_Incasso = New System.Windows.Forms.Panel()
         Me.Dgv_Incasso = New System.Windows.Forms.DataGridView()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.Gbx_Incasso_Controle = New System.Windows.Forms.GroupBox()
+        Me.Btn_Incasso_Analyseer = New System.Windows.Forms.Button()
+        Me.Dgv_Incasso_Analyse = New System.Windows.Forms.DataGridView()
+        Me.Lbl_Incasso_Error = New System.Windows.Forms.Label()
+        Me.Btn_Incasso_Open_XML = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.MonthCalendar1 = New System.Windows.Forms.MonthCalendar()
+        Me.Pan_Incasso_views = New System.Windows.Forms.Panel()
+        Me.Rbn_Incasso_SEPA = New System.Windows.Forms.RadioButton()
+        Me.Rbn_Incasso_journal = New System.Windows.Forms.RadioButton()
+        Me.Cmx_Incasso_Bankaccount = New System.Windows.Forms.ComboBox()
+        Me.Label86 = New System.Windows.Forms.Label()
+        Me.Label79 = New System.Windows.Forms.Label()
+        Me.Dgv_incasso_totals = New System.Windows.Forms.DataGridView()
+        Me.Lbl_Incasso_job_name = New System.Windows.Forms.Label()
+        Me.Lbl_Incasso_Status = New System.Windows.Forms.Label()
+        Me.Cmx_Incasso_IncassoForm = New System.Windows.Forms.ComboBox()
+        Me.Dtp_Incasso_start = New System.Windows.Forms.DateTimePicker()
+        Me.Label94 = New System.Windows.Forms.Label()
+        Me.Label145 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label82 = New System.Windows.Forms.Label()
         Me.Tab_Bank = New System.Windows.Forms.TabPage()
         Me.Pan_Bank2 = New System.Windows.Forms.Panel()
         Me.Dgv_Bank = New System.Windows.Forms.DataGridView()
         Me.Pan_Bank = New System.Windows.Forms.Panel()
+        Me.Button6 = New System.Windows.Forms.Button()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Lbl_Bank_Code = New System.Windows.Forms.Label()
         Me.Lbl_Bank_Afschrift = New System.Windows.Forms.Label()
@@ -293,11 +329,13 @@ Partial Class SPAS
         Me.Lbx_Basis = New System.Windows.Forms.ListBox()
         Me.TC_Object = New System.Windows.Forms.TabControl()
         Me.Contract = New System.Windows.Forms.TabPage()
-        Me.Lbl_Rel_id = New System.Windows.Forms.Label()
+        Me.Lbl_10_Contract__fk_account_id = New System.Windows.Forms.Label()
+        Me.Lbl_11_contract__fk_target_id = New System.Windows.Forms.Label()
+        Me.Lbl_11_contract__fk_relation_id = New System.Windows.Forms.Label()
         Me.Lbl_Contract_tgt = New System.Windows.Forms.Label()
         Me.Label96 = New System.Windows.Forms.Label()
         Me.Lbl_Contract_Bronaccount = New System.Windows.Forms.Label()
-        Me.Cmx_00_Contract__fk_account_id = New System.Windows.Forms.ComboBox()
+        Me.Cmx_Contract_fk_account_id = New System.Windows.Forms.ComboBox()
         Me.Tbx_Contract_ttype = New System.Windows.Forms.TextBox()
         Me.Cbx_00_contract__active = New System.Windows.Forms.CheckBox()
         Me.Lbl_contract_mach_datum = New System.Windows.Forms.Label()
@@ -321,8 +359,8 @@ Partial Class SPAS
         Me.Lbl_00_Contract__name = New System.Windows.Forms.Label()
         Me.Lbl_Contract_pkid = New System.Windows.Forms.Label()
         Me.Label70 = New System.Windows.Forms.Label()
-        Me.Cmx_00_contract__fk_relation_id = New System.Windows.Forms.ComboBox()
-        Me.Cmx_01_contract__fk_target_id = New System.Windows.Forms.ComboBox()
+        Me.Cmx_00_contract_fk_relation_id = New System.Windows.Forms.ComboBox()
+        Me.Cmx_01_contract_fk_target_id = New System.Windows.Forms.ComboBox()
         Me.Cmx_02_Contract__term = New System.Windows.Forms.ComboBox()
         Me.Dtp_31_contract__enddate = New System.Windows.Forms.DateTimePicker()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -572,29 +610,6 @@ Partial Class SPAS
         Me.Zoeken = New System.Windows.Forms.Label()
         Me.Testpanel = New System.Windows.Forms.Panel()
         Me.Cbx_LifeCycle2 = New System.Windows.Forms.ComboBox()
-        Me.Cmx_Excasso_Select = New System.Windows.Forms.ComboBox()
-        Me.Btn_Excasso_Copy_to_clipboard = New System.Windows.Forms.Button()
-        Me.Lbl_Excasso_CPid = New System.Windows.Forms.Label()
-        Me.Dgv_Excasso_numbers = New System.Windows.Forms.DataGridView()
-        Me.MLD = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Euro = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Comp = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CPTotaal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Eenheid = New System.Windows.Forms.DataGridViewButtonColumn()
-        Me.Norm = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Bedrag = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Aantal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Bron = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Prefil = New System.Windows.Forms.DataGridViewButtonColumn()
-        Me.Doel = New System.Windows.Forms.DataGridViewCheckBoxColumn()
-        Me.Doel0 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Label83 = New System.Windows.Forms.Label()
-        Me.Dtp_Excasso_Start = New System.Windows.Forms.DateTimePicker()
-        Me.Tbx_Excasso_Exchange_rate = New System.Windows.Forms.TextBox()
-        Me.Cbx_CP_Automatisch = New System.Windows.Forms.CheckBox()
-        Me.LinkLabel_Wisselkoers = New System.Windows.Forms.LinkLabel()
-        Me.Label103 = New System.Windows.Forms.Label()
-        Me.Pan_Excasso = New System.Windows.Forms.Panel()
         Me.MenuStrip1.SuspendLayout()
         Me.Instellingen.SuspendLayout()
         Me.TC_Management.SuspendLayout()
@@ -632,12 +647,17 @@ Partial Class SPAS
         CType(Me.Dgv_Uitkering_Account_Details, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel14.SuspendLayout()
         CType(Me.Dgv_Excasso2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Pan_Excasso.SuspendLayout()
+        CType(Me.Dgv_Excasso_numbers, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Incasso.SuspendLayout()
-        Me.Panel3.SuspendLayout()
-        Me.Panel10.SuspendLayout()
-        CType(Me.Dgv_incasso_totals, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel5.SuspendLayout()
+        Me.Pan_Incasso.SuspendLayout()
         CType(Me.Dgv_Incasso, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel3.SuspendLayout()
+        Me.Gbx_Incasso_Controle.SuspendLayout()
+        CType(Me.Dgv_Incasso_Analyse, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
+        Me.Pan_Incasso_views.SuspendLayout()
+        CType(Me.Dgv_incasso_totals, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Tab_Bank.SuspendLayout()
         Me.Pan_Bank2.SuspendLayout()
         CType(Me.Dgv_Bank, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -667,8 +687,6 @@ Partial Class SPAS
         Me.BankAcc.SuspendLayout()
         Me.TC_Main.SuspendLayout()
         Me.Testpanel.SuspendLayout()
-        CType(Me.Dgv_Excasso_numbers, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Pan_Excasso.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -682,7 +700,7 @@ Partial Class SPAS
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 2, 0, 2)
         Me.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.MenuStrip1.ShowItemToolTips = True
-        Me.MenuStrip1.Size = New System.Drawing.Size(1622, 36)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1671, 32)
         Me.MenuStrip1.Stretch = False
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
@@ -691,65 +709,65 @@ Partial Class SPAS
         '
         Me.MenuAdd.Image = CType(resources.GetObject("MenuAdd.Image"), System.Drawing.Image)
         Me.MenuAdd.Name = "MenuAdd"
-        Me.MenuAdd.Size = New System.Drawing.Size(36, 32)
+        Me.MenuAdd.Size = New System.Drawing.Size(36, 28)
         '
         'MenuSave
         '
         Me.MenuSave.Enabled = False
         Me.MenuSave.Image = CType(resources.GetObject("MenuSave.Image"), System.Drawing.Image)
         Me.MenuSave.Name = "MenuSave"
-        Me.MenuSave.Size = New System.Drawing.Size(36, 32)
+        Me.MenuSave.Size = New System.Drawing.Size(36, 28)
         '
         'MenuCancel
         '
         Me.MenuCancel.Enabled = False
         Me.MenuCancel.Image = CType(resources.GetObject("MenuCancel.Image"), System.Drawing.Image)
         Me.MenuCancel.Name = "MenuCancel"
-        Me.MenuCancel.Size = New System.Drawing.Size(36, 32)
+        Me.MenuCancel.Size = New System.Drawing.Size(36, 28)
         '
         'MenuDelete
         '
         Me.MenuDelete.Image = CType(resources.GetObject("MenuDelete.Image"), System.Drawing.Image)
         Me.MenuDelete.Name = "MenuDelete"
-        Me.MenuDelete.Size = New System.Drawing.Size(36, 32)
+        Me.MenuDelete.Size = New System.Drawing.Size(36, 28)
         '
         'Menu_Print
         '
         Me.Menu_Print.Image = CType(resources.GetObject("Menu_Print.Image"), System.Drawing.Image)
         Me.Menu_Print.Name = "Menu_Print"
-        Me.Menu_Print.Size = New System.Drawing.Size(36, 24)
+        Me.Menu_Print.Size = New System.Drawing.Size(36, 28)
         Me.Menu_Print.Visible = False
         '
         'Menu_Export
         '
         Me.Menu_Export.Image = CType(resources.GetObject("Menu_Export.Image"), System.Drawing.Image)
         Me.Menu_Export.Name = "Menu_Export"
-        Me.Menu_Export.Size = New System.Drawing.Size(36, 32)
+        Me.Menu_Export.Size = New System.Drawing.Size(36, 28)
         '
         'MenuBanktransactie
         '
         Me.MenuBanktransactie.Image = CType(resources.GetObject("MenuBanktransactie.Image"), System.Drawing.Image)
         Me.MenuBanktransactie.Name = "MenuBanktransactie"
-        Me.MenuBanktransactie.Size = New System.Drawing.Size(36, 32)
+        Me.MenuBanktransactie.Size = New System.Drawing.Size(36, 28)
         '
         'MenuCategoriseer
         '
         Me.MenuCategoriseer.Image = CType(resources.GetObject("MenuCategoriseer.Image"), System.Drawing.Image)
         Me.MenuCategoriseer.Name = "MenuCategoriseer"
-        Me.MenuCategoriseer.Size = New System.Drawing.Size(36, 32)
+        Me.MenuCategoriseer.Size = New System.Drawing.Size(36, 28)
         '
         'MenuUploadAlles
         '
         Me.MenuUploadAlles.Image = CType(resources.GetObject("MenuUploadAlles.Image"), System.Drawing.Image)
         Me.MenuUploadAlles.Name = "MenuUploadAlles"
-        Me.MenuUploadAlles.Size = New System.Drawing.Size(36, 24)
+        Me.MenuUploadAlles.Size = New System.Drawing.Size(36, 28)
         Me.MenuUploadAlles.Visible = False
         '
         'Menu_Back
         '
         Me.Menu_Back.Image = CType(resources.GetObject("Menu_Back.Image"), System.Drawing.Image)
         Me.Menu_Back.Name = "Menu_Back"
-        Me.Menu_Back.Size = New System.Drawing.Size(36, 24)
+        Me.Menu_Back.Size = New System.Drawing.Size(36, 28)
         Me.Menu_Back.Visible = False
         '
         'Menu_Help
@@ -757,7 +775,7 @@ Partial Class SPAS
         Me.Menu_Help.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.Menu_Help.Image = CType(resources.GetObject("Menu_Help.Image"), System.Drawing.Image)
         Me.Menu_Help.Name = "Menu_Help"
-        Me.Menu_Help.Size = New System.Drawing.Size(36, 32)
+        Me.Menu_Help.Size = New System.Drawing.Size(36, 28)
         '
         'ToolStripTextBox1
         '
@@ -767,7 +785,7 @@ Partial Class SPAS
         Me.ToolStripTextBox1.Enabled = False
         Me.ToolStripTextBox1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.ToolStripTextBox1.Name = "ToolStripTextBox1"
-        Me.ToolStripTextBox1.Size = New System.Drawing.Size(68, 32)
+        Me.ToolStripTextBox1.Size = New System.Drawing.Size(68, 28)
         Me.ToolStripTextBox1.Text = "Status "
         Me.ToolStripTextBox1.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -776,7 +794,7 @@ Partial Class SPAS
         Me.MenuFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.MenuFilter.Image = CType(resources.GetObject("MenuFilter.Image"), System.Drawing.Image)
         Me.MenuFilter.Name = "MenuFilter"
-        Me.MenuFilter.Size = New System.Drawing.Size(36, 32)
+        Me.MenuFilter.Size = New System.Drawing.Size(36, 28)
         '
         'OpenFileDialog1
         '
@@ -818,7 +836,7 @@ Partial Class SPAS
         Me.Tbx_Bank_Description.ReadOnly = True
         Me.Tbx_Bank_Description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.HelpProvider1.SetShowHelp(Me.Tbx_Bank_Description, True)
-        Me.Tbx_Bank_Description.Size = New System.Drawing.Size(429, 82)
+        Me.Tbx_Bank_Description.Size = New System.Drawing.Size(428, 82)
         Me.Tbx_Bank_Description.TabIndex = 67
         '
         'Instellingen
@@ -828,7 +846,7 @@ Partial Class SPAS
         Me.Instellingen.Location = New System.Drawing.Point(4, 38)
         Me.Instellingen.Name = "Instellingen"
         Me.Instellingen.Padding = New System.Windows.Forms.Padding(3)
-        Me.Instellingen.Size = New System.Drawing.Size(1614, 889)
+        Me.Instellingen.Size = New System.Drawing.Size(1663, 880)
         Me.Instellingen.TabIndex = 6
         Me.Instellingen.Text = "Beheer   "
         '
@@ -843,7 +861,7 @@ Partial Class SPAS
         Me.TC_Management.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.TC_Management.Name = "TC_Management"
         Me.TC_Management.SelectedIndex = 0
-        Me.TC_Management.Size = New System.Drawing.Size(1516, 860)
+        Me.TC_Management.Size = New System.Drawing.Size(1593, 860)
         Me.TC_Management.TabIndex = 5
         '
         'Settings
@@ -853,7 +871,7 @@ Partial Class SPAS
         Me.Settings.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Settings.Name = "Settings"
         Me.Settings.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Settings.Size = New System.Drawing.Size(1508, 818)
+        Me.Settings.Size = New System.Drawing.Size(1585, 818)
         Me.Settings.TabIndex = 0
         Me.Settings.Text = "Settings"
         Me.Settings.UseVisualStyleBackColor = True
@@ -864,7 +882,7 @@ Partial Class SPAS
         Me.Dgv_Settings.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.Dgv_Settings.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Dgv_Settings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Dgv_Settings.Location = New System.Drawing.Point(9, -12)
+        Me.Dgv_Settings.Location = New System.Drawing.Point(4, -3)
         Me.Dgv_Settings.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Dgv_Settings.Name = "Dgv_Settings"
         Me.Dgv_Settings.RowHeadersVisible = False
@@ -872,7 +890,7 @@ Partial Class SPAS
         DataGridViewCellStyle2.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Settings.RowsDefaultCellStyle = DataGridViewCellStyle2
         Me.Dgv_Settings.RowTemplate.Height = 20
-        Me.Dgv_Settings.Size = New System.Drawing.Size(1486, 792)
+        Me.Dgv_Settings.Size = New System.Drawing.Size(604, 808)
         Me.Dgv_Settings.TabIndex = 5
         '
         'AVG
@@ -881,7 +899,7 @@ Partial Class SPAS
         Me.AVG.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.AVG.Name = "AVG"
         Me.AVG.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.AVG.Size = New System.Drawing.Size(1508, 818)
+        Me.AVG.Size = New System.Drawing.Size(1585, 818)
         Me.AVG.TabIndex = 1
         Me.AVG.Text = "AVG"
         Me.AVG.UseVisualStyleBackColor = True
@@ -906,7 +924,7 @@ Partial Class SPAS
         Me.QueryBuilder.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.QueryBuilder.Name = "QueryBuilder"
         Me.QueryBuilder.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.QueryBuilder.Size = New System.Drawing.Size(1508, 818)
+        Me.QueryBuilder.Size = New System.Drawing.Size(1585, 818)
         Me.QueryBuilder.TabIndex = 2
         Me.QueryBuilder.Text = "QueryBuilder"
         Me.QueryBuilder.UseVisualStyleBackColor = True
@@ -1071,11 +1089,12 @@ Partial Class SPAS
         DataGridViewCellStyle4.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Query_Test.RowsDefaultCellStyle = DataGridViewCellStyle4
         Me.Dgv_Query_Test.RowTemplate.Height = 20
-        Me.Dgv_Query_Test.Size = New System.Drawing.Size(1472, 412)
+        Me.Dgv_Query_Test.Size = New System.Drawing.Size(1472, 406)
         Me.Dgv_Query_Test.TabIndex = 18
         '
         'TP_Test
         '
+        Me.TP_Test.Controls.Add(Me.DateTimePicker1)
         Me.TP_Test.Controls.Add(Me.TreeView1)
         Me.TP_Test.Controls.Add(Me.Button5)
         Me.TP_Test.Controls.Add(Me.Button2)
@@ -1085,10 +1104,17 @@ Partial Class SPAS
         Me.TP_Test.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.TP_Test.Name = "TP_Test"
         Me.TP_Test.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.TP_Test.Size = New System.Drawing.Size(1508, 818)
+        Me.TP_Test.Size = New System.Drawing.Size(1585, 818)
         Me.TP_Test.TabIndex = 3
         Me.TP_Test.Text = "Test"
         Me.TP_Test.UseVisualStyleBackColor = True
+        '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Location = New System.Drawing.Point(46, 434)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(208, 37)
+        Me.DateTimePicker1.TabIndex = 44
         '
         'TreeView1
         '
@@ -1178,7 +1204,7 @@ Partial Class SPAS
         Me.Tab_Rapportage.Location = New System.Drawing.Point(4, 38)
         Me.Tab_Rapportage.Name = "Tab_Rapportage"
         Me.Tab_Rapportage.Padding = New System.Windows.Forms.Padding(3)
-        Me.Tab_Rapportage.Size = New System.Drawing.Size(1614, 889)
+        Me.Tab_Rapportage.Size = New System.Drawing.Size(1663, 880)
         Me.Tab_Rapportage.TabIndex = 5
         Me.Tab_Rapportage.Text = "Rapportage "
         Me.Tab_Rapportage.UseVisualStyleBackColor = True
@@ -1189,7 +1215,7 @@ Partial Class SPAS
         Me.Splitter1.Location = New System.Drawing.Point(301, 560)
         Me.Splitter1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Splitter1.Name = "Splitter1"
-        Me.Splitter1.Size = New System.Drawing.Size(1310, 15)
+        Me.Splitter1.Size = New System.Drawing.Size(1359, 15)
         Me.Splitter1.TabIndex = 96
         Me.Splitter1.TabStop = False
         '
@@ -1198,7 +1224,7 @@ Partial Class SPAS
         Me.Splitter_left.Location = New System.Drawing.Point(297, 560)
         Me.Splitter_left.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Splitter_left.Name = "Splitter_left"
-        Me.Splitter_left.Size = New System.Drawing.Size(4, 326)
+        Me.Splitter_left.Size = New System.Drawing.Size(4, 317)
         Me.Splitter_left.TabIndex = 95
         Me.Splitter_left.TabStop = False
         '
@@ -1210,7 +1236,7 @@ Partial Class SPAS
         Me.Panel13.Location = New System.Drawing.Point(297, 560)
         Me.Panel13.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(1314, 326)
+        Me.Panel13.Size = New System.Drawing.Size(1363, 317)
         Me.Panel13.TabIndex = 94
         '
         'Lbl_Rapportage_Detail
@@ -1241,7 +1267,7 @@ Partial Class SPAS
         DataGridViewCellStyle6.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Report_6.RowsDefaultCellStyle = DataGridViewCellStyle6
         Me.Dgv_Report_6.RowTemplate.Height = 20
-        Me.Dgv_Report_6.Size = New System.Drawing.Size(1296, 268)
+        Me.Dgv_Report_6.Size = New System.Drawing.Size(1345, 259)
         Me.Dgv_Report_6.TabIndex = 90
         '
         'Panel12
@@ -1253,7 +1279,7 @@ Partial Class SPAS
         Me.Panel12.Location = New System.Drawing.Point(297, 3)
         Me.Panel12.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(1314, 557)
+        Me.Panel12.Size = New System.Drawing.Size(1363, 557)
         Me.Panel12.TabIndex = 0
         '
         'Lbl_Rapportage
@@ -1283,7 +1309,7 @@ Partial Class SPAS
         DataGridViewCellStyle8.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Rapportage_Overzicht.RowsDefaultCellStyle = DataGridViewCellStyle8
         Me.Dgv_Rapportage_Overzicht.RowTemplate.Height = 20
-        Me.Dgv_Rapportage_Overzicht.Size = New System.Drawing.Size(1296, 511)
+        Me.Dgv_Rapportage_Overzicht.Size = New System.Drawing.Size(1345, 511)
         Me.Dgv_Rapportage_Overzicht.TabIndex = 76
         '
         'LbL_Formatting
@@ -1307,7 +1333,7 @@ Partial Class SPAS
         Me.Panel11.Location = New System.Drawing.Point(3, 3)
         Me.Panel11.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(294, 883)
+        Me.Panel11.Size = New System.Drawing.Size(294, 874)
         Me.Panel11.TabIndex = 91
         '
         'ReportTree
@@ -1319,7 +1345,7 @@ Partial Class SPAS
         Me.ReportTree.Location = New System.Drawing.Point(4, 40)
         Me.ReportTree.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.ReportTree.Name = "ReportTree"
-        Me.ReportTree.Size = New System.Drawing.Size(283, 789)
+        Me.ReportTree.Size = New System.Drawing.Size(283, 780)
         Me.ReportTree.TabIndex = 83
         '
         'Label119
@@ -1335,7 +1361,7 @@ Partial Class SPAS
         'Btn_Rap_Expand_Collapse
         '
         Me.Btn_Rap_Expand_Collapse.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Btn_Rap_Expand_Collapse.Location = New System.Drawing.Point(4, 840)
+        Me.Btn_Rap_Expand_Collapse.Location = New System.Drawing.Point(4, 831)
         Me.Btn_Rap_Expand_Collapse.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Btn_Rap_Expand_Collapse.Name = "Btn_Rap_Expand_Collapse"
         Me.Btn_Rap_Expand_Collapse.Size = New System.Drawing.Size(294, 43)
@@ -1361,7 +1387,7 @@ Partial Class SPAS
         Me.Intern.Location = New System.Drawing.Point(4, 38)
         Me.Intern.Name = "Intern"
         Me.Intern.Padding = New System.Windows.Forms.Padding(3)
-        Me.Intern.Size = New System.Drawing.Size(1614, 889)
+        Me.Intern.Size = New System.Drawing.Size(1663, 880)
         Me.Intern.TabIndex = 4
         Me.Intern.Text = "Boekingen"
         '
@@ -1418,7 +1444,7 @@ Partial Class SPAS
         Me.Panel8.Controls.Add(Me.Tbx_Journal_Description)
         Me.Panel8.Location = New System.Drawing.Point(15, 97)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(1459, 696)
+        Me.Panel8.Size = New System.Drawing.Size(1459, 690)
         Me.Panel8.TabIndex = 50
         '
         'Rbtn_Overboekingen_alles
@@ -1605,7 +1631,7 @@ Partial Class SPAS
         DataGridViewCellStyle10.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Journal_Intern.RowsDefaultCellStyle = DataGridViewCellStyle10
         Me.Dgv_Journal_Intern.RowTemplate.Height = 20
-        Me.Dgv_Journal_Intern.Size = New System.Drawing.Size(354, 552)
+        Me.Dgv_Journal_Intern.Size = New System.Drawing.Size(354, 546)
         Me.Dgv_Journal_Intern.TabIndex = 45
         '
         'id1
@@ -1658,7 +1684,7 @@ Partial Class SPAS
         Me.Tbx_Journal_Description.Location = New System.Drawing.Point(690, 260)
         Me.Tbx_Journal_Description.Multiline = True
         Me.Tbx_Journal_Description.Name = "Tbx_Journal_Description"
-        Me.Tbx_Journal_Description.Size = New System.Drawing.Size(694, 270)
+        Me.Tbx_Journal_Description.Size = New System.Drawing.Size(694, 264)
         Me.Tbx_Journal_Description.TabIndex = 52
         '
         'Panel7
@@ -2370,7 +2396,7 @@ Partial Class SPAS
         DataGridViewCellStyle13.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Report_Year_Closing.RowsDefaultCellStyle = DataGridViewCellStyle13
         Me.Dgv_Report_Year_Closing.RowTemplate.Height = 20
-        Me.Dgv_Report_Year_Closing.Size = New System.Drawing.Size(1354, 729)
+        Me.Dgv_Report_Year_Closing.Size = New System.Drawing.Size(1354, 723)
         Me.Dgv_Report_Year_Closing.TabIndex = 89
         '
         'Btn_Report_YearEnd_Check
@@ -2423,7 +2449,7 @@ Partial Class SPAS
         Me.Uitkering.Location = New System.Drawing.Point(4, 38)
         Me.Uitkering.Name = "Uitkering"
         Me.Uitkering.Padding = New System.Windows.Forms.Padding(3)
-        Me.Uitkering.Size = New System.Drawing.Size(1614, 889)
+        Me.Uitkering.Size = New System.Drawing.Size(1663, 880)
         Me.Uitkering.TabIndex = 3
         Me.Uitkering.Text = "Uitkering   "
         '
@@ -2432,7 +2458,7 @@ Partial Class SPAS
         Me.Splitter3.Location = New System.Drawing.Point(941, 168)
         Me.Splitter3.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Splitter3.Name = "Splitter3"
-        Me.Splitter3.Size = New System.Drawing.Size(4, 718)
+        Me.Splitter3.Size = New System.Drawing.Size(4, 709)
         Me.Splitter3.TabIndex = 136
         Me.Splitter3.TabStop = False
         '
@@ -2443,7 +2469,7 @@ Partial Class SPAS
         Me.Panel15.Location = New System.Drawing.Point(941, 168)
         Me.Panel15.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(670, 718)
+        Me.Panel15.Size = New System.Drawing.Size(719, 709)
         Me.Panel15.TabIndex = 135
         '
         'Dgv_Uitkering_Account_Details
@@ -2466,7 +2492,7 @@ Partial Class SPAS
         DataGridViewCellStyle15.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Uitkering_Account_Details.RowsDefaultCellStyle = DataGridViewCellStyle15
         Me.Dgv_Uitkering_Account_Details.RowTemplate.Height = 20
-        Me.Dgv_Uitkering_Account_Details.Size = New System.Drawing.Size(652, 707)
+        Me.Dgv_Uitkering_Account_Details.Size = New System.Drawing.Size(701, 698)
         Me.Dgv_Uitkering_Account_Details.TabIndex = 132
         '
         'Splitter2
@@ -2475,7 +2501,7 @@ Partial Class SPAS
         Me.Splitter2.Location = New System.Drawing.Point(941, 165)
         Me.Splitter2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Splitter2.Name = "Splitter2"
-        Me.Splitter2.Size = New System.Drawing.Size(670, 3)
+        Me.Splitter2.Size = New System.Drawing.Size(719, 3)
         Me.Splitter2.TabIndex = 134
         Me.Splitter2.TabStop = False
         '
@@ -2486,7 +2512,7 @@ Partial Class SPAS
         Me.Panel14.Location = New System.Drawing.Point(3, 165)
         Me.Panel14.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Panel14.Name = "Panel14"
-        Me.Panel14.Size = New System.Drawing.Size(938, 721)
+        Me.Panel14.Size = New System.Drawing.Size(938, 712)
         Me.Panel14.TabIndex = 133
         '
         'Dgv_Excasso2
@@ -2518,14 +2544,336 @@ Partial Class SPAS
         DataGridViewCellStyle18.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Excasso2.RowsDefaultCellStyle = DataGridViewCellStyle18
         Me.Dgv_Excasso2.RowTemplate.Height = 20
-        Me.Dgv_Excasso2.Size = New System.Drawing.Size(926, 707)
+        Me.Dgv_Excasso2.Size = New System.Drawing.Size(926, 698)
         Me.Dgv_Excasso2.TabIndex = 73
+        '
+        'Pan_Excasso
+        '
+        Me.Pan_Excasso.Controls.Add(Me.Label61)
+        Me.Pan_Excasso.Controls.Add(Me.Lbl_Excasso_Aantal_doelen)
+        Me.Pan_Excasso.Controls.Add(Me.LinkLabel_Wisselkoers)
+        Me.Pan_Excasso.Controls.Add(Me.Cbx_CP_Automatisch)
+        Me.Pan_Excasso.Controls.Add(Me.Tbx_Excasso_Exchange_rate)
+        Me.Pan_Excasso.Controls.Add(Me.Dtp_Excasso_Start)
+        Me.Pan_Excasso.Controls.Add(Me.Label83)
+        Me.Pan_Excasso.Controls.Add(Me.Dgv_Excasso_numbers)
+        Me.Pan_Excasso.Controls.Add(Me.Lbl_Excasso_CPid)
+        Me.Pan_Excasso.Controls.Add(Me.Btn_Excasso_Copy_to_clipboard)
+        Me.Pan_Excasso.Controls.Add(Me.Cmx_Excasso_Select)
+        Me.Pan_Excasso.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Pan_Excasso.Font = New System.Drawing.Font("Calibri", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Pan_Excasso.Location = New System.Drawing.Point(3, 3)
+        Me.Pan_Excasso.Name = "Pan_Excasso"
+        Me.Pan_Excasso.Size = New System.Drawing.Size(1657, 162)
+        Me.Pan_Excasso.TabIndex = 131
+        '
+        'Label61
+        '
+        Me.Label61.AutoSize = True
+        Me.Label61.Location = New System.Drawing.Point(72, 128)
+        Me.Label61.Name = "Label61"
+        Me.Label61.Size = New System.Drawing.Size(76, 27)
+        Me.Label61.TabIndex = 151
+        Me.Label61.Text = "1 EUR="
+        '
+        'Lbl_Excasso_Aantal_doelen
+        '
+        Me.Lbl_Excasso_Aantal_doelen.AutoSize = True
+        Me.Lbl_Excasso_Aantal_doelen.Location = New System.Drawing.Point(194, 126)
+        Me.Lbl_Excasso_Aantal_doelen.Name = "Lbl_Excasso_Aantal_doelen"
+        Me.Lbl_Excasso_Aantal_doelen.Size = New System.Drawing.Size(165, 27)
+        Me.Lbl_Excasso_Aantal_doelen.TabIndex = 150
+        Me.Lbl_Excasso_Aantal_doelen.Text = "MDL       Doelen: "
+        '
+        'LinkLabel_Wisselkoers
+        '
+        Me.LinkLabel_Wisselkoers.AutoSize = True
+        Me.LinkLabel_Wisselkoers.Location = New System.Drawing.Point(8, 125)
+        Me.LinkLabel_Wisselkoers.Name = "LinkLabel_Wisselkoers"
+        Me.LinkLabel_Wisselkoers.Size = New System.Drawing.Size(69, 27)
+        Me.LinkLabel_Wisselkoers.TabIndex = 149
+        Me.LinkLabel_Wisselkoers.TabStop = True
+        Me.LinkLabel_Wisselkoers.Text = "Koers:"
+        '
+        'Cbx_CP_Automatisch
+        '
+        Me.Cbx_CP_Automatisch.Location = New System.Drawing.Point(14, 89)
+        Me.Cbx_CP_Automatisch.Name = "Cbx_CP_Automatisch"
+        Me.Cbx_CP_Automatisch.Size = New System.Drawing.Size(375, 34)
+        Me.Cbx_CP_Automatisch.TabIndex = 148
+        Me.Cbx_CP_Automatisch.Tag = "3.0"
+        Me.Cbx_CP_Automatisch.Text = "Automatische berekening CP kosten "
+        Me.Cbx_CP_Automatisch.UseVisualStyleBackColor = True
+        '
+        'Tbx_Excasso_Exchange_rate
+        '
+        Me.Tbx_Excasso_Exchange_rate.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tbx_Excasso_Exchange_rate.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Tbx_Excasso_Exchange_rate.Location = New System.Drawing.Point(144, 123)
+        Me.Tbx_Excasso_Exchange_rate.Name = "Tbx_Excasso_Exchange_rate"
+        Me.Tbx_Excasso_Exchange_rate.Size = New System.Drawing.Size(48, 34)
+        Me.Tbx_Excasso_Exchange_rate.TabIndex = 145
+        Me.Tbx_Excasso_Exchange_rate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Dtp_Excasso_Start
+        '
+        Me.Dtp_Excasso_Start.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
+        Me.Dtp_Excasso_Start.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dtp_Excasso_Start.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.Dtp_Excasso_Start.Location = New System.Drawing.Point(196, 51)
+        Me.Dtp_Excasso_Start.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Dtp_Excasso_Start.Name = "Dtp_Excasso_Start"
+        Me.Dtp_Excasso_Start.Size = New System.Drawing.Size(192, 34)
+        Me.Dtp_Excasso_Start.TabIndex = 140
+        Me.Dtp_Excasso_Start.Value = New Date(2018, 1, 1, 0, 0, 0, 0)
+        '
+        'Label83
+        '
+        Me.Label83.AutoSize = True
+        Me.Label83.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label83.Location = New System.Drawing.Point(8, 52)
+        Me.Label83.Name = "Label83"
+        Me.Label83.Size = New System.Drawing.Size(166, 28)
+        Me.Label83.TabIndex = 141
+        Me.Label83.Text = "Datum uitkering "
+        '
+        'Dgv_Excasso_numbers
+        '
+        Me.Dgv_Excasso_numbers.AllowUserToAddRows = False
+        Me.Dgv_Excasso_numbers.AllowUserToDeleteRows = False
+        Me.Dgv_Excasso_numbers.AllowUserToResizeRows = False
+        DataGridViewCellStyle19.Font = New System.Drawing.Font("Calibri", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle19.Padding = New System.Windows.Forms.Padding(1)
+        Me.Dgv_Excasso_numbers.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle19
+        Me.Dgv_Excasso_numbers.BackgroundColor = System.Drawing.SystemColors.ButtonFace
+        Me.Dgv_Excasso_numbers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Dgv_Excasso_numbers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.Dgv_Excasso_numbers.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Doel0, Me.Doel, Me.Prefil, Me.Bron, Me.Aantal, Me.Bedrag, Me.Norm, Me.Eenheid, Me.CPTotaal, Me.Comp, Me.Euro, Me.MLD})
+        Me.Dgv_Excasso_numbers.Location = New System.Drawing.Point(417, 2)
+        Me.Dgv_Excasso_numbers.Name = "Dgv_Excasso_numbers"
+        DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle32.Font = New System.Drawing.Font("Calibri", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle32.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle32.Padding = New System.Windows.Forms.Padding(1)
+        DataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Dgv_Excasso_numbers.RowHeadersDefaultCellStyle = DataGridViewCellStyle32
+        Me.Dgv_Excasso_numbers.RowHeadersVisible = False
+        Me.Dgv_Excasso_numbers.RowHeadersWidth = 62
+        DataGridViewCellStyle33.Font = New System.Drawing.Font("Calibri", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle33.Padding = New System.Windows.Forms.Padding(2)
+        Me.Dgv_Excasso_numbers.RowsDefaultCellStyle = DataGridViewCellStyle33
+        Me.Dgv_Excasso_numbers.RowTemplate.Height = 28
+        Me.Dgv_Excasso_numbers.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.Dgv_Excasso_numbers.ShowEditingIcon = False
+        Me.Dgv_Excasso_numbers.ShowRowErrors = False
+        Me.Dgv_Excasso_numbers.Size = New System.Drawing.Size(1180, 155)
+        Me.Dgv_Excasso_numbers.TabIndex = 137
+        '
+        'Doel0
+        '
+        DataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        DataGridViewCellStyle20.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Doel0.DefaultCellStyle = DataGridViewCellStyle20
+        Me.Doel0.HeaderText = "Doel"
+        Me.Doel0.MinimumWidth = 8
+        Me.Doel0.Name = "Doel0"
+        Me.Doel0.ReadOnly = True
+        Me.Doel0.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Doel0.Width = 60
+        '
+        'Doel
+        '
+        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle21.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle21.NullValue = False
+        Me.Doel.DefaultCellStyle = DataGridViewCellStyle21
+        Me.Doel.FalseValue = "False"
+        Me.Doel.HeaderText = ""
+        Me.Doel.MinimumWidth = 8
+        Me.Doel.Name = "Doel"
+        Me.Doel.ReadOnly = True
+        Me.Doel.TrueValue = "True"
+        Me.Doel.Width = 40
+        '
+        'Prefil
+        '
+        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle22.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Prefil.DefaultCellStyle = DataGridViewCellStyle22
+        Me.Prefil.DividerWidth = 5
+        Me.Prefil.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Prefil.HeaderText = "Vooraf vullen"
+        Me.Prefil.MinimumWidth = 8
+        Me.Prefil.Name = "Prefil"
+        Me.Prefil.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Prefil.Width = 120
+        '
+        'Bron
+        '
+        DataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        DataGridViewCellStyle23.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Bron.DefaultCellStyle = DataGridViewCellStyle23
+        Me.Bron.HeaderText = "CP"
+        Me.Bron.MinimumWidth = 8
+        Me.Bron.Name = "Bron"
+        Me.Bron.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Bron.Width = 76
+        '
+        'Aantal
+        '
+        Me.Aantal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Info
+        DataGridViewCellStyle24.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle24.Format = "N0"
+        DataGridViewCellStyle24.NullValue = Nothing
+        Me.Aantal.DefaultCellStyle = DataGridViewCellStyle24
+        Me.Aantal.HeaderText = "Aantal"
+        Me.Aantal.MaxInputLength = 100
+        Me.Aantal.MinimumWidth = 8
+        Me.Aantal.Name = "Aantal"
+        Me.Aantal.ReadOnly = True
+        Me.Aantal.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Aantal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Aantal.Width = 50
+        '
+        'Bedrag
+        '
+        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Info
+        DataGridViewCellStyle25.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle25.Format = "N0"
+        Me.Bedrag.DefaultCellStyle = DataGridViewCellStyle25
+        Me.Bedrag.HeaderText = "Bedrag"
+        Me.Bedrag.MinimumWidth = 8
+        Me.Bedrag.Name = "Bedrag"
+        Me.Bedrag.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Bedrag.Width = 65
+        '
+        'Norm
+        '
+        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle26.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle26.ForeColor = System.Drawing.Color.Blue
+        DataGridViewCellStyle26.Format = "N0"
+        Me.Norm.DefaultCellStyle = DataGridViewCellStyle26
+        Me.Norm.HeaderText = "Norm"
+        Me.Norm.MinimumWidth = 8
+        Me.Norm.Name = "Norm"
+        Me.Norm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Norm.Width = 45
+        '
+        'Eenheid
+        '
+        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle27.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle27.Format = "N0"
+        Me.Eenheid.DefaultCellStyle = DataGridViewCellStyle27
+        Me.Eenheid.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Eenheid.HeaderText = ""
+        Me.Eenheid.MinimumWidth = 8
+        Me.Eenheid.Name = "Eenheid"
+        Me.Eenheid.Width = 30
+        '
+        'CPTotaal
+        '
+        Me.CPTotaal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle28.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle28.ForeColor = System.Drawing.Color.Blue
+        DataGridViewCellStyle28.Format = "N0"
+        Me.CPTotaal.DefaultCellStyle = DataGridViewCellStyle28
+        Me.CPTotaal.HeaderText = "naar CP"
+        Me.CPTotaal.MinimumWidth = 8
+        Me.CPTotaal.Name = "CPTotaal"
+        Me.CPTotaal.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.CPTotaal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.CPTotaal.Width = 70
+        '
+        'Comp
+        '
+        Me.Comp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        DataGridViewCellStyle29.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        DataGridViewCellStyle29.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Comp.DefaultCellStyle = DataGridViewCellStyle29
+        Me.Comp.HeaderText = "Overzicht"
+        Me.Comp.MinimumWidth = 8
+        Me.Comp.Name = "Comp"
+        Me.Comp.ReadOnly = True
+        Me.Comp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Comp.Width = 76
+        '
+        'Euro
+        '
+        DataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle30.BackColor = System.Drawing.SystemColors.Info
+        DataGridViewCellStyle30.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle30.Format = "N0"
+        DataGridViewCellStyle30.NullValue = Nothing
+        Me.Euro.DefaultCellStyle = DataGridViewCellStyle30
+        Me.Euro.HeaderText = "Euro"
+        Me.Euro.MinimumWidth = 8
+        Me.Euro.Name = "Euro"
+        Me.Euro.ReadOnly = True
+        Me.Euro.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Euro.Width = 65
+        '
+        'MLD
+        '
+        DataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle31.BackColor = System.Drawing.SystemColors.Info
+        DataGridViewCellStyle31.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle31.Format = "N0"
+        Me.MLD.DefaultCellStyle = DataGridViewCellStyle31
+        Me.MLD.HeaderText = "MLD"
+        Me.MLD.MinimumWidth = 8
+        Me.MLD.Name = "MLD"
+        Me.MLD.ReadOnly = True
+        Me.MLD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.MLD.Width = 75
+        '
+        'Lbl_Excasso_CPid
+        '
+        Me.Lbl_Excasso_CPid.AutoSize = True
+        Me.Lbl_Excasso_CPid.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Excasso_CPid.Location = New System.Drawing.Point(272, 51)
+        Me.Lbl_Excasso_CPid.Name = "Lbl_Excasso_CPid"
+        Me.Lbl_Excasso_CPid.Size = New System.Drawing.Size(58, 28)
+        Me.Lbl_Excasso_CPid.TabIndex = 133
+        Me.Lbl_Excasso_CPid.Text = "Cp id"
+        '
+        'Btn_Excasso_Copy_to_clipboard
+        '
+        Me.Btn_Excasso_Copy_to_clipboard.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
+        Me.Btn_Excasso_Copy_to_clipboard.Image = CType(resources.GetObject("Btn_Excasso_Copy_to_clipboard.Image"), System.Drawing.Image)
+        Me.Btn_Excasso_Copy_to_clipboard.ImageAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.Btn_Excasso_Copy_to_clipboard.Location = New System.Drawing.Point(394, 5)
+        Me.Btn_Excasso_Copy_to_clipboard.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Btn_Excasso_Copy_to_clipboard.Name = "Btn_Excasso_Copy_to_clipboard"
+        Me.Btn_Excasso_Copy_to_clipboard.Size = New System.Drawing.Size(38, 0)
+        Me.Btn_Excasso_Copy_to_clipboard.TabIndex = 132
+        Me.Btn_Excasso_Copy_to_clipboard.UseVisualStyleBackColor = True
+        '
+        'Cmx_Excasso_Select
+        '
+        Me.Cmx_Excasso_Select.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.Cmx_Excasso_Select.Font = New System.Drawing.Font("Calibri", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cmx_Excasso_Select.FormattingEnabled = True
+        Me.Cmx_Excasso_Select.Location = New System.Drawing.Point(8, 5)
+        Me.Cmx_Excasso_Select.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Cmx_Excasso_Select.Name = "Cmx_Excasso_Select"
+        Me.Cmx_Excasso_Select.Size = New System.Drawing.Size(380, 35)
+        Me.Cmx_Excasso_Select.TabIndex = 118
+        Me.Cmx_Excasso_Select.Tag = "Contactpersoon"
         '
         'Btn_Excasso_Save
         '
         Me.Btn_Excasso_Save.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Btn_Excasso_Save.Image = CType(resources.GetObject("Btn_Excasso_Save.Image"), System.Drawing.Image)
-        Me.Btn_Excasso_Save.Location = New System.Drawing.Point(667, 880)
+        Me.Btn_Excasso_Save.Location = New System.Drawing.Point(668, 878)
         Me.Btn_Excasso_Save.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Btn_Excasso_Save.Name = "Btn_Excasso_Save"
         Me.Btn_Excasso_Save.Size = New System.Drawing.Size(52, 55)
@@ -2536,7 +2884,7 @@ Partial Class SPAS
         '
         Me.Btn_Excasso_Print.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Btn_Excasso_Print.Image = CType(resources.GetObject("Btn_Excasso_Print.Image"), System.Drawing.Image)
-        Me.Btn_Excasso_Print.Location = New System.Drawing.Point(604, 880)
+        Me.Btn_Excasso_Print.Location = New System.Drawing.Point(604, 878)
         Me.Btn_Excasso_Print.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Btn_Excasso_Print.Name = "Btn_Excasso_Print"
         Me.Btn_Excasso_Print.Size = New System.Drawing.Size(52, 55)
@@ -2548,7 +2896,7 @@ Partial Class SPAS
         Me.Btn_Excasso_Cancel.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Btn_Excasso_Cancel.Enabled = False
         Me.Btn_Excasso_Cancel.Image = CType(resources.GetObject("Btn_Excasso_Cancel.Image"), System.Drawing.Image)
-        Me.Btn_Excasso_Cancel.Location = New System.Drawing.Point(481, 880)
+        Me.Btn_Excasso_Cancel.Location = New System.Drawing.Point(482, 878)
         Me.Btn_Excasso_Cancel.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Btn_Excasso_Cancel.Name = "Btn_Excasso_Cancel"
         Me.Btn_Excasso_Cancel.Size = New System.Drawing.Size(52, 55)
@@ -2559,7 +2907,7 @@ Partial Class SPAS
         '
         Me.Btn_Excasso_Delete.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Btn_Excasso_Delete.Image = CType(resources.GetObject("Btn_Excasso_Delete.Image"), System.Drawing.Image)
-        Me.Btn_Excasso_Delete.Location = New System.Drawing.Point(544, 880)
+        Me.Btn_Excasso_Delete.Location = New System.Drawing.Point(544, 878)
         Me.Btn_Excasso_Delete.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Btn_Excasso_Delete.Name = "Btn_Excasso_Delete"
         Me.Btn_Excasso_Delete.Size = New System.Drawing.Size(52, 55)
@@ -2569,248 +2917,23 @@ Partial Class SPAS
         'Incasso
         '
         Me.Incasso.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Incasso.Controls.Add(Me.Pan_Incasso)
         Me.Incasso.Controls.Add(Me.Panel3)
-        Me.Incasso.Controls.Add(Me.Dgv_Incasso)
         Me.Incasso.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Incasso.Location = New System.Drawing.Point(4, 38)
         Me.Incasso.Name = "Incasso"
         Me.Incasso.Padding = New System.Windows.Forms.Padding(3)
-        Me.Incasso.Size = New System.Drawing.Size(1614, 889)
+        Me.Incasso.Size = New System.Drawing.Size(1663, 880)
         Me.Incasso.TabIndex = 2
         Me.Incasso.Text = "Incasso   "
         '
-        'Panel3
+        'Pan_Incasso
         '
-        Me.Panel3.Controls.Add(Me.Panel10)
-        Me.Panel3.Controls.Add(Me.Panel5)
-        Me.Panel3.Controls.Add(Me.Dtp_Incasso_end)
-        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel3.Location = New System.Drawing.Point(3, 3)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(441, 883)
-        Me.Panel3.TabIndex = 100
-        '
-        'Panel10
-        '
-        Me.Panel10.Controls.Add(Me.Dgv_incasso_totals)
-        Me.Panel10.Controls.Add(Me.Label79)
-        Me.Panel10.Controls.Add(Me.Lbl_Incasso_Error)
-        Me.Panel10.Location = New System.Drawing.Point(4, 346)
-        Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(417, 445)
-        Me.Panel10.TabIndex = 103
-        '
-        'Dgv_incasso_totals
-        '
-        Me.Dgv_incasso_totals.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Dgv_incasso_totals.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.Dgv_incasso_totals.Location = New System.Drawing.Point(21, 32)
-        Me.Dgv_incasso_totals.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Dgv_incasso_totals.Name = "Dgv_incasso_totals"
-        Me.Dgv_incasso_totals.ReadOnly = True
-        Me.Dgv_incasso_totals.RowHeadersVisible = False
-        Me.Dgv_incasso_totals.RowHeadersWidth = 62
-        Me.Dgv_incasso_totals.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.Dgv_incasso_totals.ShowEditingIcon = False
-        Me.Dgv_incasso_totals.Size = New System.Drawing.Size(363, 178)
-        Me.Dgv_incasso_totals.TabIndex = 78
-        '
-        'Label79
-        '
-        Me.Label79.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label79.AutoSize = True
-        Me.Label79.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label79.Location = New System.Drawing.Point(16, 0)
-        Me.Label79.Name = "Label79"
-        Me.Label79.Size = New System.Drawing.Size(80, 28)
-        Me.Label79.TabIndex = 71
-        Me.Label79.Text = "Totalen"
-        '
-        'Lbl_Incasso_Error
-        '
-        Me.Lbl_Incasso_Error.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Lbl_Incasso_Error.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.Lbl_Incasso_Error.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Incasso_Error.ForeColor = System.Drawing.Color.Firebrick
-        Me.Lbl_Incasso_Error.Location = New System.Drawing.Point(21, 260)
-        Me.Lbl_Incasso_Error.Name = "Lbl_Incasso_Error"
-        Me.Lbl_Incasso_Error.Size = New System.Drawing.Size(392, 166)
-        Me.Lbl_Incasso_Error.TabIndex = 77
-        Me.Lbl_Incasso_Error.Text = "Error"
-        '
-        'Panel5
-        '
-        Me.Panel5.Controls.Add(Me.Rbn_Incasso_Verschillen)
-        Me.Panel5.Controls.Add(Me.Dtp_Incasso_start)
-        Me.Panel5.Controls.Add(Me.Cmx_Incasso_Bankaccount)
-        Me.Panel5.Controls.Add(Me.Label9)
-        Me.Panel5.Controls.Add(Me.Rbn_Incasso_SEPA)
-        Me.Panel5.Controls.Add(Me.Label145)
-        Me.Panel5.Controls.Add(Me.Label94)
-        Me.Panel5.Controls.Add(Me.Rbn_Incasso_journal)
-        Me.Panel5.Controls.Add(Me.Label71)
-        Me.Panel5.Controls.Add(Me.Lbl_Incasso_Status)
-        Me.Panel5.Controls.Add(Me.Label82)
-        Me.Panel5.Controls.Add(Me.Lbl_Incasso_job_name)
-        Me.Panel5.Location = New System.Drawing.Point(4, 5)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(423, 320)
-        Me.Panel5.TabIndex = 101
-        '
-        'Rbn_Incasso_Verschillen
-        '
-        Me.Rbn_Incasso_Verschillen.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Rbn_Incasso_Verschillen.AutoSize = True
-        Me.Rbn_Incasso_Verschillen.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Rbn_Incasso_Verschillen.Location = New System.Drawing.Point(144, 278)
-        Me.Rbn_Incasso_Verschillen.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Rbn_Incasso_Verschillen.Name = "Rbn_Incasso_Verschillen"
-        Me.Rbn_Incasso_Verschillen.Size = New System.Drawing.Size(143, 29)
-        Me.Rbn_Incasso_Verschillen.TabIndex = 103
-        Me.Rbn_Incasso_Verschillen.Text = "Verschillen"
-        Me.Rbn_Incasso_Verschillen.UseVisualStyleBackColor = False
-        '
-        'Dtp_Incasso_start
-        '
-        Me.Dtp_Incasso_start.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Dtp_Incasso_start.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dtp_Incasso_start.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
-        Me.Dtp_Incasso_start.Font = New System.Drawing.Font("Calibri", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dtp_Incasso_start.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_Incasso_start.Location = New System.Drawing.Point(132, 14)
-        Me.Dtp_Incasso_start.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Dtp_Incasso_start.MinDate = New Date(2020, 1, 1, 0, 0, 0, 0)
-        Me.Dtp_Incasso_start.Name = "Dtp_Incasso_start"
-        Me.Dtp_Incasso_start.ShowUpDown = True
-        Me.Dtp_Incasso_start.Size = New System.Drawing.Size(278, 46)
-        Me.Dtp_Incasso_start.TabIndex = 65
-        Me.Dtp_Incasso_start.Value = New Date(2020, 1, 1, 0, 0, 0, 0)
-        '
-        'Cmx_Incasso_Bankaccount
-        '
-        Me.Cmx_Incasso_Bankaccount.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Cmx_Incasso_Bankaccount.FormattingEnabled = True
-        Me.Cmx_Incasso_Bankaccount.Location = New System.Drawing.Point(132, 72)
-        Me.Cmx_Incasso_Bankaccount.Name = "Cmx_Incasso_Bankaccount"
-        Me.Cmx_Incasso_Bankaccount.Size = New System.Drawing.Size(278, 33)
-        Me.Cmx_Incasso_Bankaccount.TabIndex = 79
-        '
-        'Label9
-        '
-        Me.Label9.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(16, 14)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(78, 28)
-        Me.Label9.TabIndex = 66
-        Me.Label9.Text = "Maand"
-        '
-        'Rbn_Incasso_SEPA
-        '
-        Me.Rbn_Incasso_SEPA.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Rbn_Incasso_SEPA.AutoSize = True
-        Me.Rbn_Incasso_SEPA.Checked = True
-        Me.Rbn_Incasso_SEPA.Location = New System.Drawing.Point(144, 211)
-        Me.Rbn_Incasso_SEPA.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Rbn_Incasso_SEPA.Name = "Rbn_Incasso_SEPA"
-        Me.Rbn_Incasso_SEPA.Size = New System.Drawing.Size(93, 29)
-        Me.Rbn_Incasso_SEPA.TabIndex = 73
-        Me.Rbn_Incasso_SEPA.TabStop = True
-        Me.Rbn_Incasso_SEPA.Text = "SEPA"
-        Me.Rbn_Incasso_SEPA.UseVisualStyleBackColor = True
-        '
-        'Label145
-        '
-        Me.Label145.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label145.AutoSize = True
-        Me.Label145.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label145.Location = New System.Drawing.Point(16, 72)
-        Me.Label145.Name = "Label145"
-        Me.Label145.Size = New System.Drawing.Size(95, 28)
-        Me.Label145.TabIndex = 78
-        Me.Label145.Text = "Rekening"
-        '
-        'Label94
-        '
-        Me.Label94.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label94.AutoSize = True
-        Me.Label94.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label94.Location = New System.Drawing.Point(20, 118)
-        Me.Label94.Name = "Label94"
-        Me.Label94.Size = New System.Drawing.Size(100, 28)
-        Me.Label94.TabIndex = 68
-        Me.Label94.Text = "Job naam"
-        '
-        'Rbn_Incasso_journal
-        '
-        Me.Rbn_Incasso_journal.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Rbn_Incasso_journal.AutoSize = True
-        Me.Rbn_Incasso_journal.Location = New System.Drawing.Point(144, 245)
-        Me.Rbn_Incasso_journal.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Rbn_Incasso_journal.Name = "Rbn_Incasso_journal"
-        Me.Rbn_Incasso_journal.Size = New System.Drawing.Size(185, 29)
-        Me.Rbn_Incasso_journal.TabIndex = 73
-        Me.Rbn_Incasso_journal.Text = "Journaalposten"
-        Me.Rbn_Incasso_journal.UseVisualStyleBackColor = True
-        '
-        'Label71
-        '
-        Me.Label71.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label71.AutoSize = True
-        Me.Label71.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label71.Location = New System.Drawing.Point(20, 162)
-        Me.Label71.Name = "Label71"
-        Me.Label71.Size = New System.Drawing.Size(71, 28)
-        Me.Label71.TabIndex = 68
-        Me.Label71.Text = "Status"
-        '
-        'Lbl_Incasso_Status
-        '
-        Me.Lbl_Incasso_Status.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Lbl_Incasso_Status.AutoSize = True
-        Me.Lbl_Incasso_Status.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Incasso_Status.Location = New System.Drawing.Point(140, 162)
-        Me.Lbl_Incasso_Status.Name = "Lbl_Incasso_Status"
-        Me.Lbl_Incasso_Status.Size = New System.Drawing.Size(70, 27)
-        Me.Lbl_Incasso_Status.TabIndex = 69
-        Me.Lbl_Incasso_Status.Text = "Status"
-        '
-        'Label82
-        '
-        Me.Label82.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label82.AutoSize = True
-        Me.Label82.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label82.Location = New System.Drawing.Point(20, 212)
-        Me.Label82.Name = "Label82"
-        Me.Label82.Size = New System.Drawing.Size(57, 28)
-        Me.Label82.TabIndex = 72
-        Me.Label82.Text = "Toon"
-        '
-        'Lbl_Incasso_job_name
-        '
-        Me.Lbl_Incasso_job_name.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Lbl_Incasso_job_name.AutoSize = True
-        Me.Lbl_Incasso_job_name.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Incasso_job_name.Location = New System.Drawing.Point(140, 118)
-        Me.Lbl_Incasso_job_name.Name = "Lbl_Incasso_job_name"
-        Me.Lbl_Incasso_job_name.Size = New System.Drawing.Size(100, 28)
-        Me.Lbl_Incasso_job_name.TabIndex = 69
-        Me.Lbl_Incasso_job_name.Text = "Job naam"
-        '
-        'Dtp_Incasso_end
-        '
-        Me.Dtp_Incasso_end.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Dtp_Incasso_end.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
-        Me.Dtp_Incasso_end.Enabled = False
-        Me.Dtp_Incasso_end.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_Incasso_end.Location = New System.Drawing.Point(9, 818)
-        Me.Dtp_Incasso_end.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Dtp_Incasso_end.Name = "Dtp_Incasso_end"
-        Me.Dtp_Incasso_end.Size = New System.Drawing.Size(138, 30)
-        Me.Dtp_Incasso_end.TabIndex = 67
-        Me.Dtp_Incasso_end.Value = New Date(2999, 12, 31, 0, 0, 0, 0)
-        Me.Dtp_Incasso_end.Visible = False
+        Me.Pan_Incasso.Controls.Add(Me.Dgv_Incasso)
+        Me.Pan_Incasso.Location = New System.Drawing.Point(450, 8)
+        Me.Pan_Incasso.Name = "Pan_Incasso"
+        Me.Pan_Incasso.Size = New System.Drawing.Size(1161, 862)
+        Me.Pan_Incasso.TabIndex = 101
         '
         'Dgv_Incasso
         '
@@ -2823,6 +2946,7 @@ Partial Class SPAS
         Me.Dgv_Incasso.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Dgv_Incasso.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         Me.Dgv_Incasso.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle35.BackColor = System.Drawing.SystemColors.Window
@@ -2833,7 +2957,7 @@ Partial Class SPAS
         DataGridViewCellStyle35.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Dgv_Incasso.DefaultCellStyle = DataGridViewCellStyle35
-        Me.Dgv_Incasso.Location = New System.Drawing.Point(450, 8)
+        Me.Dgv_Incasso.Location = New System.Drawing.Point(3, 3)
         Me.Dgv_Incasso.MultiSelect = False
         Me.Dgv_Incasso.Name = "Dgv_Incasso"
         Me.Dgv_Incasso.ReadOnly = True
@@ -2843,8 +2967,327 @@ Partial Class SPAS
         Me.Dgv_Incasso.RowTemplate.Height = 20
         Me.Dgv_Incasso.RowTemplate.ReadOnly = True
         Me.Dgv_Incasso.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.Dgv_Incasso.Size = New System.Drawing.Size(1108, 838)
+        Me.Dgv_Incasso.Size = New System.Drawing.Size(1154, 854)
         Me.Dgv_Incasso.TabIndex = 4
+        '
+        'Panel3
+        '
+        Me.Panel3.Controls.Add(Me.Gbx_Incasso_Controle)
+        Me.Panel3.Controls.Add(Me.GroupBox1)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel3.Location = New System.Drawing.Point(3, 3)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(441, 874)
+        Me.Panel3.TabIndex = 100
+        '
+        'Gbx_Incasso_Controle
+        '
+        Me.Gbx_Incasso_Controle.Controls.Add(Me.Btn_Incasso_Analyseer)
+        Me.Gbx_Incasso_Controle.Controls.Add(Me.Dgv_Incasso_Analyse)
+        Me.Gbx_Incasso_Controle.Controls.Add(Me.Lbl_Incasso_Error)
+        Me.Gbx_Incasso_Controle.Controls.Add(Me.Btn_Incasso_Open_XML)
+        Me.Gbx_Incasso_Controle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Gbx_Incasso_Controle.Location = New System.Drawing.Point(4, 485)
+        Me.Gbx_Incasso_Controle.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Gbx_Incasso_Controle.Name = "Gbx_Incasso_Controle"
+        Me.Gbx_Incasso_Controle.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Gbx_Incasso_Controle.Size = New System.Drawing.Size(428, 375)
+        Me.Gbx_Incasso_Controle.TabIndex = 108
+        Me.Gbx_Incasso_Controle.TabStop = False
+        Me.Gbx_Incasso_Controle.Text = "Controleren"
+        '
+        'Btn_Incasso_Analyseer
+        '
+        Me.Btn_Incasso_Analyseer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Btn_Incasso_Analyseer.Location = New System.Drawing.Point(129, 246)
+        Me.Btn_Incasso_Analyseer.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Btn_Incasso_Analyseer.Name = "Btn_Incasso_Analyseer"
+        Me.Btn_Incasso_Analyseer.Size = New System.Drawing.Size(290, 58)
+        Me.Btn_Incasso_Analyseer.TabIndex = 109
+        Me.Btn_Incasso_Analyseer.Text = "Toon details verschillen"
+        Me.Btn_Incasso_Analyseer.UseVisualStyleBackColor = True
+        '
+        'Dgv_Incasso_Analyse
+        '
+        Me.Dgv_Incasso_Analyse.BackgroundColor = System.Drawing.SystemColors.ButtonFace
+        Me.Dgv_Incasso_Analyse.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        DataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle36.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle36.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle36.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle36.SelectionBackColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle36.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Dgv_Incasso_Analyse.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle36
+        Me.Dgv_Incasso_Analyse.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle37.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle37.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle37.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle37.SelectionBackColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle37.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle37.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Dgv_Incasso_Analyse.DefaultCellStyle = DataGridViewCellStyle37
+        Me.Dgv_Incasso_Analyse.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.Dgv_Incasso_Analyse.Location = New System.Drawing.Point(126, 34)
+        Me.Dgv_Incasso_Analyse.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Dgv_Incasso_Analyse.Name = "Dgv_Incasso_Analyse"
+        Me.Dgv_Incasso_Analyse.ReadOnly = True
+        DataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle38.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle38.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle38.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle38.SelectionBackColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle38.SelectionForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Dgv_Incasso_Analyse.RowHeadersDefaultCellStyle = DataGridViewCellStyle38
+        Me.Dgv_Incasso_Analyse.RowHeadersVisible = False
+        Me.Dgv_Incasso_Analyse.RowHeadersWidth = 62
+        Me.Dgv_Incasso_Analyse.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.Dgv_Incasso_Analyse.ShowEditingIcon = False
+        Me.Dgv_Incasso_Analyse.Size = New System.Drawing.Size(294, 208)
+        Me.Dgv_Incasso_Analyse.TabIndex = 110
+        '
+        'Lbl_Incasso_Error
+        '
+        Me.Lbl_Incasso_Error.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Lbl_Incasso_Error.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Lbl_Incasso_Error.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Incasso_Error.ForeColor = System.Drawing.Color.Black
+        Me.Lbl_Incasso_Error.Location = New System.Drawing.Point(8, 34)
+        Me.Lbl_Incasso_Error.Name = "Lbl_Incasso_Error"
+        Me.Lbl_Incasso_Error.Size = New System.Drawing.Size(104, 49)
+        Me.Lbl_Incasso_Error.TabIndex = 77
+        Me.Lbl_Incasso_Error.Text = "Controles"
+        '
+        'Btn_Incasso_Open_XML
+        '
+        Me.Btn_Incasso_Open_XML.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Btn_Incasso_Open_XML.Location = New System.Drawing.Point(129, 314)
+        Me.Btn_Incasso_Open_XML.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Btn_Incasso_Open_XML.Name = "Btn_Incasso_Open_XML"
+        Me.Btn_Incasso_Open_XML.Size = New System.Drawing.Size(290, 52)
+        Me.Btn_Incasso_Open_XML.TabIndex = 105
+        Me.Btn_Incasso_Open_XML.Text = "Open en bekijk XML-bestand"
+        Me.Btn_Incasso_Open_XML.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.MonthCalendar1)
+        Me.GroupBox1.Controls.Add(Me.Pan_Incasso_views)
+        Me.GroupBox1.Controls.Add(Me.Cmx_Incasso_Bankaccount)
+        Me.GroupBox1.Controls.Add(Me.Label86)
+        Me.GroupBox1.Controls.Add(Me.Label79)
+        Me.GroupBox1.Controls.Add(Me.Dgv_incasso_totals)
+        Me.GroupBox1.Controls.Add(Me.Lbl_Incasso_job_name)
+        Me.GroupBox1.Controls.Add(Me.Lbl_Incasso_Status)
+        Me.GroupBox1.Controls.Add(Me.Cmx_Incasso_IncassoForm)
+        Me.GroupBox1.Controls.Add(Me.Dtp_Incasso_start)
+        Me.GroupBox1.Controls.Add(Me.Label94)
+        Me.GroupBox1.Controls.Add(Me.Label145)
+        Me.GroupBox1.Controls.Add(Me.Label9)
+        Me.GroupBox1.Controls.Add(Me.Label82)
+        Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(9, 8)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.GroupBox1.Size = New System.Drawing.Size(428, 468)
+        Me.GroupBox1.TabIndex = 5
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Aanmaken en inzien"
+        '
+        'MonthCalendar1
+        '
+        Me.MonthCalendar1.Location = New System.Drawing.Point(118, 123)
+        Me.MonthCalendar1.Margin = New System.Windows.Forms.Padding(14)
+        Me.MonthCalendar1.Name = "MonthCalendar1"
+        Me.MonthCalendar1.ShowWeekNumbers = True
+        Me.MonthCalendar1.TabIndex = 81
+        Me.MonthCalendar1.Visible = False
+        '
+        'Pan_Incasso_views
+        '
+        Me.Pan_Incasso_views.Controls.Add(Me.Rbn_Incasso_SEPA)
+        Me.Pan_Incasso_views.Controls.Add(Me.Rbn_Incasso_journal)
+        Me.Pan_Incasso_views.Enabled = False
+        Me.Pan_Incasso_views.Location = New System.Drawing.Point(120, 217)
+        Me.Pan_Incasso_views.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Pan_Incasso_views.Name = "Pan_Incasso_views"
+        Me.Pan_Incasso_views.Size = New System.Drawing.Size(308, 52)
+        Me.Pan_Incasso_views.TabIndex = 109
+        '
+        'Rbn_Incasso_SEPA
+        '
+        Me.Rbn_Incasso_SEPA.AutoSize = True
+        Me.Rbn_Incasso_SEPA.Checked = True
+        Me.Rbn_Incasso_SEPA.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Rbn_Incasso_SEPA.Location = New System.Drawing.Point(4, 9)
+        Me.Rbn_Incasso_SEPA.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Rbn_Incasso_SEPA.Name = "Rbn_Incasso_SEPA"
+        Me.Rbn_Incasso_SEPA.Size = New System.Drawing.Size(91, 29)
+        Me.Rbn_Incasso_SEPA.TabIndex = 105
+        Me.Rbn_Incasso_SEPA.TabStop = True
+        Me.Rbn_Incasso_SEPA.Text = "SEPA"
+        Me.Rbn_Incasso_SEPA.UseVisualStyleBackColor = True
+        '
+        'Rbn_Incasso_journal
+        '
+        Me.Rbn_Incasso_journal.AutoSize = True
+        Me.Rbn_Incasso_journal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Rbn_Incasso_journal.Location = New System.Drawing.Point(105, 9)
+        Me.Rbn_Incasso_journal.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Rbn_Incasso_journal.Name = "Rbn_Incasso_journal"
+        Me.Rbn_Incasso_journal.Size = New System.Drawing.Size(172, 29)
+        Me.Rbn_Incasso_journal.TabIndex = 106
+        Me.Rbn_Incasso_journal.Text = "Journaalposten"
+        Me.Rbn_Incasso_journal.UseVisualStyleBackColor = True
+        '
+        'Cmx_Incasso_Bankaccount
+        '
+        Me.Cmx_Incasso_Bankaccount.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cmx_Incasso_Bankaccount.FormattingEnabled = True
+        Me.Cmx_Incasso_Bankaccount.Location = New System.Drawing.Point(120, 32)
+        Me.Cmx_Incasso_Bankaccount.Name = "Cmx_Incasso_Bankaccount"
+        Me.Cmx_Incasso_Bankaccount.Size = New System.Drawing.Size(294, 33)
+        Me.Cmx_Incasso_Bankaccount.TabIndex = 79
+        '
+        'Label86
+        '
+        Me.Label86.AutoSize = True
+        Me.Label86.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label86.Location = New System.Drawing.Point(10, 86)
+        Me.Label86.Name = "Label86"
+        Me.Label86.Size = New System.Drawing.Size(81, 28)
+        Me.Label86.TabIndex = 108
+        Me.Label86.Text = "Incasso"
+        '
+        'Label79
+        '
+        Me.Label79.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.Label79.AutoSize = True
+        Me.Label79.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label79.Location = New System.Drawing.Point(10, 278)
+        Me.Label79.Name = "Label79"
+        Me.Label79.Size = New System.Drawing.Size(80, 28)
+        Me.Label79.TabIndex = 71
+        Me.Label79.Text = "Totalen"
+        '
+        'Dgv_incasso_totals
+        '
+        Me.Dgv_incasso_totals.AllowUserToAddRows = False
+        Me.Dgv_incasso_totals.BackgroundColor = System.Drawing.SystemColors.ButtonFace
+        Me.Dgv_incasso_totals.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Dgv_incasso_totals.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle39.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle39.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle39.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle39.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle39.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle39.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Dgv_incasso_totals.DefaultCellStyle = DataGridViewCellStyle39
+        Me.Dgv_incasso_totals.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.Dgv_incasso_totals.Location = New System.Drawing.Point(118, 278)
+        Me.Dgv_incasso_totals.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Dgv_incasso_totals.Name = "Dgv_incasso_totals"
+        Me.Dgv_incasso_totals.ReadOnly = True
+        Me.Dgv_incasso_totals.RowHeadersVisible = False
+        Me.Dgv_incasso_totals.RowHeadersWidth = 62
+        DataGridViewCellStyle40.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_incasso_totals.RowsDefaultCellStyle = DataGridViewCellStyle40
+        Me.Dgv_incasso_totals.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.Dgv_incasso_totals.ShowEditingIcon = False
+        Me.Dgv_incasso_totals.Size = New System.Drawing.Size(297, 175)
+        Me.Dgv_incasso_totals.TabIndex = 78
+        '
+        'Lbl_Incasso_job_name
+        '
+        Me.Lbl_Incasso_job_name.AutoSize = True
+        Me.Lbl_Incasso_job_name.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Incasso_job_name.Location = New System.Drawing.Point(116, 132)
+        Me.Lbl_Incasso_job_name.Name = "Lbl_Incasso_job_name"
+        Me.Lbl_Incasso_job_name.Size = New System.Drawing.Size(100, 28)
+        Me.Lbl_Incasso_job_name.TabIndex = 69
+        Me.Lbl_Incasso_job_name.Text = "Job naam"
+        '
+        'Lbl_Incasso_Status
+        '
+        Me.Lbl_Incasso_Status.AutoSize = True
+        Me.Lbl_Incasso_Status.BackColor = System.Drawing.Color.DodgerBlue
+        Me.Lbl_Incasso_Status.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Lbl_Incasso_Status.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Lbl_Incasso_Status.Location = New System.Drawing.Point(120, 177)
+        Me.Lbl_Incasso_Status.Name = "Lbl_Incasso_Status"
+        Me.Lbl_Incasso_Status.Size = New System.Drawing.Size(17, 27)
+        Me.Lbl_Incasso_Status.TabIndex = 69
+        Me.Lbl_Incasso_Status.Text = " "
+        '
+        'Cmx_Incasso_IncassoForm
+        '
+        Me.Cmx_Incasso_IncassoForm.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Cmx_Incasso_IncassoForm.FormattingEnabled = True
+        Me.Cmx_Incasso_IncassoForm.Location = New System.Drawing.Point(120, 77)
+        Me.Cmx_Incasso_IncassoForm.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Cmx_Incasso_IncassoForm.Name = "Cmx_Incasso_IncassoForm"
+        Me.Cmx_Incasso_IncassoForm.Size = New System.Drawing.Size(294, 33)
+        Me.Cmx_Incasso_IncassoForm.TabIndex = 80
+        '
+        'Dtp_Incasso_start
+        '
+        Me.Dtp_Incasso_start.CalendarFont = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dtp_Incasso_start.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
+        Me.Dtp_Incasso_start.Enabled = False
+        Me.Dtp_Incasso_start.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dtp_Incasso_start.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.Dtp_Incasso_start.Location = New System.Drawing.Point(255, 123)
+        Me.Dtp_Incasso_start.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Dtp_Incasso_start.MinDate = New Date(2020, 1, 1, 0, 0, 0, 0)
+        Me.Dtp_Incasso_start.Name = "Dtp_Incasso_start"
+        Me.Dtp_Incasso_start.Size = New System.Drawing.Size(157, 37)
+        Me.Dtp_Incasso_start.TabIndex = 65
+        Me.Dtp_Incasso_start.Value = New Date(2020, 1, 1, 0, 0, 0, 0)
+        Me.Dtp_Incasso_start.Visible = False
+        '
+        'Label94
+        '
+        Me.Label94.AutoSize = True
+        Me.Label94.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label94.Location = New System.Drawing.Point(10, 132)
+        Me.Label94.Name = "Label94"
+        Me.Label94.Size = New System.Drawing.Size(100, 28)
+        Me.Label94.TabIndex = 68
+        Me.Label94.Text = "Job naam"
+        '
+        'Label145
+        '
+        Me.Label145.AutoSize = True
+        Me.Label145.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label145.Location = New System.Drawing.Point(10, 42)
+        Me.Label145.Name = "Label145"
+        Me.Label145.Size = New System.Drawing.Size(95, 28)
+        Me.Label145.TabIndex = 78
+        Me.Label145.Text = "Rekening"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(10, 177)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(71, 28)
+        Me.Label9.TabIndex = 66
+        Me.Label9.Text = "Status"
+        '
+        'Label82
+        '
+        Me.Label82.AutoSize = True
+        Me.Label82.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label82.Location = New System.Drawing.Point(10, 226)
+        Me.Label82.Name = "Label82"
+        Me.Label82.Size = New System.Drawing.Size(57, 28)
+        Me.Label82.TabIndex = 104
+        Me.Label82.Text = "Toon"
         '
         'Tab_Bank
         '
@@ -2855,7 +3298,7 @@ Partial Class SPAS
         Me.Tab_Bank.Location = New System.Drawing.Point(4, 38)
         Me.Tab_Bank.Name = "Tab_Bank"
         Me.Tab_Bank.Padding = New System.Windows.Forms.Padding(3)
-        Me.Tab_Bank.Size = New System.Drawing.Size(1614, 889)
+        Me.Tab_Bank.Size = New System.Drawing.Size(1663, 880)
         Me.Tab_Bank.TabIndex = 1
         Me.Tab_Bank.Text = "Bank   "
         '
@@ -2867,30 +3310,30 @@ Partial Class SPAS
         Me.Pan_Bank2.Controls.Add(Me.Dgv_Bank)
         Me.Pan_Bank2.Location = New System.Drawing.Point(453, 3)
         Me.Pan_Bank2.Name = "Pan_Bank2"
-        Me.Pan_Bank2.Size = New System.Drawing.Size(1159, 886)
+        Me.Pan_Bank2.Size = New System.Drawing.Size(1160, 886)
         Me.Pan_Bank2.TabIndex = 58
         '
         'Dgv_Bank
         '
         Me.Dgv_Bank.AllowUserToAddRows = False
         Me.Dgv_Bank.AllowUserToDeleteRows = False
-        DataGridViewCellStyle36.BackColor = System.Drawing.Color.White
-        DataGridViewCellStyle36.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle36.NullValue = " -"
-        Me.Dgv_Bank.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle36
+        DataGridViewCellStyle41.BackColor = System.Drawing.Color.White
+        DataGridViewCellStyle41.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle41.NullValue = " -"
+        Me.Dgv_Bank.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle41
         Me.Dgv_Bank.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Dgv_Bank.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle37.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle37.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle37.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle37.NullValue = "-"
-        DataGridViewCellStyle37.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle37.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle37.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Dgv_Bank.DefaultCellStyle = DataGridViewCellStyle37
+        DataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle42.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle42.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle42.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle42.NullValue = "-"
+        DataGridViewCellStyle42.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle42.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.Dgv_Bank.DefaultCellStyle = DataGridViewCellStyle42
         Me.Dgv_Bank.Location = New System.Drawing.Point(3, 3)
         Me.Dgv_Bank.MultiSelect = False
         Me.Dgv_Bank.Name = "Dgv_Bank"
@@ -2901,13 +3344,14 @@ Partial Class SPAS
         Me.Dgv_Bank.RowTemplate.Height = 20
         Me.Dgv_Bank.RowTemplate.ReadOnly = True
         Me.Dgv_Bank.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.Dgv_Bank.Size = New System.Drawing.Size(1159, 875)
+        Me.Dgv_Bank.Size = New System.Drawing.Size(1160, 875)
         Me.Dgv_Bank.TabIndex = 3
         '
         'Pan_Bank
         '
         Me.Pan_Bank.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Pan_Bank.Controls.Add(Me.Button6)
         Me.Pan_Bank.Controls.Add(Me.Panel6)
         Me.Pan_Bank.Controls.Add(Me.Chbx_Bank_ExtraInfo_achter)
         Me.Pan_Bank.Controls.Add(Me.Chbx_Bank_ExtraInfo_voor)
@@ -2929,8 +3373,19 @@ Partial Class SPAS
         Me.Pan_Bank.Controls.Add(Me.Pan_Bank_jtype)
         Me.Pan_Bank.Location = New System.Drawing.Point(3, 0)
         Me.Pan_Bank.Name = "Pan_Bank"
-        Me.Pan_Bank.Size = New System.Drawing.Size(449, 883)
+        Me.Pan_Bank.Size = New System.Drawing.Size(448, 883)
         Me.Pan_Bank.TabIndex = 47
+        '
+        'Button6
+        '
+        Me.Button6.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Button6.Image = CType(resources.GetObject("Button6.Image"), System.Drawing.Image)
+        Me.Button6.Location = New System.Drawing.Point(340, 472)
+        Me.Button6.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(48, 38)
+        Me.Button6.TabIndex = 61
+        Me.Button6.UseVisualStyleBackColor = True
         '
         'Panel6
         '
@@ -2952,25 +3407,25 @@ Partial Class SPAS
         'Lbl_Bank_Code
         '
         Me.Lbl_Bank_Code.BackColor = System.Drawing.SystemColors.Info
-        Me.Lbl_Bank_Code.Location = New System.Drawing.Point(161, 84)
+        Me.Lbl_Bank_Code.Location = New System.Drawing.Point(160, 85)
         Me.Lbl_Bank_Code.Name = "Lbl_Bank_Code"
-        Me.Lbl_Bank_Code.Size = New System.Drawing.Size(55, 30)
+        Me.Lbl_Bank_Code.Size = New System.Drawing.Size(56, 31)
         Me.Lbl_Bank_Code.TabIndex = 76
         '
         'Lbl_Bank_Afschrift
         '
         Me.Lbl_Bank_Afschrift.BackColor = System.Drawing.SystemColors.Info
-        Me.Lbl_Bank_Afschrift.Location = New System.Drawing.Point(225, 84)
+        Me.Lbl_Bank_Afschrift.Location = New System.Drawing.Point(225, 85)
         Me.Lbl_Bank_Afschrift.Name = "Lbl_Bank_Afschrift"
-        Me.Lbl_Bank_Afschrift.Size = New System.Drawing.Size(92, 30)
+        Me.Lbl_Bank_Afschrift.Size = New System.Drawing.Size(92, 31)
         Me.Lbl_Bank_Afschrift.TabIndex = 75
         '
         'Lbl_Transactie_totaal
         '
         Me.Lbl_Transactie_totaal.BackColor = System.Drawing.SystemColors.Info
-        Me.Lbl_Transactie_totaal.Location = New System.Drawing.Point(327, 84)
+        Me.Lbl_Transactie_totaal.Location = New System.Drawing.Point(327, 85)
         Me.Lbl_Transactie_totaal.Name = "Lbl_Transactie_totaal"
-        Me.Lbl_Transactie_totaal.Size = New System.Drawing.Size(108, 30)
+        Me.Lbl_Transactie_totaal.Size = New System.Drawing.Size(108, 31)
         Me.Lbl_Transactie_totaal.TabIndex = 74
         '
         'Lbl_Bank_Relation_account
@@ -2978,15 +3433,15 @@ Partial Class SPAS
         Me.Lbl_Bank_Relation_account.BackColor = System.Drawing.SystemColors.Info
         Me.Lbl_Bank_Relation_account.Location = New System.Drawing.Point(164, 45)
         Me.Lbl_Bank_Relation_account.Name = "Lbl_Bank_Relation_account"
-        Me.Lbl_Bank_Relation_account.Size = New System.Drawing.Size(271, 30)
+        Me.Lbl_Bank_Relation_account.Size = New System.Drawing.Size(272, 31)
         Me.Lbl_Bank_Relation_account.TabIndex = 70
         '
         'Lbl_Bank_Relation
         '
         Me.Lbl_Bank_Relation.BackColor = System.Drawing.SystemColors.Info
-        Me.Lbl_Bank_Relation.Location = New System.Drawing.Point(164, 7)
+        Me.Lbl_Bank_Relation.Location = New System.Drawing.Point(164, 8)
         Me.Lbl_Bank_Relation.Name = "Lbl_Bank_Relation"
-        Me.Lbl_Bank_Relation.Size = New System.Drawing.Size(270, 30)
+        Me.Lbl_Bank_Relation.Size = New System.Drawing.Size(270, 31)
         Me.Lbl_Bank_Relation.TabIndex = 68
         '
         'Label8
@@ -3023,7 +3478,7 @@ Partial Class SPAS
         '
         Me.Label72.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label72.AutoSize = True
-        Me.Label72.Location = New System.Drawing.Point(-6, 47)
+        Me.Label72.Location = New System.Drawing.Point(-6, 48)
         Me.Label72.Name = "Label72"
         Me.Label72.Size = New System.Drawing.Size(156, 25)
         Me.Label72.TabIndex = 61
@@ -3033,7 +3488,7 @@ Partial Class SPAS
         '
         Me.Chbx_Bank_ExtraInfo_achter.AutoSize = True
         Me.Chbx_Bank_ExtraInfo_achter.Enabled = False
-        Me.Chbx_Bank_ExtraInfo_achter.Location = New System.Drawing.Point(225, 336)
+        Me.Chbx_Bank_ExtraInfo_achter.Location = New System.Drawing.Point(225, 335)
         Me.Chbx_Bank_ExtraInfo_achter.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Chbx_Bank_ExtraInfo_achter.Name = "Chbx_Bank_ExtraInfo_achter"
         Me.Chbx_Bank_ExtraInfo_achter.Size = New System.Drawing.Size(223, 29)
@@ -3045,7 +3500,7 @@ Partial Class SPAS
         '
         Me.Chbx_Bank_ExtraInfo_voor.AutoSize = True
         Me.Chbx_Bank_ExtraInfo_voor.Checked = True
-        Me.Chbx_Bank_ExtraInfo_voor.Location = New System.Drawing.Point(137, 336)
+        Me.Chbx_Bank_ExtraInfo_voor.Location = New System.Drawing.Point(136, 335)
         Me.Chbx_Bank_ExtraInfo_voor.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Chbx_Bank_ExtraInfo_voor.Name = "Chbx_Bank_ExtraInfo_voor"
         Me.Chbx_Bank_ExtraInfo_voor.Size = New System.Drawing.Size(79, 29)
@@ -3057,7 +3512,7 @@ Partial Class SPAS
         'Lbl_Bank_Extra_Info
         '
         Me.Lbl_Bank_Extra_Info.AutoSize = True
-        Me.Lbl_Bank_Extra_Info.Location = New System.Drawing.Point(13, 336)
+        Me.Lbl_Bank_Extra_Info.Location = New System.Drawing.Point(14, 335)
         Me.Lbl_Bank_Extra_Info.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Lbl_Bank_Extra_Info.Name = "Lbl_Bank_Extra_Info"
         Me.Lbl_Bank_Extra_Info.Size = New System.Drawing.Size(103, 25)
@@ -3075,7 +3530,7 @@ Partial Class SPAS
         Me.Tbx_Bank_Extra_Info.Multiline = True
         Me.Tbx_Bank_Extra_Info.Name = "Tbx_Bank_Extra_Info"
         Me.Tbx_Bank_Extra_Info.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.Tbx_Bank_Extra_Info.Size = New System.Drawing.Size(423, 65)
+        Me.Tbx_Bank_Extra_Info.Size = New System.Drawing.Size(422, 66)
         Me.Tbx_Bank_Extra_Info.TabIndex = 53
         '
         'Cmx_Bank_bankacc
@@ -3104,8 +3559,8 @@ Partial Class SPAS
         '
         Me.Dgv_Bank_Account.AllowUserToAddRows = False
         Me.Dgv_Bank_Account.AllowUserToDeleteRows = False
-        DataGridViewCellStyle38.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Dgv_Bank_Account.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle38
+        DataGridViewCellStyle43.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Dgv_Bank_Account.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle43
         Me.Dgv_Bank_Account.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -3115,8 +3570,8 @@ Partial Class SPAS
         Me.Dgv_Bank_Account.Name = "Dgv_Bank_Account"
         Me.Dgv_Bank_Account.RowHeadersVisible = False
         Me.Dgv_Bank_Account.RowHeadersWidth = 50
-        DataGridViewCellStyle39.Font = New System.Drawing.Font("Arial Narrow", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dgv_Bank_Account.RowsDefaultCellStyle = DataGridViewCellStyle39
+        DataGridViewCellStyle44.Font = New System.Drawing.Font("Arial Narrow", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Dgv_Bank_Account.RowsDefaultCellStyle = DataGridViewCellStyle44
         Me.Dgv_Bank_Account.RowTemplate.Height = 20
         Me.Dgv_Bank_Account.Size = New System.Drawing.Size(447, 360)
         Me.Dgv_Bank_Account.TabIndex = 37
@@ -3159,7 +3614,7 @@ Partial Class SPAS
         Me.Label100.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label100.AutoSize = True
         Me.Label100.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label100.Location = New System.Drawing.Point(-2, 50)
+        Me.Label100.Location = New System.Drawing.Point(-2, 49)
         Me.Label100.Name = "Label100"
         Me.Label100.Size = New System.Drawing.Size(179, 30)
         Me.Label100.TabIndex = 43
@@ -3171,16 +3626,16 @@ Partial Class SPAS
         Me.Cmx_Bank_Account.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.Cmx_Bank_Account.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.Cmx_Bank_Account.FormattingEnabled = True
-        Me.Cmx_Bank_Account.Location = New System.Drawing.Point(89, 473)
+        Me.Cmx_Bank_Account.Location = New System.Drawing.Point(88, 472)
         Me.Cmx_Bank_Account.Name = "Cmx_Bank_Account"
-        Me.Cmx_Bank_Account.Size = New System.Drawing.Size(297, 33)
+        Me.Cmx_Bank_Account.Size = New System.Drawing.Size(248, 33)
         Me.Cmx_Bank_Account.TabIndex = 32
         '
         'Btn_Bank_Add_Journal
         '
         Me.Btn_Bank_Add_Journal.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Btn_Bank_Add_Journal.Image = CType(resources.GetObject("Btn_Bank_Add_Journal.Image"), System.Drawing.Image)
-        Me.Btn_Bank_Add_Journal.Location = New System.Drawing.Point(395, 55)
+        Me.Btn_Bank_Add_Journal.Location = New System.Drawing.Point(394, 55)
         Me.Btn_Bank_Add_Journal.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Btn_Bank_Add_Journal.Name = "Btn_Bank_Add_Journal"
         Me.Btn_Bank_Add_Journal.Size = New System.Drawing.Size(48, 38)
@@ -3202,7 +3657,7 @@ Partial Class SPAS
         Me.Lbl_Bank_Saldo.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Lbl_Bank_Saldo.AutoSize = True
         Me.Lbl_Bank_Saldo.Font = New System.Drawing.Font("Calibri", 13.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Bank_Saldo.Location = New System.Drawing.Point(193, 49)
+        Me.Lbl_Bank_Saldo.Location = New System.Drawing.Point(194, 49)
         Me.Lbl_Bank_Saldo.Name = "Lbl_Bank_Saldo"
         Me.Lbl_Bank_Saldo.Size = New System.Drawing.Size(60, 32)
         Me.Lbl_Bank_Saldo.TabIndex = 32
@@ -3213,7 +3668,7 @@ Partial Class SPAS
         '
         Me.Btn_Bank_Split.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Btn_Bank_Split.Image = CType(resources.GetObject("Btn_Bank_Split.Image"), System.Drawing.Image)
-        Me.Btn_Bank_Split.Location = New System.Drawing.Point(388, 470)
+        Me.Btn_Bank_Split.Location = New System.Drawing.Point(388, 471)
         Me.Btn_Bank_Split.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Btn_Bank_Split.Name = "Btn_Bank_Split"
         Me.Btn_Bank_Split.Size = New System.Drawing.Size(48, 38)
@@ -3225,7 +3680,7 @@ Partial Class SPAS
         Me.Label76.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label76.AutoSize = True
         Me.Label76.Font = New System.Drawing.Font("Arial Narrow", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label76.Location = New System.Drawing.Point(-3, 476)
+        Me.Label76.Location = New System.Drawing.Point(-3, 475)
         Me.Label76.Name = "Label76"
         Me.Label76.Size = New System.Drawing.Size(91, 27)
         Me.Label76.TabIndex = 30
@@ -3243,7 +3698,7 @@ Partial Class SPAS
         Me.Pan_Bank_jtype.Location = New System.Drawing.Point(10, 434)
         Me.Pan_Bank_jtype.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Pan_Bank_jtype.Name = "Pan_Bank_jtype"
-        Me.Pan_Bank_jtype.Size = New System.Drawing.Size(415, 37)
+        Me.Pan_Bank_jtype.Size = New System.Drawing.Size(416, 37)
         Me.Pan_Bank_jtype.TabIndex = 52
         Me.Pan_Bank_jtype.Visible = False
         '
@@ -3252,7 +3707,7 @@ Partial Class SPAS
         Me.Label150.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label150.AutoSize = True
         Me.Label150.Font = New System.Drawing.Font("Arial Narrow", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label150.Location = New System.Drawing.Point(-7, 2)
+        Me.Label150.Location = New System.Drawing.Point(-8, 2)
         Me.Label150.Name = "Label150"
         Me.Label150.Size = New System.Drawing.Size(53, 27)
         Me.Label150.TabIndex = 53
@@ -3261,7 +3716,7 @@ Partial Class SPAS
         'Rbn_Bank_jtype_con
         '
         Me.Rbn_Bank_jtype_con.AutoSize = True
-        Me.Rbn_Bank_jtype_con.Location = New System.Drawing.Point(55, 1)
+        Me.Rbn_Bank_jtype_con.Location = New System.Drawing.Point(56, 2)
         Me.Rbn_Bank_jtype_con.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Rbn_Bank_jtype_con.Name = "Rbn_Bank_jtype_con"
         Me.Rbn_Bank_jtype_con.Size = New System.Drawing.Size(118, 29)
@@ -3273,7 +3728,7 @@ Partial Class SPAS
         'Rbn_Bank_jtype_int
         '
         Me.Rbn_Bank_jtype_int.AutoSize = True
-        Me.Rbn_Bank_jtype_int.Location = New System.Drawing.Point(260, 1)
+        Me.Rbn_Bank_jtype_int.Location = New System.Drawing.Point(260, 2)
         Me.Rbn_Bank_jtype_int.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Rbn_Bank_jtype_int.Name = "Rbn_Bank_jtype_int"
         Me.Rbn_Bank_jtype_int.Size = New System.Drawing.Size(165, 29)
@@ -3285,7 +3740,7 @@ Partial Class SPAS
         'Rbn_Bank_jtype_ext
         '
         Me.Rbn_Bank_jtype_ext.AutoSize = True
-        Me.Rbn_Bank_jtype_ext.Location = New System.Drawing.Point(175, 1)
+        Me.Rbn_Bank_jtype_ext.Location = New System.Drawing.Point(176, 2)
         Me.Rbn_Bank_jtype_ext.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Rbn_Bank_jtype_ext.Name = "Rbn_Bank_jtype_ext"
         Me.Rbn_Bank_jtype_ext.Size = New System.Drawing.Size(87, 29)
@@ -3303,7 +3758,7 @@ Partial Class SPAS
         Me.TabPage1.Location = New System.Drawing.Point(4, 38)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(1614, 889)
+        Me.TabPage1.Size = New System.Drawing.Size(1663, 880)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Basisadministratie   "
         '
@@ -3315,7 +3770,7 @@ Partial Class SPAS
         Me.Panel1.Controls.Add(Me.Lbx_Basis)
         Me.Panel1.Location = New System.Drawing.Point(6, 23)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(411, 843)
+        Me.Panel1.Size = New System.Drawing.Size(549, 837)
         Me.Panel1.TabIndex = 99
         '
         'Lbx_Basis
@@ -3324,10 +3779,10 @@ Partial Class SPAS
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Lbx_Basis.FormattingEnabled = True
         Me.Lbx_Basis.ItemHeight = 25
-        Me.Lbx_Basis.Location = New System.Drawing.Point(0, 0)
+        Me.Lbx_Basis.Location = New System.Drawing.Point(6, -2)
         Me.Lbx_Basis.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Lbx_Basis.Name = "Lbx_Basis"
-        Me.Lbx_Basis.Size = New System.Drawing.Size(404, 804)
+        Me.Lbx_Basis.Size = New System.Drawing.Size(534, 829)
         Me.Lbx_Basis.TabIndex = 17
         '
         'TC_Object
@@ -3344,21 +3799,23 @@ Partial Class SPAS
         Me.TC_Object.Controls.Add(Me.Accgroup)
         Me.TC_Object.Controls.Add(Me.BankAcc)
         Me.TC_Object.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TC_Object.Location = New System.Drawing.Point(423, 25)
+        Me.TC_Object.Location = New System.Drawing.Point(555, 25)
         Me.TC_Object.Name = "TC_Object"
         Me.TC_Object.SelectedIndex = 0
-        Me.TC_Object.Size = New System.Drawing.Size(1160, 848)
+        Me.TC_Object.Size = New System.Drawing.Size(1094, 842)
         Me.TC_Object.TabIndex = 7
         Me.TC_Object.Tag = "Doel"
         '
         'Contract
         '
         Me.Contract.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.Contract.Controls.Add(Me.Lbl_Rel_id)
+        Me.Contract.Controls.Add(Me.Lbl_10_Contract__fk_account_id)
+        Me.Contract.Controls.Add(Me.Lbl_11_contract__fk_target_id)
+        Me.Contract.Controls.Add(Me.Lbl_11_contract__fk_relation_id)
         Me.Contract.Controls.Add(Me.Lbl_Contract_tgt)
         Me.Contract.Controls.Add(Me.Label96)
         Me.Contract.Controls.Add(Me.Lbl_Contract_Bronaccount)
-        Me.Contract.Controls.Add(Me.Cmx_00_Contract__fk_account_id)
+        Me.Contract.Controls.Add(Me.Cmx_Contract_fk_account_id)
         Me.Contract.Controls.Add(Me.Tbx_Contract_ttype)
         Me.Contract.Controls.Add(Me.Cbx_00_contract__active)
         Me.Contract.Controls.Add(Me.Lbl_contract_mach_datum)
@@ -3377,8 +3834,8 @@ Partial Class SPAS
         Me.Contract.Controls.Add(Me.Lbl_00_Contract__name)
         Me.Contract.Controls.Add(Me.Lbl_Contract_pkid)
         Me.Contract.Controls.Add(Me.Label70)
-        Me.Contract.Controls.Add(Me.Cmx_00_contract__fk_relation_id)
-        Me.Contract.Controls.Add(Me.Cmx_01_contract__fk_target_id)
+        Me.Contract.Controls.Add(Me.Cmx_00_contract_fk_relation_id)
+        Me.Contract.Controls.Add(Me.Cmx_01_contract_fk_target_id)
         Me.Contract.Controls.Add(Me.Cmx_02_Contract__term)
         Me.Contract.Controls.Add(Me.Dtp_31_contract__enddate)
         Me.Contract.Controls.Add(Me.Label4)
@@ -3398,19 +3855,40 @@ Partial Class SPAS
         Me.Contract.Location = New System.Drawing.Point(4, 40)
         Me.Contract.Name = "Contract"
         Me.Contract.Padding = New System.Windows.Forms.Padding(3)
-        Me.Contract.Size = New System.Drawing.Size(1152, 804)
+        Me.Contract.Size = New System.Drawing.Size(1086, 798)
         Me.Contract.TabIndex = 1
         Me.Contract.Text = "Contract"
         '
-        'Lbl_Rel_id
+        'Lbl_10_Contract__fk_account_id
         '
-        Me.Lbl_Rel_id.AutoSize = True
-        Me.Lbl_Rel_id.Location = New System.Drawing.Point(537, 329)
-        Me.Lbl_Rel_id.Name = "Lbl_Rel_id"
-        Me.Lbl_Rel_id.Size = New System.Drawing.Size(30, 28)
-        Me.Lbl_Rel_id.TabIndex = 74
-        Me.Lbl_Rel_id.Text = "..."
-        Me.Lbl_Rel_id.Visible = False
+        Me.Lbl_10_Contract__fk_account_id.AutoSize = True
+        Me.Lbl_10_Contract__fk_account_id.ForeColor = System.Drawing.SystemColors.ControlDark
+        Me.Lbl_10_Contract__fk_account_id.Location = New System.Drawing.Point(528, 388)
+        Me.Lbl_10_Contract__fk_account_id.Name = "Lbl_10_Contract__fk_account_id"
+        Me.Lbl_10_Contract__fk_account_id.Size = New System.Drawing.Size(30, 28)
+        Me.Lbl_10_Contract__fk_account_id.TabIndex = 77
+        Me.Lbl_10_Contract__fk_account_id.Text = "..."
+        '
+        'Lbl_11_contract__fk_target_id
+        '
+        Me.Lbl_11_contract__fk_target_id.AutoSize = True
+        Me.Lbl_11_contract__fk_target_id.ForeColor = System.Drawing.SystemColors.ControlDark
+        Me.Lbl_11_contract__fk_target_id.Location = New System.Drawing.Point(528, 291)
+        Me.Lbl_11_contract__fk_target_id.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Lbl_11_contract__fk_target_id.Name = "Lbl_11_contract__fk_target_id"
+        Me.Lbl_11_contract__fk_target_id.Size = New System.Drawing.Size(30, 28)
+        Me.Lbl_11_contract__fk_target_id.TabIndex = 76
+        Me.Lbl_11_contract__fk_target_id.Text = "..."
+        '
+        'Lbl_11_contract__fk_relation_id
+        '
+        Me.Lbl_11_contract__fk_relation_id.AutoSize = True
+        Me.Lbl_11_contract__fk_relation_id.ForeColor = System.Drawing.SystemColors.ControlDark
+        Me.Lbl_11_contract__fk_relation_id.Location = New System.Drawing.Point(528, 346)
+        Me.Lbl_11_contract__fk_relation_id.Name = "Lbl_11_contract__fk_relation_id"
+        Me.Lbl_11_contract__fk_relation_id.Size = New System.Drawing.Size(30, 28)
+        Me.Lbl_11_contract__fk_relation_id.TabIndex = 74
+        Me.Lbl_11_contract__fk_relation_id.Text = "..."
         '
         'Lbl_Contract_tgt
         '
@@ -3447,19 +3925,19 @@ Partial Class SPAS
         Me.Lbl_Contract_Bronaccount.Text = "Bronaccount"
         Me.Lbl_Contract_Bronaccount.Visible = False
         '
-        'Cmx_00_Contract__fk_account_id
+        'Cmx_Contract_fk_account_id
         '
-        Me.Cmx_00_Contract__fk_account_id.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.Cmx_00_Contract__fk_account_id.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.Cmx_00_Contract__fk_account_id.FormattingEnabled = True
-        Me.Cmx_00_Contract__fk_account_id.Location = New System.Drawing.Point(207, 385)
-        Me.Cmx_00_Contract__fk_account_id.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Cmx_00_Contract__fk_account_id.Name = "Cmx_00_Contract__fk_account_id"
-        Me.Cmx_00_Contract__fk_account_id.Size = New System.Drawing.Size(430, 36)
-        Me.Cmx_00_Contract__fk_account_id.Sorted = True
-        Me.Cmx_00_Contract__fk_account_id.TabIndex = 69
-        Me.Cmx_00_Contract__fk_account_id.Tag = "Sponsor"
-        Me.Cmx_00_Contract__fk_account_id.Visible = False
+        Me.Cmx_Contract_fk_account_id.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.Cmx_Contract_fk_account_id.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.Cmx_Contract_fk_account_id.FormattingEnabled = True
+        Me.Cmx_Contract_fk_account_id.Location = New System.Drawing.Point(172, 385)
+        Me.Cmx_Contract_fk_account_id.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Cmx_Contract_fk_account_id.Name = "Cmx_Contract_fk_account_id"
+        Me.Cmx_Contract_fk_account_id.Size = New System.Drawing.Size(350, 36)
+        Me.Cmx_Contract_fk_account_id.Sorted = True
+        Me.Cmx_Contract_fk_account_id.TabIndex = 69
+        Me.Cmx_Contract_fk_account_id.Tag = "Sponsor"
+        Me.Cmx_Contract_fk_account_id.Visible = False
         '
         'Tbx_Contract_ttype
         '
@@ -3487,7 +3965,7 @@ Partial Class SPAS
         '
         Me.Lbl_contract_mach_datum.AutoSize = True
         Me.Lbl_contract_mach_datum.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_contract_mach_datum.Location = New System.Drawing.Point(688, 480)
+        Me.Lbl_contract_mach_datum.Location = New System.Drawing.Point(626, 478)
         Me.Lbl_contract_mach_datum.Name = "Lbl_contract_mach_datum"
         Me.Lbl_contract_mach_datum.Size = New System.Drawing.Size(253, 28)
         Me.Lbl_contract_mach_datum.TabIndex = 64
@@ -3498,7 +3976,7 @@ Partial Class SPAS
         '
         Me.Lbl_contract_macht_kenm.AutoSize = True
         Me.Lbl_contract_macht_kenm.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_contract_macht_kenm.Location = New System.Drawing.Point(688, 440)
+        Me.Lbl_contract_macht_kenm.Location = New System.Drawing.Point(626, 438)
         Me.Lbl_contract_macht_kenm.Name = "Lbl_contract_macht_kenm"
         Me.Lbl_contract_macht_kenm.Size = New System.Drawing.Size(205, 28)
         Me.Lbl_contract_macht_kenm.TabIndex = 64
@@ -3509,17 +3987,17 @@ Partial Class SPAS
         '
         Me.Pan_Contract_Date_New.Controls.Add(Me.Dtp_30_Contract_Change)
         Me.Pan_Contract_Date_New.Controls.Add(Me.Lbl_contract_new_date)
-        Me.Pan_Contract_Date_New.Location = New System.Drawing.Point(678, 317)
+        Me.Pan_Contract_Date_New.Location = New System.Drawing.Point(630, 315)
         Me.Pan_Contract_Date_New.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Pan_Contract_Date_New.Name = "Pan_Contract_Date_New"
-        Me.Pan_Contract_Date_New.Size = New System.Drawing.Size(426, 49)
+        Me.Pan_Contract_Date_New.Size = New System.Drawing.Size(390, 49)
         Me.Pan_Contract_Date_New.TabIndex = 63
         Me.Pan_Contract_Date_New.Visible = False
         '
         'Dtp_30_Contract_Change
         '
         Me.Dtp_30_Contract_Change.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_30_Contract_Change.Location = New System.Drawing.Point(266, 8)
+        Me.Dtp_30_Contract_Change.Location = New System.Drawing.Point(240, 8)
         Me.Dtp_30_Contract_Change.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Dtp_30_Contract_Change.MinDate = New Date(2020, 1, 1, 0, 0, 0, 0)
         Me.Dtp_30_Contract_Change.Name = "Dtp_30_Contract_Change"
@@ -3530,7 +4008,7 @@ Partial Class SPAS
         '
         Me.Lbl_contract_new_date.AutoSize = True
         Me.Lbl_contract_new_date.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_contract_new_date.Location = New System.Drawing.Point(14, 14)
+        Me.Lbl_contract_new_date.Location = New System.Drawing.Point(3, 17)
         Me.Lbl_contract_new_date.Name = "Lbl_contract_new_date"
         Me.Lbl_contract_new_date.Size = New System.Drawing.Size(230, 28)
         Me.Lbl_contract_new_date.TabIndex = 52
@@ -3598,7 +4076,7 @@ Partial Class SPAS
         '
         Me.Lbl_00_contract_autcol.AutoSize = True
         Me.Lbl_00_contract_autcol.ForeColor = System.Drawing.Color.Black
-        Me.Lbl_00_contract_autcol.Location = New System.Drawing.Point(944, 440)
+        Me.Lbl_00_contract_autcol.Location = New System.Drawing.Point(880, 438)
         Me.Lbl_00_contract_autcol.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Lbl_00_contract_autcol.MinimumSize = New System.Drawing.Size(140, 40)
         Me.Lbl_00_contract_autcol.Name = "Lbl_00_contract_autcol"
@@ -3637,7 +4115,7 @@ Partial Class SPAS
         Me.dtp_contract_relation_date.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
         Me.dtp_contract_relation_date.Enabled = False
         Me.dtp_contract_relation_date.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtp_contract_relation_date.Location = New System.Drawing.Point(944, 480)
+        Me.dtp_contract_relation_date.Location = New System.Drawing.Point(880, 478)
         Me.dtp_contract_relation_date.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.dtp_contract_relation_date.Name = "dtp_contract_relation_date"
         Me.dtp_contract_relation_date.Size = New System.Drawing.Size(138, 35)
@@ -3649,7 +4127,7 @@ Partial Class SPAS
         '
         Me.Label80.AutoSize = True
         Me.Label80.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label80.Location = New System.Drawing.Point(692, 160)
+        Me.Label80.Location = New System.Drawing.Point(628, 158)
         Me.Label80.Name = "Label80"
         Me.Label80.Size = New System.Drawing.Size(69, 28)
         Me.Label80.TabIndex = 45
@@ -3711,45 +4189,45 @@ Partial Class SPAS
         '
         Me.Label70.AutoSize = True
         Me.Label70.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label70.Location = New System.Drawing.Point(692, 262)
+        Me.Label70.Location = New System.Drawing.Point(628, 260)
         Me.Label70.Name = "Label70"
         Me.Label70.Size = New System.Drawing.Size(146, 28)
         Me.Label70.TabIndex = 30
         Me.Label70.Text = "Termijnbedrag"
         '
-        'Cmx_00_contract__fk_relation_id
+        'Cmx_00_contract_fk_relation_id
         '
-        Me.Cmx_00_contract__fk_relation_id.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.Cmx_00_contract__fk_relation_id.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.Cmx_00_contract__fk_relation_id.Enabled = False
-        Me.Cmx_00_contract__fk_relation_id.FormattingEnabled = True
-        Me.Cmx_00_contract__fk_relation_id.Location = New System.Drawing.Point(207, 335)
-        Me.Cmx_00_contract__fk_relation_id.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Cmx_00_contract__fk_relation_id.Name = "Cmx_00_contract__fk_relation_id"
-        Me.Cmx_00_contract__fk_relation_id.Size = New System.Drawing.Size(312, 36)
-        Me.Cmx_00_contract__fk_relation_id.Sorted = True
-        Me.Cmx_00_contract__fk_relation_id.TabIndex = 29
-        Me.Cmx_00_contract__fk_relation_id.Tag = "Sponsor"
+        Me.Cmx_00_contract_fk_relation_id.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.Cmx_00_contract_fk_relation_id.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.Cmx_00_contract_fk_relation_id.Enabled = False
+        Me.Cmx_00_contract_fk_relation_id.FormattingEnabled = True
+        Me.Cmx_00_contract_fk_relation_id.Location = New System.Drawing.Point(172, 335)
+        Me.Cmx_00_contract_fk_relation_id.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Cmx_00_contract_fk_relation_id.Name = "Cmx_00_contract_fk_relation_id"
+        Me.Cmx_00_contract_fk_relation_id.Size = New System.Drawing.Size(350, 36)
+        Me.Cmx_00_contract_fk_relation_id.Sorted = True
+        Me.Cmx_00_contract_fk_relation_id.TabIndex = 29
+        Me.Cmx_00_contract_fk_relation_id.Tag = "Sponsor"
         '
-        'Cmx_01_contract__fk_target_id
+        'Cmx_01_contract_fk_target_id
         '
-        Me.Cmx_01_contract__fk_target_id.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.Cmx_01_contract__fk_target_id.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.Cmx_01_contract__fk_target_id.Enabled = False
-        Me.Cmx_01_contract__fk_target_id.FormattingEnabled = True
-        Me.Cmx_01_contract__fk_target_id.Location = New System.Drawing.Point(207, 285)
-        Me.Cmx_01_contract__fk_target_id.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Cmx_01_contract__fk_target_id.Name = "Cmx_01_contract__fk_target_id"
-        Me.Cmx_01_contract__fk_target_id.Size = New System.Drawing.Size(312, 36)
-        Me.Cmx_01_contract__fk_target_id.TabIndex = 29
-        Me.Cmx_01_contract__fk_target_id.Tag = "Sponsordoel"
+        Me.Cmx_01_contract_fk_target_id.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.Cmx_01_contract_fk_target_id.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.Cmx_01_contract_fk_target_id.Enabled = False
+        Me.Cmx_01_contract_fk_target_id.FormattingEnabled = True
+        Me.Cmx_01_contract_fk_target_id.Location = New System.Drawing.Point(172, 285)
+        Me.Cmx_01_contract_fk_target_id.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Cmx_01_contract_fk_target_id.Name = "Cmx_01_contract_fk_target_id"
+        Me.Cmx_01_contract_fk_target_id.Size = New System.Drawing.Size(350, 36)
+        Me.Cmx_01_contract_fk_target_id.TabIndex = 29
+        Me.Cmx_01_contract_fk_target_id.Tag = "Sponsordoel"
         '
         'Cmx_02_Contract__term
         '
         Me.Cmx_02_Contract__term.Enabled = False
         Me.Cmx_02_Contract__term.FormattingEnabled = True
         Me.Cmx_02_Contract__term.Items.AddRange(New Object() {"1", "3", "4", "6", "12"})
-        Me.Cmx_02_Contract__term.Location = New System.Drawing.Point(990, 211)
+        Me.Cmx_02_Contract__term.Location = New System.Drawing.Point(819, 209)
         Me.Cmx_02_Contract__term.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Cmx_02_Contract__term.Name = "Cmx_02_Contract__term"
         Me.Cmx_02_Contract__term.Size = New System.Drawing.Size(91, 36)
@@ -3759,7 +4237,7 @@ Partial Class SPAS
         'Dtp_31_contract__enddate
         '
         Me.Dtp_31_contract__enddate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_31_contract__enddate.Location = New System.Drawing.Point(489, 442)
+        Me.Dtp_31_contract__enddate.Location = New System.Drawing.Point(454, 442)
         Me.Dtp_31_contract__enddate.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Dtp_31_contract__enddate.Name = "Dtp_31_contract__enddate"
         Me.Dtp_31_contract__enddate.Size = New System.Drawing.Size(148, 35)
@@ -3770,16 +4248,16 @@ Partial Class SPAS
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(369, 448)
+        Me.Label4.Location = New System.Drawing.Point(334, 448)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(113, 28)
+        Me.Label4.Size = New System.Drawing.Size(104, 28)
         Me.Label4.TabIndex = 9
-        Me.Label4.Text = "Einddatum"
+        Me.Label4.Text = "Beëindigd"
         '
         'Dtp_31_contract__startdate
         '
         Me.Dtp_31_contract__startdate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_31_contract__startdate.Location = New System.Drawing.Point(207, 442)
+        Me.Dtp_31_contract__startdate.Location = New System.Drawing.Point(172, 442)
         Me.Dtp_31_contract__startdate.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Dtp_31_contract__startdate.Name = "Dtp_31_contract__startdate"
         Me.Dtp_31_contract__startdate.Size = New System.Drawing.Size(148, 35)
@@ -3806,14 +4284,14 @@ Partial Class SPAS
         Me.Tbx_00_contract__description.Multiline = True
         Me.Tbx_00_contract__description.Name = "Tbx_00_contract__description"
         Me.Tbx_00_contract__description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.Tbx_00_contract__description.Size = New System.Drawing.Size(1111, 162)
+        Me.Tbx_00_contract__description.Size = New System.Drawing.Size(1045, 196)
         Me.Tbx_00_contract__description.TabIndex = 6
         '
         'Chx_00_contract__autcol
         '
         Me.Chx_00_contract__autcol.AutoSize = True
         Me.Chx_00_contract__autcol.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Chx_00_contract__autcol.Location = New System.Drawing.Point(696, 400)
+        Me.Chx_00_contract__autcol.Location = New System.Drawing.Point(633, 398)
         Me.Chx_00_contract__autcol.Name = "Chx_00_contract__autcol"
         Me.Chx_00_contract__autcol.Size = New System.Drawing.Size(240, 32)
         Me.Chx_00_contract__autcol.TabIndex = 24
@@ -3824,7 +4302,7 @@ Partial Class SPAS
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(692, 215)
+        Me.Label7.Location = New System.Drawing.Point(628, 214)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(186, 28)
         Me.Label7.TabIndex = 17
@@ -3833,7 +4311,7 @@ Partial Class SPAS
         'Tbx_11_contract__overhead
         '
         Me.Tbx_11_contract__overhead.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_11_contract__overhead.Location = New System.Drawing.Point(990, 120)
+        Me.Tbx_11_contract__overhead.Location = New System.Drawing.Point(819, 118)
         Me.Tbx_11_contract__overhead.Name = "Tbx_11_contract__overhead"
         Me.Tbx_11_contract__overhead.Size = New System.Drawing.Size(91, 30)
         Me.Tbx_11_contract__overhead.TabIndex = 22
@@ -3852,7 +4330,7 @@ Partial Class SPAS
         'Tbx_contract_period_amt
         '
         Me.Tbx_contract_period_amt.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_contract_period_amt.Location = New System.Drawing.Point(990, 258)
+        Me.Tbx_contract_period_amt.Location = New System.Drawing.Point(819, 257)
         Me.Tbx_contract_period_amt.Name = "Tbx_contract_period_amt"
         Me.Tbx_contract_period_amt.Size = New System.Drawing.Size(91, 30)
         Me.Tbx_contract_period_amt.TabIndex = 23
@@ -3863,7 +4341,7 @@ Partial Class SPAS
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(692, 80)
+        Me.Label3.Location = New System.Drawing.Point(628, 78)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(54, 28)
         Me.Label3.TabIndex = 11
@@ -3873,7 +4351,7 @@ Partial Class SPAS
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(692, 120)
+        Me.Label10.Location = New System.Drawing.Point(628, 118)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(102, 28)
         Me.Label10.TabIndex = 13
@@ -3883,7 +4361,7 @@ Partial Class SPAS
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(692, 52)
+        Me.Label1.Location = New System.Drawing.Point(628, 51)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(102, 28)
         Me.Label1.TabIndex = 21
@@ -3892,7 +4370,7 @@ Partial Class SPAS
         'Tbx_11_Contract__donation
         '
         Me.Tbx_11_Contract__donation.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_11_Contract__donation.Location = New System.Drawing.Point(990, 80)
+        Me.Tbx_11_Contract__donation.Location = New System.Drawing.Point(819, 78)
         Me.Tbx_11_Contract__donation.Name = "Tbx_11_Contract__donation"
         Me.Tbx_11_Contract__donation.Size = New System.Drawing.Size(91, 30)
         Me.Tbx_11_Contract__donation.TabIndex = 20
@@ -3901,7 +4379,7 @@ Partial Class SPAS
         'Tbx_01_contract_yeartotal
         '
         Me.Tbx_01_contract_yeartotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_01_contract_yeartotal.Location = New System.Drawing.Point(990, 160)
+        Me.Tbx_01_contract_yeartotal.Location = New System.Drawing.Point(819, 158)
         Me.Tbx_01_contract_yeartotal.Name = "Tbx_01_contract_yeartotal"
         Me.Tbx_01_contract_yeartotal.Size = New System.Drawing.Size(91, 30)
         Me.Tbx_01_contract_yeartotal.TabIndex = 22
@@ -3979,7 +4457,7 @@ Partial Class SPAS
         Me.target.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.target.Name = "target"
         Me.target.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.target.Size = New System.Drawing.Size(1152, 804)
+        Me.target.Size = New System.Drawing.Size(1086, 798)
         Me.target.TabIndex = 2
         Me.target.Tag = "Doel"
         Me.target.Text = "Doel"
@@ -4710,7 +5188,7 @@ Partial Class SPAS
         Me.Relation.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Relation.Name = "Relation"
         Me.Relation.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Relation.Size = New System.Drawing.Size(1152, 804)
+        Me.Relation.Size = New System.Drawing.Size(1086, 798)
         Me.Relation.TabIndex = 3
         Me.Relation.Text = "Relatie"
         '
@@ -4718,8 +5196,8 @@ Partial Class SPAS
         '
         Me.Dgv_relation_giften.AllowUserToAddRows = False
         Me.Dgv_relation_giften.AllowUserToDeleteRows = False
-        DataGridViewCellStyle40.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.Dgv_relation_giften.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle40
+        DataGridViewCellStyle45.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.Dgv_relation_giften.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle45
         Me.Dgv_relation_giften.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.Dgv_relation_giften.Location = New System.Drawing.Point(700, 343)
         Me.Dgv_relation_giften.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
@@ -5138,7 +5616,7 @@ Partial Class SPAS
         Me.CP.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.CP.Name = "CP"
         Me.CP.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.CP.Size = New System.Drawing.Size(1152, 804)
+        Me.CP.Size = New System.Drawing.Size(1086, 798)
         Me.CP.TabIndex = 4
         Me.CP.Tag = "CP"
         Me.CP.Text = "Contactpersoon"
@@ -5439,7 +5917,7 @@ Partial Class SPAS
         Me.Account.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Account.Name = "Account"
         Me.Account.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Account.Size = New System.Drawing.Size(1152, 804)
+        Me.Account.Size = New System.Drawing.Size(1086, 798)
         Me.Account.TabIndex = 5
         Me.Account.Text = "Account"
         '
@@ -6016,7 +6494,7 @@ Partial Class SPAS
         Me.Accgroup.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Accgroup.Name = "Accgroup"
         Me.Accgroup.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Accgroup.Size = New System.Drawing.Size(1152, 804)
+        Me.Accgroup.Size = New System.Drawing.Size(1086, 798)
         Me.Accgroup.TabIndex = 7
         Me.Accgroup.Text = "Accountgroep"
         '
@@ -6209,7 +6687,7 @@ Partial Class SPAS
         Me.BankAcc.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.BankAcc.Name = "BankAcc"
         Me.BankAcc.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.BankAcc.Size = New System.Drawing.Size(1152, 804)
+        Me.BankAcc.Size = New System.Drawing.Size(1086, 798)
         Me.BankAcc.TabIndex = 6
         Me.BankAcc.Text = "Bankrekening"
         '
@@ -6446,7 +6924,7 @@ Partial Class SPAS
         Me.TC_Main.Location = New System.Drawing.Point(0, 43)
         Me.TC_Main.Name = "TC_Main"
         Me.TC_Main.SelectedIndex = 0
-        Me.TC_Main.Size = New System.Drawing.Size(1622, 931)
+        Me.TC_Main.Size = New System.Drawing.Size(1671, 922)
         Me.TC_Main.TabIndex = 0
         '
         'Zoeken
@@ -6465,7 +6943,7 @@ Partial Class SPAS
         Me.Testpanel.Controls.Add(Me.Cbx_LifeCycle2)
         Me.Testpanel.Controls.Add(Me.Zoeken)
         Me.Testpanel.Controls.Add(Me.Searchbox2)
-        Me.Testpanel.Location = New System.Drawing.Point(838, 0)
+        Me.Testpanel.Location = New System.Drawing.Point(880, 0)
         Me.Testpanel.Name = "Testpanel"
         Me.Testpanel.Size = New System.Drawing.Size(632, 37)
         Me.Testpanel.TabIndex = 74
@@ -6480,322 +6958,12 @@ Partial Class SPAS
         Me.Cbx_LifeCycle2.TabIndex = 76
         Me.Cbx_LifeCycle2.Text = "Actief"
         '
-        'Cmx_Excasso_Select
-        '
-        Me.Cmx_Excasso_Select.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.Cmx_Excasso_Select.Font = New System.Drawing.Font("Calibri", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cmx_Excasso_Select.FormattingEnabled = True
-        Me.Cmx_Excasso_Select.Location = New System.Drawing.Point(8, 4)
-        Me.Cmx_Excasso_Select.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Cmx_Excasso_Select.Name = "Cmx_Excasso_Select"
-        Me.Cmx_Excasso_Select.Size = New System.Drawing.Size(353, 35)
-        Me.Cmx_Excasso_Select.TabIndex = 118
-        Me.Cmx_Excasso_Select.Tag = "Contactpersoon"
-        '
-        'Btn_Excasso_Copy_to_clipboard
-        '
-        Me.Btn_Excasso_Copy_to_clipboard.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
-        Me.Btn_Excasso_Copy_to_clipboard.Image = CType(resources.GetObject("Btn_Excasso_Copy_to_clipboard.Image"), System.Drawing.Image)
-        Me.Btn_Excasso_Copy_to_clipboard.ImageAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.Btn_Excasso_Copy_to_clipboard.Location = New System.Drawing.Point(369, 5)
-        Me.Btn_Excasso_Copy_to_clipboard.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Btn_Excasso_Copy_to_clipboard.Name = "Btn_Excasso_Copy_to_clipboard"
-        Me.Btn_Excasso_Copy_to_clipboard.Size = New System.Drawing.Size(38, 0)
-        Me.Btn_Excasso_Copy_to_clipboard.TabIndex = 132
-        Me.Btn_Excasso_Copy_to_clipboard.UseVisualStyleBackColor = True
-        '
-        'Lbl_Excasso_CPid
-        '
-        Me.Lbl_Excasso_CPid.AutoSize = True
-        Me.Lbl_Excasso_CPid.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Excasso_CPid.Location = New System.Drawing.Point(353, 56)
-        Me.Lbl_Excasso_CPid.Name = "Lbl_Excasso_CPid"
-        Me.Lbl_Excasso_CPid.Size = New System.Drawing.Size(58, 28)
-        Me.Lbl_Excasso_CPid.TabIndex = 133
-        Me.Lbl_Excasso_CPid.Text = "Cp id"
-        '
-        'Dgv_Excasso_numbers
-        '
-        Me.Dgv_Excasso_numbers.AllowUserToAddRows = False
-        Me.Dgv_Excasso_numbers.AllowUserToDeleteRows = False
-        Me.Dgv_Excasso_numbers.AllowUserToResizeRows = False
-        DataGridViewCellStyle19.Font = New System.Drawing.Font("Calibri", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle19.Padding = New System.Windows.Forms.Padding(1)
-        Me.Dgv_Excasso_numbers.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle19
-        Me.Dgv_Excasso_numbers.BackgroundColor = System.Drawing.SystemColors.ButtonFace
-        Me.Dgv_Excasso_numbers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Dgv_Excasso_numbers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.Dgv_Excasso_numbers.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Doel0, Me.Doel, Me.Prefil, Me.Bron, Me.Aantal, Me.Bedrag, Me.Norm, Me.Eenheid, Me.CPTotaal, Me.Comp, Me.Euro, Me.MLD})
-        Me.Dgv_Excasso_numbers.Location = New System.Drawing.Point(417, 2)
-        Me.Dgv_Excasso_numbers.Name = "Dgv_Excasso_numbers"
-        DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle32.Font = New System.Drawing.Font("Calibri", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle32.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle32.Padding = New System.Windows.Forms.Padding(1)
-        DataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Dgv_Excasso_numbers.RowHeadersDefaultCellStyle = DataGridViewCellStyle32
-        Me.Dgv_Excasso_numbers.RowHeadersVisible = False
-        Me.Dgv_Excasso_numbers.RowHeadersWidth = 62
-        DataGridViewCellStyle33.Font = New System.Drawing.Font("Calibri", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle33.Padding = New System.Windows.Forms.Padding(2)
-        Me.Dgv_Excasso_numbers.RowsDefaultCellStyle = DataGridViewCellStyle33
-        Me.Dgv_Excasso_numbers.RowTemplate.Height = 28
-        Me.Dgv_Excasso_numbers.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.Dgv_Excasso_numbers.ShowEditingIcon = False
-        Me.Dgv_Excasso_numbers.ShowRowErrors = False
-        Me.Dgv_Excasso_numbers.Size = New System.Drawing.Size(1180, 155)
-        Me.Dgv_Excasso_numbers.TabIndex = 137
-        '
-        'MLD
-        '
-        DataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle31.BackColor = System.Drawing.SystemColors.Info
-        DataGridViewCellStyle31.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle31.Format = "N0"
-        Me.MLD.DefaultCellStyle = DataGridViewCellStyle31
-        Me.MLD.HeaderText = "MLD"
-        Me.MLD.MinimumWidth = 8
-        Me.MLD.Name = "MLD"
-        Me.MLD.ReadOnly = True
-        Me.MLD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.MLD.Width = 75
-        '
-        'Euro
-        '
-        DataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle30.BackColor = System.Drawing.SystemColors.Info
-        DataGridViewCellStyle30.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle30.Format = "N0"
-        DataGridViewCellStyle30.NullValue = Nothing
-        Me.Euro.DefaultCellStyle = DataGridViewCellStyle30
-        Me.Euro.HeaderText = "Euro"
-        Me.Euro.MinimumWidth = 8
-        Me.Euro.Name = "Euro"
-        Me.Euro.ReadOnly = True
-        Me.Euro.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Euro.Width = 65
-        '
-        'Comp
-        '
-        Me.Comp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        DataGridViewCellStyle29.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        DataGridViewCellStyle29.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Comp.DefaultCellStyle = DataGridViewCellStyle29
-        Me.Comp.HeaderText = "Overzicht"
-        Me.Comp.MinimumWidth = 8
-        Me.Comp.Name = "Comp"
-        Me.Comp.ReadOnly = True
-        Me.Comp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Comp.Width = 76
-        '
-        'CPTotaal
-        '
-        Me.CPTotaal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle28.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle28.ForeColor = System.Drawing.Color.Blue
-        DataGridViewCellStyle28.Format = "N0"
-        Me.CPTotaal.DefaultCellStyle = DataGridViewCellStyle28
-        Me.CPTotaal.HeaderText = "naar CP"
-        Me.CPTotaal.MinimumWidth = 8
-        Me.CPTotaal.Name = "CPTotaal"
-        Me.CPTotaal.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.CPTotaal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.CPTotaal.Width = 70
-        '
-        'Eenheid
-        '
-        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle27.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle27.Format = "N0"
-        Me.Eenheid.DefaultCellStyle = DataGridViewCellStyle27
-        Me.Eenheid.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Eenheid.HeaderText = ""
-        Me.Eenheid.MinimumWidth = 8
-        Me.Eenheid.Name = "Eenheid"
-        Me.Eenheid.Width = 30
-        '
-        'Norm
-        '
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle26.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle26.ForeColor = System.Drawing.Color.Blue
-        DataGridViewCellStyle26.Format = "N0"
-        Me.Norm.DefaultCellStyle = DataGridViewCellStyle26
-        Me.Norm.HeaderText = "Norm"
-        Me.Norm.MinimumWidth = 8
-        Me.Norm.Name = "Norm"
-        Me.Norm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Norm.Width = 45
-        '
-        'Bedrag
-        '
-        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Info
-        DataGridViewCellStyle25.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle25.Format = "N0"
-        Me.Bedrag.DefaultCellStyle = DataGridViewCellStyle25
-        Me.Bedrag.HeaderText = "Bedrag"
-        Me.Bedrag.MinimumWidth = 8
-        Me.Bedrag.Name = "Bedrag"
-        Me.Bedrag.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Bedrag.Width = 65
-        '
-        'Aantal
-        '
-        Me.Aantal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Info
-        DataGridViewCellStyle24.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle24.Format = "N0"
-        DataGridViewCellStyle24.NullValue = Nothing
-        Me.Aantal.DefaultCellStyle = DataGridViewCellStyle24
-        Me.Aantal.HeaderText = "Aantal"
-        Me.Aantal.MaxInputLength = 100
-        Me.Aantal.MinimumWidth = 8
-        Me.Aantal.Name = "Aantal"
-        Me.Aantal.ReadOnly = True
-        Me.Aantal.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Aantal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Aantal.Width = 50
-        '
-        'Bron
-        '
-        DataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Bron.DefaultCellStyle = DataGridViewCellStyle23
-        Me.Bron.HeaderText = "CP"
-        Me.Bron.MinimumWidth = 8
-        Me.Bron.Name = "Bron"
-        Me.Bron.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Bron.Width = 76
-        '
-        'Prefil
-        '
-        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle22.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Prefil.DefaultCellStyle = DataGridViewCellStyle22
-        Me.Prefil.DividerWidth = 5
-        Me.Prefil.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Prefil.HeaderText = "Vooraf vullen"
-        Me.Prefil.MinimumWidth = 8
-        Me.Prefil.Name = "Prefil"
-        Me.Prefil.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Prefil.Width = 120
-        '
-        'Doel
-        '
-        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle21.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle21.NullValue = False
-        Me.Doel.DefaultCellStyle = DataGridViewCellStyle21
-        Me.Doel.FalseValue = "False"
-        Me.Doel.HeaderText = ""
-        Me.Doel.MinimumWidth = 8
-        Me.Doel.Name = "Doel"
-        Me.Doel.TrueValue = "True"
-        Me.Doel.Width = 40
-        '
-        'Doel0
-        '
-        DataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        DataGridViewCellStyle20.Font = New System.Drawing.Font("Calibri", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Doel0.DefaultCellStyle = DataGridViewCellStyle20
-        Me.Doel0.HeaderText = "Doel"
-        Me.Doel0.MinimumWidth = 8
-        Me.Doel0.Name = "Doel0"
-        Me.Doel0.ReadOnly = True
-        Me.Doel0.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Doel0.Width = 60
-        '
-        'Label83
-        '
-        Me.Label83.AutoSize = True
-        Me.Label83.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label83.Location = New System.Drawing.Point(8, 53)
-        Me.Label83.Name = "Label83"
-        Me.Label83.Size = New System.Drawing.Size(166, 28)
-        Me.Label83.TabIndex = 141
-        Me.Label83.Text = "Datum uitkering "
-        '
-        'Dtp_Excasso_Start
-        '
-        Me.Dtp_Excasso_Start.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right
-        Me.Dtp_Excasso_Start.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dtp_Excasso_Start.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_Excasso_Start.Location = New System.Drawing.Point(170, 51)
-        Me.Dtp_Excasso_Start.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Dtp_Excasso_Start.Name = "Dtp_Excasso_Start"
-        Me.Dtp_Excasso_Start.Size = New System.Drawing.Size(191, 34)
-        Me.Dtp_Excasso_Start.TabIndex = 140
-        Me.Dtp_Excasso_Start.Value = New Date(2018, 1, 1, 0, 0, 0, 0)
-        '
-        'Tbx_Excasso_Exchange_rate
-        '
-        Me.Tbx_Excasso_Exchange_rate.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_Excasso_Exchange_rate.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Tbx_Excasso_Exchange_rate.Location = New System.Drawing.Point(124, 123)
-        Me.Tbx_Excasso_Exchange_rate.Name = "Tbx_Excasso_Exchange_rate"
-        Me.Tbx_Excasso_Exchange_rate.Size = New System.Drawing.Size(60, 34)
-        Me.Tbx_Excasso_Exchange_rate.TabIndex = 145
-        Me.Tbx_Excasso_Exchange_rate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Cbx_CP_Automatisch
-        '
-        Me.Cbx_CP_Automatisch.Location = New System.Drawing.Point(14, 90)
-        Me.Cbx_CP_Automatisch.Name = "Cbx_CP_Automatisch"
-        Me.Cbx_CP_Automatisch.Size = New System.Drawing.Size(375, 34)
-        Me.Cbx_CP_Automatisch.TabIndex = 148
-        Me.Cbx_CP_Automatisch.Text = "CP kosten automatisch berekenen"
-        Me.Cbx_CP_Automatisch.UseVisualStyleBackColor = True
-        '
-        'LinkLabel_Wisselkoers
-        '
-        Me.LinkLabel_Wisselkoers.AutoSize = True
-        Me.LinkLabel_Wisselkoers.Location = New System.Drawing.Point(8, 125)
-        Me.LinkLabel_Wisselkoers.Name = "LinkLabel_Wisselkoers"
-        Me.LinkLabel_Wisselkoers.Size = New System.Drawing.Size(110, 27)
-        Me.LinkLabel_Wisselkoers.TabIndex = 149
-        Me.LinkLabel_Wisselkoers.TabStop = True
-        Me.LinkLabel_Wisselkoers.Text = "Koers MDL"
-        '
-        'Label103
-        '
-        Me.Label103.AutoSize = True
-        Me.Label103.Location = New System.Drawing.Point(199, 127)
-        Me.Label103.Name = "Label103"
-        Me.Label103.Size = New System.Drawing.Size(157, 27)
-        Me.Label103.TabIndex = 150
-        Me.Label103.Text = "Moldavische Lei"
-        '
-        'Pan_Excasso
-        '
-        Me.Pan_Excasso.Controls.Add(Me.Label103)
-        Me.Pan_Excasso.Controls.Add(Me.LinkLabel_Wisselkoers)
-        Me.Pan_Excasso.Controls.Add(Me.Cbx_CP_Automatisch)
-        Me.Pan_Excasso.Controls.Add(Me.Tbx_Excasso_Exchange_rate)
-        Me.Pan_Excasso.Controls.Add(Me.Dtp_Excasso_Start)
-        Me.Pan_Excasso.Controls.Add(Me.Label83)
-        Me.Pan_Excasso.Controls.Add(Me.Dgv_Excasso_numbers)
-        Me.Pan_Excasso.Controls.Add(Me.Lbl_Excasso_CPid)
-        Me.Pan_Excasso.Controls.Add(Me.Btn_Excasso_Copy_to_clipboard)
-        Me.Pan_Excasso.Controls.Add(Me.Cmx_Excasso_Select)
-        Me.Pan_Excasso.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Pan_Excasso.Font = New System.Drawing.Font("Calibri", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Pan_Excasso.Location = New System.Drawing.Point(3, 3)
-        Me.Pan_Excasso.Name = "Pan_Excasso"
-        Me.Pan_Excasso.Size = New System.Drawing.Size(1608, 162)
-        Me.Pan_Excasso.TabIndex = 131
-        '
         'SPAS
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.MediumAquamarine
-        Me.ClientSize = New System.Drawing.Size(1622, 974)
+        Me.ClientSize = New System.Drawing.Size(1671, 968)
         Me.Controls.Add(Me.Testpanel)
         Me.Controls.Add(Me.TC_Main)
         Me.Controls.Add(Me.MenuStrip1)
@@ -6804,7 +6972,7 @@ Partial Class SPAS
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "SPAS"
         Me.HelpProvider1.SetShowHelp(Me, True)
-        Me.Text = "SPAS (versie  1-3-2025)"
+        Me.Text = "SPAS"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.Instellingen.ResumeLayout(False)
@@ -6855,14 +7023,20 @@ Partial Class SPAS
         CType(Me.Dgv_Uitkering_Account_Details, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel14.ResumeLayout(False)
         CType(Me.Dgv_Excasso2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Pan_Excasso.ResumeLayout(False)
+        Me.Pan_Excasso.PerformLayout()
+        CType(Me.Dgv_Excasso_numbers, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Incasso.ResumeLayout(False)
-        Me.Panel3.ResumeLayout(False)
-        Me.Panel10.ResumeLayout(False)
-        Me.Panel10.PerformLayout()
-        CType(Me.Dgv_incasso_totals, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel5.ResumeLayout(False)
-        Me.Panel5.PerformLayout()
+        Me.Pan_Incasso.ResumeLayout(False)
         CType(Me.Dgv_Incasso, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel3.ResumeLayout(False)
+        Me.Gbx_Incasso_Controle.ResumeLayout(False)
+        CType(Me.Dgv_Incasso_Analyse, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.Pan_Incasso_views.ResumeLayout(False)
+        Me.Pan_Incasso_views.PerformLayout()
+        CType(Me.Dgv_incasso_totals, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Tab_Bank.ResumeLayout(False)
         Me.Pan_Bank2.ResumeLayout(False)
         CType(Me.Dgv_Bank, System.ComponentModel.ISupportInitialize).EndInit()
@@ -6908,9 +7082,6 @@ Partial Class SPAS
         Me.TC_Main.ResumeLayout(False)
         Me.Testpanel.ResumeLayout(False)
         Me.Testpanel.PerformLayout()
-        CType(Me.Dgv_Excasso_numbers, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Pan_Excasso.ResumeLayout(False)
-        Me.Pan_Excasso.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -7043,22 +7214,15 @@ Partial Class SPAS
     Friend WithEvents Btn_Excasso_Delete As Button
     Friend WithEvents Incasso As TabPage
     Friend WithEvents Panel3 As Panel
-    Friend WithEvents Panel10 As Panel
     Friend WithEvents Label79 As Label
     Friend WithEvents Lbl_Incasso_Error As Label
-    Friend WithEvents Panel5 As Panel
     Friend WithEvents Dtp_Incasso_start As DateTimePicker
     Friend WithEvents Cmx_Incasso_Bankaccount As ComboBox
     Friend WithEvents Label9 As Label
-    Friend WithEvents Rbn_Incasso_SEPA As RadioButton
     Friend WithEvents Label145 As Label
     Friend WithEvents Label94 As Label
-    Friend WithEvents Rbn_Incasso_journal As RadioButton
-    Friend WithEvents Label71 As Label
     Friend WithEvents Lbl_Incasso_Status As Label
-    Friend WithEvents Label82 As Label
     Friend WithEvents Lbl_Incasso_job_name As Label
-    Friend WithEvents Dtp_Incasso_end As DateTimePicker
     Friend WithEvents Dgv_Incasso As DataGridView
     Friend WithEvents Tab_Bank As TabPage
     Friend WithEvents Pan_Bank As Panel
@@ -7091,7 +7255,7 @@ Partial Class SPAS
     Friend WithEvents Lbl_Contract_tgt As Label
     Friend WithEvents Label96 As Label
     Friend WithEvents Lbl_Contract_Bronaccount As Label
-    Friend WithEvents Cmx_00_Contract__fk_account_id As ComboBox
+    Friend WithEvents Cmx_Contract_fk_account_id As ComboBox
     Friend WithEvents Tbx_Contract_ttype As TextBox
     Friend WithEvents Cbx_00_contract__active As CheckBox
     Friend WithEvents Lbl_contract_mach_datum As Label
@@ -7115,8 +7279,8 @@ Partial Class SPAS
     Friend WithEvents Lbl_00_Contract__name As Label
     Friend WithEvents Lbl_Contract_pkid As Label
     Friend WithEvents Label70 As Label
-    Friend WithEvents Cmx_00_contract__fk_relation_id As ComboBox
-    Friend WithEvents Cmx_01_contract__fk_target_id As ComboBox
+    Friend WithEvents Cmx_00_contract_fk_relation_id As ComboBox
+    Friend WithEvents Cmx_01_contract_fk_target_id As ComboBox
     Friend WithEvents Cmx_02_Contract__term As ComboBox
     Friend WithEvents Dtp_31_contract__enddate As DateTimePicker
     Friend WithEvents Label4 As Label
@@ -7397,7 +7561,6 @@ Partial Class SPAS
     Friend WithEvents Btn_Boeking_Expand_Collapse As Button
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Lbx_Basis As ListBox
-    Friend WithEvents Rbn_Incasso_Verschillen As RadioButton
     Friend WithEvents Dgv_incasso_totals As DataGridView
     Friend WithEvents TP_Test As TabPage
     Friend WithEvents TreeView1 As TreeView
@@ -7408,7 +7571,7 @@ Partial Class SPAS
     Friend WithEvents Button4 As Button
     Friend WithEvents Chbx_test As CheckBox
     Friend WithEvents Dgv_Mgnt_Tables As DataGridView
-    Friend WithEvents Lbl_Rel_id As Label
+    Friend WithEvents Lbl_11_contract__fk_relation_id As Label
     Friend WithEvents Searchbox2 As TextBox
     Friend WithEvents Zoeken As Label
     Friend WithEvents Testpanel As Panel
@@ -7426,13 +7589,16 @@ Partial Class SPAS
     Friend WithEvents Lbl_Bank_Afschrift As Label
     Friend WithEvents Lbl_Transactie_totaal As Label
     Friend WithEvents Pan_Excasso As Panel
-    Friend WithEvents Label103 As Label
+    Friend WithEvents Lbl_Excasso_Aantal_doelen As Label
     Friend WithEvents LinkLabel_Wisselkoers As LinkLabel
     Friend WithEvents Cbx_CP_Automatisch As CheckBox
     Friend WithEvents Tbx_Excasso_Exchange_rate As TextBox
     Friend WithEvents Dtp_Excasso_Start As DateTimePicker
     Friend WithEvents Label83 As Label
     Friend WithEvents Dgv_Excasso_numbers As DataGridView
+    Friend WithEvents Lbl_Excasso_CPid As Label
+    Friend WithEvents Btn_Excasso_Copy_to_clipboard As Button
+    Friend WithEvents Cmx_Excasso_Select As ComboBox
     Friend WithEvents Doel0 As DataGridViewTextBoxColumn
     Friend WithEvents Doel As DataGridViewCheckBoxColumn
     Friend WithEvents Prefil As DataGridViewButtonColumn
@@ -7445,7 +7611,22 @@ Partial Class SPAS
     Friend WithEvents Comp As DataGridViewTextBoxColumn
     Friend WithEvents Euro As DataGridViewTextBoxColumn
     Friend WithEvents MLD As DataGridViewTextBoxColumn
-    Friend WithEvents Lbl_Excasso_CPid As Label
-    Friend WithEvents Btn_Excasso_Copy_to_clipboard As Button
-    Friend WithEvents Cmx_Excasso_Select As ComboBox
+    Friend WithEvents Label61 As Label
+    Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents Pan_Incasso As Panel
+    Friend WithEvents Rbn_Incasso_SEPA As RadioButton
+    Friend WithEvents Rbn_Incasso_journal As RadioButton
+    Friend WithEvents Label82 As Label
+    Friend WithEvents Button6 As Button
+    Friend WithEvents Lbl_11_contract__fk_target_id As Label
+    Friend WithEvents Lbl_10_Contract__fk_account_id As Label
+    Friend WithEvents Btn_Incasso_Open_XML As Button
+    Friend WithEvents Cmx_Incasso_IncassoForm As ComboBox
+    Friend WithEvents MonthCalendar1 As MonthCalendar
+    Friend WithEvents Label86 As Label
+    Friend WithEvents Pan_Incasso_views As Panel
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents Gbx_Incasso_Controle As GroupBox
+    Friend WithEvents Dgv_Incasso_Analyse As DataGridView
+    Friend WithEvents Btn_Incasso_Analyseer As Button
 End Class

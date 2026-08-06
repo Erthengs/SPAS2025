@@ -596,6 +596,18 @@
         KAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="Button6.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAXRJREFUOE+V
+        kbtOAlEURfmMYR7MTbSBaiIJJFpQQmMhj0DIhICKSChsLLSzIqJ+CTAMmkghhcgrodMIJn6AhdX1D7Y5
+        EybhpTA72dXctc65c12uhTQFAS2fD48rarrdWDy/FFMQgIvrpf5c3aAhihsI3G4L+CiUMMkXMT4+xfio
+        gM/bO2eCYSaDoa5jkE6jn0xiUqnAcCIY6Dr6qRR6iQS6sRjG5TIMSVovaEwFvXgc7VAILb8fD14vRsXi
+        hgJRtASmx2OtTBB1kM2ivkpAK1NpMsG2YBYm0BLI8lxrsgwS8K9caenZZmHq99nl3HdeOCcBJ4HW9Hj4
+        a0rHey6PXmAX3Z3AHEzTOv4gusE9vB2eYLR/gPutbV5TFM2+t9ZUVf4SjYJqquocTKsajOGZfmwkgqqi
+        8KoN2yGJSZJYDNQGSaZ3teGnv2A7BkkYsyQdkjC2fvJiDEnSGozxTjwOqiPYTn1G0g6HUXMC26nLskbP
+        ZPUf+Bcd+VCc7UQ/DQAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="Btn_Bank_Add_Journal.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAhpJREFUOE+N
@@ -4140,7 +4152,7 @@
 </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>36</value>
+    <value>30</value>
   </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

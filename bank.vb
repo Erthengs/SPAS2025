@@ -255,7 +255,8 @@ Module bank
                        FROM bank 
                        WHERE 
                             bank.fk_journal_name=journal.name AND 
-                            journal.name !='nog te bepalen';
+                            journal.name !='nog te bepalen' AND
+                            journal.status != 'Verwerkt';
                        UPDATE bank SET fk_journal_name='nog te bepalen' WHERE fk_journal_name ilike 'NL%' or fk_journal_name ilike 'CSV_.%';"
         If SPAS.Chbx_test.Checked Then MsgBox(SQLstr3)
         RunSQL(SQLstr3, "NULL", "Download_Bank_Transactions/SQLstr3")
@@ -269,7 +270,7 @@ Module bank
 
         'controle op null toevoegen
 
-        If inc Then RunQuery("Categoriseer contractincasso")
+        'If inc Then RunQuery("Categoriseer contractincasso")
         If uitk Then
             RunQuery("Categoriseer uitkering")
             Fill_Cmx_Excasso_Select_Combined()

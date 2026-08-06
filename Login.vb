@@ -1,4 +1,6 @@
+Imports System.Net.Http
 Imports System.Text.RegularExpressions
+Imports System.Threading.Tasks
 Imports Npgsql
 Public Class Login
 
@@ -75,8 +77,9 @@ Public Class Login
     End Sub
 
     Private Sub Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'MsgBox(sender.ToString)
 
+        Lbl_Login_lastlogin.Text = $"Vorige login: {My.Settings._whatsnew}"
+        Lbl_login_version.Text = $"Versie {Me.Tag}"
         Cmx_Login_Database.Text = My.Settings._lastdb
         Me.Tbx_Login_username.Text = My.Settings._produser
         If My.Settings._prodpwd <> "" Then
@@ -85,8 +88,69 @@ Public Class Login
         Else
             Chbx_Login_Save_Password.Checked = False
         End If
-        'My.Settings._whatsnew = "Ja"
+        CheckForUpdate()
+
+
+    End Sub
+    Private Async Sub CheckForUpdate()
+
+
+        Dim latestVersion As String = Await VersionChecker.GetLatestVersionDateAsync()
+        Dim str() = Split(latestVersion, ",")
+        Dim version = str(0)
+        Dim latestVersionDate As Date = str(1)
+        Dim _date As Date
+
+        If My.Settings._whatsnew IsNot Nothing And My.Settings._whatsnew <> "" Then
+            _date = CDate(My.Settings._whatsnew).ToShortDateString
+        Else
+            _date = CDate("15-01-2000").ToShortDateString
+        End If
+
+        If version > Me.Tag Then
+            MsgBox("Er is een nieuwe versie beschikbaar, synchroniseer eerst Dropbox s.v.p.", vbExclamation)
+        ElseIf CDate(latestVersionDate).ToShortDateString() > _date Then
+            Dim answer = MsgBox("Er is een nieuwe versie geïnstalleerd, wilt u de wijzigingen bekijken?", vbYesNo)
+            If answer = vbYes Then Process.Start("https://github.com/Erthengs/SPAS2025/wiki/Aanpassingen-per-versie")
+            My.Settings._whatsnew = latestVersionDate
+        End If
+
+    End Sub
+
+    Private Sub LinkLabel_Wisselkoers_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles Lbl_login_version.LinkClicked
+        Process.Start("https://github.com/Erthengs/SPAS2025/wiki/Aanpassingen-per-versie")
     End Sub
 
 
 End Class
+
+
+Public Class VersionChecker
+    Private Shared ReadOnly wikiUrl As String = "https://github.com/Erthengs/SPAS2025/wiki/Aanpassingen-per-versie"
+
+    Public Shared Async Function GetLatestVersionDateAsync() As Task(Of String)
+        Try
+            Using client As New HttpClient()
+                ' Fetch the HTML content of the wiki page
+                Dim pageContent As String = Await client.GetStringAsync(wikiUrl)
+
+                ' Find the first occurrence of "Huidige versie: X.X (DD-M-YYYY)"
+                Dim match As Match = Regex.Match(pageContent, "Huidige versie:\s*([\d.]+)\s*\((\d{1,2}-\d{1,2}-\d{4})\)")
+
+                If match.Success Then
+                    ' Extract the date string from the regex match
+                    Return match.Groups(1).Value & "," & match.Groups(2).Value
+
+                Else
+                    MessageBox.Show("No matching version date found on the wiki page.")
+                End If
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error checking latest version: " & ex.Message)
+        End Try
+
+        Return Nothing
+    End Function
+
+End Class
+

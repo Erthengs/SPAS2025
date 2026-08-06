@@ -72,6 +72,8 @@ connstart:
     End Sub
 
     Public Sub RunSQL(ByVal sql As String, jpg As String, msg As String, <CallerMemberName> Optional ByVal caller As String = "")
+        Clipboard.Clear()
+        Clipboard.SetText(sql)
         Try
             Connect(sql)
             Dim cmd As New NpgsqlCommand
@@ -94,6 +96,8 @@ connstart:
         Connect(SQLstr)
         Dim da = New NpgsqlDataAdapter(SQLstr, connection)
         Dim ds = New DataTable
+        Clipboard.Clear()
+        Clipboard.SetText(SQLstr)
 
         da.Fill(ds)
         ls.DataSource = ds
@@ -122,20 +126,7 @@ connstart:
 
     End Sub
 
-    Sub Collect_data1(ByVal sql As String)
-        Try
-            Connect(sql)
-            Dim da = New NpgsqlDataAdapter(sql, connection)
-            connection.Close()
-            Dim ds = New DataSet
-            da.Fill(ds, "Table")
-            dst1 = ds
-        Catch
-            MsgBox("De data kon niet opgehaald worden.")
-            Clipboard.Clear()
-            Clipboard.SetText(sql)
-        End Try
-    End Sub
+
 
     Function Collect_data2(ByVal sql As String) As DataTable
         Try
@@ -270,6 +261,7 @@ connstart:
 
         Dim mStream As New System.IO.MemoryStream
         Dim pData() As Byte = DirectCast(blob, Byte())
+        If pData Is Nothing Then Return Nothing
         mStream.Write(pData, 0, Convert.ToInt32(pData.Length))
         Dim bm As Bitmap = New Bitmap(mStream, False)
         mStream.Dispose()

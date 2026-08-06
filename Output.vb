@@ -6,14 +6,15 @@ Module Output
 
 
     Sub Print_Excasso_form()
+        '------------------- checks vooraf ------------------------------------------------
+        If SPAS.Dgv_Excasso_numbers.Rows(1).Cells(10).Value = "0" And SPAS.Dgv_Excasso_numbers.Rows(2).Cells(10).Value = "0" Then Exit Sub
 
-        'If SPAS.Lbl_Excasso_Totaal.Text = "0" And SPAS.Lbl_Excasso_CP_Totaal.Text = "0" Then Exit Sub
 
-        Dim document As PdfDocument = New PdfDocument
-        document.Info.Title = "Sponsor program form"
+        '-------------------- afhandeling bestandslocatie ------------------------------
+        '--- kijkt eerst naar het vorig gekozen locatie, indien deze ongeldig is wordt de standaard dropbox locatie bepaald. 
+        '--- als dat ook niet bestaat wordt de locatie dezelfde locatie als het programma
+
         Dim dropboxPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "\Dropbox\HulpoosteuropaTexel\SPAS2\Uitkeringen")
-
-        'bepaal filename en locatie
         Dim SelectFolder As New FolderBrowserDialog
         SelectFolder.ShowNewFolderButton = True
 
@@ -51,9 +52,26 @@ Module Output
             Loop
         End If
 
-        '-------------------------------------------------
-        'Dim plen As Integer = Strings.Len(SelectFolder.SelectedPath)
+        '-----------------------document properties--------------------------
+        Dim document As PdfDocument = New PdfDocument
+        document.Info.Title = "Sponsor program form"
         Dim filenameShort = Mid(filename, Strings.Len(SelectFolder.SelectedPath) + 2)
+
+
+        '-----------excasso properties ---------------------
+        Dim aantal_begunstigden As Integer = SPAS.CalculateColumnCount(SPAS.Dgv_Excasso2, 9)
+        Dim totalpages As Integer = Math.Ceiling(aantal_begunstigden / 14) + 1
+
+        Dim cp_id = SPAS.Cmx_Excasso_Select.SelectedValue
+        Dim Con_tot_qty As Integer = Tbx2Int(SPAS.Dgv_Excasso_numbers.Rows(0).Cells(4).Value)
+        Dim Ext_tot_qty As Integer = Tbx2Dec(SPAS.Dgv_Excasso_numbers.Rows(1).Cells(4).Value) + Tbx2Dec(SPAS.Dgv_Excasso_numbers.Rows(2).Cells(4).Value) * 1
+        Dim CP_tot_eur As Integer = Tbx2Dec(SPAS.Dgv_Excasso_numbers.Rows(0).Cells(8).Value) * 1 + Tbx2Dec(SPAS.Dgv_Excasso_numbers.Rows(1).Cells(8).Value) * 1 + Tbx2Dec(SPAS.Dgv_Excasso_numbers.Rows(2).Cells(8).Value) * 1
+        Dim Con_tot_eur As Integer = Tbx2Dec(SPAS.Dgv_Excasso_numbers.Rows(0).Cells(5).Value)
+        Dim Ext_tot_eur As Integer = Tbx2Dec(SPAS.Dgv_Excasso_numbers.Rows(1).Cells(5).Value) + Tbx2Dec(SPAS.Dgv_Excasso_numbers.Rows(2).Cells(5).Value) * 1
+        Dim Gen_tot_eur = Tbx2Int(SPAS.Dgv_Excasso_numbers.Rows(2).Cells(10).Value)
+        Dim xr As Decimal = Tbx2Dec(SPAS.Tbx_Excasso_Exchange_rate.Text)
+
+
 
         Dim page As PdfPage = document.AddPage
         Dim gfx As XGraphics = XGraphics.FromPdfPage(page)
@@ -72,17 +90,16 @@ Module Output
         Dim fontbold As XFont = New XFont("Verdana", 12, XFontStyle.Bold)
         Dim fontnumber As XFont = New XFont("Verdana", 12, XFontStyle.Regular)
 
-        'Dim totalpages As Integer = Math.Ceiling(SPAS.Lbl_Excasso_Items_Totaal.Text / 14) + 1
+        '
         Dim pages As Integer = 1
         Dim line As Integer = 80
         Dim Sponsored As String
         Dim Contract, Extra, Total As Integer
 
-        Dim CP_name = QuerySQL("Select name from CP WHERE id ='" & SPAS.Lbl_Excasso_CPid.Text & "'")
-        Dim CP_bank = QuerySQL(
-                "SELECT bankacc.accountno FROM bankacc 
+        Dim CP_name = QuerySQL($"Select name from CP WHERE id ='{cp_id}'")
+        Dim CP_bank = QuerySQL($"SELECT bankacc.accountno FROM bankacc 
                 LEFT JOIN cp on bankacc.id = cp.fk_bankacc_id
-                WHERE cp.id='" & SPAS.Lbl_Excasso_CPid.Text & "'")
+                WHERE cp.id='{cp_id}'")
         Dim dat As Date = SPAS.Dtp_Excasso_Start.Value.ToString
         Dim ximg As XImage = XImage.FromFile(Application.StartupPath & "\HOEZH3.jpg")
 
@@ -121,26 +138,20 @@ Module Output
         gfx.DrawString("Monthly gifts", font, XBrushes.Black, New XRect(30, 240, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString("Extra gifts", font, XBrushes.Black, New XRect(30, 270, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
 
-        'Dim Con_tot_qty As Integer = Tbx2Int(SPAS.Lbl_Excasso_Items_Contract.Text)
-        'Dim Ext_tot_qty As Integer = Tbx2Dec(SPAS.Lbl_Excasso_Items_Extra.Text) + Tbx2Dec(SPAS.Lbl_Excasso_Items_Intern.Text) * 1
-        'Dim CP_tot_eur As Integer = Tbx2Int(SPAS.Lbl_Excasso_CP_Totaal.Text)
-        'Dim Con_tot_eur As Integer = Tbx2Dec(SPAS.Lbl_Excasso_Contractwaarde.Text)
-        'Dim Ext_tot_eur As Integer = Tbx2Dec(SPAS.Lbl_Excasso_Extra.Text) + Tbx2Dec(SPAS.Lbl_Excasso_Intern.Text) * 1
-        'Dim Gen_tot_eur = (GetDouble(Tbx2Dec(SPAS.Lbl_Excasso_Totaal.Text)) + GetDouble(Tbx2Dec(SPAS.Lbl_Excasso_CP_Totaal.Text))).ToString("#.#")
-        'Dim xr As Decimal = Tbx2Dec(SPAS.Tbx_Excasso_Exchange_rate.Text)
+
 
         gfx.DrawString("General totals", font2, XBrushes.Black, New XRect(30, 330, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)
         gfx.DrawString("1", font, XBrushes.Black, New XRect(190, 210, 50, font.Height), XStringFormats.TopRight)
-        'gfx.DrawString(Con_tot_qty, font, XBrushes.Black, New XRect(190, 240, 50, font.Height), XStringFormats.TopRight)
-        'gfx.DrawString(Ext_tot_qty, font, XBrushes.Black, New XRect(190, 270, 50, font.Height), XStringFormats.TopRight)
-        'gfx.DrawString(CP_tot_eur * 1, font, XBrushes.Black, New XRect(260, 210, 50, font.Height), XStringFormats.TopRight)
-        'gfx.DrawString(Con_tot_eur * 1, font, XBrushes.Black, New XRect(260, 240, 50, font.Height), XStringFormats.TopRight)
-        'gfx.DrawString(Ext_tot_eur, font, XBrushes.Black, New XRect(260, 270, 50, font.Height), XStringFormats.TopRight)
-        'gfx.DrawString(Gen_tot_eur, font2, XBrushes.Black, New XRect(260, 330, 50, font.Height), XStringFormats.TopRight)
-        'gfx.DrawString(Tbx2Int(CP_tot_eur * xr), font, XBrushes.Black, New XRect(340, 210, 50, font.Height), XStringFormats.TopRight)
-        'gfx.DrawString(Tbx2Int(Con_tot_eur * xr), font, XBrushes.Black, New XRect(340, 240, 50, font.Height), XStringFormats.TopRight)
-        'gfx.DrawString(Tbx2Int(Ext_tot_eur * xr), font, XBrushes.Black, New XRect(340, 270, 50, font.Height), XStringFormats.TopRight)
-        'gfx.DrawString(Tbx2Int(Gen_tot_eur * xr), font2, XBrushes.Black, New XRect(340, 330, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Con_tot_qty, font, XBrushes.Black, New XRect(190, 240, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Ext_tot_qty, font, XBrushes.Black, New XRect(190, 270, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(CP_tot_eur * 1, font, XBrushes.Black, New XRect(260, 210, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Con_tot_eur * 1, font, XBrushes.Black, New XRect(260, 240, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Ext_tot_eur, font, XBrushes.Black, New XRect(260, 270, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Gen_tot_eur, font2, XBrushes.Black, New XRect(260, 330, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Tbx2Int(CP_tot_eur * xr), font, XBrushes.Black, New XRect(340, 210, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Tbx2Int(Con_tot_eur * xr), font, XBrushes.Black, New XRect(340, 240, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Tbx2Int(Ext_tot_eur * xr), font, XBrushes.Black, New XRect(340, 270, 50, font.Height), XStringFormats.TopRight)
+        gfx.DrawString(Tbx2Int(Gen_tot_eur * xr), font2, XBrushes.Black, New XRect(340, 330, 50, font.Height), XStringFormats.TopRight)
 
 
 
@@ -177,8 +188,8 @@ Module Output
                 End If
                 line = line + 50
                 Sponsored = SPAS.Dgv_Excasso2.Rows(x).Cells(1).Value
-                'Contract = Tbx2Int(SPAS.Dgv_Excasso2.Rows(x).Cells(6).Value) * xr
-                'Extra = (SPAS.Dgv_Excasso2.Rows(x).Cells(7).Value + SPAS.Dgv_Excasso2.Rows(x).Cells(8).Value) * xr
+                Contract = Tbx2Int(SPAS.Dgv_Excasso2.Rows(x).Cells(6).Value) * xr
+                Extra = (SPAS.Dgv_Excasso2.Rows(x).Cells(7).Value + SPAS.Dgv_Excasso2.Rows(x).Cells(8).Value) * xr
                 Total = SPAS.Dgv_Excasso2.Rows(x).Cells(10).Value
 
                 gfx.DrawString(Sponsored, font, XBrushes.Black, New XRect(20, line, page.Width.Point, page.Height.Point), XStringFormats.TopLeft)

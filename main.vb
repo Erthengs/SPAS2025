@@ -1,11 +1,14 @@
-﻿Imports System.ComponentModel.DataAnnotations
+﻿Imports System.ComponentModel
+Imports System.ComponentModel.DataAnnotations
 Imports System.Data.Entity
 Imports System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder
 Imports System.Data.Entity.Core.Common.EntitySql
 Imports System.Data.Entity.Migrations
+Imports System.Diagnostics
 Imports System.IO
 Imports System.Linq.Expressions
 Imports System.Management.Instrumentation
+Imports System.Refection
 Imports System.Reflection
 Imports System.Security.Cryptography
 Imports System.Windows.Forms.VisualStyles
@@ -18,9 +21,7 @@ Imports Microsoft.EntityFrameworkCore.Query.SqlExpressions
 Imports Microsoft.VisualBasic.Devices
 Imports Npgsql
 Imports NpgsqlTypes
-Imports System.Diagnostics
-Imports System.Refection
-Imports System.ComponentModel
+Imports PdfSharp.Pdf.Content
 
 Public Class SPAS
     Private Const V As Boolean = False
@@ -32,6 +33,7 @@ Public Class SPAS
     Private originalValues As New Dictionary(Of String, Object)
     Private editingControl As System.Windows.Forms.TextBox
     Private originalValue As Object ' Stores the original cell value
+    Private isCanceling As Boolean = False
     'bekende fouten
 
 
@@ -60,13 +62,14 @@ Public Class SPAS
         '
         If Not isManualChange Then Return
 
-        Enable_Buttons(True, False)
+        If TC_Main.SelectedTab.Name <> "Incasso" Then Enable_Buttons(True, False)
+
         If TC_Main.SelectedIndex = 0 Then Lbx_Basis.Enabled = False
         If TC_Main.SelectedIndex = 1 Then Dgv_Bank.Enabled = False
         'MsgBox($"{sender.GetType().Name} changed. IsmanualChange: {isManualChange}")
     End Sub
     Private Sub AttachHandlers(controls As Control.ControlCollection)
-        Dim excludedPanels As New List(Of String) From {"Testpanel", "Pan_bank", "Pan_Bank2"}
+        Dim excludedPanels As New List(Of String) From {"Testpanel", "Pan_bank", "Pan_Bank2", "Pan_Incasso", "Pan_Incasso_Views"}
 
         For Each ctrl As Control In controls
 
@@ -105,17 +108,18 @@ Public Class SPAS
 
         MenuAdd.Enabled = AddDelete
         MenuDelete.Enabled = AddDelete
+
     End Sub
 
     Private Sub TC_Main_Selecting(sender As Object, e As TabControlCancelEventArgs) Handles TC_Main.Selecting, TC_Object.Selecting
-        'If current_tabpage = 1 Then 'workaround omdat in tabpage bank het uitsc
-
-        'Else
-        If MenuSave.Enabled Or MenuCancel.Enabled Then
-            MessageBox.Show("Bewaar of annuleer de huidige bewerking.", "Actie Nodig", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            e.Cancel = True
+        If current_tabpage = 2 Then 'workaround omdat in tabpage bank het uitsc
+        Else
+            If MenuSave.Enabled Or MenuCancel.Enabled Then
+                MessageBox.Show("Bewaar of annuleer de huidige bewerking.", "Actie Nodig", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                e.Cancel = True
+            End If
+            'Enable_Buttons(False, False)
         End If
-        'Enable_Buttons(False, False)
     End Sub
     'Private Sub TC_Object_Selecting(sender As Object, e As TabControlCancelEventArgs) Handles TC_Object.Selecting
     ' Check if Save or Cancel buttons are enabled
@@ -203,28 +207,30 @@ Public Class SPAS
     Sub Load_Comboboxes()
         'can go wrong if tables are empty
         Load_Cmx_Bank_Account()
+
         Load_Combobox(Cmx_01_cp__fk_bankacc_id, "id", "name", "SELECT ba.id, ba.name||'/'||ba.accountno as name FROM bankacc ba WHERE ba.expense=True AND ba.active=TRUE ORDER BY ba.name")
         Load_Combobox(Cmx_Incasso_Bankaccount, "id", "name", "SELECT ba.id, ba.accountno AS name FROM bankacc ba WHERE ba.expense=FALSE AND ba.active=TRUE ORDER BY name")
         Load_Combobox(Cmx_01_Target__fk_cp_id, "id", "name", "SELECT cp.id, CONCAT(cp.name, ', ', cp.name_add) as name FROM cp WHERE cp.active=True ORDER BY cp.name")
-        Load_Combobox(Cmx_00_contract__fk_relation_id, "id", "name", "SELECT r.id, CONCAT(r.name, ', ', r.name_add) as name FROM relation r WHERE r.active=TRUE ORDER BY r.name")
+        Load_Combobox(Cmx_00_contract_fk_relation_id, "id", "name", "SELECT r.id, CONCAT(r.name, ', ', r.name_add) as name FROM relation r WHERE r.active=TRUE ORDER BY r.name")
         Load_Combobox(Cmbx_journaalposten_relatie, "id", "name", "SELECT r.id, CONCAT(r.name, ', ', r.name_add) as name FROM relation r ORDER BY name")
         Load_Combobox(Cmbx_journaalposten_account, "id", "name", "SELECT a.id, a.name FROM account a ORDER BY name")
         Load_Combobox(Cmx_Bank_bankacc, "id", "name", "SELECT ba.id, CONCAT(ba.Name, '/', ba.accountno) as name FROM bankacc ba ORDER BY ba.name DESC")
 
-        Load_Combobox(Cmx_00_Contract__fk_account_id, "id", "name", "SELECT a.id, CONCAT(a.id, ' ',a.name) As name FROM account a
-                                          WHERE a.active=TRUE AND a.source='cat' AND a.type = 'Inkomsten' ORDER BY a.name")
+        Load_Combobox(Cmx_Contract_fk_account_id, "id", "name", "SELECT a.id, CONCAT(a.id, ' ',a.name) As name FROM account a
+                                          WHERE a.active=TRUE AND a.type = 'Generiek (fonds)' ORDER BY a.name")
         Load_Combobox(Cmx_01_account__fk_accgroup_id, "id", "name", "SELECT ag.id, ag.name FROM accgroup ag WHERE ag.active=True ORDER BY ag.name")
         Populate_Single_Combobox(Cmbx_Reporting_Year, "select distinct extract (year from date) As Year from journal_archive 
                                             union select distinct min(extract (year from date)) from journal")
 
-        Populate_Combobox(Cmbx_Overboeking_Bron, "select a.id, a.name, sum(j.amt1) from journal j left join account a on a.id=j.fk_account 
-        WHERE a.active=True group by a.id, a.name having sum(amt1)>0::money ORDER BY a.name")
-        Populate_Combobox(Cmbx_Overboeking_Target, "select a.id, a.name, sum(j.amt1), a.id from journal j left join account a on a.id=j.fk_account 
-        WHERE a.active=True group by a.id, a.name ORDER BY a.name")
+        Call Populate_Cmbx_Overboeking
+
+        Populate_Combobox(Cmx_Incasso_IncassoForm, "select CURRENT_DATE as Date, 'Nieuwe incasso' as name, 'Nieuw' as Status union
+	    select distinct date, 'I'|| Substring(name,11,15) as name, trim(status) as Status from journal j where source= 'Incasso' order by status, date desc")
+        Cmx_Incasso_IncassoForm.SelectedIndex = -1
         Fill_Cmx_Journal_List()
 
         If Me.Dgv_Mgnt_Tables.Rows(8).Cells(1).Value > 0 Then
-            Load_Combobox(Cmx_01_contract__fk_target_id, "id", "name", "SELECT id, name||', '||name_add as name FROM target WHERE active=TRUE ORDER BY name")
+            Load_Combobox(Cmx_01_contract_fk_target_id, "id", "name", "SELECT t.id, t.name||', '||t.name_add as name FROM target t WHERE t.active=TRUE ORDER BY t.name")
         End If
         '@@@ hier gaat iets fout
         Fill_Cmx_Excasso_Select_Combined()
@@ -235,7 +241,12 @@ Public Class SPAS
 
     End Sub
 
-
+    Sub Populate_Cmbx_Overboeking()
+        Populate_Combobox(Cmbx_Overboeking_Bron, "select a.id, a.name, sum(j.amt1) from journal j left join account a on a.id=j.fk_account 
+        WHERE a.active=True group by a.id, a.name having sum(amt1)>0::money ORDER BY a.name")
+        Populate_Combobox(Cmbx_Overboeking_Target, "select a.id,a.name,COALESCE(SUM(j.amt1), 0::money) AS total_amt1
+        from account a LEFT join journal j ON a.id = j.fk_account where a.active = TRUE GROUP by  a.id,  a.name ORDER by a.name;")
+    End Sub
 
 
 
@@ -285,8 +296,8 @@ Public Class SPAS
             Rbn_00_contract_child.Checked = True
             '---------------- Temp solution of error
             Lbl_00_Contract__name.Text = Contract_number("K")
-            Load_Combobox(Cmx_01_contract__fk_target_id, "id", "name", "Select id, Name||', '||name_add as name FROM target
-                                                        WHERE ttype='" & Rbn_00_contract_child.Text & "' AND active= TRUE ORDER BY name")
+            Load_Combobox(Cmx_01_contract_fk_target_id, "id", "name", "Select t.id, t.Name||', '||t.name_add as name FROM target t
+                                                        WHERE t.ttype='" & Rbn_00_contract_child.Text & "' AND t.active= TRUE ORDER BY t.name")
             '-------standaard_waarden ophalen
 
             Tbx_11_Contract__donation.Text = QuerySQL("select value from settings where label ilike 'standaard_bedrag_kind'")
@@ -301,9 +312,9 @@ Public Class SPAS
             Rbn_00_contract_child.Checked = True
             Pan_contract_select_target.Enabled = True
             Lbl_00_Contract__name.Text = Contract_number("K")
-            Load_Combobox(Cmx_01_contract__fk_target_id, "id", "name", $"SELECT id, 
-            name||', '||name_add) as name FROM target WHERE ttype='{Rbn_00_contract_child.Text}' And active=true ORDER BY name")
-            Cmx_01_contract__fk_target_id.Text = ""
+            Load_Combobox(Cmx_01_contract_fk_target_id, "id", "name", $"SELECT t.id, 
+            t.name||', '||t.name_add) as name FROM target t WHERE t.ttype='{Rbn_00_contract_child.Text}' And t.active=true ORDER BY t.name")
+            Cmx_01_contract_fk_target_id.Text = ""
             Chx_00_contract__autcol.Enabled = False
 
         End If
@@ -421,7 +432,7 @@ Public Class SPAS
                         val = Lbx_Basis.SelectedItem(Me.Lbx_Basis.ValueMember)
                         Update_table()
                     End If
-                    Dim acc_id As Integer = QuerySQL("select id from account where source = 'Doel' and f_key=" & Cmx_01_contract__fk_target_id.SelectedValue)
+                    Dim acc_id As Integer = QuerySQL("select id from account where source = 'Doel' and f_key=" & Cmx_01_contract_fk_target_id.SelectedValue)
                     Calculate_Budget(acc_id)
                 End If
             Case 1
@@ -615,8 +626,8 @@ Public Class SPAS
     Private Sub Rbn_00_contract_child_Click(sender As Object, e As EventArgs) Handles Rbn_00_contract_child.Click
         Tbx_Contract_ttype.Text = "Kind"
         Lbl_00_Contract__name.Text = Contract_number("K")
-        Load_Combobox(Cmx_01_contract__fk_target_id, "id", "name", "Select id, Name||', '||name_add as name FROM target
-                                                        WHERE ttype='" & Rbn_00_contract_child.Text & "' ORDER BY name")
+        Load_Combobox(Cmx_01_contract_fk_target_id, "id", "name", "Select t.id, t.Name||', '||t.name_add as name FROM target t
+                                                        WHERE t.ttype='" & Rbn_00_contract_child.Text & "' ORDER BY t.name")
         '-------standaard_waarden ophalen
         Dim settingdata = Collect_data2("select value from settings where label ilike 'standaard_%_kind' order by label")
         Tbx_11_Contract__donation.Text = settingdata.Rows(0)(0)
@@ -644,13 +655,13 @@ Public Class SPAS
         Tbx_11_contract__overhead.Text = Tbx2Dec(Tbx_11_contract__overhead.Text)
     End Sub
 
-    Private Sub Cmx_01_contract_fk_target_id_Leave(sender As Object, e As EventArgs) Handles Cmx_01_contract__fk_target_id.Leave
-        If (Cmx_01_contract__fk_target_id.SelectedIndex = -1) Then
-            Cmx_01_contract__fk_target_id.Focus()
+    Private Sub Cmx_01_contract_fk_target_id_Leave(sender As Object, e As EventArgs) Handles Cmx_01_contract_fk_target_id.Leave
+        If (Cmx_01_contract_fk_target_id.SelectedIndex = -1) Then
+            Cmx_01_contract_fk_target_id.Focus()
             Exit Sub
         End If
         Exit Sub
-        Dim id = Cmx_01_contract__fk_target_id.SelectedValue
+        Dim id = Cmx_01_contract_fk_target_id.SelectedValue
         Try
             Pic_Contract_Target_photo.Image = BlobToImage(QuerySQL("SELECT photo FROM target WHERE id='" & id & "'"))
 
@@ -659,9 +670,12 @@ Public Class SPAS
         End Try
     End Sub
 
-    Private Sub Cmx_01_contract_fk_target_id_SelectedValueChanged(sender As Object, e As EventArgs) Handles Cmx_01_contract__fk_target_id.SelectedValueChanged
-        Dim id = Cmx_01_contract__fk_target_id.SelectedValue
+    Private Sub Cmx_01_contract_fk_target_id_SelectedValueChanged(sender As Object, e As EventArgs) Handles Lbl_11_contract__fk_target_id.TextChanged
+
+        Exit Sub
+        Dim id = Lbl_11_contract__fk_target_id.Text
         'Tbx_Contract_ttype.Text = QuerySQL("Select ttype FROM target WHERE id=" & id)
+        Lbl_11_contract__fk_target_id.Text = id.ToString
         Try
             Pic_Contract_Target_photo.Image = BlobToImage(QuerySQL("SELECT photo FROM target WHERE id='" & id & "'"))
         Catch ex As Exception
@@ -669,9 +683,10 @@ Public Class SPAS
         End Try
     End Sub
 
-    Private Sub Cmx_01_contract_fk_relation_id_Leave(sender As Object, e As EventArgs) Handles Cmx_00_contract__fk_relation_id.Leave
-        If (Cmx_00_contract__fk_relation_id.SelectedIndex = -1) Then
-            Cmx_00_contract__fk_relation_id.Focus()
+    Private Sub Cmx_01_contract_fk_relation_id_Leave(sender As Object, e As EventArgs) Handles Cmx_00_contract_fk_relation_id.SelectedIndexChanged
+        If Not Add_Mode Then Exit Sub
+        If (Cmx_00_contract_fk_relation_id.SelectedIndex = -1) Then
+            Cmx_00_contract_fk_relation_id.Focus()
             Exit Sub
         End If
 
@@ -688,8 +703,8 @@ Public Class SPAS
     Private Sub Rbn_00_contract_elder_Click(sender As Object, e As EventArgs) Handles Rbn_00_contract_elder.Click
         Tbx_Contract_ttype.Text = "Oudere"
         Lbl_00_Contract__name.Text = Contract_number("O")
-        Load_Combobox(Cmx_01_contract__fk_target_id, "id", "name",
-                      $"SELECT id, name||', '||name_add as name FROM target WHERE ttype='{Rbn_00_contract_elder.Text}' ORDER BY name")
+        Load_Combobox(Cmx_01_contract_fk_target_id, "id", "name",
+                      $"SELECT t.id, t.name||', '||t.name_add as name FROM target t WHERE t.ttype='{Rbn_00_contract_elder.Text}' ORDER BY t.name")
         Dim presetdata = Collect_data2("select value from settings where label ilike 'standaard_%_oudere' order by label")
         Tbx_11_Contract__donation.Text = presetdata.Rows(0)(0)
         Tbx_11_contract__overhead.Text = presetdata.Rows(1)(0)
@@ -697,8 +712,8 @@ Public Class SPAS
 
     Private Sub Rbn_00_contract_other_Click(sender As Object, e As EventArgs) Handles Rbn_00_contract_other.Click
         Tbx_Contract_ttype.Text = "Overig"
-        Load_Combobox(Cmx_01_contract__fk_target_id, "id", "name", "SELECT id, name||', '||name_add as name FROM target
-                                                        WHERE ttype='" & Rbn_00_contract_other.Text & "' ORDER BY name")
+        Load_Combobox(Cmx_01_contract_fk_target_id, "id", "name", "SELECT t.id, t.name||', '||t.name_add as name FROM target t
+                                                        WHERE t.ttype='" & Rbn_00_contract_other.Text & "' ORDER BY t.name")
         Lbl_00_Contract__name.Text = Contract_number("V")
         Tbx_11_Contract__donation.Text = 0
         Tbx_11_contract__overhead.Text = 0
@@ -723,6 +738,7 @@ Public Class SPAS
         End If
     End Sub
     Private Sub Tbx_01_contract_yeartotal_TextChanged(sender As Object, e As EventArgs) Handles Tbx_01_contract_yeartotal.TextChanged
+        If isCanceling Then Exit Sub
         Try
             If Not Add_Mode And MenuSave.Enabled Then
                 'If Edit_Mode And Not Add_Mode Then
@@ -733,11 +749,17 @@ Public Class SPAS
                 'delete that version
 
                 Dim next_date As Date = QuerySQL("select max(startdate) from contract where name ='" & name & "'")
-                If next_date > Date.Today Then
+                If next_date > Date.Today And MenuSave.Enabled Then
                     MsgBox("Er is een nieuwere versie die nog niet is ingegaan (" & next_date & ")" & vbCrLf &
-                           "S.v.p. deze eerst verwijderen. " & next_date)
-                    Cancel()
-                    Exit Sub
+                           "S.v.p. deze eerst verwijderen. ")
+
+                    'isCanceling = True
+                    'Cancel()
+                    '   ' Reset the flag *after*
+                    'isCanceling = False
+
+                    'Exit Sub
+
 
                 End If
 
@@ -765,6 +787,7 @@ Public Class SPAS
             If Add_Mode Then
                 Pan_Contract_Date_New.Visible = False
             End If
+            'isCanceling = True
         Catch ex As Exception
         End Try
     End Sub
@@ -780,7 +803,7 @@ Public Class SPAS
 
         Dim dtp As String
         Dim ttype As String
-        Dim rel_id = Cmx_00_contract__fk_relation_id.SelectedValue
+        Dim rel_id = Cmx_00_contract_fk_relation_id.SelectedValue
         MsgBox(rel_id)
 
         If Rbn_00_contract_child.Checked Then
@@ -807,7 +830,7 @@ Public Class SPAS
 
     End Sub
     Private Sub Cbx_00_contract__autcol_CheckedChanged(sender As Object, e As EventArgs) Handles Chx_00_contract__autcol.CheckedChanged
-        Dim rel_id = Cmx_00_contract__fk_relation_id.SelectedValue
+        Dim rel_id = Cmx_00_contract_fk_relation_id.SelectedValue
         Dim dtp = IIf(Rbn_00_contract_child.Checked, "date1", IIf(Rbn_00_contract_elder.Checked, "date2", "date3"))
         Lbl_00_contract_autcol.Visible = Chx_00_contract__autcol.Checked
         Lbl_00_contract_autcol.Text = QuerySQL("SELECT reference FROM relation WHERE id=" & rel_id)
@@ -826,17 +849,7 @@ Public Class SPAS
         CheckActive(Cbx_00_target__active, Lbl_Target_pkid, "contract")
     End Sub
 
-    Private Sub Dtp_30_Contract_Change_ValueChanged(sender As Object, e As EventArgs) Handles Dtp_30_Contract_Change.ValueChanged
-        Exit Sub
-        If Dtp_30_Contract_Change.Visible Then
-            Dim d As DateTime
-            d = Me.Dtp_30_Contract_Change.Value
-            'Determine enddate previous version
-            Me.Dtp_31_contract__enddate.Value = New DateTime(d.Year, d.Month, 1).AddDays(-1)
 
-            Add_Mode = True
-        End If
-    End Sub
 
     Sub Manage_Buttons_Target(ByVal _add As Boolean, _searchbox As Boolean, d As Boolean, _menusave As Boolean, _cancel As Boolean, sender As String)
         Exit Sub
@@ -955,11 +968,12 @@ Public Class SPAS
 
     End Sub
 
-    Private Sub Btn_Bank_Add_Journal_Click(sender As Object, e As EventArgs) Handles Cmx_Bank_Account.Click, Cmx_Bank_Account.SelectionChangeCommitted
-        ', Cmx_Bank_Account.SelectedIndexChanged
+    Private Sub Btn_Bank_Add_Journal_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles Cmx_Bank_Account.SelectionChangeCommitted, Cmx_Bank_Account.Click
+
         isManualChange = False
-        Add_Journal_post_to_banktransaction()
+        'Add_Journal_post_to_banktransaction()
     End Sub
+
 
 
 
@@ -1045,7 +1059,7 @@ Public Class SPAS
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles Tbx_Contract_ttype.TextChanged
 
-        Dim rel_id = Cmx_00_contract__fk_relation_id.SelectedValue
+        Dim rel_id = Cmx_00_contract_fk_relation_id.SelectedValue
         Dim dtp = IIf(Tbx_Contract_ttype.Text = "Kind", "date1",
                      IIf(Tbx_Contract_ttype.Text = "Oudere", "date2", "date3"))
 
@@ -1063,7 +1077,7 @@ Public Class SPAS
 
     Private Sub Dtp_Incasso_start_ValueChanged(sender As Object, e As EventArgs) Handles Dtp_Incasso_start.ValueChanged
         If TC_Main.SelectedIndex <> 2 Then Exit Sub
-        Create_Incassolist()
+        'tijdelijk uitgezet: Create_Incassolist()
         If Rbn_Incasso_SEPA.Checked Then
             Prepare_Datagridview(Dgv_Incasso, Nothing, {"TZ205", "NG080", "TZ160", "TZ080", "TZ090", "DZ090"})
         Else
@@ -1073,26 +1087,12 @@ Public Class SPAS
         Rbn_Incasso_SEPA.Checked = True
     End Sub
 
-    Private Sub Rbn_Incasso_SEPA_CheckedChanged(sender As Object, e As EventArgs) Handles Rbn_Incasso_SEPA.CheckedChanged _
-        , Rbn_Incasso_journal.Click, Rbn_Incasso_Verschillen.Click
-
+    Private Sub Rbn_Incasso_SEPA_CheckedChanged(sender As Object, e As EventArgs) Handles Rbn_Incasso_SEPA.CheckedChanged, Rbn_Incasso_journal.CheckedChanged, Rbn_Incasso_SEPA.Click, Rbn_Incasso_journal.Click
         If TC_Main.SelectedIndex <> 2 Then Exit Sub
         If Rbn_Incasso_SEPA.Checked Then
-            'Load_Datagridview(Me.Dgv_Incasso, Create_Incasso(Dtp_Incasso_start.Value), "Dtp_Incasso_start.ValueChanged")
             Prepare_Datagridview(Dgv_Incasso, Create_Incasso(Dtp_Incasso_start.Value), {"TZ205", "NG080", "TZ160", "TZ080", "TZ090", "DZ090"})
         ElseIf Rbn_Incasso_journal.Checked Then
-            'Load_Datagridview(Me.Dgv_Incasso, Create_Incasso_Bookings(Dtp_Incasso_start.Value), "Dtp_Incasso_start.ValueChanged")
             Prepare_Datagridview(Dgv_Incasso, Create_Incasso_Bookings(Dtp_Incasso_start.Value), {"TZ210", "TZ210", "TZ070", "TZ070", "NG080", "NG080", "HZ080", "HZ080"})
-        Else
-            Dim arr_format() As String = Nothing
-            Dim sql = QuerySQL($"select sql from query where name='Check_incasso'")
-            If IsNothing(sql) Then Exit Sub
-            Dim formatting = QuerySQL($"select sql from query where name='Check_incasso'")
-            If Not IsNothing(formatting) Then arr_format = formatting.Split(",")
-            sql = sql.replace("[date]", $"'{Year(Me.Dtp_Incasso_start.Value)}-{Month(Me.Dtp_Incasso_start.Value)}-01'")
-            'Load_Datagridview(Me.Dgv_Incasso, sql, "Dtp_Incasso_verschillen.ValueChanged")
-            Prepare_Datagridview(Dgv_Incasso, sql, {"TZ350", "TZ200", "NZ080", "NZ080"})
-
         End If
     End Sub
 
@@ -1101,43 +1101,10 @@ Public Class SPAS
     End Sub
 
     Private Sub Dgv_Excasso2_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Excasso2.CellEndEdit
-        If Dgv_Excasso2.Rows.Count = 0 Then Exit Sub
-
-        On Error GoTo fin
-        'checks of ingevoerde waarden ook beschikbaar zijn
-        Dim i As Integer = Me.Dgv_Excasso2.CurrentCell.RowIndex  'Me.Dgv_Excasso2.CurrentRow.Index
-        Dim j As Integer = Me.Dgv_Excasso2.CurrentCell.ColumnIndex
-        If j < 6 Or i > 8 Then Exit Sub
-
-        'Dim fin As VariantType
-        Dim ruimte_contract As Integer = Math.Max(Me.Dgv_Excasso2.Rows(i).Cells(2).Value, Me.Dgv_Excasso2.Rows(i).Cells(3).Value)
-
-
-        Dim tp = IIf(i = 6, "Contract", IIf(i = 7, "Extra", "Intern"))
-
-        Select Case j
-            Case 6
-                If Me.Dgv_Excasso2.Rows(i).Cells(6).Value > ruimte_contract Then
-                    MsgBox("Uitkering is maximaal het beschikbare contractbedrag")
-                    Me.Dgv_Excasso2.Rows(i).Cells(6).Value = ruimte_contract
-                End If
-            Case 7
-                If Me.Dgv_Excasso2.Rows(i).Cells(j).Value > Me.Dgv_Excasso2.Rows(i).Cells(j - 3).Value Then
-                    MsgBox("Extra gift is hoger dan binnengekomen extra gift")
-                    Me.Dgv_Excasso2.Rows(i).Cells(j).Value = Me.Dgv_Excasso2.Rows(i).Cells(j - 3).Value
-                End If
-            Case 8
-                If Me.Dgv_Excasso2.Rows(i).Cells(j).Value > Me.Dgv_Excasso2.Rows(i).Cells(j - 3).Value Then
-                    MsgBox("Interne gift is hoger dan interne boeking")
-                    Me.Dgv_Excasso2.Rows(i).Cells(j).Value = Me.Dgv_Excasso2.Rows(i).Cells(j - 3).Value
-                End If
-        End Select
-        'Calculate_Excasso_Totals2()
-        Calculate_Excasso_Totals(2)
-        Exit Sub
-fin:
-        MsgBox("Het formulier accepteert alleen uitkeringen in hele euro's")
+        Edit_Dgv_Excasso()
     End Sub
+
+
     Private Sub Dgv_Excasso2_DataError(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewDataErrorEventArgs) _
     Handles Dgv_Excasso2.DataError ', Dgv_Bank_Account.DataError
 
@@ -1166,7 +1133,7 @@ fin:
     Sub MenuExcassoDelete()
         If Cmx_Excasso_Select.SelectedIndex = -1 Then Exit Sub
         If MsgBox("Wilt u de uitkeringslijst verwijderen?", vbYesNo) = vbYes Then
-            RunSQL("DELETE FROM journal WHERE name ilike '%" & Me.Cmx_Excasso_Select.SelectedItem & "'", "NULL", "Delete_Excasso_Job")
+            RunSQL("DELETE FROM journal WHERE name ilike '%" & Me.Cmx_Excasso_Select.DisplayMember & "'", "NULL", "Delete_Excasso_Job")
             Fill_Cmx_Excasso_Select_Combined()
             Empty_Excasso_Window()
         End If
@@ -1248,7 +1215,7 @@ fin:
         'check of de budgetbedragen nog geldig zijn -----------------------------------------------------------
         If QuerySQL("select extract (year from min(date)) from journal") < Now.Year Then Calculate_Budget("")
 
-        If Strings.Left(Cmx_Excasso_Select.SelectedItem, 5) = "Nieuw" Then
+        If Strings.Left(Cmx_Excasso_Select.Text, 5) = "Nieuw" Then
 
 
         Else  '=============================existing excasso===============================
@@ -1284,31 +1251,36 @@ fin:
 
     Private Sub Btn_Excasso_Copy_to_clipboard_Click(sender As Object, e As EventArgs)
 
-        If Strings.Left(Cmx_Excasso_Select.SelectedItem, 6) = "Nieuwe" Then
+        If Strings.Left(Cmx_Excasso_Select.DisplayMember, 5) = "Nieuw" Then
             MsgBox("Bewaar deze uitkeringslijst eerst s.v.p.")
         Else
-            If IsDBNull(Cmx_Excasso_Select.SelectedItem) Or Cmx_Excasso_Select.SelectedItem = "" Then Exit Sub
+            If IsDBNull(Cmx_Excasso_Select.DisplayMember) Or Cmx_Excasso_Select.DisplayMember = "" Then Exit Sub
             Clipboard.Clear()
-            Clipboard.SetText(Cmx_Excasso_Select.SelectedItem)
+            Clipboard.SetText(Cmx_Excasso_Select.DisplayMember)
 
         End If
 
     End Sub
 
 
-    Private Sub Cmx_00_contract__fk_relation_id_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmx_00_contract__fk_relation_id.SelectedIndexChanged
+    Private Sub Cmx_00_contract__fk_relation_id_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmx_00_contract_fk_relation_id.SelectedIndexChanged
         If Not Add_Mode Then Exit Sub
-        Dim int = QuerySQL("
+        Exit Sub
+        ''' Dit is specifieke functionaliteit voor interne contracten
+        MsgBox("Lbl_00_contract__fk_relation_id.Text")
+        Dim int = QuerySQL($"
                                         SELECT ba.id
                                         FROM relation r
                                         LEFT join bankacc ba ON ba.accountno = r.iban 
-                                        WHERE r.id ='" & Cmx_00_contract__fk_relation_id.SelectedValue & "'
+                                        WHERE r.id ={Lbl_11_contract__fk_relation_id.Text}
                                         ")
 
+        MsgBox("SelectedIndexChanged2")
+
         Me.Lbl_Contract_Bronaccount.Visible = Not IsDBNull(int)
-        Me.Cmx_00_Contract__fk_account_id.Visible = Not IsDBNull(int)
+        Me.Cmx_Contract_fk_account_id.Visible = Not IsDBNull(int)
         Chx_00_contract__autcol.Enabled = IsDBNull(int)
-        Lbl_Rel_id.Text = Cmx_00_contract__fk_relation_id.SelectedValue
+        'Lbl_00_contract__fk_relation_id.Text = Cmx_00_contract_fk_relation_id.SelectedValue
     End Sub
 
 
@@ -1426,7 +1398,7 @@ fin:
 
         Dim i As Integer = Me.Dgv_Excasso2.CurrentRow.Index
 
-        Dim name As String = Me.Dgv_Excasso2.Rows(i).Cells(1).Value
+        'Dim name As String = Me.Dgv_Excasso2.Rows(i).Cells(1).Value
         Dim id = Me.Dgv_Excasso2.Rows(i).Cells(0).Value
 
 
@@ -1458,6 +1430,7 @@ fin:
             Next
 
         End With
+
     End Sub
 
 
@@ -1587,6 +1560,9 @@ fin:
             Tbx_Journal_Description.Text = ""
             Dtp_Journal_intern.Value = Date.Today
             Tbx_Journal_Name.Text = ""
+            Rbn_Journal_Extra.Checked = False
+            Rbn_Journal_Intern.Checked = False
+            Rbn_Journal_Contract.Checked = False
         End If
     End Sub
 
@@ -1663,7 +1639,7 @@ fin:
     End Sub
 
     Private Sub MenuCategoriseer_Click(sender As Object, e As EventArgs) Handles MenuCategoriseer.Click
-        Categorize_Bank_Transactions(True, True, True, True, True, True, True)
+        Categorize_Bank_Transactions(True, False, True, True, True, True, True)
         Fill_bank_transactions("MenuCategoriseer", Me.Dgv_Bank.SelectedCells(3).RowIndex)
     End Sub
 
@@ -1705,13 +1681,11 @@ fin:
                 If Me.Dgv_Mgnt_Tables.Rows(3).Cells(1).Value > 0 And
                     Me.Dgv_Mgnt_Tables.Rows(5).Cells(1).Value > 0 And
                     Me.Dgv_Mgnt_Tables.Rows(8).Cells(1).Value > 0 Then
-                    Create_Incassolist()
-                    Dtp_Incasso_start.Format = DateTimePickerFormat.Custom
-                    Dtp_Incasso_start.CustomFormat = "MMMM yyyy"
-                    Dtp_Incasso_start.ShowUpDown = True
+
                     Prepare_Datagridview(Dgv_Incasso, Nothing, {"TZ205", "NG080", "TZ160", "TZ080", "TZ090", "DZ090"})
                 End If
                 isManualChange = True
+                Enable_Buttons(False, False)
             Case 3 'uitkering
                 isManualChange = False
                 Enable_Buttons((Dgv_Excasso2.Rows.Count > 0), (Dgv_Excasso2.Rows.Count = 0))
@@ -1724,7 +1698,7 @@ fin:
                 If Me.Dgv_Mgnt_Tables.Rows(3).Cells(1).Value > 0 And
                     Me.Dgv_Mgnt_Tables.Rows(5).Cells(1).Value > 0 And
                     Me.Dgv_Mgnt_Tables.Rows(8).Cells(1).Value > 0 And
-                    Me.Cmx_Excasso_Select.SelectedItem = "" Then
+                    Me.Cmx_Excasso_Select.DisplayMember = "" Then
 
                     Dtp_Excasso_Start.ShowUpDown = False
                     Dtp_Excasso_Start.Value = CDate(Date.Today.Year & "-" & Date.Today.Month & "-" & Date.Today.Day)
@@ -2174,12 +2148,14 @@ fin:
     Private Sub Rbtn_Overboekingen_Kind_CheckedChanged(sender As Object, e As EventArgs) Handles Rbtn_Overboekingen_Kind.CheckedChanged,
         Rbtn_Overboekingen_Oudere.CheckedChanged, Rbtn_Overboekingen_alles.CheckedChanged
         If isProgrammaticChange = True Then Exit Sub
-        Dim sql As String = "select a.id, a.name, sum(j.amt1), a.id from journal j left join account a on a.id=j.fk_account left join accgroup g on g.id= a.fk_accgroup_id  
-        WHERE a.active=True group by a.id, a.name ORDER BY a.name"
+        Dim sql As String = "select a.id,a.name,COALESCE(SUM(j.amt1), 0::money) AS total_amt1
+                             from account a LEFT join     journal j ON a.id = j.fk_account
+                            where a.active = TRUE GROUP by  a.id,  a.name ORDER by a.name;"
         If Rbtn_Overboekingen_Kind.Checked Then
             sql = sql.Replace("True", "True and g.name = 'Kindersponsoring'")
         ElseIf Rbtn_Overboekingen_Oudere.Checked Then
             sql = sql.Replace("True", "True and g.name = 'Ouderensponsoring'")
+
         End If
         isProgrammaticChange = True
         Populate_Combobox(Cmbx_Overboeking_Target, sql)
@@ -2288,9 +2264,7 @@ fin:
                         Case Else
                             'Do nothing
                     End Select
-                    'Load_Datagridview(Dgv_Report_6, sql, "Dgv_Rapportage_Overzicht.DoubleClick")
-                    'MsgBox(formatting)
-                    'If Not IsNothing(formatting) Then
+
                     Prepare_Datagridview(Dgv_Report_6, sql, formatting.Split(","))
                     'End If
 
@@ -2302,14 +2276,13 @@ fin:
 
     Private Sub Cmx_Excasso_Select_SelectedIndexChanged_3(sender As Object, e As EventArgs) Handles Cmx_Excasso_Select.SelectedIndexChanged
         isManualChange = False
-        If Strings.Left(Cmx_Excasso_Select.SelectedItem, 5) <> "Nieuw" Then
+        If Cmx_Excasso_Select.Items.Count = 0 Then Exit Sub
+        If Strings.Left(Cmx_Excasso_Select.Text, 5).ToString <> "Nieuw" Then
             Load_Existing_Excasso()
         Else
             Load_New_Excasso(True)
+
         End If
-        'Load_Excasso_Form()
-        'Call_Excasso_form(sender)
-        'Prepare_Datagridview(Dgv_Excasso2, Nothing, {"HZ010", "TZ125", "JZ050", "JZ054", "JZ054", "JZ054", "JB050", "JB054", "JB054", "IG054", "IG054"})
         isManualChange = True
     End Sub
 
@@ -2349,9 +2322,7 @@ fin:
 
     End Function
 
-    Private Sub Dgv_Excasso2_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Excasso2.CellContentClick
 
-    End Sub
 
 
 
@@ -2381,60 +2352,385 @@ fin:
 
 
     Private Sub Tbx_Excasso_Exchange_rate_TextChanged(sender As Object, e As EventArgs) Handles Tbx_Excasso_Exchange_rate.TextChanged
-        Calculate_Excasso_Totals(2)
+        Calculate_Excasso_Totals(False)
     End Sub
 
     Private Sub Tbx_Excasso_Exchange_rate_Validating(sender As Object, e As CancelEventArgs) Handles Tbx_Excasso_Exchange_rate.Validating
 
         Dim numericValue As Integer
-        If Not Integer.TryParse(Tbx_Excasso_Exchange_rate.Text, numericValue) Then
+        If Not Decimal.TryParse(Tbx_Excasso_Exchange_rate.Text, numericValue) Then
             Tbx_Excasso_Exchange_rate.Text = "1" ' Set default value to 1
         End If
     End Sub
 
-    Private Sub Dgv_Excasso_numbers_RowsRemoved(sender As Object, e As DataGridViewRowsRemovedEventArgs) Handles Dgv_Excasso_numbers.RowsRemoved
-        MessageBox.Show("Row removed! Current row count: " & Dgv_Excasso_numbers.Rows.Count.ToString())
-    End Sub
-
 
     Private Sub Dgv_Excasso_numbers_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Excasso_numbers.CellClick
+        'MsgBox("Dgv_Excasso_numbers_CellClick")
         If e.RowIndex < 0 Then Exit Sub
+
         If e.ColumnIndex = 2 Then  ' Column 2 is the button column
             Dgv_Excasso_numbers.Rows(0).Cells(2).Style.BackColor = Color.White
             Dgv_Excasso_numbers.Rows(1).Cells(2).Style.BackColor = Color.White
             Dgv_Excasso_numbers.Rows(2).Cells(2).Style.BackColor = Color.White
             Dgv_Excasso_numbers.Rows(e.RowIndex).Cells(2).Style.BackColor = Color.CornflowerBlue
-
-            'MessageBox.Show("Button clicked in row " & Dgv_Excasso_numbers.Rows(e.RowIndex).Cells(2).Style.BackColor.ToString)
             Calculate_Excasso_Totals(2)
+
         End If
 
 
     End Sub
-    Private Sub Dgv_Excasso_numbers_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Excasso_numbers.CellContentClick
-
-        If TypeOf Dgv_Excasso_numbers.Rows(e.RowIndex).Cells(e.ColumnIndex) Is DataGridViewCheckBoxCell Then
-            ' Toggle checkbox manually
-            Dgv_Excasso_numbers.CommitEdit(DataGridViewDataErrorContexts.Commit)
-            'MsgBox(Dgv_Excasso_numbers.Rows(e.RowIndex).Cells(e.ColumnIndex).Value)
-
-        End If
 
 
-
-        If e.ColumnIndex = 1 AndAlso e.RowIndex >= 0 Then
-            'MessageBox.Show("Checkbox clicked in row " & e.RowIndex.ToString())
-
-            'Load_New_Excasso(False)
-        End If
-
-    End Sub
 
     Private Sub Cbx_CP_Automatisch_CheckedChanged(sender As Object, e As EventArgs) Handles Cbx_CP_Automatisch.Click
+
         'If Cbx_CP_Automatisch.Checked Then
-        Calculate_Excasso_Totals(2)
+        Calculate_Excasso_Totals(False)
         'End If
     End Sub
 
+    Sub Dgv_Excasso_numbers_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Excasso_numbers.CellContentClick
 
+
+        If TypeOf Dgv_Excasso_numbers.Rows(e.RowIndex).Cells(e.ColumnIndex) Is DataGridViewCheckBoxCell Then
+
+            If Strings.Left(Cmx_Excasso_Select.DisplayMember, 5) <> "Nieuw" Then Exit Sub
+
+            Dgv_Excasso_numbers.CommitEdit(DataGridViewDataErrorContexts.Commit)
+            Dgv_Excasso_numbers.Rows(0).Cells(2).Style.BackColor = Color.CornflowerBlue
+            Dgv_Excasso_numbers.Rows(1).Cells(2).Style.BackColor = Color.White
+            Dgv_Excasso_numbers.Rows(2).Cells(2).Style.BackColor = Color.White
+            Load_New_Excasso(False)
+
+        End If
+    End Sub
+
+    Private Sub Butn_Settings_Whatsnew_Click(sender As Object, e As EventArgs)
+        If MsgBox("Nieuwe versie?", vbYesNoCancel) = vbYes Then My.Settings._whatsnew = "Ja" Else My.Settings._whatsnew = "Nee"
+    End Sub
+
+    Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.ValueChanged
+
+        My.Settings._whatsnew = DateTimePicker1.Value  '.ToString("yyyy-MM-dd")
+        MsgBox(My.Settings._whatsnew)
+
+    End Sub
+
+
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        Add_Journal_post_to_banktransaction()
+    End Sub
+
+    Private Sub Check_relid_Click(sender As Object, e As EventArgs)
+        Lbl_11_contract__fk_relation_id.Text = Cmx_00_contract_fk_relation_id.SelectedValue
+    End Sub
+
+    Private Sub Cmx_01_contract_fk_target_id_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmx_01_contract_fk_target_id.SelectedIndexChanged
+        If Not Add_Mode Then Exit Sub
+        Dim target_id = QuerySQL($"Select id from target where concat(name, ', ', name_add) ='{Cmx_01_contract_fk_target_id.Text}'")
+        Lbl_11_contract__fk_target_id.Text = target_id
+    End Sub
+
+    Private Sub Cmx_00_Contract_fk_account_id_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmx_Contract_fk_account_id.SelectedIndexChanged
+        'If Not Add_Mode Then Exit Sub
+        Lbl_10_Contract__fk_account_id.Text = Strings.Trim(Strings.Left(Cmx_Contract_fk_account_id.Text, 4))
+    End Sub
+
+    Private Sub Btn_Incasso_Click(sender As Object, e As EventArgs) Handles Btn_Incasso_Open_XML.Click
+        Dim openFileDialog As New OpenFileDialog()
+        openFileDialog.Filter = "XML Files|*.xml"
+
+        If openFileDialog.ShowDialog() = DialogResult.OK Then
+            Dim parser As New SepaParser()
+            Try
+                ' Roep de functie aan en bind het resultaat direct aan je Grid
+                Dim table As DataTable = parser.ConvertSepaXmlToDataTable(openFileDialog.FileName)
+
+                Dgv_Incasso.DataSource = table
+
+                MessageBox.Show($"Er zijn {table.Rows.Count} transacties gevonden.", "Succes")
+                Call Fill_Incasso_Overview(table)
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Fout")
+            End Try
+        End If
+    End Sub
+    Sub Count_Differences()
+        Dim nieuw_deze_maand As Integer = 0
+        Dim verdwenen_deze_maand As Integer = 0
+        Dim ontbrekend_journaal As Integer = 0
+        Dim ontbrekend_contract As Integer = 0
+        Dim afwijkend_bedrag As Integer = 0
+
+        Dim sql = QuerySQL($"select sql from query where name='Check_incasso'")
+        If IsNothing(sql) Then Exit Sub
+        Dim isd = Dtp_Incasso_start.Value
+        sql = sql.replace("[date]", $"'{isd.Year}-{isd.Month}-{isd.Day}'")
+        Dim incassodata = Collect_data2(sql)
+
+
+        For x As Integer = 0 To incassodata.Rows.Count - 1
+            Dim i = incassodata.Rows(x)(0)
+            If i = "Toegevoegd t.o.v. vorige maand" Then nieuw_deze_maand += 1
+            If i = "Verdwenen t.o.v. vorige maand" Then verdwenen_deze_maand += 1
+            If i = "Ontbrekend in journaal" Then ontbrekend_journaal += 1
+            If i = "Ontbrekend in contract" Then ontbrekend_contract += 1
+            If i = "Afwijkend bedrag" Then afwijkend_bedrag += 1
+
+        Next x
+
+
+        Dgv_Incasso_Analyse.Columns.Clear()
+        Dgv_Incasso_Analyse.Rows.Clear()
+
+        Dgv_Incasso_Analyse.Columns.Add("Controle", "Controle")
+        Dgv_Incasso_Analyse.Columns.Add("Aant", "Aant.")
+        Dgv_Incasso_Analyse.Columns("Controle").Width = 146
+        Dgv_Incasso_Analyse.Columns("Aant").Width = 50
+
+        Dgv_Incasso_Analyse.Rows.Add("Nieuw deze maand", nieuw_deze_maand)
+        Dgv_Incasso_Analyse.Rows.Add("Gestopt deze maand", verdwenen_deze_maand)
+        'Dgv_Incasso_Analyse.Rows.Add("Afwezig in journal", ontbrekend_journaal)
+
+        If Lbl_Incasso_Status.Text <> "Nieuw" Then
+
+            Dim idx0 As Integer = Dgv_Incasso_Analyse.Rows.Add("Afwezig in journal", ontbrekend_journaal)
+
+            If ontbrekend_journaal > 0 Then
+                Dgv_Incasso_Analyse.Rows(idx0).DefaultCellStyle.Font = New Font(Dgv_Incasso_Analyse.Font, FontStyle.Bold)
+                Dgv_Incasso_Analyse.Rows(idx0).DefaultCellStyle.ForeColor = Color.DarkRed
+            End If
+
+            Dim idx1 As Integer = Dgv_Incasso_Analyse.Rows.Add("Afwezig in contract", ontbrekend_contract)
+
+            If ontbrekend_contract > 0 Then
+                Dgv_Incasso_Analyse.Rows(idx1).DefaultCellStyle.Font = New Font(Dgv_Incasso_Analyse.Font, FontStyle.Bold)
+                Dgv_Incasso_Analyse.Rows(idx1).DefaultCellStyle.ForeColor = Color.DarkRed
+            End If
+
+            ' 3. "Afwijkend bedrag" toevoegen en opmaken
+            Dim idx2 As Integer = Dgv_Incasso_Analyse.Rows.Add("Afwijkend bedrag", afwijkend_bedrag)
+
+            If afwijkend_bedrag > 0 Then
+                Dgv_Incasso_Analyse.Rows(idx2).DefaultCellStyle.Font = New Font(Dgv_Incasso_Analyse.Font, FontStyle.Bold)
+                Dgv_Incasso_Analyse.Rows(idx2).DefaultCellStyle.ForeColor = Color.DarkRed
+            End If
+        End If
+
+        ' Zorg dat er niets geselecteerd is na het vullen (oogt rustiger)
+        Dgv_Incasso_Analyse.ClearSelection()
+
+    End Sub
+
+
+    Sub Fill_Incasso_Overview(t As DataTable)
+        'If Rbn_Incasso_Verschillen.Checked Then Exit Sub
+        ' 1. Koppel de datasource los
+        Dgv_incasso_totals.DataSource = Nothing
+
+        ' 2. Wis ALLE bestaande kolommen en rijen om schoon te beginnen
+        Dgv_incasso_totals.Columns.Clear()
+        Dgv_incasso_totals.Rows.Clear()
+
+        ' 3. Voeg de kolommen handmatig toe
+        ' Structuur: .Add("UniekeNaam", "Koptekst")
+        Dgv_incasso_totals.Columns.Add("colDoel", "Doel")
+        Dgv_incasso_totals.Columns.Add("colAantal", "Aantal")
+        Dgv_incasso_totals.Columns.Add("colTotaal", "Totaal")
+
+        ' 4. (Optioneel) Opmaak van de kolommen instellen
+        ' Kolom Aantal: rechts uitlijnen
+        Dgv_incasso_totals.Columns("colAantal").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+        ' Kolom Totaal: rechts uitlijnen én als Euro weergeven (c2 = Currency met 2 decimalen)
+        Dgv_incasso_totals.Columns("colTotaal").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        Dgv_incasso_totals.Columns("colDoel").Width = 60
+        Dgv_incasso_totals.Columns("colAantal").Width = 60
+        Dgv_incasso_totals.Columns("colTotaal").Width = 80
+        Dgv_incasso_totals.Columns("colTotaal").DefaultCellStyle.Format = "N2"
+        'Dgv_incasso_totals.Columns("colTotaal").DefaultCellStyle.ForeColor = Color.Blue
+
+        ' --- HIERNA VOLGT JE BEREKENING (zoals eerder besproken) ---
+
+        Dim kindAantal As Integer = 0
+        Dim kindTotaal As Decimal = 0
+        Dim oudereAantal As Integer = 0
+        Dim oudereTotaal As Decimal = 0
+        Dim overigAantal As Integer = 0
+        Dim overigTotaal As Decimal = 0
+
+        For Each row As DataRow In t.Rows
+            ' ... (Dezelfde logica als in het vorige antwoord) ...
+            Dim kenmerk As String = row("Mandaatcode").ToString().ToLower()
+            Dim bedrag As Integer = 0
+            If Not IsDBNull(row("Bedrag")) Then Decimal.TryParse(row("Bedrag").ToString(), bedrag)
+
+            If kenmerk.StartsWith("k") Then
+                kindAantal += 1
+                kindTotaal += bedrag
+            ElseIf kenmerk.StartsWith("o") Then
+                oudereAantal += 1
+                oudereTotaal += bedrag
+            ElseIf kenmerk.StartsWith("v") Then
+                overigAantal += 1
+                overigTotaal += bedrag
+            End If
+        Next
+
+        ' --- RIJEN TOEVOEGEN ---
+
+        Dgv_incasso_totals.Rows.Add("Kind", kindAantal, kindTotaal)
+        Dgv_incasso_totals.Rows.Add("Oudere", oudereAantal, oudereTotaal)
+        Dgv_incasso_totals.Rows.Add("Overig", overigAantal, overigTotaal)
+
+        Dim eindAantal As Integer = kindAantal + oudereAantal + overigAantal
+        Dim eindTotaal As Decimal = kindTotaal + oudereTotaal + overigTotaal
+
+        Dgv_incasso_totals.Rows.Add("Totaal", eindAantal, eindTotaal)
+
+        ' Eventueel de 'Totaal' rij vetgedrukt maken
+        Dim laatsteRijIndex As Integer = Dgv_incasso_totals.Rows.Count - 1
+        Dgv_incasso_totals.Rows(laatsteRijIndex).DefaultCellStyle.Font = New Font(Dgv_incasso_totals.Font, FontStyle.Bold)
+
+
+    End Sub
+
+
+    Private Sub MonthCalendar1_DateSelected(sender As Object, e As DateRangeEventArgs) Handles MonthCalendar1.DateSelected
+        ' 1. Haal de datum op
+        Dim geselecteerdeDatum As Date = MonthCalendar1.SelectionStart
+
+        '2 Fill the values
+        Dtp_Incasso_start.Value = geselecteerdeDatum
+        Lbl_Incasso_job_name.Text = "Contract incasso " & Dtp_Incasso_start.Value.ToString("d-M-yyyy")
+        Lbl_Incasso_Status.Text = "Nieuw"
+        ' 3. Verberg de kalender weer
+
+        MonthCalendar1.Visible = False
+
+        Prepare_Datagridview(Dgv_Incasso, Create_Incasso(Dtp_Incasso_start.Value), {"TZ250", "NG080", "TZ160", "TZ080", "TZ090", "DZ090"})
+
+
+        Dim table As DataTable = CType(Dgv_Incasso.DataSource, DataTable)
+        Fill_Incasso_Overview(table)
+        Count_Differences()
+        Pan_Incasso_views.Enabled = True
+        MenuSave.Enabled = (Lbl_Incasso_Status.Text = "Nieuw")
+        MenuDelete.Enabled = (Lbl_Incasso_Status.Text = "Open")
+    End Sub
+
+    Private Sub Cmx_Incasso_IncassoForm_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmx_Incasso_IncassoForm.SelectedIndexChanged
+
+        If TC_Main.SelectedTab.Name <> "Incasso" Then Exit Sub
+
+
+        If Cmx_Incasso_IncassoForm.SelectedIndex = -1 Then Exit Sub
+        Dgv_incasso_totals.Columns.Clear()
+        Dgv_incasso_totals.Rows.Clear()
+        Dgv_Incasso_Analyse.Columns.Clear()
+        Dgv_Incasso_Analyse.Rows.Clear()
+        Lbl_Incasso_job_name.Text = ""
+        Lbl_Incasso_Status.Text = " "
+
+        'Dgv_incasso_totals.Columns.Clear()
+        Dgv_Incasso.DataSource = Nothing
+        Dgv_Incasso.Rows.Clear()
+        Pan_Incasso_views.Enabled = False
+
+
+        If Cmx_Incasso_IncassoForm.SelectedIndex = 0 Then  'nieuwe incasso
+            Pan_Incasso_views.Enabled = False
+
+            StelKalenderIn()
+
+            MonthCalendar1.Location = New Point(Cmx_Incasso_IncassoForm.Left, Cmx_Incasso_IncassoForm.Bottom + 5)
+            MonthCalendar1.BringToFront()
+            MonthCalendar1.Visible = Not MonthCalendar1.Visible
+
+            'MsgBox("2) " & Dtp_Incasso_start.Value)
+            'Pan_Incasso_views.Enabled = True
+        Else
+            Dim geselecteerdItem As ComboBoxItem = CType(Cmx_Incasso_IncassoForm.SelectedItem, ComboBoxItem)
+            Dim waarde1 As String = geselecteerdItem.Column1
+            Dtp_Incasso_start.Value = waarde1
+            Lbl_Incasso_job_name.Text = geselecteerdItem.Column2
+            Lbl_Incasso_Status.Text = geselecteerdItem.Column3
+            Prepare_Datagridview(Dgv_Incasso, Create_Incasso(Dtp_Incasso_start.Value), {"TZ250", "NG080", "TZ160", "TZ080", "TZ090", "DZ090"})
+
+
+            Dim table As DataTable = CType(Dgv_Incasso.DataSource, DataTable)
+            Fill_Incasso_Overview(table)
+            Count_Differences()
+            Pan_Incasso_views.Enabled = True
+
+        End If
+
+
+        MenuSave.Enabled = (Lbl_Incasso_Status.Text = "Nieuw")
+        MenuDelete.Enabled = (Lbl_Incasso_Status.Text = "Open")
+
+
+    End Sub
+
+    Private Sub Cmx_Incasso_IncassoForm_Click(sender As Object, e As EventArgs) Handles Cmx_Incasso_IncassoForm.Click
+        If MonthCalendar1.Visible Then
+            MonthCalendar1.Visible = False
+            Cmx_Incasso_IncassoForm.SelectedIndex = -1
+        End If
+    End Sub
+
+    Private Sub StelKalenderIn()
+        ' 1. Stel de minimale datum in op Vandaag
+        MonthCalendar1.MinDate = DateTime.Today
+        Dim laatsteDatum As Date = DateTime.MinValue
+        Dim sql As String = "SELECT MAX(date) FROM journal WHERE source = 'Incasso'"
+
+        Try
+            Connect(sql)
+            Dim cmd As New NpgsqlCommand(sql, connection)
+
+            ' ExecuteScalar is sneller voor 1 enkele waarde
+            Dim result As Object = cmd.ExecuteScalar()
+
+            ' Check of er wel een resultaat is (voor de allereerste keer draaien)
+            If result IsNot Nothing AndAlso Not IsDBNull(result) Then
+                laatsteDatum = Convert.ToDateTime(result)
+            End If
+
+            connection.Close()
+
+        Catch ex As Exception
+            MsgBox("Fout bij ophalen datum: " & ex.Message)
+        Finally
+            If connection.State = ConnectionState.Open Then connection.Close()
+        End Try
+
+        ' 3. Bereken de nieuwe datum
+        If laatsteDatum <> DateTime.MinValue Then
+            Dim voorgesteldeDatum As Date = laatsteDatum.AddMonths(1)
+
+            While voorgesteldeDatum < DateTime.Today
+                voorgesteldeDatum = voorgesteldeDatum.AddMonths(1)
+            End While
+
+            ' Stel de kalender in
+            MonthCalendar1.SelectionStart = voorgesteldeDatum
+            MonthCalendar1.SelectionEnd = voorgesteldeDatum
+        Else
+            ' Als er nog nooit een incasso is geweest, pak dan vandaag
+            MonthCalendar1.SelectionStart = DateTime.Today
+        End If
+    End Sub
+
+    Private Sub Btn_Incasso_Analyseer_Click(sender As Object, e As EventArgs) Handles Btn_Incasso_Analyseer.Click
+        Dim arr_format() As String = Nothing
+        Dim sql = QuerySQL($"select sql from query where name='Check_incasso'")
+        If IsNothing(sql) Then Exit Sub
+        Dim formatting = QuerySQL($"select sql from query where name='Check_incasso'")
+        If Not IsNothing(formatting) Then arr_format = formatting.Split(",")
+        Dim isd = Dtp_Incasso_start.Value
+        sql = sql.replace("[date]", $"'{isd.Year}-{isd.Month}-{isd.Day}'")
+
+        Prepare_Datagridview(Dgv_Incasso, sql, {"TZ350", "TZ200", "NZ080", "NZ080"})
+    End Sub
 End Class

@@ -24,7 +24,9 @@ Module boekingen
         Dim Type As String = Trim(SPAS.Lbl_journaalposten_type.Text)
         Dim cpinfo As String
         Dim iban As String = Trim(SPAS.Lbl_journaalposten_iban.Text)
-        Dim transactiesaldo = CInt(Math.Round(Decimal.Parse(SPAS.Tbx_Journal_Saldo.Text)))
+        If SPAS.Tbx_Journal_Saldo.Text = "" Then SPAS.Tbx_Journal_Saldo.Text = "0"
+        MsgBox(SPAS.Tbx_Journal_Saldo.Text)
+        Dim transactiesaldo = Cur2(SPAS.Tbx_Journal_Saldo.Text)
 
         Dim errmsg As String = ""
 
@@ -38,7 +40,7 @@ Module boekingen
         'b) Bank: bankbedrag moet altijd gelijk zijn aan journaaltransactie
         If source <> "Intern" And status <> "Open" Then
             'Dim bankcheck QuerySQL("select sum(credit-debit) from bank where id=" & fk_bank) & "---" & transactiesaldo)
-            If QuerySQL("select sum(credit-debit) from bank where id=" & fk_bank) - transactiesaldo <> 0 Then
+            If QuerySQL("select sum(credit-debit) from bank where id=" & fk_bank) - transactiesaldo <> 0.00 Then
                 errmsg &= "- Mismatch tussen bankbedrag and journaaltransactiesaldo" & vbCr
             End If
         End If
@@ -229,6 +231,7 @@ Module boekingen
             Exit Sub
         End Try
         MsgBox("Deze interne boeking is opgeslagen met de naam " & name & ".")
+        Call SPAS.Populate_Cmbx_Overboeking()
         SPAS.Leeg_overboeking_scherm()
         Fill_Cmx_Journal_List()
 
@@ -664,6 +667,7 @@ Module boekingen
         Clipboard.SetText(Sql)
 
         RunSQL(Sql, "NULL", "Close_Year")
+
 
         If MsgBox("Wilt u de budgetten voor " & Now.Year & " berekenen (eventuele handmatige aanpassen gaan verloren)? ", vbYesNo) = vbYes Then
             Calculate_Budget("")
