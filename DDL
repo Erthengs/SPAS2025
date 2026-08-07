@@ -1,0 +1,170 @@
+-- public.accgroup definition
+
+-- Drop table
+
+-- DROP TABLE public.accgroup;
+
+CREATE TABLE public.accgroup ( id int2 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 32767 START 1 CACHE 1 NO CYCLE) NOT NULL, "name" text NULL, "type" text NULL, subtype text NULL, description text NULL, active bool NULL, CONSTRAINT accgroup_pkey PRIMARY KEY (id));
+
+
+-- public.account definition
+
+-- Drop table
+
+-- DROP TABLE public.account;
+
+CREATE TABLE public.account ( id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL, "name" text NULL, "type" text NULL, "source" text NULL, accgroup text NULL, f_key int4 NULL, description text NULL, searchword text NULL, active bool NULL, b_jan money NULL, b_feb money NULL, b_mar money NULL, b_apr money NULL, b_may money NULL, b_jun money NULL, b_jul money NULL, b_aug money NULL, b_sep money NULL, b_oct money NULL, b_nov money NULL, b_dec money NULL, startsaldo money NULL, b_year money NULL, fk_accgroup_id int8 NULL, bankcode varchar(8) NULL, CONSTRAINT account_pkey PRIMARY KEY (id));
+CREATE INDEX idx_f_key ON public.account USING btree (f_key);
+CREATE UNIQUE INDEX idx_id ON public.account USING btree (id);
+
+
+-- public.bank definition
+
+-- Drop table
+
+-- DROP TABLE public.bank;
+
+CREATE TABLE public.bank ( id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL, iban bpchar(20) NULL, currency bpchar(3) NULL, "date" date NULL, debit money NULL, credit money NULL, seqorder int4 NULL, iban2 text NULL, "name" text NULL, code bpchar(5) NULL, batchid text NULL, description text NULL, exch_rate numeric NULL, amt_cur int4 NULL, fk_journal_name text NULL, filename text NULL, "cost" money NULL, CONSTRAINT bank_pkey PRIMARY KEY (id));
+CREATE INDEX idx_bank_id ON public.bank USING btree (id);
+
+
+-- public.bank_archive definition
+
+-- Drop table
+
+-- DROP TABLE public.bank_archive;
+
+CREATE TABLE public.bank_archive ( id int4 NULL, iban bpchar(20) NULL, currency bpchar(3) NULL, "date" date NULL, debit money NULL, credit money NULL, seqorder int4 NULL, iban2 text NULL, "name" text NULL, code bpchar(5) NULL, batchid text NULL, description text NULL, exch_rate numeric NULL, amt_cur int4 NULL, fk_journal_name text NULL, filename text NULL, "cost" money NULL);
+CREATE INDEX idx_bank_id_arch ON public.bank_archive USING btree (id);
+
+
+-- public.bank_mappings definition
+
+-- Drop table
+
+-- DROP TABLE public.bank_mappings;
+
+CREATE TABLE public.bank_mappings ( id serial4 NOT NULL, bank_code varchar(10) NOT NULL, db_column varchar(50) NOT NULL, csv_headers text NOT NULL, CONSTRAINT bank_mappings_bank_code_db_column_key UNIQUE (bank_code, db_column), CONSTRAINT bank_mappings_pkey PRIMARY KEY (id));
+
+
+-- public.bankacc definition
+
+-- Drop table
+
+-- DROP TABLE public.bankacc;
+
+CREATE TABLE public.bankacc ( id int2 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 32767 START 1 CACHE 1 NO CYCLE) NOT NULL, "name" text NULL, "owner" text NULL, income bool NULL, expense bool NULL, startbalance money NULL, currency bpchar(3) NULL, description text NULL, accountno text NULL, active bool NULL, bic bpchar(10) NULL, id2 bpchar(20) NULL, CONSTRAINT bankacc_pkey PRIMARY KEY (id));
+
+
+-- public.budget definition
+
+-- Drop table
+
+-- DROP TABLE public.budget;
+
+CREATE TABLE public.budget ( id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL, "date" date NOT NULL, fk_account varchar NOT NULL, budget money NULL);
+
+
+-- public.contract definition
+
+-- Drop table
+
+-- DROP TABLE public.contract;
+
+CREATE TABLE public.contract ( id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL, fk_target_id int4 NULL, fk_relation_id int4 NULL, fk_account_id int4 NULL, donation money NULL, overhead money NULL, startdate date NULL, enddate date NULL, description text NULL, autcol bool NULL, "name" text NULL, term int4 NULL, target_reference text NULL, relation_reference text NULL, active bool NULL, intern bool NULL, CONSTRAINT contract_pkey PRIMARY KEY (id));
+CREATE INDEX idx_contract_account_id ON public.contract USING btree (fk_account_id);
+CREATE INDEX idx_contract_id ON public.contract USING btree (id);
+CREATE INDEX idx_contract_relation_id ON public.contract USING btree (fk_relation_id);
+CREATE INDEX idx_contract_target_id ON public.contract USING btree (fk_target_id);
+
+
+-- public.cp definition
+
+-- Drop table
+
+-- DROP TABLE public.cp;
+
+CREATE TABLE public.cp ( id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL, "name" text NULL, name_add text NULL, address text NULL, zip text NULL, city text NULL, country text NULL, email text NULL, telephone text NULL, description text NULL, bankacc_accountno text NULL, fk_bankacc_id int4 NULL, reference int4 NULL, active bool NULL, photo bytea NULL, CONSTRAINT "CP_pkey" PRIMARY KEY (id));
+
+
+-- public.journal definition
+
+-- Drop table
+
+-- DROP TABLE public.journal;
+
+CREATE TABLE public.journal ( id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL, "name" text NULL, "date" date NULL, status bpchar(10) NULL, amt1 money NULL, amt2 money NULL, description text NULL, "source" bpchar(10) NULL, fk_account int4 NULL, fk_relation int4 NULL, fk_bank int4 NULL, "type" bpchar(10) NULL, cpinfo text NULL, iban bpchar(30) NULL, CONSTRAINT journal_pkey PRIMARY KEY (id));
+CREATE INDEX idx_journal_account ON public.journal USING btree (fk_account);
+CREATE INDEX idx_journal_bank ON public.journal USING btree (fk_bank);
+CREATE INDEX idx_journal_id ON public.journal USING btree (id);
+CREATE INDEX idx_journal_relation ON public.journal USING btree (fk_relation);
+
+
+-- public.journal_archive definition
+
+-- Drop table
+
+-- DROP TABLE public.journal_archive;
+
+CREATE TABLE public.journal_archive ( id int4 NOT NULL, "name" text NULL, "date" date NULL, status bpchar(10) NULL, amt1 money NULL, amt2 money NULL, description text NULL, "source" bpchar(10) NULL, fk_account int4 NULL, fk_relation int4 NULL, fk_bank int4 NULL, "type" bpchar(10) NULL, cpinfo text NULL, iban bpchar(30) NULL);
+CREATE INDEX idx_journal_account_arch ON public.journal_archive USING btree (fk_account);
+CREATE INDEX idx_journal_bank_arch ON public.journal_archive USING btree (fk_bank);
+CREATE INDEX idx_journal_id_arch ON public.journal_archive USING btree (id);
+CREATE INDEX idx_journal_relation_arch ON public.journal_archive USING btree (fk_relation);
+
+
+-- public.operation_logs definition
+
+-- Drop table
+
+-- DROP TABLE public.operation_logs;
+
+CREATE TABLE public.operation_logs ( db_name varchar(20) NOT NULL, caller varchar(50) NULL, operation_type varchar(10) NOT NULL, operation_time timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL, username varchar(20) NOT NULL, operation_details text NOT NULL);
+CREATE INDEX operation_logs_db_name_idx ON public.operation_logs USING btree (db_name, username);
+
+
+-- public.query definition
+
+-- Drop table
+
+-- DROP TABLE public.query;
+
+CREATE TABLE public.query ( category text NOT NULL, "sql" text NOT NULL, text_not_ok text NULL, "name" text NOT NULL, formatting text NULL, "module" text NULL);
+
+
+-- public.relation definition
+
+-- Drop table
+
+-- DROP TABLE public.relation;
+
+CREATE TABLE public.relation ( id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL, "name" text NULL, name_add text NULL, title text NULL, address text NULL, zip text NULL, city text NULL, iban text NULL, reference text NULL, email text NULL, description text NULL, date1 date NULL, date2 date NULL, date3 date NULL, phone text NULL, active bool NULL, CONSTRAINT "Relation_pkey" PRIMARY KEY (id));
+CREATE INDEX idx_relation_id ON public.relation USING btree (id);
+
+
+-- public.settings definition
+
+-- Drop table
+
+-- DROP TABLE public.settings;
+
+CREATE TABLE public.settings ( "label" text NULL, value text NULL, unit text NULL);
+
+
+-- public.target definition
+
+-- Drop table
+
+-- DROP TABLE public.target;
+
+CREATE TABLE public.target ( id int4 GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) NOT NULL, "name" text NULL, name_add text NULL, ttype text NULL, description text NULL, birthday date NULL, address text NULL, zip text NULL, city text NULL, country text NULL, income money NULL, pension money NULL, benefit money NULL, allowance money NULL, otherincome money NULL, rent money NULL, living text NULL, children int4 NULL, reference text NULL, photo bytea NULL, water money NULL, heating money NULL, gaselectra money NULL, medicine money NULL, food money NULL, cp_reference int4 NULL, fk_cp_id int4 NULL, active bool NULL, childnearby int4 NULL, CONSTRAINT target_pkey PRIMARY KEY (id));
+CREATE INDEX idx_target_id ON public.target USING btree (id);
+
+
+-- public.tempbank definition
+
+-- Drop table
+
+-- DROP TABLE public.tempbank;
+
+CREATE TABLE public.tempbank ( afschriftnummer varchar(10) NULL, omschrijving text NULL);
