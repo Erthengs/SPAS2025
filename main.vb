@@ -1089,11 +1089,21 @@ Public Class SPAS
 
     Private Sub Rbn_Incasso_SEPA_CheckedChanged(sender As Object, e As EventArgs) Handles Rbn_Incasso_SEPA.CheckedChanged, Rbn_Incasso_journal.CheckedChanged, Rbn_Incasso_SEPA.Click, Rbn_Incasso_journal.Click
         If TC_Main.SelectedIndex <> 2 Then Exit Sub
-        If Rbn_Incasso_SEPA.Checked Then
-            Prepare_Datagridview(Dgv_Incasso, Create_Incasso(Dtp_Incasso_start.Value), {"TZ205", "NG080", "TZ160", "TZ080", "TZ090", "DZ090"})
-        ElseIf Rbn_Incasso_journal.Checked Then
-            Prepare_Datagridview(Dgv_Incasso, Create_Incasso_Bookings(Dtp_Incasso_start.Value), {"TZ210", "TZ210", "TZ070", "TZ070", "NG080", "NG080", "HZ080", "HZ080"})
+        If Lbl_Incasso_Status.Text = "New" Or Lbl_Incasso_Status.Text = "Open" Then
+
+            If Rbn_Incasso_SEPA.Checked Then
+                Prepare_Datagridview(Dgv_Incasso, Create_Incasso(Dtp_Incasso_start.Value.ToString("yyyy-MM-dd")), {"TZ205", "NG080", "TZ160", "TZ080", "TZ090", "DZ090"})
+            ElseIf Rbn_Incasso_journal.Checked Then
+                Prepare_Datagridview(Dgv_Incasso, Create_Incasso_Bookings(Dtp_Incasso_start.Value.ToString("yyyy-MM-dd")), {"TZ210", "TZ210", "TZ070", "TZ070", "NG080", "NG080", "HZ080", "HZ080"})
+            End If
+        Else
+            If Rbn_Incasso_SEPA.Checked Then
+                Prepare_Datagridview(Dgv_Incasso, Create_Incasso_Processed(Dtp_Incasso_start.Value.ToString("yyyy-MM-dd")), {"TZ205", "NG080", "TZ160", "TZ080", "TZ090", "DZ090"})
+            ElseIf Rbn_Incasso_journal.Checked Then
+                Prepare_Datagridview(Dgv_Incasso, Create_Incasso_Bookings_Processed(Dtp_Incasso_start.Value.ToString("yyyy-MM-dd")), {"TZ210", "TZ210", "TZ070", "TZ070", "NG080", "NG080", "HZ080", "HZ080"})
+            End If
         End If
+
     End Sub
 
     Private Sub Dtp_Excasso_Start_ValueChanged(sender As Object, e As EventArgs)
@@ -2550,7 +2560,7 @@ Public Class SPAS
         Dgv_incasso_totals.Columns("colTotaal").DefaultCellStyle.Format = "N2"
         'Dgv_incasso_totals.Columns("colTotaal").DefaultCellStyle.ForeColor = Color.Blue
 
-        ' --- HIERNA VOLGT JE BEREKENING (zoals eerder besproken) ---
+        ' ---  DE BEREKENING  ---
 
         Dim kindAantal As Integer = 0
         Dim kindTotaal As Decimal = 0
@@ -2608,7 +2618,7 @@ Public Class SPAS
 
         MonthCalendar1.Visible = False
 
-        Prepare_Datagridview(Dgv_Incasso, Create_Incasso(Dtp_Incasso_start.Value), {"TZ250", "NG080", "TZ160", "TZ080", "TZ090", "DZ090"})
+        Prepare_Datagridview(Dgv_Incasso, Create_Incasso(Dtp_Incasso_start.Value.ToString), {"TZ250", "NG080", "TZ160", "TZ080", "TZ090", "DZ090"})
 
 
         Dim table As DataTable = CType(Dgv_Incasso.DataSource, DataTable)
@@ -2655,9 +2665,17 @@ Public Class SPAS
             Dtp_Incasso_start.Value = waarde1
             Lbl_Incasso_job_name.Text = geselecteerdItem.Column2
             Lbl_Incasso_Status.Text = geselecteerdItem.Column3
-            Prepare_Datagridview(Dgv_Incasso, Create_Incasso(Dtp_Incasso_start.Value), {"TZ250", "NG080", "TZ160", "TZ080", "TZ090", "DZ090"})
+
+            If Lbl_Incasso_Status.Text = "Nieuw" Or Lbl_Incasso_Status.Text = "Open" Then
+
+                'Vullen van op contract gebaseerd incassoformulier 
+                Prepare_Datagridview(Dgv_Incasso, Create_Incasso(Dtp_Incasso_start.Value.ToString("yyyy-MM-dd")), {"TZ250", "NG080", "TZ160", "TZ080", "TZ090", "DZ090"})
+            Else
+                Prepare_Datagridview(Dgv_Incasso, Create_Incasso_Processed(Dtp_Incasso_start.Value.ToString("yyyy-MM-dd")), {"TZ250", "NG080", "TZ160", "TZ080", "TZ090", "DZ090"})
+            End If
 
 
+            'vullen van datatable met totalen
             Dim table As DataTable = CType(Dgv_Incasso.DataSource, DataTable)
             Fill_Incasso_Overview(table)
             Count_Differences()
@@ -2732,5 +2750,9 @@ Public Class SPAS
         sql = sql.replace("[date]", $"'{isd.Year}-{isd.Month}-{isd.Day}'")
 
         Prepare_Datagridview(Dgv_Incasso, sql, {"TZ350", "TZ200", "NZ080", "NZ080"})
+    End Sub
+
+    Private Sub Pan_Incasso_views_Paint(sender As Object, e As PaintEventArgs) Handles Pan_Incasso_views.Paint
+
     End Sub
 End Class

@@ -379,7 +379,77 @@ Module In_excasso
         Return SQLstr
 
     End Function
+    Function Create_Incasso_Processed(date_start As String) As String
+        Dim SQLstr = $"
+            SELECT 
+                Donateur,
+                SUM(Bedrag) As Bedrag,
+                iban,
+                Doeltype,
+                CASE 
+                    WHEN Doeltype = 'Kind' Then Concat('k', reference)
+                    WHEN Doeltype = 'Oudere' Then Concat('o', reference)
+                    WHEN Doeltype = 'Overig' Then Concat('v', reference)
+                END As Mandaatcode,
+                CASE 
+                    WHEN Doeltype = 'Kind' Then date1
+                    WHEN Doeltype = 'Oudere' Then date2
+                    WHEN Doeltype = 'Overig' Then date3
+                END As Mandaatdatum
+            FROM (
+                SELECT 
+                    Concat(r.name, ', ', r.name_add) As Donateur,
+                    SUM(j.amt1) As Bedrag,
+                    r.iban, 
+                    r.reference, 
+                    r.date1, r.date2, r.date3,
+                    MAX(ta.ttype) As Doeltype
+                FROM journal j
+                LEFT JOIN Relation r ON j.fk_relation = r.id
+                LEFT JOIN Account ac ON j.fk_account = ac.id
+                LEFT JOIN Target ta ON ac.f_key = ta.id
+                WHERE j.source = 'Incasso'
+                AND j.status = 'Verwerkt'
+                AND j.date = '{date_start}'
+                GROUP BY 
+                    r.id, r.name, r.name_add, r.iban, r.reference, 
+                    r.date1, r.date2, r.date3, j.description
+            ) sub
+            GROUP BY 
+                reference, Donateur, iban, Doeltype, date1, date2, date3
+            ORDER BY 
+                Doeltype, reference
+        "
+        Return SQLstr
+    End Function
+    Function Create_Incasso_Bookings_Processed(date_start As String) As String
 
+        Dim SQLstr As String = $"
+            SELECT 
+                Concat(r.name, ', ', r.name_add) As Sponsor, 
+                j.description As Doel, 
+                '' As Contractnr, 
+                MAX(ta.ttype) As Doeltype, 
+                SUM(CASE WHEN ta.id IS NOT NULL THEN j.amt1 ELSE 0::money END) As Donatie,
+                SUM(CASE WHEN ta.id IS NULL THEN j.amt1 ELSE 0::money END) As overhead,
+                MAX(CASE WHEN ta.id IS NOT NULL THEN ac.id ELSE NULL END) As Accountid, 
+                r.id As Sponsorid
+            FROM journal j
+            LEFT JOIN Relation r ON j.fk_relation = r.id
+            LEFT JOIN Account ac ON j.fk_account = ac.id
+            LEFT JOIN Target ta ON ac.f_key = ta.id
+            WHERE j.source = 'Incasso'
+            AND j.status = 'Verwerkt'
+            AND j.date = '{date_start}'
+            GROUP BY  
+                r.id, r.name, r.name_add, j.description, r.reference
+            ORDER BY  
+                MAX(ta.ttype), r.reference
+        "
+
+        Return SQLstr
+
+    End Function
 
     '=============================================================================================================
     '==============  E   X   C   A   S   S   O   ================================================================= 
