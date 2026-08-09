@@ -1,11 +1,308 @@
 ﻿Imports System.IO
+Imports System.Runtime.Remoting.Channels
 Imports Npgsql
 Imports PdfSharp.Pdf.Content.Objects
 Module Basisadmin
     Public group As String
     Public reload As Boolean = False
 
+    Public Class ContractModel
+        Public Property Id As Integer
+        Public Property Name As String ' Het logische contractnummer (bijv. K00001)
+        Public Property FkTargetId As Integer
+        Public Property FkRelationId As Integer
+        Public Property FkAccountId As Integer
+        Public Property Donation As Decimal
+        Public Property Overhead As Decimal
+        Public Property Term As Integer
+        Public Property StartDate As Date
+        Public Property EndDate As Date
+        Public Property Description As String
+        Public Property Autcol As Boolean
+        Public Property Active As Boolean
+        Public Property Intern As Boolean
 
+        ' Helper functie om te controleren of financiën/incasso zijn gewijzigd
+        Public Function RequiresNewVersion(other As ContractModel) As Boolean
+            Return Me.Donation <> other.Donation OrElse
+               Me.Overhead <> other.Overhead OrElse
+               Me.Autcol <> other.Autcol OrElse
+               Me.Term <> other.Term
+        End Function
+    End Class
+
+    ' 1. Controleer of er een toekomstige versie van dit contract bestaat
+    Public Function HasFutureVersion(contractName As String, currentStartDate As Date) As Boolean
+        Dim sql As String = "SELECT COUNT(id) FROM contract WHERE name = @name AND startdate > @startdate"
+
+        Using conn As New NpgsqlConnection(connect_string)
+            conn.Open()
+            Using cmd As New NpgsqlCommand(sql, conn)
+                cmd.Parameters.AddWithValue("@name", contractName)
+                cmd.Parameters.AddWithValue("@startdate", currentStartDate)
+
+                Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+                Return count > 0
+            End Using
+        End Using
+    End Function
+
+    ' 2. Haal één contract op via ID
+    Public Function GetContractById(id As Integer) As ContractModel
+        Dim contract As ContractModel = Nothing
+        Dim sql As String = "SELECT * FROM contract WHERE id = @id"
+
+        Using conn As New NpgsqlConnection(connect_string)
+            conn.Open()
+            Using cmd As New NpgsqlCommand(sql, conn)
+                cmd.Parameters.AddWithValue("@id", id)
+
+                Using reader As NpgsqlDataReader = cmd.ExecuteReader()
+                    If reader.Read() Then
+                        contract = New ContractModel()
+
+                        contract.Id = Convert.ToInt32(reader("id"))
+                        contract.Name = reader("name").ToString()
+
+                        contract.FkTargetId = If(IsDBNull(reader("fk_target_id")), 0, Convert.ToInt32(reader("fk_target_id")))
+                        contract.FkRelationId = If(IsDBNull(reader("fk_relation_id")), 0, Convert.ToInt32(reader("fk_relation_id")))
+                        contract.FkAccountId = If(IsDBNull(reader("fk_account_id")), 0, Convert.ToInt32(reader("fk_account_id")))
+
+                        contract.Donation = If(IsDBNull(reader("donation")), 0D, Convert.ToDecimal(reader("donation")))
+                        contract.Overhead = If(IsDBNull(reader("overhead")), 0D, Convert.ToDecimal(reader("overhead")))
+
+                        contract.Term = If(IsDBNull(reader("term")), 12, Convert.ToInt32(reader("term")))
+                        contract.StartDate = Convert.ToDateTime(reader("startdate"))
+                        contract.EndDate = Convert.ToDateTime(reader("enddate"))
+                        contract.Description = reader("description").ToString()
+
+                        contract.Autcol = If(IsDBNull(reader("autcol")), False, Convert.ToBoolean(reader("autcol")))
+                        contract.Active = If(IsDBNull(reader("active")), False, Convert.ToBoolean(reader("active")))
+                        contract.Intern = If(IsDBNull(reader("intern")), False, Convert.ToBoolean(reader("intern")))
+                    End If
+                End Using
+            End Using
+        End Using
+
+        Return contract
+    End Function
+
+    ' 3. Update alleen de omschrijving (dit leidt nooit tot een nieuwe versie)
+    Public Sub UpdateContractDescription(id As Integer, description As String)
+        Dim sql As String = "UPDATE contract SET description = @desc WHERE id = @id"
+
+        Using conn As New NpgsqlConnection(connect_string)
+            conn.Open()
+            Using cmd As New NpgsqlCommand(sql, conn)
+                If String.IsNullOrEmpty(description) Then
+                    cmd.Parameters.AddWithValue("@desc", DBNull.Value)
+                Else
+                    cmd.Parameters.AddWithValue("@desc", description)
+                End If
+
+                cmd.Parameters.AddWithValue("@id", id)
+                cmd.ExecuteNonQuery()
+            End Using
+        End Using
+    End Sub
+
+    ' 4. Maak een nieuwe versie aan (Sluit de oude, voeg de nieuwe in)
+    Public Sub CreateNewContractVersion(oldContractId As Integer, newContract As ContractModel)
+        Dim newOldEndDate As Date = newContract.StartDate.AddDays(-1)
+        Dim isActive As Boolean = (newOldEndDate >= Date.Today)
+
+        Using conn As New NpgsqlConnection(connect_string)
+            conn.Open()
+
+            ' Transacties moeten expliciet aan het command worden doorgegeven bij Npgsql
+            Using trans = conn.BeginTransaction()
+                Try
+                    ' --- OUDE CONTRACT UPDATEN ---
+                    Dim sqlUpdateOld As String = "UPDATE contract SET enddate = @enddate, active = @active WHERE id = @oldId"
+                    Using cmdUpdate As New NpgsqlCommand(sqlUpdateOld, conn, trans)
+                        cmdUpdate.Parameters.AddWithValue("@enddate", newOldEndDate)
+                        cmdUpdate.Parameters.AddWithValue("@active", isActive)
+                        cmdUpdate.Parameters.AddWithValue("@oldId", oldContractId)
+                        cmdUpdate.ExecuteNonQuery()
+                    End Using
+
+                    ' --- NIEUWE CONTRACT TOEVOEGEN ---
+                    Dim sqlInsertNew As String = "INSERT INTO contract (name, fk_target_id, fk_relation_id, fk_account_id, donation, overhead, term, startdate, enddate, description, autcol, active, intern) " &
+                                             "VALUES (@name, @target, @relation, @account, @donation, @overhead, @term, @startdate, '2999-12-31', @desc, @autcol, @active, @intern)"
+
+                    Using cmdInsert As New NpgsqlCommand(sqlInsertNew, conn, trans)
+                        cmdInsert.Parameters.AddWithValue("@name", newContract.Name)
+                        cmdInsert.Parameters.AddWithValue("@target", newContract.FkTargetId)
+                        cmdInsert.Parameters.AddWithValue("@relation", newContract.FkRelationId)
+
+                        If newContract.FkAccountId > 0 Then
+                            cmdInsert.Parameters.AddWithValue("@account", newContract.FkAccountId)
+                        Else
+                            cmdInsert.Parameters.AddWithValue("@account", DBNull.Value)
+                        End If
+
+                        cmdInsert.Parameters.AddWithValue("@donation", newContract.Donation)
+                        cmdInsert.Parameters.AddWithValue("@overhead", newContract.Overhead)
+                        cmdInsert.Parameters.AddWithValue("@term", newContract.Term)
+                        cmdInsert.Parameters.AddWithValue("@startdate", newContract.StartDate)
+
+                        If String.IsNullOrEmpty(newContract.Description) Then
+                            cmdInsert.Parameters.AddWithValue("@desc", DBNull.Value)
+                        Else
+                            cmdInsert.Parameters.AddWithValue("@desc", newContract.Description)
+                        End If
+
+                        cmdInsert.Parameters.AddWithValue("@autcol", newContract.Autcol)
+                        cmdInsert.Parameters.AddWithValue("@active", newContract.Active)
+                        cmdInsert.Parameters.AddWithValue("@intern", newContract.Intern)
+
+                        cmdInsert.ExecuteNonQuery()
+                    End Using
+
+                    trans.Commit()
+                Catch ex As Exception
+                    trans.Rollback()
+                    Throw
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    ' 5. Standaard insert voor een compleet nieuw contract
+    Public Function InsertNewContract(newContract As ContractModel) As Integer
+        Dim sql As String = "INSERT INTO contract (name, fk_target_id, fk_relation_id, fk_account_id, donation, overhead, term, startdate, enddate, description, autcol, active, intern) " &
+                        "VALUES (@name, @target, @relation, @account, @donation, @overhead, @term, @startdate, '2999-12-31', @desc, @autcol, @active, @intern) RETURNING id"
+
+        Using conn As New NpgsqlConnection(connect_string)
+            conn.Open()
+            Using cmd As New NpgsqlCommand(sql, conn)
+                cmd.Parameters.AddWithValue("@name", newContract.Name)
+                cmd.Parameters.AddWithValue("@target", newContract.FkTargetId)
+                cmd.Parameters.AddWithValue("@relation", newContract.FkRelationId)
+
+                If newContract.FkAccountId > 0 Then
+                    cmd.Parameters.AddWithValue("@account", newContract.FkAccountId)
+                Else
+                    cmd.Parameters.AddWithValue("@account", DBNull.Value)
+                End If
+
+                cmd.Parameters.AddWithValue("@donation", newContract.Donation)
+                cmd.Parameters.AddWithValue("@overhead", newContract.Overhead)
+                cmd.Parameters.AddWithValue("@term", newContract.Term)
+                cmd.Parameters.AddWithValue("@startdate", newContract.StartDate)
+
+                If String.IsNullOrEmpty(newContract.Description) Then
+                    cmd.Parameters.AddWithValue("@desc", DBNull.Value)
+                Else
+                    cmd.Parameters.AddWithValue("@desc", newContract.Description)
+                End If
+
+                cmd.Parameters.AddWithValue("@autcol", newContract.Autcol)
+                cmd.Parameters.AddWithValue("@active", newContract.Active)
+                cmd.Parameters.AddWithValue("@intern", newContract.Intern)
+
+                Dim newId As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+                Return newId
+            End Using
+        End Using
+    End Function
+
+    ' 6. Ophalen overlappend contract ter validatie
+    Public Function GetOverlappingContract(targetId As Integer, relationId As Integer, startDate As Date) As String
+        Dim sql As String = "SELECT c.name FROM contract c " &
+                        "WHERE c.fk_target_id = @targetId AND c.fk_relation_id = @relationId " &
+                        "AND c.enddate >= @startDate " &
+                        "LIMIT 1"
+
+        Using conn As New NpgsqlConnection(connect_string)
+            conn.Open()
+            Using cmd As New NpgsqlCommand(sql, conn)
+                cmd.Parameters.AddWithValue("@targetId", targetId)
+                cmd.Parameters.AddWithValue("@relationId", relationId)
+                cmd.Parameters.AddWithValue("@startDate", startDate)
+
+                Dim result As Object = cmd.ExecuteScalar()
+                If result IsNot Nothing AndAlso Not IsDBNull(result) Then
+                    Return result.ToString()
+                End If
+            End Using
+        End Using
+
+        Return String.Empty
+    End Function
+
+    ' 7. Het veilig inladen van de contractlijst met filters
+    Public Function GetContractList(searchTerm As String, lifeCycle As String) As DataTable
+        Dim dt As New DataTable()
+        Dim sql As String = "SELECT contract.id, CONCAT(relation.name, ', ', relation.name_add, ' ---> ', target.name, ', ', target.name_add) as name " &
+                        "FROM contract " &
+                        "JOIN target ON contract.fk_target_id = target.id " &
+                        "JOIN relation ON contract.fk_relation_id = relation.id " &
+                        "WHERE 1=1 "
+
+        If lifeCycle = "Actief" Then
+            sql &= "AND contract.active = True "
+        ElseIf lifeCycle = "Inactief" Then
+            sql &= "AND contract.active = False "
+        End If
+
+        If Not String.IsNullOrWhiteSpace(searchTerm) Then
+            sql &= "AND (contract.name ILIKE @search OR target.name ILIKE @search OR relation.name ILIKE @search OR target.name_add ILIKE @search OR relation.name_add ILIKE @search) "
+        End If
+
+        sql &= "ORDER BY relation.name, target.name"
+
+        Using conn As New NpgsqlConnection(connect_string)
+            conn.Open()
+            Using cmd As New NpgsqlCommand(sql, conn)
+                If Not String.IsNullOrWhiteSpace(searchTerm) Then
+                    cmd.Parameters.AddWithValue("@search", "%" & searchTerm & "%")
+                End If
+
+                Using adapter As New NpgsqlDataAdapter(cmd)
+                    adapter.Fill(dt)
+                End Using
+            End Using
+        End Using
+
+        Return dt
+    End Function
+
+    ' 8. Het veilig verwijderen van een toekomstige wijziging
+    Public Sub DeleteFutureContract(contractId As Integer, contractName As String)
+        Using conn As New NpgsqlConnection(connect_string)
+            conn.Open()
+
+            Using trans = conn.BeginTransaction()
+                Try
+                    ' Deletion
+                    Dim sqlDel As String = "DELETE FROM contract WHERE id = @id"
+                    Using cmdDel As New NpgsqlCommand(sqlDel, conn, trans)
+                        cmdDel.Parameters.AddWithValue("@id", contractId)
+                        cmdDel.ExecuteNonQuery()
+                    End Using
+
+                    ' Restore End Date
+                    Dim sqlUpd As String = "UPDATE contract SET enddate = '2999-12-31', active = True " &
+                                       "WHERE name = @name AND id = (SELECT MAX(id) FROM contract WHERE name = @name)"
+                    Using cmdUpd As New NpgsqlCommand(sqlUpd, conn, trans)
+                        cmdUpd.Parameters.AddWithValue("@name", contractName)
+                        cmdUpd.ExecuteNonQuery()
+                    End Using
+
+                    trans.Commit()
+                Catch ex As Exception
+                    trans.Rollback()
+                    Throw
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    '================================================================================================================
+    '==
+    '==
+    '===
     '================ G E N E R I C =================================================================================
     'field codes:
     '---_x-_ format (0 = undetermined, 1 = currency, 2 = integer, 3 = date)
@@ -107,7 +404,6 @@ Module Basisadmin
         Dim tbl As String = SPAS.TC_Object.TabPages(tb).Name
         Dim tmp
         Dim col As Integer = -1
-        'Edit_Mode = False
 
 
         Try

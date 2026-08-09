@@ -34,7 +34,369 @@ Public Class SPAS
     Private editingControl As System.Windows.Forms.TextBox
     Private originalValue As Object ' Stores the original cell value
     Private isCanceling As Boolean = False
+
+
     'bekende fouten
+
+    '========================================================================================================
+    '======                                                                                            ======
+    '======                                 nieuwe voor contract                                       ======
+    '======                                                                                            ======
+    '========================================================================================================
+
+    Private originalContract As ContractModel ' Bewaar deze op class-niveau in main.vb
+
+    Private Sub MapContractToUI(contract As ContractModel)
+        Lbl_Contract_pkid.Text = contract.Id.ToString()
+        Lbl_00_Contract__name.Text = contract.Name
+
+        ' --- FIX: WinForms SelectedValue Quirk ---
+        ' Always set SelectedIndex to -1 before assigning SelectedValue.
+        ' This forces WinForms to fetch the DisplayMember, even if you click the exact same contract twice!
+
+        ' Map Target
+        Cmx_01_contract_fk_target_id.SelectedIndex = -1
+        Cmx_01_contract_fk_target_id.SelectedValue = contract.FkTargetId
+
+        ' If it's inactive and not in the active list, fetch the text directly
+        If Cmx_01_contract_fk_target_id.SelectedIndex = -1 AndAlso contract.FkTargetId > 0 Then
+            Dim targetName = QuerySQL($"SELECT CONCAT(name, ', ', name_add) FROM target WHERE id = {contract.FkTargetId}")
+            If targetName IsNot Nothing AndAlso Not IsDBNull(targetName) Then
+                Cmx_01_contract_fk_target_id.Text = targetName.ToString()
+            End If
+        End If
+
+        ' Map Relation
+        Cmx_00_contract_fk_relation_id.SelectedIndex = -1
+        Cmx_00_contract_fk_relation_id.SelectedValue = contract.FkRelationId
+
+        ' If it's inactive and not in the active list, fetch the text directly
+        If Cmx_00_contract_fk_relation_id.SelectedIndex = -1 AndAlso contract.FkRelationId > 0 Then
+            Dim relationName = QuerySQL($"SELECT CONCAT(name, ', ', name_add) FROM relation WHERE id = {contract.FkRelationId}")
+            If relationName IsNot Nothing AndAlso Not IsDBNull(relationName) Then
+                Cmx_00_contract_fk_relation_id.Text = relationName.ToString()
+            End If
+        End If
+
+        ' Map Internal Account (Fonds)
+        Cmx_Contract_fk_account_id.SelectedIndex = -1
+        Cmx_Contract_fk_account_id.SelectedValue = contract.FkAccountId
+
+        ' If it's inactive and not in the active list, fetch the text directly
+        If Cmx_Contract_fk_account_id.SelectedIndex = -1 AndAlso contract.FkAccountId > 0 Then
+            Dim accName = QuerySQL($"SELECT CONCAT(id, ' ', name) FROM account WHERE id = {contract.FkAccountId}")
+            If accName IsNot Nothing AndAlso Not IsDBNull(accName) Then
+                Cmx_Contract_fk_account_id.Text = accName.ToString()
+            End If
+        End If
+
+        ' Map Target Type & Radio Buttons
+        If contract.FkTargetId > 0 Then
+            Dim targetTypeObj = QuerySQL($"SELECT ttype FROM target WHERE id = {contract.FkTargetId}")
+            If targetTypeObj IsNot Nothing AndAlso Not IsDBNull(targetTypeObj) Then
+                Dim targetType As String = targetTypeObj.ToString()
+                Tbx_Contract_ttype.Text = targetType
+
+                If targetType = "Kind" Then Rbn_00_contract_child.Checked = True
+                If targetType = "Oudere" Then Rbn_00_contract_elder.Checked = True
+                If targetType = "Overig" Then Rbn_00_contract_other.Checked = True
+            End If
+        End If
+
+        ' Set Term FIRST to prevent division-by-zero during TextChanged events
+        Cmx_02_Contract__term.Text = contract.Term.ToString()
+
+        Tbx_11_Contract__donation.Text = contract.Donation.ToString("N2")
+        Tbx_11_contract__overhead.Text = contract.Overhead.ToString("N2")
+
+        ' Explicitly calculate the UI-only fields
+        Tbx_01_contract_yeartotal.Text = (contract.Donation + contract.Overhead).ToString("N2")
+        If contract.Term > 0 Then
+            Tbx_contract_period_amt.Text = ((contract.Donation + contract.Overhead) / contract.Term).ToString("N2")
+        End If
+
+        Dtp_31_contract__startdate.Value = contract.StartDate
+        Dtp_31_contract__enddate.Value = contract.EndDate
+        Tbx_00_contract__description.Text = contract.Description
+        Chx_00_contract__autcol.Checked = contract.Autcol
+
+        ' Ensure the autcol visibility rules synchronize
+        Lbl_00_contract_autcol.Visible = contract.Autcol
+        dtp_contract_relation_date.Visible = contract.Autcol
+        Lbl_contract_mach_datum.Visible = contract.Autcol
+        Lbl_contract_macht_kenm.Visible = contract.Autcol
+    End Sub
+
+
+    Private Function MapUIToContract() As ContractModel
+        Dim contract As New ContractModel()
+        Integer.TryParse(Lbl_Contract_pkid.Text, contract.Id)
+        contract.Name = Lbl_00_Contract__name.Text
+
+        contract.FkTargetId = CInt(Cmx_01_contract_fk_target_id.SelectedValue)
+        contract.FkRelationId = CInt(Cmx_00_contract_fk_relation_id.SelectedValue)
+
+        contract.Donation = Tbx2Dec(Tbx_11_Contract__donation.Text)
+        contract.Overhead = Tbx2Dec(Tbx_11_contract__overhead.Text)
+        contract.Term = CInt(Cmx_02_Contract__term.Text)
+
+        contract.StartDate = Dtp_31_contract__startdate.Value
+        contract.EndDate = Dtp_31_contract__enddate.Value
+        contract.Description = Tbx_00_contract__description.Text
+        contract.Autcol = Chx_00_contract__autcol.Checked
+        Return contract
+    End Function
+
+
+
+
+    Private Sub ApplyContractUIRules(contract As ContractModel)
+        ' Rename the variable to avoid conflicting with the function name
+        Dim hasFuture As Boolean = HasFutureVersion(contract.Name, contract.StartDate)
+        Dim isClosed As Boolean = (contract.EndDate < Date.Today)
+
+        Pan_Contract_Date_New.Visible = False
+
+        ' Reset fields to 'Enabled' by default
+        Tbx_11_Contract__donation.Enabled = True
+        Tbx_11_contract__overhead.Enabled = True
+        Chx_00_contract__autcol.Enabled = True
+        Cmx_02_Contract__term.Enabled = True
+
+
+        Dtp_31_contract__startdate.Enabled = False ' Startdate is never editable after creation
+        Dtp_31_contract__enddate.Enabled = True    ' Editable by default to allow termination
+
+        ' Handle the Status Label and lock the UI using the renamed variable
+        If hasFuture Then
+            Lbl_Contract_Status.Text = "Contract geblokkeerd, er bestaat een nieuwe versie"
+            Lbl_Contract_Status.Visible = True
+            Lbl_Contract_Status.ForeColor = Color.DarkRed
+
+            ' Block input
+            Tbx_11_Contract__donation.Enabled = False
+            Tbx_11_contract__overhead.Enabled = False
+            Chx_00_contract__autcol.Enabled = False
+            Cmx_02_Contract__term.Enabled = False
+            Dtp_31_contract__enddate.Enabled = False ' Locked because the future version dictates the timeline
+
+        ElseIf isClosed Then
+            Lbl_Contract_Status.Text = "Contract is beëindigd"
+            Lbl_Contract_Status.Visible = True
+            Lbl_Contract_Status.ForeColor = Color.DarkRed
+
+            ' Block input
+            Tbx_11_Contract__donation.Enabled = False
+            Tbx_11_contract__overhead.Enabled = False
+            Chx_00_contract__autcol.Enabled = False
+            Cmx_02_Contract__term.Enabled = False
+            Dtp_31_contract__enddate.Enabled = False ' Already terminated
+
+        Else
+            ' Hide label if everything is fine and active
+            Lbl_Contract_Status.Visible = False
+        End If
+
+        ' Description is always editable
+        Tbx_00_contract__description.Enabled = True
+    End Sub
+
+
+    Private Sub DeleteContract()
+        If originalContract Is Nothing Then Exit Sub
+
+        ' 1. Ensure it's actually a future contract
+        If originalContract.StartDate <= Date.Today Then
+            MsgBox("Alleen toekomstige wijzigingen (contracten met een startdatum in de toekomst) kunnen worden verwijderd.", vbExclamation)
+            Exit Sub
+        End If
+
+        ' 2. Ask for confirmation
+        If MsgBox("Weet u zeker dat u deze geplande wijziging wilt verwijderen? De einddatum van de huidige actieve versie zal worden hersteld.", vbYesNo + vbQuestion, "Toekomstig contract verwijderen") = vbYes Then
+
+            ' 3. Execute the database transaction
+            DeleteFutureContract(originalContract.Id, originalContract.Name)
+
+            MsgBox("Toekomstige wijziging verwijderd. De vorige versie is succesvol hersteld.")
+
+            ' 4. Retrieve the ID of the restored contract (which is now the max ID for this contract name)
+            Dim restoredId As Integer = 0
+            Try
+                Dim result = QuerySQL($"SELECT MAX(id) FROM contract WHERE name = '{originalContract.Name}'")
+                If result IsNot Nothing AndAlso Not IsDBNull(result) Then
+                    restoredId = Convert.ToInt32(result)
+                End If
+            Catch ex As Exception
+                ' Safely ignore
+            End Try
+
+            ' 5. Refresh UI and focus the restored contract
+            RefreshContractList(restoredId)
+        End If
+    End Sub
+
+
+    Private Sub AddContractUI()
+        isManualChange = False
+        Add_Mode = True
+        Empty_Tabpage()
+
+        ' 1. Set default form values for a new Contract
+        Rbn_00_contract_child.Checked = True
+        Lbl_00_Contract__name.Text = Contract_number("K")
+
+        ' Fetch default donation/overhead from settings
+        Tbx_11_Contract__donation.Text = QuerySQL("select value from settings where label ilike 'standaard_bedrag_kind'")
+        Tbx_11_contract__overhead.Text = QuerySQL("select value from settings where label ilike 'standaard_overhead_kind'")
+
+        ' Default start date is the 1st of the next month
+        Dtp_31_contract__startdate.Value = New DateTime(Date.Today.Year, Date.Today.Month, 1).AddMonths(1)
+        Cmx_02_Contract__term.Text = "12"
+        Cbx_00_contract__active.Checked = True
+
+        ' Load targets corresponding to the default 'Kind' selection
+        Load_Combobox(Cmx_01_contract_fk_target_id, "id", "name",
+                  $"SELECT t.id, t.name||', '||t.name_add as name FROM target t WHERE t.ttype='Kind' And t.active=true ORDER BY t.name")
+        Cmx_01_contract_fk_target_id.Text = ""
+
+        ' 2. Enable/Disable specific controls for Add Mode
+        Pan_Contract_Date_New.Visible = False
+        Pan_contract_select_target.Enabled = True
+        Dtp_31_contract__startdate.Enabled = True
+        Chx_00_contract__autcol.Enabled = False
+
+        ' Ensure comboboxes are accessible
+        Cmx_01_contract_fk_target_id.Enabled = True
+        Cmx_00_contract_fk_relation_id.Enabled = True
+        Cmx_Contract_fk_account_id.Enabled = True
+
+        Lbl_Add_mode.Text = "Add_mode=True"
+        isManualChange = True
+    End Sub
+
+    Private Sub SaveContract()
+        ' 1. Validate
+        If Cmx_Contract_fk_account_id.Text = "" And Cmx_00_contract_fk_relation_id.Text = "" Then
+            MsgBox("Kies ofwel een externe sponsor ofwel een intern fondsaccount.", vbExclamation)
+            Exit Sub
+        End If
+
+        ' 2. Read the UI into our model
+        Dim uiContract As ContractModel = MapUIToContract()
+        Dim savedId As Integer = 0
+
+        ' 3. Save to database
+        If Add_Mode Then
+            If uiContract.StartDate < Date.Today Then
+                MsgBox("De startdatum van een nieuw contract mag niet in het verleden liggen.", vbExclamation)
+                Exit Sub
+            End If
+
+            Dim overlappingName As String = Basisadmin.GetOverlappingContract(uiContract.FkTargetId, uiContract.FkRelationId, uiContract.StartDate)
+            If overlappingName <> String.Empty Then
+                MsgBox($"Er loopt al een contract ({overlappingName}) voor deze combinatie van sponsor en doel. " &
+                   "Beëindig deze eerst alvorens een nieuw contract af te sluiten.", vbExclamation)
+                Exit Sub
+            End If
+
+            ' --- FORCE ACTIVE FOR ALL NEW CONTRACTS ---
+            uiContract.Active = True
+
+            savedId = Basisadmin.InsertNewContract(uiContract)
+            MsgBox("Nieuw contract succesvol opgeslagen!")
+
+        Else
+            ' Edit Mode: Check if financial/structural fields changed requiring a new version
+            If originalContract.RequiresNewVersion(uiContract) Then
+                Dim newVersionStartDate As Date = Dtp_30_Contract_Change.Value
+
+                If newVersionStartDate <= originalContract.StartDate Then
+                    MsgBox("De ingangsdatum van de nieuwe versie moet na de ingangsdatum van de huidige versie liggen.", vbExclamation)
+                    Exit Sub
+                End If
+
+                uiContract.StartDate = newVersionStartDate
+
+                ' New future versions are also always active 
+                uiContract.Active = True
+
+                Basisadmin.CreateNewContractVersion(originalContract.Id, uiContract)
+                MsgBox("Er is een nieuwe versie van het contract aangemaakt!")
+
+                ' Fetch the new ID by querying the max ID for this contract name
+                savedId = Convert.ToInt32(QuerySQL($"SELECT MAX(id) FROM contract WHERE name = '{uiContract.Name}'"))
+            Else
+                ' Only description changed
+                Basisadmin.UpdateContractDescription(uiContract.Id, uiContract.Description)
+                savedId = uiContract.Id
+                MsgBox("Contractbijwerking succesvol opgeslagen.")
+            End If
+        End If
+        ' --- NEW: UPDATE THE BUDGET FOR THE TARGET ACCOUNT ---
+        ' --- NEW: UPDATE THE BUDGET FOR THE TARGET ACCOUNT ---
+        Try
+            ' Fix: Use ILIKE to ignore case-sensitivity issues ('Doel' vs 'doel')
+            Dim query As String = $"SELECT id FROM account WHERE source ILIKE 'doel' AND f_key = {uiContract.FkTargetId}"
+            Dim targetAccountIdObj = QuerySQL(query)
+
+            ' Ensure the result isn't Nothing AND isn't an empty string
+            If targetAccountIdObj IsNot Nothing AndAlso Not String.IsNullOrWhiteSpace(targetAccountIdObj.ToString()) Then
+                Dim targetAccountId As Integer = Convert.ToInt32(targetAccountIdObj)
+                Calculate_Budget(targetAccountId)
+            End If
+        Catch ex As Exception
+            MsgBox($"Budget not (re)calculated, for error {ex.Message}", vbExclamation)
+        End Try
+        ' -----------------------------------------------------
+        ' -----------------------------------------------------
+        ' 4. Finalize UI State
+        Add_Mode = False
+        Lbl_Add_mode.Text = "Add_mode=False"
+
+        ' Lock down the target/relation comboboxes again
+        Pan_contract_select_target.Enabled = False
+        Cmx_01_contract_fk_target_id.Enabled = False
+        Cmx_00_contract_fk_relation_id.Enabled = False
+        Cmx_Contract_fk_account_id.Enabled = False
+        Pan_Contract_Date_New.Visible = False
+
+        ' --- RELOAD AND FOCUS THE NEW/UPDATED CONTRACT ---
+        RefreshContractList(savedId)
+    End Sub
+
+
+    Private Sub RefreshContractList(Optional forceSelectId As Integer = 0)
+        If username = "" Then Exit Sub
+
+        ' 1. Remember the current state and disable the global dirty-tracker
+        Dim previousState As Boolean = isManualChange
+        isManualChange = False
+
+        ' 2. Determine which ID to select after binding
+        Dim currentId As Integer = forceSelectId
+        If currentId = 0 AndAlso Lbx_Basis.SelectedValue IsNot Nothing AndAlso TypeOf Lbx_Basis.SelectedValue Is Integer Then
+            currentId = CInt(Lbx_Basis.SelectedValue)
+        End If
+
+        ' Fetch the secure data
+        Dim dt As DataTable = Basisadmin.GetContractList(Searchbox2.Text, Cbx_LifeCycle2.Text)
+
+        ' Bind it directly
+        Lbx_Basis.DataSource = dt
+        Lbx_Basis.DisplayMember = "name"
+        Lbx_Basis.ValueMember = "id"
+
+        ' Restore or force selection
+        If currentId > 0 Then
+            Try
+                Lbx_Basis.SelectedValue = currentId
+            Catch
+            End Try
+        End If
+
+        ' 2. Safely restore the global dirty-tracker
+        isManualChange = previousState
+    End Sub
 
 
 
@@ -121,13 +483,6 @@ Public Class SPAS
             'Enable_Buttons(False, False)
         End If
     End Sub
-    'Private Sub TC_Object_Selecting(sender As Object, e As TabControlCancelEventArgs) Handles TC_Object.Selecting
-    ' Check if Save or Cancel buttons are enabled
-    'If MenuSave.Enabled Or MenuCancel.Enabled Then
-    'MessageBox.Show("Bewaar of annuleer de huidige bewerking.", "Actie Nodig", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-    'e.Cancel = True
-    'End If
-    'End Sub
 
 
 
@@ -259,11 +614,16 @@ Public Class SPAS
     Sub TC_Object_Click(sender As Object, e As EventArgs) Handles TC_Object.Click, TC_Object.SelectedIndexChanged
         If Not MenuSave.Enabled Then
             isManualChange = False
-            Load_Table()
+
+            If TC_Object.SelectedIndex = 0 Then
+                RefreshContractList()
+            Else
+                Load_Table()
+            End If
+
             isManualChange = True
             Enable_Buttons(False, True)
         End If
-        'current_tabpage_basis = TC_Object.SelectedIndex
     End Sub
 
     '************************************      TARGET    *****************************************
@@ -311,6 +671,7 @@ Public Class SPAS
             Cbx_00_contract__active.Checked = True
             Rbn_00_contract_child.Checked = True
             Pan_contract_select_target.Enabled = True
+            Dtp_31_contract__startdate.Enabled = True
             Lbl_00_Contract__name.Text = Contract_number("K")
             Load_Combobox(Cmx_01_contract_fk_target_id, "id", "name", $"SELECT t.id, 
             t.name||', '||t.name_add) as name FROM target t WHERE t.ttype='{Rbn_00_contract_child.Text}' And t.active=true ORDER BY t.name")
@@ -331,27 +692,48 @@ Public Class SPAS
             Lbl_00_pkid.Text = ""
 
         End If
-
+        Lbl_Add_mode.Text = IIf(Add_Mode, "Add_mode=True", "Add_mode=False")
     End Sub
 
     Sub Cancel()
-        'isManualChange = False
-        Select_Obj2("Cancel")
-        Manage_Buttons_Target(True, True, True, False, False, "Cancel")
-        Add_Mode = False
-        Pan_Target.Enabled = False
-        Pan_contract_select_target.Enabled = False
+        If TC_Object.SelectedIndex = 0 Then
+            ' --- NEW: Safely Restore Contract ---
+            If originalContract IsNot Nothing Then
+                isManualChange = False
+                MapContractToUI(originalContract)
+                ApplyContractUIRules(originalContract)
+                StoreInitialValues(Me.Controls)
+                isManualChange = True
+            Else
+                Empty_Tabpage()
+            End If
 
-        If TC_Object.SelectedIndex = 0 Then  'additional functionality for contract management
-            Handle_Contract_Fields()
+            Add_Mode = False
+            Lbl_Add_mode.Text = "Add_mode=False"
+            Manage_Buttons_Target(True, True, True, False, False, "Cancel")
+
+            ' Lock down UI fields
+            Pan_contract_select_target.Enabled = False
+            Cmx_01_contract_fk_target_id.Enabled = False
+            Cmx_00_contract_fk_relation_id.Enabled = False
+            Cmx_Contract_fk_account_id.Enabled = False
             Pan_Contract_Date_New.Visible = False
-        End If
-        If TC_Object.SelectedIndex = 4 Then
-            Lbl_Account_Budget_Difference.Text = ""
-        End If
+        Else
+            ' --- OLD: Legacy Cancel ---
+            Select_Obj2("Cancel")
+            Manage_Buttons_Target(True, True, True, False, False, "Cancel")
+            Add_Mode = False
+            Pan_Target.Enabled = False
+            Pan_contract_select_target.Enabled = False
 
-
+            If TC_Object.SelectedIndex = 4 Then
+                Lbl_Account_Budget_Difference.Text = ""
+            End If
+            Lbl_Add_mode.Text = IIf(Add_Mode, "Add_mode=True", "Add_mode=False")
+        End If
     End Sub
+
+
 
     Sub Basis_Save()
         Dim tbl As String = Me.TC_Object.TabPages(Me.TC_Object.SelectedIndex).Name
@@ -475,6 +857,7 @@ Public Class SPAS
         Manage_Buttons_Target(True, True, True, False, False, "MenuSave.Click")
         Add_Mode = False
         reload = False
+        Lbl_Add_mode.Text = IIf(Add_Mode, "Add_mode=True", "Add_mode=False")
     End Sub
 
 
@@ -484,17 +867,61 @@ Public Class SPAS
         Click_Lbx_Basis()
 
     End Sub
-    Private Sub Lbx_Basis_Click(sender As Object, e As EventArgs) Handles Lbx_Basis.Click
-        If InStr(sender.ToString, "System.Data.DataRowView") > 0 Then Exit Sub
-        'Click_Lbx_Basis()
-    End Sub
+
+
+
     Sub Click_Lbx_Basis()
-        If Lbx_Basis.Items.Count > 0 Then
-            Select_Obj2("Lbx_Basis_SelectedIndexChanged")
+        If username = "" Then Exit Sub
+        ' Abort immediately if the ListBox is still in the middle of data binding
+        If String.IsNullOrEmpty(Lbx_Basis.ValueMember) Then Exit Sub
+
+        ' Safely lock the dirty-tracker for nested operations
+        Dim previousState As Boolean = isManualChange
+        isManualChange = False
+
+        If Lbx_Basis.Items.Count > 0 AndAlso Lbx_Basis.SelectedIndex <> -1 Then
+
+            If TC_Object.SelectedIndex = 0 Then
+                ' --- THE NEW CODE FOR CONTRACTS ---
+                Empty_Tabpage()
+
+                Dim contractId As Integer
+                Try
+                    If TypeOf Lbx_Basis.SelectedItem Is DataRowView Then
+                        contractId = Convert.ToInt32(DirectCast(Lbx_Basis.SelectedItem, DataRowView)(Lbx_Basis.ValueMember))
+                    Else
+                        contractId = Convert.ToInt32(Lbx_Basis.SelectedValue)
+                    End If
+                Catch ex As Exception
+                    ' Fallback: restore state and abort if extraction fails
+                    isManualChange = previousState
+                    Exit Sub
+                End Try
+
+                originalContract = Basisadmin.GetContractById(contractId)
+
+                If originalContract IsNot Nothing Then
+                    MapContractToUI(originalContract)
+                    ApplyContractUIRules(originalContract)
+                End If
+
+                StoreInitialValues(Me.Controls)
+
+            Else
+                ' --- THE OLD CODE FOR EVERYTHING ELSE ---
+                Select_Obj2("Lbx_Basis_SelectedIndexChanged")
+            End If
+
         Else
+            ' This ensures emptying the form on 0 search results DOES NOT trigger Save/Cancel!
             Empty_Tabpage()
         End If
+
+        ' Safely restore the dirty-tracker
+        isManualChange = previousState
     End Sub
+
+
     Private Sub Tbx_Target__ttype_TextChanged(sender As Object, e As EventArgs) Handles Tbx_01_Target__ttype.TextChanged
         Rbtn_Target_Child.Checked = Strings.Trim(Tbx_01_Target__ttype.Text) = "Kind"
         Rbtn_Target_Elder.Checked = Strings.Trim(Tbx_01_Target__ttype.Text) = "Oudere"
@@ -571,6 +998,7 @@ Public Class SPAS
     Private Sub Tbx_CP__name_TextChanged(sender As Object, e As EventArgs) Handles Tbx_01_CP__name.TextChanged
         reload = True
         If Lbx_Basis.Items.Count = 0 Then Add_Mode = True
+        Lbl_Add_mode.Text = IIf(Add_Mode, "Add_mode=True", "Add_mode=False")
     End Sub
 
     Private Sub navigation_complete(ByVal sender As System.Object,
@@ -614,6 +1042,7 @@ Public Class SPAS
     Private Sub Tbx_10_Relation__name_TextChanged(sender As Object, e As EventArgs) Handles Tbx_01_relation__name.TextChanged
         If Add_Mode Then Generate_Reference()
         If Lbx_Basis.Items.Count = 0 Then Add_Mode = True
+        Lbl_Add_mode.Text = IIf(Add_Mode, "Add_mode=True", "Add_mode=False")
     End Sub
     Private Sub Tbx_00_Relation__iban_Leave(sender As Object, e As EventArgs) Handles Tbx_00_Relation__iban.Leave
         If Tbx_00_Relation__iban.Text = "" Then Exit Sub
@@ -635,9 +1064,6 @@ Public Class SPAS
 
         '----------------------------
 
-    End Sub
-    Private Sub Tbx_10_Contract__transport_TextChanged(sender As Object, e As EventArgs)
-        'Calculate_contract_amounts()
     End Sub
 
     Private Sub Tbx_11_contract__overhead_TextChanged(sender As Object, e As EventArgs) Handles Tbx_11_contract__overhead.TextChanged, Tbx_11_Contract__donation.TextChanged
@@ -736,99 +1162,66 @@ Public Class SPAS
             End If
             Exit Sub
         End If
+        Lbl_Add_mode.Text = IIf(Add_Mode, "Add_mode=True", "Add_mode=False")
     End Sub
-    Private Sub Tbx_01_contract_yeartotal_TextChanged(sender As Object, e As EventArgs) Handles Tbx_01_contract_yeartotal.TextChanged
+    Private Sub Tbx_01_contract_yeartotal_TextChanged(sender As Object, e As EventArgs) Handles Tbx_01_contract_yeartotal.TextChanged, Chx_00_contract__autcol.Click
+        If Not isManualChange Then Exit Sub
         If isCanceling Then Exit Sub
         Try
             If Not Add_Mode And MenuSave.Enabled Then
-                'If Edit_Mode And Not Add_Mode Then
-                Dim name = Lbl_00_Contract__name.Text
-                '0. Retrieve all versions of the contract 
+                Dim firstDayOfNextMonth As DateTime = New DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddMonths(1)
+                Dtp_30_Contract_Change.Value = firstDayOfNextMonth
 
-                '1 determine whether there is a future version. If so then a change is not allowed (first
-                'delete that version
-
-                Dim next_date As Date = QuerySQL("select max(startdate) from contract where name ='" & name & "'")
-                If next_date > Date.Today And MenuSave.Enabled Then
-                    MsgBox("Er is een nieuwere versie die nog niet is ingegaan (" & next_date & ")" & vbCrLf &
-                           "S.v.p. deze eerst verwijderen. ")
-
-                    'isCanceling = True
-                    'Cancel()
-                    '   ' Reset the flag *after*
-                    'isCanceling = False
-
-                    'Exit Sub
-
-
-                End If
-
-                'Set new start dates
-                Dim mindate As DateTime
-                'a new version must start 1 month later 
-                mindate = Dtp_31_contract__startdate.Value
-                Dtp_30_Contract_Change.MinDate = New DateTime(mindate.Year, mindate.Month, 1).AddMonths(1)
-
-                'set default new startdate to first day of the next month
-                Dim m_add, m_year As Integer
-                If Me.Dtp_30_Contract_Change.Value.Month = 12 Then
-                    m_add = -11
-                    m_year = 1
-                Else
-                    m_add = IIf(Me.Dtp_30_Contract_Change.Value.Day > 1, 1, 0)
-                    m_year = 0
-                End If
-                Me.Dtp_30_Contract_Change.Value = CDate("01-" & Me.Dtp_30_Contract_Change.Value.Month +
-                    m_add & "-" & Me.Dtp_30_Contract_Change.Value.Year + m_year)
+                Dim daysInThisMonth As Integer = DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month)
+                Dim lastDayOfCurrentMonth As New DateTime(DateTime.Today.Year, DateTime.Today.Month, daysInThisMonth)
+                Dtp_31_contract__enddate.Value = lastDayOfCurrentMonth
 
                 Pan_Contract_Date_New.Visible = True
 
+                ' --- FIX: Lock the end date when creating a new version ---
+                Dtp_31_contract__enddate.Enabled = False
             End If
             If Add_Mode Then
                 Pan_Contract_Date_New.Visible = False
             End If
-            'isCanceling = True
         Catch ex As Exception
         End Try
     End Sub
 
-    Private Sub Chx_00_contract__autcol_Click(sender As Object, e As EventArgs) Handles Chx_00_contract__autcol.Click
-        'check if the sponsor provided an authorization for automatic collection
-        If Chx_00_contract__autcol.Checked = False Then
-            Dim SQLstr As String = "UPDATE contract SET autcol=False WHERE id=" & Lbl_Contract_pkid.Text
-            If Chbx_test.Checked Then MsgBox(SQLstr)
-            RunSQL(SQLstr, "NULL", "")
-            Exit Sub
-        End If
+    Private Sub Dtp_30_Contract_Change_ValueChanged(sender As Object, e As EventArgs) Handles Dtp_30_Contract_Change.ValueChanged
+        If Not isManualChange Then Exit Sub
 
-        Dim dtp As String
-        Dim ttype As String
-        Dim rel_id = Cmx_00_contract_fk_relation_id.SelectedValue
-        MsgBox(rel_id)
-
-        If Rbn_00_contract_child.Checked Then
-            dtp = "date1"
-            ttype = "kindersponsoring"
-        ElseIf Rbn_00_contract_elder.Checked Then
-            dtp = "date2"
-            ttype = "ouderensponsoring"
-        Else
-            dtp = "date3"
-            ttype = "algemene sponsoring"
-        End If
-
-        Dim autcol_date As Date = QuerySQL("SELECT " & dtp & " FROM relation WHERE id=" & rel_id)
-
-        If autcol_date > Date.Now Then
-            MsgBox("De sponsor heeft nog geen geldige incassomachtiging voor " & ttype &
-                   "; Automatische incasso kan (nog) niet geactiveerd worden voor dit contract.", vbCritical)
-            Chx_00_contract__autcol.Checked = False
-
-        Else
-            RunSQL($"UPDATE contract SET autcol=True WHERE id={Lbl_Contract_pkid.Text}", "NULL", "")
-        End If
-
+        ' Automatically snap the old contract's end date to 1 day before the new version starts
+        Dtp_31_contract__enddate.Value = Dtp_30_Contract_Change.Value.AddDays(-1)
     End Sub
+
+    Private Sub Chx_00_contract__autcol_Click(sender As Object, e As EventArgs) Handles Chx_00_contract__autcol.Click
+        If Not isManualChange Then Exit Sub
+
+        ' ONLY check authorization if the user is enabling the checkbox
+        If Chx_00_contract__autcol.Checked Then
+            Dim dtp As String
+            Dim rel_id = Cmx_00_contract_fk_relation_id.SelectedValue
+
+            If Rbn_00_contract_child.Checked Then
+                dtp = "date1"
+            ElseIf Rbn_00_contract_elder.Checked Then
+                dtp = "date2"
+            Else
+                dtp = "date3"
+            End If
+
+            Dim autcol_date As Date = QuerySQL("SELECT " & dtp & " FROM relation WHERE id=" & rel_id)
+
+            If autcol_date > Date.Now Then
+                ' FIX: Added .Text to Tbx_Contract_ttype
+                MsgBox($"De sponsor heeft nog geen geldige incassomachtiging voor '{Tbx_Contract_ttype.Text}'; Automatische incasso kan (nog) niet geactiveerd worden voor dit contract.", vbCritical)
+                Chx_00_contract__autcol.Checked = False
+            End If
+        End If
+    End Sub
+
+
     Private Sub Cbx_00_contract__autcol_CheckedChanged(sender As Object, e As EventArgs) Handles Chx_00_contract__autcol.CheckedChanged
         Dim rel_id = Cmx_00_contract_fk_relation_id.SelectedValue
         Dim dtp = IIf(Rbn_00_contract_child.Checked, "date1", IIf(Rbn_00_contract_elder.Checked, "date2", "date3"))
@@ -1446,34 +1839,35 @@ Public Class SPAS
 
 
     Private Sub ToolStripTextBox1_TextChanged(sender As Object, e As EventArgs) Handles Searchbox2.TextChanged
-        'Dim dt As New DataTable()
         Select Case TC_Main.SelectedIndex
             Case 0
-                Load_Table()
+                If TC_Object.SelectedIndex = 0 Then
+                    ' --- NEW CODE FOR CONTRACTS ---
+                    RefreshContractList()
+                Else
+                    ' --- OLD CODE ---
+                    Load_Table()
+                End If
             Case 1
-                'Fill_bank_transactions("Searchbox.TextChanged")
                 If Dgv_Bank.DataSource IsNot Nothing Then
                     ApplyFilter(Dgv_Bank.DataSource)
                     Format_dvg_bank()
                 End If
-
             Case 4
                 Select Case TC_Boeking.SelectedIndex
                     Case 1
                         Fill_Cmx_Journal_List()
                 End Select
-
             Case 5
-
-                ' dt = Dgv_Rapportage_Overzicht.DataSource
                 If Dgv_Rapportage_Overzicht.DataSource IsNot Nothing Then
                     ApplyFilter(Dgv_Rapportage_Overzicht.DataSource)
                     Prepare_Datagridview(Dgv_Rapportage_Overzicht, Nothing, LbL_Formatting.Text.Split(","c))
                 End If
         End Select
-
-
     End Sub
+
+
+
 
     Sub ApplyFilter(ByVal dt As DataTable)
         If String.IsNullOrWhiteSpace(Searchbox2.Text) Then
@@ -1511,16 +1905,19 @@ Public Class SPAS
     End Sub
 
     Private Sub Cbx_LifeCycle_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cbx_LifeCycle2.SelectedIndexChanged
-
         Select Case TC_Main.SelectedIndex
             Case 0
                 Try
                     MenuDelete.Enabled = (Cbx_LifeCycle2.Text = "Inactief") Or Dtp_31_contract__startdate.Value > Date.Today
-                    Load_Table()
+                    If TC_Object.SelectedIndex = 0 Then
+                        RefreshContractList()
+                    Else
+                        Load_Table()
+                    End If
                 Catch ex As Exception
                 End Try
             Case 1
-                'Fill_bank_transactions()
+            'Fill_bank_transactions()
             Case 4
                 Fill_Cmx_Journal_List()
         End Select
@@ -1530,7 +1927,13 @@ Public Class SPAS
     Private Sub MenuSave_Click(sender As Object, e As EventArgs) Handles MenuSave.Click
         Select Case TC_Main.SelectedIndex
             Case 0 'basisadministratie
-                Basis_Save()
+                If TC_Object.SelectedIndex = 0 Then
+                    ' --- NEW CODE FOR CONTRACTS ---
+                    SaveContract()
+                Else
+                    ' --- OLD CODE ---
+                    Basis_Save()
+                End If
                 Lbx_Basis.Enabled = True
             Case 1 'Bank
                 Save_Banktransaction_Accounts()
@@ -1580,16 +1983,23 @@ Public Class SPAS
     Private Sub MenuAdd_Click(sender As Object, e As EventArgs) Handles MenuAdd.Click
         Select Case TC_Main.SelectedIndex
             Case 0
-                Basis_Add()
+                If TC_Object.SelectedIndex = 0 Then
+                    ' --- NEW CODE FOR CONTRACTS ---
+                    AddContractUI()
+                Else
+                    ' --- OLD CODE ---
+                    Basis_Add()
+                End If
             Case 3
+                ' ... existing code ...
         End Select
+
         Enable_Buttons(True, False)
         Lbx_Basis.Enabled = False
-
     End Sub
 
     Private Sub MenuCancel_Click(sender As Object, e As EventArgs) Handles MenuCancel.Click
-        'isManualChange = False
+        isCanceling = True
         Select Case TC_Main.SelectedIndex
             Case 0
                 Cancel()
@@ -1597,18 +2007,11 @@ Public Class SPAS
                 'Dgv_Bank.Click()
                 Fill_bank_transactions("MenuCancel_Click", Me.Dgv_Bank.SelectedCells(3).RowIndex)
                 Fill_Journals_by_bank(Me.Dgv_Bank.SelectedCells(0).Value)
-
-
-                'If .Dgv_Bank.RowCount > 0 Then SPAS.Dgv_Bank.Rows(.Dgv_Bank.SelectedCells(3).RowIndex).Selected = True
                 SelectRowById(Dgv_Bank, Dgv_Bank.SelectedCells(0).Value)
-                'If Me.Dgv_Bank.RowCount > 0 Then Me.Dgv_Bank.Rows(Me.Dgv_Bank.SelectedCells(3).RowIndex).Selected = True
-                'StoreInitialValues(Me.Controls)
+
             Case 3
                 If Cmx_Excasso_Select.SelectedIndex = -1 Then Exit Sub
-                'isManualChange = False
-
                 Load_Excasso_Form()
-
             Case 4
                 Leeg_overboeking_scherm()
             Case 6
@@ -1618,7 +2021,7 @@ Public Class SPAS
         Lbx_Basis.Enabled = True
         Dgv_Bank.Enabled = True
 
-        'isManualChange = True
+        isCanceling = False
     End Sub
 
     Private Sub MenuDelete_Click(sender As Object, e As EventArgs) Handles MenuDelete.Click
@@ -1626,7 +2029,13 @@ Public Class SPAS
 
         Select Case TC_Main.SelectedIndex
             Case 0
-                Basis_Delete()
+                If TC_Object.SelectedIndex = 0 Then
+                    ' --- NEW CODE FOR CONTRACTS ---
+                    DeleteContract()
+                Else
+                    ' --- OLD CODE ---
+                    Basis_Delete()
+                End If
             Case 2
                 RunSQL("Delete From Journal where name ='" &
                 Me.Lbl_Incasso_job_name.Text & "'", "NULL", "Btn_Incasso_Delete_Click")
@@ -2752,7 +3161,7 @@ Public Class SPAS
         Prepare_Datagridview(Dgv_Incasso, sql, {"TZ350", "TZ200", "NZ080", "NZ080"})
     End Sub
 
-    Private Sub Pan_Incasso_views_Paint(sender As Object, e As PaintEventArgs) Handles Pan_Incasso_views.Paint
+    Private Sub Dtp_31_contract__enddate_ValueChanged(sender As Object, e As EventArgs) Handles Dtp_31_contract__enddate.ValueChanged
 
     End Sub
 End Class

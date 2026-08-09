@@ -694,6 +694,7 @@ end as ""intern "",
         End With
 
         Dim s2 As String = Get_Excasso_data2(cp, "Kind", "Oudere", "Overig", lijstnaam, lijstnaam, dat)
+
         If s2 = "" Then Exit Sub
 
         SPAS.Dgv_Excasso2.DataSource = Collect_data2(s2)
@@ -767,6 +768,8 @@ end as ""intern "",
         End With
 
         Dim s2 As String = Get_Excasso_data2(cp, kind, oudere, overig, lijstnaam, "", dat)
+        Clipboard.SetText(s2)
+        MsgBox("wacht")
         If s2 = "" Then Exit Sub
 
 
