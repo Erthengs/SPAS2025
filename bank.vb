@@ -520,27 +520,9 @@ Module bank
         If Strings.InStr(SPAS.Cmx_Bank_bankacc.Text, "NL") = 0 Then Exit Sub
 
         Dim balance As Decimal = QuerySQL($"
-         select case when sum(credit)-sum(debit)::money isnull then 0::money else sum(credit-debit)::money end 
+         select case when sum(credit)-sum(debit)::money isnull then 0::money else sum(credit)-sum(debit)::money end 
   		from bank ba WHERE iban = '{Strings.Right(SPAS.Cmx_Bank_bankacc.Text, 18)}'")
         SPAS.Lbl_Bank_Saldo.Text = Format(balance, "#,##0.00")
-    End Sub
-
-
-    Sub Update_Category_Status()
-        Dim currow As Integer = SPAS.Dgv_Bank.SelectedCells(3).RowIndex
-
-        SPAS.Dgv_Bank.Rows(currow).Cells(17).Value = 0
-        SPAS.Dgv_Bank.Rows(currow).DefaultCellStyle.ForeColor = Color.DarkGreen
-
-        For x = 0 To SPAS.Dgv_Bank_Account.Rows.Count - 1
-            If SPAS.Dgv_Bank_Account.Rows(x).Cells(0).Value = nocat And SPAS.Dgv_Bank_Account.Rows(x).Cells(2).Value <> 0 Then
-                SPAS.Dgv_Bank.Rows(currow).Cells(17).Value = 1
-                SPAS.Dgv_Bank.Rows(currow).DefaultCellStyle.ForeColor = Color.DarkRed
-                Exit For
-
-            End If
-        Next x
-
     End Sub
 
 
@@ -608,8 +590,7 @@ Module bank
 
             Calculate_Total_Booked("Btn_Bank_Add_Journal_Click")
 
-            'Save_Banktransaction_Accounts()
-            'Update_Category_Status()
+
         End If
 
     End Sub

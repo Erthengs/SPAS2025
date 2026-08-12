@@ -4,6 +4,109 @@ Imports System.Runtime.InteropServices
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports Microsoft.EntityFrameworkCore.Metadata.Conventions
 Imports Microsoft.EntityFrameworkCore.Update.Internal
+Imports Npgsql
+Imports SkiaSharp
+
+Module Tussenrekening
+
+    Sub Net_Distribution_List(transactionDate As Date, clearanceAccountId As String, Optional listName As String = "", Optional manualAmount As Decimal = 0, Optional targetAccountId As String = "", Optional manualDesc As String = "")
+
+        ' Format the date strictly as YYYY-MM-dd
+        Dim dat1 As String = transactionDate.ToString("yyyy-MM-dd")
+        Dim SQLstr As String = ""
+
+        If Not String.IsNullOrEmpty(listName) AndAlso manualAmount = 0 Then
+            ' ==========================================
+            ' SCENARIO 1: DISTRIBUTION LIST NETTING
+            ' ==========================================
+            Dim sqlTotal As String = "SELECT SUM(amt1) FROM journal WHERE name = '" & listName & "' AND source = 'Uitkering' AND status = 'Open'"
+            Dim totalStr As String = QuerySQL(sqlTotal)
+
+            If String.IsNullOrEmpty(totalStr) OrElse totalStr = "0" Then
+                MsgBox("Er is geen openstaand bedrag gevonden voor uitkeringslijst: " & listName)
+                Exit Sub
+            End If
+
+            Dim totalAmt As Decimal = CDec(totalStr)
+            Dim desc As String = "Afletteren " & listName
+
+            ' Insert offset on clearance account (inverted sign)
+            SQLstr &= "INSERT INTO journal(name, date, status, type, source, description, amt1, fk_account) "
+            SQLstr &= "VALUES('" & listName & "', '" & dat1 & "'::date, 'Verwerkt', 'Internal', 'Uitkering', '" & desc & "', " & Cur2(-totalAmt) & ", " & clearanceAccountId & "); "
+
+            ' Update list items
+            SQLstr &= "UPDATE journal SET status = 'Verwerkt' WHERE name = '" & listName & "' AND source = 'Uitkering' AND status = 'Open';"
+
+        ElseIf manualAmount <> 0 AndAlso Not String.IsNullOrEmpty(targetAccountId) Then
+            ' ==========================================
+            ' SCENARIO 2: MANUAL ACCOUNT NETTING
+            ' ==========================================
+            ' Provide a fallback name if description is empty, as 'name' is often required
+            Dim entryName As String = IIf(String.IsNullOrEmpty(manualDesc), "Handmatige Aflettering", manualDesc)
+
+            ' Leg 1: Book against the selected Target Account
+            SQLstr &= "INSERT INTO journal(name, date, status, type, source, description, amt1, fk_account) "
+            SQLstr &= "VALUES('" & entryName & "', '" & dat1 & "'::date, 'Verwerkt', 'Internal', 'Intern', '" & manualDesc & "', " & Cur2(manualAmount) & ", " & targetAccountId & "); "
+
+            ' Leg 2: Book the offset against the Clearance Account (inverted sign)
+            SQLstr &= "INSERT INTO journal(name, date, status, type, source, description, amt1, fk_account) "
+            SQLstr &= "VALUES('" & entryName & "', '" & dat1 & "'::date, 'Verwerkt', 'Internal', 'Intern', '" & manualDesc & "', " & Cur2(-manualAmount) & ", " & clearanceAccountId & "); "
+        Else
+            MsgBox("Onvoldoende gegevens om af te letteren.")
+            Exit Sub
+        End If
+
+        Try
+            ' Execute the batch
+            RunSQL(SQLstr, "NULL", "Net_Distribution_List")
+            'MsgBox("Aflettering is succesvol verwerkt.")
+        Catch ex As Exception
+            MsgBox($"Fout bij het afletteren. SQL statement: {SQLstr}")
+            Exit Sub
+        End Try
+    End Sub
+
+    Function Fill_Afletterbox()
+        Dim sql = "
+            SELECT 
+                ""date"" AS Datum,
+                COALESCE(""name"", description, 'Overige Uitgave') AS Omschrijving,
+                
+                -- Opname (Column 3): Captures everything that is NOT an Uitkering, 
+                -- EXCEPT manual netting ('Intern') that has a negative amount.
+                CASE 
+                    WHEN TRIM(""source"") = 'Uitkering' THEN NULL::money 
+                    WHEN TRIM(""source"") = 'Intern' AND amt1 < 0::money THEN NULL::money
+                    ELSE amt1 
+                END AS Opname,
+                
+                -- Betaling (Column 4): Captures Uitkeringen AND manual netting ('Intern') with a negative amount.
+                CASE 
+                    WHEN TRIM(""source"") = 'Uitkering' THEN amt1 
+                    WHEN TRIM(""source"") = 'Intern' AND amt1 < 0::money THEN amt1
+                    ELSE NULL::money 
+                END AS Betaling,
+                
+                -- Saldo: Running continuous SUM of the true signed values in the journal
+                SUM(amt1) OVER (
+                    ORDER BY ""date"" ASC, id ASC 
+                    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+                ) AS Saldo
+                
+            FROM public.journal
+            WHERE fk_account = 750
+            ORDER BY ""date"" DESC, id ASC;
+        "
+
+        Return sql
+    End Function
+
+
+End Module
+
+
+
+
 
 Module boekingen
 
@@ -222,8 +325,8 @@ Module boekingen
         End With
 
         SQLstr &= SQLroot & -Cur2(Tbx2Int(src_amt)) & "','" & fka & "');"
-        Clipboard.Clear()
-        Clipboard.SetText(SQLstr)
+        'Clipboard.Clear()
+        'Clipboard.SetText(SQLstr)
         Try
             RunSQL(SQLstr, "NULL", "Save_Internal_Booking")
         Catch ex As Exception

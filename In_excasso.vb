@@ -471,10 +471,12 @@ Module In_excasso
         FROM journal j WHERE j.source = 'Uitkering' AND j.status = 'Open' 
         union SELECT distinct cp.id::integer as id, 'Nieuwe lijst '||cp.name as name FROM cp
         LEFT JOIN target ta on fk_cp_id = cp.id LEFT JOIN contract co on fk_target_id = ta.id
-        WHERE co.enddate > current_date AND cp.active = 'True'
+        WHERE cp.active = 'True'
         order by name
         ")
+        SPAS.Dgv_Excasso2.DataSource = Nothing
         SPAS.Cmx_Excasso_Select.SelectedIndex = -1
+
     End Sub
 
 
@@ -720,7 +722,11 @@ end as ""intern "",
         End With
 
         Calculate_Excasso_Totals(False)
-
+        For Each ctrl In SPAS.Controls
+            If TypeOf ctrl Is ComboBox Or TypeOf ctrl Is TextBox Then
+                ctrl.Tag = ctrl.Text
+            End If
+        Next
         SPAS.isManualChange = True
     End Sub
 
@@ -768,8 +774,8 @@ end as ""intern "",
         End With
 
         Dim s2 As String = Get_Excasso_data2(cp, kind, oudere, overig, lijstnaam, "", dat)
-        Clipboard.SetText(s2)
-        MsgBox("wacht")
+        'Clipboard.SetText(s2)
+
         If s2 = "" Then Exit Sub
 
 

@@ -8,11 +8,13 @@ Imports System.Diagnostics
 Imports System.IO
 Imports System.Linq.Expressions
 Imports System.Management.Instrumentation
-Imports System.Refection
+'Imports System.Refection
 Imports System.Reflection
 Imports System.Security.Cryptography
+
 Imports System.Windows.Forms.VisualStyles
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar
 Imports System.Xml
 Imports Microsoft.EntityFrameworkCore.Metadata.Internal
@@ -21,7 +23,10 @@ Imports Microsoft.EntityFrameworkCore.Query.SqlExpressions
 Imports Microsoft.VisualBasic.Devices
 Imports Npgsql
 Imports NpgsqlTypes
+Imports OpenTK.Graphics.OpenGL
+Imports OpenTK.Platform
 Imports PdfSharp.Pdf.Content
+
 
 Public Class SPAS
     Private Const V As Boolean = False
@@ -34,9 +39,144 @@ Public Class SPAS
     Private editingControl As System.Windows.Forms.TextBox
     Private originalValue As Object ' Stores the original cell value
     Private isCanceling As Boolean = False
+    Public MustWarn As Boolean = False
 
 
     'bekende fouten
+
+    '========================================================================================================
+    '======                                                                                            ======
+    '======                                 nieuwe voor tussenrekening                                 ======
+    '======                                                                                            ======
+    '========================================================================================================
+
+    Private Sub Dgv_Tussenrekening_Uitk_SelectionChanged(sender As Object, e As EventArgs)
+        ' Check if a valid row is currently selected
+        If Dgv_Tussenrekening_Uitk.CurrentRow IsNot Nothing AndAlso
+       Not Dgv_Tussenrekening_Uitk.CurrentRow.IsNewRow AndAlso
+       Dgv_Tussenrekening_Uitk.CurrentRow.Cells(0).Value IsNot Nothing Then
+
+            Btn_Tussenrekening_Save.Enabled = True
+        Else
+            Btn_Tussenrekening_Save.Enabled = False
+        End If
+    End Sub
+
+    Private Sub Btn_Tussenrekening_Save_Click(sender As Object, e As EventArgs) Handles Btn_Tussenrekening_Save.Click
+        Dim clearanceAccountId As String = "750"
+
+        ' Traffic Cop Check: Is the manual amount textbox filled?
+        If Not String.IsNullOrWhiteSpace(Tbx_Tussenrekening_bedrag.Text) Then
+            ' ==========================================
+            ' VALIDATE & PROCESS MANUAL ENTRY
+            ' ==========================================
+            If Cmbx_Tussenrekening.SelectedItem Is Nothing Then
+                MsgBox("Selecteer een doelaccount uit de lijst.")
+                Exit Sub
+            End If
+
+            Dim amount As Decimal
+            If Not Decimal.TryParse(Tbx_Tussenrekening_bedrag.Text, amount) Then
+                MsgBox("Voer een geldig numeriek bedrag in (gebruik een minteken voor uitgaven).")
+                Exit Sub
+            End If
+
+            Dim selectedAccItem As ComboBoxItem = TryCast(Cmbx_Tussenrekening.SelectedItem, ComboBoxItem)
+            Dim targetAccountId As String = selectedAccItem.Column1
+
+            Dim transDate As Date = Dtp_tussenrekening.Value
+            Dim desc As String = Tbx_Tussenrekening_toelichting.Text
+            selectedAccItem = TryCast(Cmbx_Tussenrekening.SelectedItem, ComboBoxItem)
+            targetAccountId = selectedAccItem.Column1
+            transDate = Dtp_tussenrekening.Value
+            desc = Tbx_Tussenrekening_toelichting.Text
+
+            Dim actionText As String = IIf(amount > 0, "afboeken als uitgave", "boeken als teruggave/inkomst")
+            Dim conf = MsgBox($"Weet u zeker dat u €{Math.Abs(amount)} wilt {actionText} op de geselecteerde account?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question, "Bevestig Afletteren")
+
+            If conf = MsgBoxResult.Yes Then
+                ' Call procedure with manual parameters
+                Net_Distribution_List(transDate, clearanceAccountId, "", amount, targetAccountId, desc)
+
+                ' Reset UI fields after success
+                Tbx_Tussenrekening_bedrag.Clear()
+                Tbx_Tussenrekening_toelichting.Clear()
+                Cmbx_Tussenrekening.SelectedIndex = -1
+            End If
+
+        Else
+            ' ==========================================
+            ' VALIDATE & PROCESS DISTRIBUTION LIST
+            ' ==========================================
+            If Dgv_Tussenrekening_Uitk.CurrentRow Is Nothing Then
+                MsgBox("Selecteer een uitkeringslijst in de tabel of vul een handmatig bedrag in om af te letteren.")
+                Exit Sub
+            End If
+
+            ' Extract from DataGridView
+            Dim listDate As Date = CDate(Dgv_Tussenrekening_Uitk.CurrentRow.Cells(0).Value)
+            Dim listName As String = Dgv_Tussenrekening_Uitk.CurrentRow.Cells(1).Value.ToString()
+
+            Dim conf = MsgBox($"Weet u zeker dat u uitkeringslijst '{listName}' van {listDate.ToShortDateString()} wilt afletteren?", MsgBoxStyle.YesNo Or MsgBoxStyle.Question, "Bevestig Afletteren")
+            If conf = MsgBoxResult.Yes Then
+
+                ' Call procedure with list parameters
+                Net_Distribution_List(listDate, clearanceAccountId, listName)
+                Fill_Cmx_Excasso_Select_Combined()
+            End If
+        End If
+
+        ' Refresh calls to reload the DataGridViews
+        Prepare_Datagridview(Dgv_Tussenrekening, Fill_Afletterbox, {"TZ080", "TZ300", "NZ080", "NZ080", "NZ080"})
+
+        Prepare_Datagridview(Dgv_Tussenrekening_Uitk,
+                 "SELECT date, name, SUM(amt1) FROM journal WHERE source = 'Uitkering' AND status = 'Open' GROUP BY date, name order by date asc",
+                 {"HZ000", "TZ200", "NZ080"})
+
+        Lbl_Tussenrekening_3.Text = $"Openstaande uitkeringslijsten ({Dgv_Tussenrekening_Uitk.RowCount})"
+        Initialize_Tussenrekening_DatePicker()
+    End Sub
+
+
+
+
+    Private Sub Dgv_Tussenrekening_Uitk_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Tussenrekening_Uitk.CellContentClick
+        Btn_Tussenrekening_Save.Enabled = True
+    End Sub
+
+    Sub Initialize_Tussenrekening_DatePicker()
+        ' 1. Fetch the most recent date from the journal
+        Dim sqlMaxDate As String = "SELECT MAX(""date"") FROM public.journal;"
+        Dim maxDateStr As String = QuerySQL(sqlMaxDate)
+
+        Dim minAllowedDate As Date
+
+        ' 2. Parse the result and apply the limits safely
+        If Date.TryParse(maxDateStr, minAllowedDate) Then
+            ' Set the lowest possible date the user can select
+            Dtp_tussenrekening.MinDate = minAllowedDate
+        Else
+            ' Fallback if the journal is completely empty
+            Dtp_tussenrekening.MinDate = DateTime.Today
+        End If
+
+        ' 3. Set the default value to Today. 
+        ' Safety check: If the database somehow contains a future-dated record, 
+        ' setting the Value to Today would throw an exception because Today < MinDate.
+        If DateTime.Today >= Dtp_tussenrekening.MinDate Then
+            Dtp_tussenrekening.Value = DateTime.Today
+        Else
+            Dtp_tussenrekening.Value = Dtp_tussenrekening.MinDate
+        End If
+    End Sub
+
+
+
+
+    Private Sub TP_Analyse_Click(sender As Object, e As EventArgs) Handles TP_Analyse.Click
+
+        'Load_NetFlow_LiveChart()
+    End Sub
 
     '========================================================================================================
     '======                                                                                            ======
@@ -333,7 +473,7 @@ Public Class SPAS
             End If
         End If
         ' --- NEW: UPDATE THE BUDGET FOR THE TARGET ACCOUNT ---
-        ' --- NEW: UPDATE THE BUDGET FOR THE TARGET ACCOUNT ---
+
         Try
             ' Fix: Use ILIKE to ignore case-sensitivity issues ('Doel' vs 'doel')
             Dim query As String = $"SELECT id FROM account WHERE source ILIKE 'doel' AND f_key = {uiContract.FkTargetId}"
@@ -411,34 +551,48 @@ Public Class SPAS
     End Sub
 
     Private Sub FieldChangedHandler(sender As Object, e As EventArgs)
-        ' Enable Save and Cancel, disable other buttons
-        'als er een veld gewijzigd wordt komt SPAS in edit modus
-        ' Get the name of the calling method
-        Dim stackTrace As New StackTrace()
-        Dim callingMethod As MethodBase = stackTrace.GetFrame(1)?.GetMethod()
-        Dim callerName As String = If(callingMethod IsNot Nothing, callingMethod.Name, "Unknown")
 
-        ' Show the calling procedure name
-        'MessageBox.Show($"Called from:{callerName} -- Manualchange:{isManualChange}")
 
-        '
         If Not isManualChange Then Return
 
-        If TC_Main.SelectedTab.Name <> "Incasso" Then Enable_Buttons(True, False)
+        ' FIX 3: Verify the value actually changed (prevents same-value re-selection triggering edit mode)
+        Dim ctrl As Control = TryCast(sender, Control)
+        'MsgBox($"Event fired by: {If(ctrl IsNot Nothing, ctrl.Name, "Unknown")} - Type: {sender.GetType().Name}")
+
+        If ctrl IsNot Nothing AndAlso ctrl.Tag IsNot Nothing Then
+            If ctrl.Text = ctrl.Tag.ToString() Then Return ' Value hasn't actually changed
+        End If
+
+        ' Enable Save and Cancel, disable other buttons
+        If TC_Main.SelectedTab.Name <> "Incasso" And TC_Main.SelectedTab.Name <> "Tussenrekening" Then Enable_Buttons(True, False)
 
         If TC_Main.SelectedIndex = 0 Then Lbx_Basis.Enabled = False
         If TC_Main.SelectedIndex = 1 Then Dgv_Bank.Enabled = False
-        'MsgBox($"{sender.GetType().Name} changed. IsmanualChange: {isManualChange}")
+
+        ' Optional: Update the Tag to the new value so it doesn't keep triggering unnecessarily
+        If ctrl IsNot Nothing Then ctrl.Tag = ctrl.Text
     End Sub
     Private Sub AttachHandlers(controls As Control.ControlCollection)
         Dim excludedPanels As New List(Of String) From {"Testpanel", "Pan_bank", "Pan_Bank2", "Pan_Incasso", "Pan_Incasso_Views"}
 
+        ' FIX 1: Exclude navigation/search controls from being tracked for changes
+        Dim excludedControls As New List(Of String) From {"Cmx_Excasso_Select", "Dgv_Uitkering_Account_Details"}
+
         For Each ctrl As Control In controls
+
+            ' Skip this control if it's in the excluded controls list
+            If excludedControls.Contains(ctrl.Name) Then Continue For
 
             If TypeOf ctrl Is System.Windows.Forms.TextBox AndAlso Not excludedPanels.Contains(ctrl.Parent.Name) Then
                 AddHandler DirectCast(ctrl, System.Windows.Forms.TextBox).TextChanged, AddressOf FieldChangedHandler
+
             ElseIf TypeOf ctrl Is System.Windows.Forms.ComboBox AndAlso Not excludedPanels.Contains(ctrl.Parent.Name) Then
-                AddHandler DirectCast(ctrl, System.Windows.Forms.ComboBox).SelectedIndexChanged, AddressOf FieldChangedHandler
+                ' FIX 2: Use SelectionChangeCommitted instead of SelectedIndexChanged
+                AddHandler DirectCast(ctrl, System.Windows.Forms.ComboBox).SelectionChangeCommitted, AddressOf FieldChangedHandler
+
+                ' Optional: Keep TextChanged only if users are allowed to type custom text into the comboboxes
+                AddHandler DirectCast(ctrl, System.Windows.Forms.ComboBox).TextChanged, AddressOf FieldChangedHandler
+
             ElseIf TypeOf ctrl Is System.Windows.Forms.RadioButton AndAlso Not excludedPanels.Contains(ctrl.Parent.Name) Then
                 AddHandler DirectCast(ctrl, System.Windows.Forms.RadioButton).CheckedChanged, AddressOf FieldChangedHandler
             ElseIf TypeOf ctrl Is System.Windows.Forms.DateTimePicker AndAlso Not excludedPanels.Contains(ctrl.Parent.Name) Then
@@ -447,12 +601,25 @@ Public Class SPAS
                 AddHandler DirectCast(ctrl, System.Windows.Forms.CheckBox).CheckedChanged, AddressOf FieldChangedHandler
             ElseIf TypeOf ctrl Is System.Windows.Forms.DataGridView AndAlso Not excludedPanels.Contains(ctrl.Parent.Name) Then
                 AddHandler DirectCast(ctrl, System.Windows.Forms.DataGridView).CellValueChanged, AddressOf FieldChangedHandler
-                'AddHandler DirectCast(ctrl, System.Windows.Forms.DataGridView).CurrentCellDirtyStateChanged, AddressOf DataGridViewDirtyStateChanged
             End If
 
             ' Recursively handle nested controls
             If ctrl.HasChildren Then
                 AttachHandlers(ctrl.Controls)
+            End If
+        Next
+    End Sub
+
+    Private Sub UpdateControlTags(parentControl As Control)
+        For Each ctrl As Control In parentControl.Controls
+            ' Use fully qualified names to avoid the VisualStyleElement conflict
+            If TypeOf ctrl Is System.Windows.Forms.TextBox OrElse TypeOf ctrl Is System.Windows.Forms.ComboBox Then
+                ctrl.Tag = ctrl.Text
+            End If
+
+            ' Recursively search inside panels, groupboxes, or tab pages
+            If ctrl.HasChildren Then
+                UpdateControlTags(ctrl)
             End If
         Next
     End Sub
@@ -515,7 +682,7 @@ Public Class SPAS
         'CRUD-knoppen
         MenuAdd.Visible = (i = 0) Or (i = 4 And j = 2)
         MenuSave.Visible = i = 0 Or i = 2 Or i = 3 Or (i = 4 And j < 3) Or i = 6 Or i = 1
-        MenuCancel.Visible = i = 0 Or i = 3 Or (i = 4 And j < 3) Or i = 6 Or i = 1
+        MenuCancel.Visible = i = 0 Or i = 3 Or (i = 4 And j < 3) Or i = 6 Or i = 1 Or i = 7
         MenuDelete.Visible = i = 0 Or i = 2 Or i = 3 Or (i = 4 And j < 3 And j <> 1) Or i = 6
         'Outputknoppen
         Menu_Print.Visible = (i = 2 Or i = 3)
@@ -577,11 +744,10 @@ Public Class SPAS
         Populate_Single_Combobox(Cmbx_Reporting_Year, "select distinct extract (year from date) As Year from journal_archive 
                                             union select distinct min(extract (year from date)) from journal")
 
-        Call Populate_Cmbx_Overboeking
+        Call Populate_Cmbx_Overboeking()
 
-        Populate_Combobox(Cmx_Incasso_IncassoForm, "select CURRENT_DATE as Date, 'Nieuwe incasso' as name, 'Nieuw' as Status union
-	    select distinct date, 'I'|| Substring(name,11,15) as name, trim(status) as Status from journal j where source= 'Incasso' order by status, date desc")
-        Cmx_Incasso_IncassoForm.SelectedIndex = -1
+        'Populate_Cmx_Incasso_IncassoForm()
+        'Cmx_Incasso_IncassoForm.SelectedIndex = -1
         Fill_Cmx_Journal_List()
 
         If Me.Dgv_Mgnt_Tables.Rows(8).Cells(1).Value > 0 Then
@@ -603,7 +769,10 @@ Public Class SPAS
         from account a LEFT join journal j ON a.id = j.fk_account where a.active = TRUE GROUP by  a.id,  a.name ORDER by a.name;")
     End Sub
 
-
+    Sub Populate_Cmx_Incasso_IncassoForm()
+        Populate_Combobox(Cmx_Incasso_IncassoForm, "select CURRENT_DATE as Date, 'Nieuwe incasso' as name, 'Nieuw' as Status union
+	    select distinct date, 'I'|| Substring(name,11,15) as name, trim(status) as Status from journal j where source= 'Incasso' order by status, date desc")
+    End Sub
 
     '========================================================================================================
     '======                                                                                            ======
@@ -1937,16 +2106,19 @@ Public Class SPAS
                 Lbx_Basis.Enabled = True
             Case 1 'Bank
                 Save_Banktransaction_Accounts()
+                MustWarn = True
                 Dgv_Bank.Enabled = True
             Case 2 'Incasso
                 Create_Incasso_Journals()
                 Create_SEPA_XML()
+                Populate_Cmx_Incasso_IncassoForm()
                 Me.Lbl_Incasso_Status.Text = "Open"
                 Menu_Print.Enabled = True
 
             Case 3 'Uitkeringen
                 If Cmx_Excasso_Select.SelectedIndex = -1 Then Exit Sub
                 Save_Excasso_job()
+                MustWarn = True
             Case 4
                 Select Case TC_Boeking.SelectedIndex
                     Case 0
@@ -2016,6 +2188,8 @@ Public Class SPAS
                 Leeg_overboeking_scherm()
             Case 6
                 Load_Account_Settings()
+            Case 7
+
         End Select
         Enable_Buttons(False, True)
         Lbx_Basis.Enabled = True
@@ -2037,11 +2211,14 @@ Public Class SPAS
                     Basis_Delete()
                 End If
             Case 2
-                RunSQL("Delete From Journal where name ='" &
-                Me.Lbl_Incasso_job_name.Text & "'", "NULL", "Btn_Incasso_Delete_Click")
+
+                Dim Incasso2Delete As String = $"Delete From Journal where name ilike '%{Lbl_Incasso_job_name.Text}%' and source='Incasso'"
+                'MsgBox(Incasso2Delete)
+                'Clipboard.SetText(Incasso2Delete)
+                RunSQL(Incasso2Delete, "NULL", "Btn_Incasso_Delete_Click")
+                Populate_Cmx_Incasso_IncassoForm()
                 Me.Lbl_Incasso_Status.Text = "Nieuw"
                 Menu_Print.Enabled = False
-
                 Me.Lbl_Incasso_Error.Visible = False
             Case 3
                 MenuExcassoDelete()
@@ -2097,6 +2274,8 @@ Public Class SPAS
                 Enable_Buttons(False, False)
             Case 2 'incasso
                 isManualChange = False
+                Populate_Cmx_Incasso_IncassoForm()
+                Cmx_Incasso_IncassoForm.SelectedIndex = -1
                 If Me.Dgv_Mgnt_Tables.Rows(3).Cells(1).Value > 0 And
                     Me.Dgv_Mgnt_Tables.Rows(5).Cells(1).Value > 0 And
                     Me.Dgv_Mgnt_Tables.Rows(8).Cells(1).Value > 0 Then
@@ -2107,6 +2286,8 @@ Public Class SPAS
                 Enable_Buttons(False, False)
             Case 3 'uitkering
                 isManualChange = False
+                'Fill_Cmx_Excasso_Select_Combined()
+
                 Enable_Buttons((Dgv_Excasso2.Rows.Count > 0), (Dgv_Excasso2.Rows.Count = 0))
 
                 MenuBanktransactie.Visible = False '
@@ -2146,6 +2327,19 @@ Public Class SPAS
                 isManualChange = False
                 Load_Account_Settings()
                 isManualChange = True
+            Case 7
+                isManualChange = False
+                Populate_Combobox(Cmbx_Tussenrekening, "select * from account where source = 'cat'  and type = 'Anders' and name not in ('[Niet toegewezen]','Euro tegenwaarde', 'Overhead') and name not ilike 'Bank%'")
+                Cmbx_Tussenrekening.SelectedIndex = -1
+                Prepare_Datagridview(Dgv_Tussenrekening, Fill_Afletterbox, {"TZ080", "TZ300", "NZ080", "NZ080", "NZ080"})
+                Prepare_Datagridview(Dgv_Tussenrekening_Uitk,
+                     "SELECT date, name, SUM(amt1) FROM journal WHERE source = 'Uitkering' AND status = 'Open' GROUP BY date, name order by date desc",
+                     {"HZ000", "TZ200", "NZ080"})
+                Lbl_Tussenrekening_3.Text = $"Openstaande uitkeringslijsten ({Dgv_Tussenrekening_Uitk.RowCount})"
+                Initialize_Tussenrekening_DatePicker()
+                isManualChange = True
+
+
         End Select
 
         Show_buttons()
@@ -2292,6 +2486,8 @@ Public Class SPAS
 
                         If Not String.IsNullOrEmpty(firstColValue) Then
                             If firstColValue.Contains("Total") Then : dgv.Rows(r).DefaultCellStyle.BackColor = Color.Khaki
+                            ElseIf firstColValue.Contains("🚨") Then : dgv.Rows(r).DefaultCellStyle.BackColor = Color.LightSalmon
+                            ElseIf firstColValue.Contains("⚠️") Then : dgv.Rows(r).DefaultCellStyle.BackColor = Color.LightYellow
                             ElseIf firstColValue.Contains("#") Then : dgv.Rows(r).DefaultCellStyle.BackColor = Color.DarkSeaGreen
                             ElseIf firstColValue.Contains("Afschrift") Then : dgv.Rows(r).DefaultCellStyle.BackColor = Color.DarkSeaGreen
                             ElseIf firstColValue.Contains("(Excasso)") Then : dgv.Rows(r).DefaultCellStyle.BackColor = Color.White
@@ -2368,6 +2564,20 @@ Public Class SPAS
     End Sub
 
     Private Sub Menu_Help_Click(sender As Object, e As EventArgs) Handles Menu_Help.Click
+        Select Case TC_Main.SelectedIndex
+            Case 0 : Process.Start("https://github.com/Erthengs/SPAS2025/wiki/Stappenplan-(Maandelijks)")
+            Case 1 : Process.Start("https://github.com/Erthengs/SPAS2025/wiki/Bank")
+            Case 2 : Process.Start("https://github.com/Erthengs/SPAS2025/wiki/Incasso")
+            Case 3 : Process.Start("https://github.com/Erthengs/SPAS2025/wiki/Uitkering")
+            Case 5 : Process.Start("https://github.com/Erthengs/SPAS2025/wiki/SPAS:-Inleiding")
+            Case 6 : Process.Start("https://github.com/Erthengs/SPAS2025/wiki/SPAS:-Inleiding")
+            Case 7 : Process.Start("https://github.com/Erthengs/SPAS2025/wiki/Tussenrekening")
+
+        End Select
+
+
+
+
         Process.Start("https://github.com/Erthengs/SPAS2025/wiki/Stappenplan-(Maandelijks)")
     End Sub
     '========================================================================================================
@@ -2694,15 +2904,18 @@ Public Class SPAS
     End Sub
 
     Private Sub Cmx_Excasso_Select_SelectedIndexChanged_3(sender As Object, e As EventArgs) Handles Cmx_Excasso_Select.SelectedIndexChanged
+        Dim previousState As Boolean = isManualChange
         isManualChange = False
-        If Cmx_Excasso_Select.Items.Count = 0 Then Exit Sub
-        If Strings.Left(Cmx_Excasso_Select.Text, 5).ToString <> "Nieuw" Then
-            Load_Existing_Excasso()
-        Else
-            Load_New_Excasso(True)
 
+        If Cmx_Excasso_Select.Items.Count > 0 Then
+            If Strings.Left(Cmx_Excasso_Select.Text, 5).ToString <> "Nieuw" Then
+                Load_Existing_Excasso()
+            Else
+                Load_New_Excasso(True)
+            End If
         End If
-        isManualChange = True
+
+        isManualChange = previousState
     End Sub
 
     Function CalculateColumnSum(dgv As DataGridView, columnIndex As Integer) As Double
@@ -3163,5 +3376,64 @@ Public Class SPAS
 
     Private Sub Dtp_31_contract__enddate_ValueChanged(sender As Object, e As EventArgs) Handles Dtp_31_contract__enddate.ValueChanged
 
+    End Sub
+
+    Private Sub Dgv_Excasso2_SelectionChanged(sender As Object, e As EventArgs) Handles Dgv_Excasso2.SelectionChanged
+        ' 1. Remember the current state (was it already False because a Load is running?)
+        Dim previousState As Boolean = isManualChange
+
+        ' 2. Disable change tracking
+        isManualChange = False
+
+        ' 3. Update the Tags for the new row
+        UpdateControlTags(Me)
+
+        ' 4. Restore tracking to whatever it was BEFORE this event fired.
+        ' (If Load_Existing_Excasso is running, previousState is False, so it safely stays False!)
+        isManualChange = previousState
+    End Sub
+
+    Private Sub TC_Tussenrekening_Click(sender As Object, e As EventArgs) Handles TC_Tussenrekening.Click
+
+
+        Dim lab0 = "Tussenrekening Rapportage"
+        Dim lab1 = "Netting Ouderdom"
+        Dim lab2 = "Netting Flowtrend"
+        Dim lab3 = "Netting Volatiliteit"
+        Dim lab4 = "Netting Volume"
+        Lbl_netting0.Text = lab0
+        Lbl_netting1.Text = lab1
+        Lbl_Netting2.Text = lab2
+        Lbl_Netting3.Text = lab3
+        Lbl_Netting4.Text = lab4
+
+        Dim Sql0 As String = QuerySQL($"Select sql from query where category = 'Overzicht' and name='{lab0}'")
+        Prepare_Datagridview(Dgv_Tussenrekening_0, Sql0, {"TZ200", "DZ020", "TZ150"})
+        Dim Sql1 As String = QuerySQL($"Select sql from query where category = 'Overzicht' and name='{lab1}'")
+        Prepare_Datagridview(Dgv_Tussenrekening_1, Sql1, {"TZ150", "DZ070", "JZ030", "TZ030", "NZ070"})
+        Dim Sql2 As String = QuerySQL($"Select sql from query where category = 'Overzicht' and name='{lab2}'")
+        Prepare_Datagridview(Dgv_Tussenrekening_2, Sql2, {"DZ080", "NZ080", "NZ080", "NZ080"})
+        Dim Sql3 As String = QuerySQL($"Select sql from query where category = 'Overzicht' and name='{lab3}'")
+        Prepare_Datagridview(Dgv_Tussenrekening_3, Sql3, {"DZ080", "NZ080", "NZ080", "TZ080"})
+        Dim Sql4 As String = QuerySQL($"Select sql from query where category = 'Overzicht' and name='{lab4}'")
+        Prepare_Datagridview(Dgv_Tussenrekening_4, Sql4, {"TZ200", "DZ070", "JZ030", "NZ070"})
+
+
+    End Sub
+
+    Private Sub SPAS_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If Not MustWarn Then Exit Sub
+
+        Dim alert As Integer = QuerySQL(QuerySQL($"Select sql from query where category = 'Check' and name='CountAlert'"))
+
+        If alert > 0 Then
+            Dim result As MsgBoxResult = MsgBox($"Er zijn nog {alert} aandachtsgebieden m.b.t. de tussenrekening. Zie hiervoor het tabblad 'Tussenrekening > Analyse'{vbCr}
+{vbCr}Weet u zeker dat u wilt stoppen?", vbYesNo + vbExclamation, "Waarschuwing")
+
+            If result = vbNo Then
+                ' This is the magic line that prevents the application from closing
+                e.Cancel = True
+            End If
+        End If
     End Sub
 End Class
