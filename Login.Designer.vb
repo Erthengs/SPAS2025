@@ -50,9 +50,10 @@ Partial Class Login
         '
         Me.LogoPictureBox.Image = CType(resources.GetObject("LogoPictureBox.Image"), System.Drawing.Image)
         Me.LogoPictureBox.InitialImage = CType(resources.GetObject("LogoPictureBox.InitialImage"), System.Drawing.Image)
-        Me.LogoPictureBox.Location = New System.Drawing.Point(24, 68)
+        Me.LogoPictureBox.Location = New System.Drawing.Point(16, 44)
+        Me.LogoPictureBox.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.LogoPictureBox.Name = "LogoPictureBox"
-        Me.LogoPictureBox.Size = New System.Drawing.Size(294, 163)
+        Me.LogoPictureBox.Size = New System.Drawing.Size(196, 106)
         Me.LogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.LogoPictureBox.TabIndex = 0
         Me.LogoPictureBox.TabStop = False
@@ -60,9 +61,10 @@ Partial Class Login
         'UsernameLabel
         '
         Me.UsernameLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.UsernameLabel.Location = New System.Drawing.Point(344, 11)
+        Me.UsernameLabel.Location = New System.Drawing.Point(229, 7)
+        Me.UsernameLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.UsernameLabel.Name = "UsernameLabel"
-        Me.UsernameLabel.Size = New System.Drawing.Size(165, 20)
+        Me.UsernameLabel.Size = New System.Drawing.Size(110, 13)
         Me.UsernameLabel.TabIndex = 0
         Me.UsernameLabel.Text = "Gebruikersnaam"
         Me.UsernameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -70,9 +72,10 @@ Partial Class Login
         'PasswordLabel
         '
         Me.PasswordLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PasswordLabel.Location = New System.Drawing.Point(344, 68)
+        Me.PasswordLabel.Location = New System.Drawing.Point(229, 44)
+        Me.PasswordLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.PasswordLabel.Name = "PasswordLabel"
-        Me.PasswordLabel.Size = New System.Drawing.Size(165, 20)
+        Me.PasswordLabel.Size = New System.Drawing.Size(110, 13)
         Me.PasswordLabel.TabIndex = 2
         Me.PasswordLabel.Text = "Wachtwoord"
         Me.PasswordLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -80,26 +83,29 @@ Partial Class Login
         'Tbx_Login_username
         '
         Me.Tbx_Login_username.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_Login_username.Location = New System.Drawing.Point(344, 34)
+        Me.Tbx_Login_username.Location = New System.Drawing.Point(229, 22)
+        Me.Tbx_Login_username.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Tbx_Login_username.Name = "Tbx_Login_username"
-        Me.Tbx_Login_username.Size = New System.Drawing.Size(271, 28)
+        Me.Tbx_Login_username.Size = New System.Drawing.Size(182, 21)
         Me.Tbx_Login_username.TabIndex = 1
         '
         'Tbx_login_password
         '
         Me.Tbx_login_password.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_login_password.Location = New System.Drawing.Point(344, 91)
+        Me.Tbx_login_password.Location = New System.Drawing.Point(229, 59)
+        Me.Tbx_login_password.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Tbx_login_password.Name = "Tbx_login_password"
         Me.Tbx_login_password.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.Tbx_login_password.Size = New System.Drawing.Size(271, 28)
+        Me.Tbx_login_password.Size = New System.Drawing.Size(182, 21)
         Me.Tbx_login_password.TabIndex = 3
         '
         'OK
         '
         Me.OK.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.OK.Location = New System.Drawing.Point(344, 234)
+        Me.OK.Location = New System.Drawing.Point(229, 152)
+        Me.OK.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.OK.Name = "OK"
-        Me.OK.Size = New System.Drawing.Size(123, 45)
+        Me.OK.Size = New System.Drawing.Size(82, 29)
         Me.OK.TabIndex = 4
         Me.OK.Text = "Inloggen"
         '
@@ -107,9 +113,10 @@ Partial Class Login
         '
         Me.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Cancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Cancel.Location = New System.Drawing.Point(494, 234)
+        Me.Cancel.Location = New System.Drawing.Point(329, 152)
+        Me.Cancel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Cancel.Name = "Cancel"
-        Me.Cancel.Size = New System.Drawing.Size(123, 45)
+        Me.Cancel.Size = New System.Drawing.Size(82, 29)
         Me.Cancel.TabIndex = 5
         Me.Cancel.Text = "Annuleren"
         '
@@ -118,18 +125,18 @@ Partial Class Login
         Me.Cmx_Login_Database.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cmx_Login_Database.FormattingEnabled = True
         Me.Cmx_Login_Database.Items.AddRange(New Object() {"Productie", "Acceptatie", "Test"})
-        Me.Cmx_Login_Database.Location = New System.Drawing.Point(344, 195)
-        Me.Cmx_Login_Database.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Cmx_Login_Database.Location = New System.Drawing.Point(229, 127)
         Me.Cmx_Login_Database.Name = "Cmx_Login_Database"
-        Me.Cmx_Login_Database.Size = New System.Drawing.Size(268, 30)
+        Me.Cmx_Login_Database.Size = New System.Drawing.Size(180, 23)
         Me.Cmx_Login_Database.TabIndex = 6
         '
         'Label1
         '
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(344, 171)
+        Me.Label1.Location = New System.Drawing.Point(229, 111)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(165, 20)
+        Me.Label1.Size = New System.Drawing.Size(110, 13)
         Me.Label1.TabIndex = 7
         Me.Label1.Text = "Database"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -138,9 +145,10 @@ Partial Class Login
         '
         Me.Chbx_Login_Save_Password.AutoSize = True
         Me.Chbx_Login_Save_Password.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Chbx_Login_Save_Password.Location = New System.Drawing.Point(344, 125)
+        Me.Chbx_Login_Save_Password.Location = New System.Drawing.Point(229, 81)
+        Me.Chbx_Login_Save_Password.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Chbx_Login_Save_Password.Name = "Chbx_Login_Save_Password"
-        Me.Chbx_Login_Save_Password.Size = New System.Drawing.Size(205, 24)
+        Me.Chbx_Login_Save_Password.Size = New System.Drawing.Size(141, 17)
         Me.Chbx_Login_Save_Password.TabIndex = 8
         Me.Chbx_Login_Save_Password.Text = "Wachtwoord onthouden"
         Me.Chbx_Login_Save_Password.UseVisualStyleBackColor = True
@@ -148,9 +156,10 @@ Partial Class Login
         'Lbl_login_version
         '
         Me.Lbl_login_version.AutoSize = True
-        Me.Lbl_login_version.Location = New System.Drawing.Point(3, 274)
+        Me.Lbl_login_version.Location = New System.Drawing.Point(2, 178)
+        Me.Lbl_login_version.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Lbl_login_version.Name = "Lbl_login_version"
-        Me.Lbl_login_version.Size = New System.Drawing.Size(31, 20)
+        Me.Lbl_login_version.Size = New System.Drawing.Size(22, 13)
         Me.Lbl_login_version.TabIndex = 10
         Me.Lbl_login_version.TabStop = True
         Me.Lbl_login_version.Text = "3.0"
@@ -159,9 +168,10 @@ Partial Class Login
         '
         Me.Lbl_Login_lastlogin.AutoSize = True
         Me.Lbl_Login_lastlogin.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Lbl_Login_lastlogin.Location = New System.Drawing.Point(106, 274)
+        Me.Lbl_Login_lastlogin.Location = New System.Drawing.Point(71, 178)
+        Me.Lbl_Login_lastlogin.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Lbl_Login_lastlogin.Name = "Lbl_Login_lastlogin"
-        Me.Lbl_Login_lastlogin.Size = New System.Drawing.Size(77, 20)
+        Me.Lbl_Login_lastlogin.Size = New System.Drawing.Size(52, 13)
         Me.Lbl_Login_lastlogin.TabIndex = 11
         Me.Lbl_Login_lastlogin.Text = "Last login"
         Me.Lbl_Login_lastlogin.Visible = False
@@ -169,10 +179,10 @@ Partial Class Login
         'Login
         '
         Me.AcceptButton = Me.OK
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel
-        Me.ClientSize = New System.Drawing.Size(634, 303)
+        Me.ClientSize = New System.Drawing.Size(423, 197)
         Me.Controls.Add(Me.Lbl_Login_lastlogin)
         Me.Controls.Add(Me.Lbl_login_version)
         Me.Controls.Add(Me.Chbx_Login_Save_Password)
@@ -187,12 +197,13 @@ Partial Class Login
         Me.Controls.Add(Me.LogoPictureBox)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Login"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Tag = "3.2"
+        Me.Tag = "3.3"
         Me.Text = "Login"
         CType(Me.LogoPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
