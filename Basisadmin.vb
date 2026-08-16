@@ -88,19 +88,23 @@ Module Basisadmin
     End Function
 
     ' 3. Update alleen de omschrijving (dit leidt nooit tot een nieuwe versie)
-    Public Sub UpdateContractDescription(id As Integer, description As String)
-        Dim sql As String = "UPDATE contract SET description = @desc WHERE id = @id"
+
+    ' 3. Update omschrijving en einddatum (dit leidt nooit tot een nieuwe versie)
+    Public Sub UpdateContractBasicInfo(contract As ContractModel)
+        Dim sql As String = "UPDATE contract SET description = @desc, enddate = @enddate, active = @active WHERE id = @id"
 
         Using conn As New NpgsqlConnection(connect_string)
             conn.Open()
             Using cmd As New NpgsqlCommand(sql, conn)
-                If String.IsNullOrEmpty(description) Then
+                If String.IsNullOrEmpty(contract.Description) Then
                     cmd.Parameters.AddWithValue("@desc", DBNull.Value)
                 Else
-                    cmd.Parameters.AddWithValue("@desc", description)
+                    cmd.Parameters.AddWithValue("@desc", contract.Description)
                 End If
 
-                cmd.Parameters.AddWithValue("@id", id)
+                cmd.Parameters.AddWithValue("@enddate", contract.EndDate)
+                cmd.Parameters.AddWithValue("@active", contract.Active)
+                cmd.Parameters.AddWithValue("@id", contract.Id)
                 cmd.ExecuteNonQuery()
             End Using
         End Using

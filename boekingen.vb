@@ -578,7 +578,7 @@ Module boekingen
         Clipboard.SetText(SQLStr)
         RunSQL(SQLStr, "NULL", "Calculate_Budget")
         RunSQL(Budget_Year_Totals, "NULL", "Calculate_Budget/Budget_Year_Totals")
-
+        MsgBox("Alle budgetten zijn bijgewerkt.")
     End Sub
 
     Function Budget_Year_Totals()

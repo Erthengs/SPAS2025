@@ -7,6 +7,8 @@ Imports NpgsqlTypes
 Imports PdfSharp.Pdf.IO
 Imports System.Runtime.CompilerServices
 Imports System.Runtime.InteropServices
+Imports System.Windows.Forms
+Imports System.Data
 
 
 Module DataManagement
@@ -111,7 +113,7 @@ connstart:
         connection.Close()
     End Sub
     Public Sub Load_Combobox(ByVal cb As ComboBox, vm As String, dm As String, SQLstr As String)
-        'cb.DataSource = Nothing
+        cb.DataSource = Nothing
         Connect(SQLstr)
         Try
             Dim da = New NpgsqlDataAdapter(SQLstr, connection)
@@ -120,6 +122,7 @@ connstart:
             cb.DataSource = ds
             cb.ValueMember = vm
             cb.DisplayMember = dm
+
         Catch
         End Try
         connection.Close()
@@ -137,9 +140,10 @@ connstart:
             da.Fill(ds, "Table")
             Return ds.Tables(0)
         Catch
-            MsgBox("De data kon niet opgehaald worden.")
             Clipboard.Clear()
             Clipboard.SetText(sql)
+            MsgBox($"De data kon niet opgehaald worden. {vbCr}SQL:{vbCr}{sql}{vbCr}{vbCr}Gekopieerd naar klembord")
+
             Return Nothing
         End Try
     End Function
@@ -723,5 +727,77 @@ connstart:
         Public Const HH_DISPLAY_TOPIC As Integer = &H0
         Public Const HH_HELP_CONTEXT As Integer = &HF
     End Class
+
+
+
+    Public Class TreeViewMapper
+
+        Public Shared Sub Populate3LevelTree(treeView As TreeView, data As DataTable,
+                                             level1NodeName As String,
+                                             level2NodeName As String,
+                                             level3NodeName As String)
+            treeView.BeginUpdate()
+            treeView.Nodes.Clear()
+
+            Dim currentLevel1Node As TreeNode = Nothing
+            Dim currentLevel1Id As String = ""
+
+            Dim currentLevel2Node As TreeNode = Nothing
+            Dim currentLevel2Id As String = ""
+
+            For Each row As DataRow In data.Rows
+                ' ----------------------------------------------------
+                ' LEVEL 1 (Account Type)
+                ' ----------------------------------------------------
+                Dim level1Id As String = row("level1_id").ToString()
+                Dim level1Name As String = row("level1_name").ToString()
+
+                If currentLevel1Id <> level1Id Then
+                    currentLevel1Node = New TreeNode(level1Name)
+                    currentLevel1Node.Name = level1NodeName
+                    currentLevel1Node.Tag = level1Id
+                    treeView.Nodes.Add(currentLevel1Node)
+
+                    currentLevel1Id = level1Id
+                    currentLevel2Id = ""
+                End If
+
+                ' ----------------------------------------------------
+                ' LEVEL 2 (Account Group)
+                ' ----------------------------------------------------
+                If data.Columns.Contains("level2_id") AndAlso Not IsDBNull(row("level2_id")) Then
+                    Dim level2Id As String = row("level2_id").ToString()
+                    Dim level2Name As String = row("level2_name").ToString()
+
+                    If currentLevel2Id <> level2Id Then
+                        currentLevel2Node = New TreeNode(level2Name)
+                        currentLevel2Node.Name = level2NodeName
+                        currentLevel2Node.Tag = level2Id
+                        currentLevel1Node.Nodes.Add(currentLevel2Node)
+
+                        currentLevel2Id = level2Id
+                    End If
+
+                    ' ----------------------------------------------------
+                    ' LEVEL 3 (Account)
+                    ' ----------------------------------------------------
+                    If data.Columns.Contains("level3_name") AndAlso Not IsDBNull(row("level3_name")) Then
+                        Dim level3Name As String = row("level3_name").ToString()
+                        Dim level3Id As String = row("level3_id").ToString()
+
+                        Dim level3Node As New TreeNode(level3Name)
+                        level3Node.Name = level3NodeName
+                        level3Node.Tag = level3Id
+
+                        currentLevel2Node.Nodes.Add(level3Node)
+                    End If
+                End If
+            Next
+
+            treeView.EndUpdate()
+        End Sub
+
+    End Class
+
 
 End Module

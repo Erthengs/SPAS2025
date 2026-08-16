@@ -466,8 +466,11 @@ Public Class SPAS
                 ' Fetch the new ID by querying the max ID for this contract name
                 savedId = Convert.ToInt32(QuerySQL($"SELECT MAX(id) FROM contract WHERE name = '{uiContract.Name}'"))
             Else
-                ' Only description changed
-                Basisadmin.UpdateContractDescription(uiContract.Id, uiContract.Description)
+                ' Update basic info (Description and EndDate)
+                ' Automatically terminate (set Active = False) if the new EndDate is in the past
+                uiContract.Active = (uiContract.EndDate >= Date.Today)
+
+                Basisadmin.UpdateContractBasicInfo(uiContract)
                 savedId = uiContract.Id
                 MsgBox("Contractbijwerking succesvol opgeslagen.")
             End If
@@ -679,8 +682,9 @@ Public Class SPAS
         'Knoppen
         Dim i = TC_Main.SelectedIndex
         Dim j = TC_Boeking.SelectedIndex
+        Dim a = TC_Management.SelectedIndex
         'CRUD-knoppen
-        MenuAdd.Visible = (i = 0) Or (i = 4 And j = 2)
+        MenuAdd.Visible = (i = 0) Or (i = 4 And j = 2) Or (a = 0)
         MenuSave.Visible = i = 0 Or i = 2 Or i = 3 Or (i = 4 And j < 3) Or i = 6 Or i = 1
         MenuCancel.Visible = i = 0 Or i = 3 Or (i = 4 And j < 3) Or i = 6 Or i = 1 Or i = 7
         MenuDelete.Visible = i = 0 Or i = 2 Or i = 3 Or (i = 4 And j < 3 And j <> 1) Or i = 6
@@ -709,7 +713,7 @@ Public Class SPAS
         Dim sql = $"SELECT module, name, sql from query where category = 'Overzicht' order by module, name;"
         Populate_DataTree(sql, ReportTree)
         sql = $"select g.name, a.name  from account a left join accgroup g on g.id = a.fk_accgroup_id where a.active = true and g.active = true order by g.name, a.name"
-        Populate_DataTree_New(sql, AccountTree)
+        'Populate_DataTree_New(sql, AccountTree)
         Show_buttons()
 
 
@@ -741,6 +745,7 @@ Public Class SPAS
         Load_Combobox(Cmx_Contract_fk_account_id, "id", "name", "SELECT a.id, CONCAT(a.id, ' ',a.name) As name FROM account a
                                           WHERE a.active=TRUE AND a.type = 'Generiek (fonds)' ORDER BY a.name")
         Load_Combobox(Cmx_01_account__fk_accgroup_id, "id", "name", "SELECT ag.id, ag.name FROM accgroup ag WHERE ag.active=True ORDER BY ag.name")
+        Load_Combobox(Cmbx_Beheer_Accgroup, "id", "name", "SELECT ag.id, ag.name FROM accgroup ag WHERE ag.active=True ORDER BY ag.name")
         Populate_Single_Combobox(Cmbx_Reporting_Year, "select distinct extract (year from date) As Year from journal_archive 
                                             union select distinct min(extract (year from date)) from journal")
 
@@ -1770,12 +1775,12 @@ Public Class SPAS
         Save_Internal_Booking()
     End Sub
 
-    Sub Btn_Account_Budget_Id_Click(sender As Object, e As EventArgs) Handles Btn_Account_Budget_Id.Click
+    Sub Btn_Account_Budget_Id_Click(sender As Object, e As EventArgs)
         Calculate_Budget(Lbl_00_pkid.Text)
         Select_Obj2("Btn_Account_Budget_Id_Click")
     End Sub
 
-    Private Sub Btn_Account_Budget_All_Click(sender As Object, e As EventArgs) Handles Btn_Account_Budget_All.Click
+    Private Sub Btn_Account_Budget_All_Click(sender As Object, e As EventArgs)
         Calculate_Budget("")
         Select_Obj2("Btn_Account_Budget_All_Click")
     End Sub
@@ -2032,6 +2037,12 @@ Public Class SPAS
                     ApplyFilter(Dgv_Rapportage_Overzicht.DataSource)
                     Prepare_Datagridview(Dgv_Rapportage_Overzicht, Nothing, LbL_Formatting.Text.Split(","c))
                 End If
+            Case 6 'Beheer
+                'MsgBox(TC_Management.SelectedTab.Name)
+                If TC_Management.SelectedTab.Name = "TP_Accounts" Then
+                    LoadAccountTree()
+
+                End If
         End Select
     End Sub
 
@@ -2094,32 +2105,35 @@ Public Class SPAS
 
 
     Private Sub MenuSave_Click(sender As Object, e As EventArgs) Handles MenuSave.Click
+        Dim saveSuccess As Boolean = True ' Default to true for the other tabs so their behavior stays identical
+
         Select Case TC_Main.SelectedIndex
-            Case 0 'basisadministratie
+            Case 0 ' Basisadministratie
                 If TC_Object.SelectedIndex = 0 Then
-                    ' --- NEW CODE FOR CONTRACTS ---
                     SaveContract()
                 Else
-                    ' --- OLD CODE ---
                     Basis_Save()
                 End If
                 Lbx_Basis.Enabled = True
-            Case 1 'Bank
+
+            Case 1 ' Bank
                 Save_Banktransaction_Accounts()
                 MustWarn = True
                 Dgv_Bank.Enabled = True
-            Case 2 'Incasso
+
+            Case 2 ' Incasso
                 Create_Incasso_Journals()
                 Create_SEPA_XML()
                 Populate_Cmx_Incasso_IncassoForm()
                 Me.Lbl_Incasso_Status.Text = "Open"
                 Menu_Print.Enabled = True
 
-            Case 3 'Uitkeringen
+            Case 3 ' Uitkering
                 If Cmx_Excasso_Select.SelectedIndex = -1 Then Exit Sub
                 Save_Excasso_job()
                 MustWarn = True
-            Case 4
+
+            Case 4 ' Boekingen
                 Select Case TC_Boeking.SelectedIndex
                     Case 0
                         Save_Internal_Booking()
@@ -2127,11 +2141,35 @@ Public Class SPAS
                         Save_modified_journaalposts()
                 End Select
                 Load_Cmx_Bank_Account()
-        End Select
-        Enable_Buttons(False, True)
 
-        'isManualChange = False
+            Case 6 ' Beheer (Instellingen)
+                If TC_Management.SelectedTab.Name = "TP_Accounts" Then
+                    Dim nodeName As String = ""
+                    If AccountTree.SelectedNode IsNot Nothing Then nodeName = AccountTree.SelectedNode.Name
+
+                    If nodeName = "AccountType" Then
+                        saveSuccess = SaveCurrentAccountGroup()
+
+                    ElseIf nodeName = "AccountGroup" Then
+                        If Add_Mode Then
+                            saveSuccess = SaveCurrentAccount()
+                        Else
+                            saveSuccess = SaveCurrentAccountGroup()
+                        End If
+
+                    ElseIf nodeName = "Account" Then
+                        saveSuccess = SaveCurrentAccount()
+                    End If
+                End If
+        End Select
+
+        ' ---> FIX: Only disable the buttons if the save procedure returned True
+        If saveSuccess Then
+            Enable_Buttons(False, True)
+        End If
     End Sub
+
+
 
     Sub Leeg_overboeking_scherm()
         If TC_Boeking.SelectedIndex = 0 Then
@@ -2162,11 +2200,70 @@ Public Class SPAS
                     ' --- OLD CODE ---
                     Basis_Add()
                 End If
-            Case 3
-                ' ... existing code ...
-        End Select
+            Case 6
+                Select Case TC_Management.SelectedTab.Name
+                    Case "TP_Accounts"
+                        Dim selectedNode = AccountTree.SelectedNode
+                        If selectedNode Is Nothing Then Exit Sub
 
-        Enable_Buttons(True, False)
+                        Add_Mode = True
+
+                        If selectedNode.Name = "AccountType" Then
+                            ' --- Prepare to add a new AccountGroup ---
+                            Grbx_Beheer_Accountgroep.Enabled = True
+                            Grbx_Beheer_Account.Enabled = False
+
+                            Tbx_Beheer_Accountgroepnaam.Text = ""
+                            Tbx_Beheer_Accgroup_Description.Text = ""
+                            Cmbox_Beheer_Accgroup_Subtype.SelectedIndex = -1
+                            Cmbox_Beheer_Accgroup_Subtype.Text = ""
+
+                            Chbx_Beheer_Accgroup_Active.Checked = True
+                            Chbx_Beheer_Accgroup_Active.Enabled = True
+                            Lbl_Beheer_Accgroup_posts.Text = "0"
+
+                            ' Crucial: Set ID to 0 so the Repository executes an INSERT
+                            Lbl_Beheer_Accgroup_id.Text = "0"
+
+                            ' Set radio buttons based on the selected AccountType node text
+                            Dim accType As String = selectedNode.Text
+                            Rbtn_Beheer_Accounttype1.Checked = (accType = "Inkomsten")
+                            Rbtn_Beheer_Accounttype2.Checked = (accType = "Uitgaven")
+                            Rbtn_Beheer_Accounttype3.Checked = (accType = "Transit")
+
+                            Tbx_Beheer_Accountgroepnaam.Focus()
+                        ElseIf selectedNode.Name = "AccountGroup" Then
+                            ' --- Prepare to add a new Account ---
+
+                            ' ---> FIX 1: Lock the AccountGroup container and the Combobox
+                            Grbx_Beheer_Accountgroep.Enabled = False
+                            Cmbx_Beheer_Accgroup.Enabled = False
+
+                            Grbx_Beheer_Account.Enabled = True
+
+                            Clear_Account()
+
+                            Lbl_Beheer_Account_id.Text = "0"
+                            Lbl_Beheer_Account_posts.Text = "0"
+                            Chbx_Beheer_Account_Active.Checked = True
+                            Chbx_Beheer_Account_Active.Enabled = True
+
+                            ' Match the ID to bypass strict type-casting failures
+                            Dim targetGroupId As String = selectedNode.Tag.ToString()
+                            For i As Integer = 0 To Cmbx_Beheer_Accgroup.Items.Count - 1
+                                Dim rowView As DataRowView = TryCast(Cmbx_Beheer_Accgroup.Items(i), DataRowView)
+                                If rowView IsNot Nothing AndAlso rowView("id").ToString() = targetGroupId Then
+                                    Cmbx_Beheer_Accgroup.SelectedIndex = i
+                                    Exit For
+                                End If
+                            Next
+
+                            Tbx_Beheer_Accountbron.Text = "cat"
+                            Tbx_Beheer_Accountnaam.Focus()
+                        End If
+                End Select
+        End Select
+                Enable_Buttons(True, False)
         Lbx_Basis.Enabled = False
     End Sub
 
@@ -2188,6 +2285,15 @@ Public Class SPAS
                 Leeg_overboeking_scherm()
             Case 6
                 Load_Account_Settings()
+                If TC_Management.SelectedTab.Name = "TP_Accounts" Then
+                    Add_Mode = False
+
+                    ' Re-fire the AfterSelect event to restore the original data of the selected node
+                    If AccountTree.SelectedNode IsNot Nothing Then
+                        Dim args As New TreeViewEventArgs(AccountTree.SelectedNode, TreeViewAction.Unknown)
+                        AccountTree_AfterSelect(AccountTree, args)
+                    End If
+                End If
             Case 7
 
         End Select
@@ -2326,23 +2432,35 @@ Public Class SPAS
             Case 6
                 isManualChange = False
                 Load_Account_Settings()
+
+
+                Select Case TC_Management.SelectedTab.Name
+                    Case "TP_Accounts"
+                        LoadAccountTree()
+                        MenuAdd.Enabled = True
+                        ExpandSpecificAccountType("Inkomsten")
+                        'ExpandOnlyLevel1()
+
+                End Select
+
+
                 isManualChange = True
-            Case 7
-                isManualChange = False
-                Populate_Combobox(Cmbx_Tussenrekening, "select * from account where source = 'cat'  and type = 'Anders' and name not in ('[Niet toegewezen]','Euro tegenwaarde', 'Overhead') and name not ilike 'Bank%'")
-                Cmbx_Tussenrekening.SelectedIndex = -1
-                Prepare_Datagridview(Dgv_Tussenrekening, Fill_Afletterbox, {"TZ080", "TZ300", "NZ080", "NZ080", "NZ080"})
-                Prepare_Datagridview(Dgv_Tussenrekening_Uitk,
+                    Case 7
+                        isManualChange = False
+                        Populate_Combobox(Cmbx_Tussenrekening, "select * from account where source = 'cat'  and type = 'Anders' and name not in ('[Niet toegewezen]','Euro tegenwaarde', 'Overhead') and name not ilike 'Bank%'")
+                        Cmbx_Tussenrekening.SelectedIndex = -1
+                        Prepare_Datagridview(Dgv_Tussenrekening, Fill_Afletterbox, {"TZ080", "TZ300", "NZ080", "NZ080", "NZ080"})
+                        Prepare_Datagridview(Dgv_Tussenrekening_Uitk,
                      "SELECT date, name, SUM(amt1) FROM journal WHERE source = 'Uitkering' AND status = 'Open' GROUP BY date, name order by date desc",
                      {"HZ000", "TZ200", "NZ080"})
-                Lbl_Tussenrekening_3.Text = $"Openstaande uitkeringslijsten ({Dgv_Tussenrekening_Uitk.RowCount})"
-                Initialize_Tussenrekening_DatePicker()
-                isManualChange = True
+                        Lbl_Tussenrekening_3.Text = $"Openstaande uitkeringslijsten ({Dgv_Tussenrekening_Uitk.RowCount})"
+                        Initialize_Tussenrekening_DatePicker()
+                        isManualChange = True
 
 
-        End Select
+                End Select
 
-        Show_buttons()
+                Show_buttons()
 
     End Sub
     Private Sub TC_Boeking_Click(sender As Object, e As EventArgs) Handles TC_Boeking.Click
@@ -2796,7 +2914,7 @@ Public Class SPAS
         isProgrammaticChange = False
     End Sub
 
-    Private Sub Btn_Boeking_Expand_Collapse_Click(sender As Object, e As EventArgs) Handles Btn_Boeking_Expand_Collapse.Click
+    Private Sub Btn_Boeking_Expand_Collapse_Click(sender As Object, e As EventArgs)
         If Btn_Boeking_Expand_Collapse.Text = "Alles uitklappen" Then
             AccountTree.ExpandAll()
             Btn_Boeking_Expand_Collapse.Text = "Alles inklappen"
@@ -3436,4 +3554,370 @@ Public Class SPAS
             End If
         End If
     End Sub
+
+    ''' <summary>
+    ''' Fetches data from the repository and loads it into the AccountTree.
+    ''' </summary>
+    Private Sub LoadAccountTree()
+        ' 1. Ask the repository (in Beheer.vb) for the data, passing the current search text
+        Dim treeData As DataTable = AccountRepository.GetAccountHierarchyData(Me.Searchbox2.Text)
+
+        ' 2. Hand the data and the UI control to the generic mapper
+        TreeViewMapper.Populate3LevelTree(Me.AccountTree, treeData, "AccountType", "AccountGroup", "Account")
+
+        ' 3. Auto-expand if the user is actively searching
+        If Not String.IsNullOrWhiteSpace(Me.Searchbox2.Text) Then
+            Me.AccountTree.ExpandAll()
+        End If
+    End Sub
+
+
+    Private Sub ExpandOnlyLevel1()
+        AccountTree.BeginUpdate()
+        AccountTree.CollapseAll() ' Reset the tree to fully closed
+
+        ' Loop only through the root nodes (Level 1)
+        For Each rootNode As TreeNode In AccountTree.Nodes
+            rootNode.Expand()
+        Next
+
+        AccountTree.EndUpdate()
+    End Sub
+
+    ''' <summary>
+    ''' Handles UI updates when a node is clicked in the AccountTree.
+    ''' </summary>
+    Private Sub AccountTree_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles AccountTree.AfterSelect
+        If e.Node Is Nothing Then Exit Sub
+
+        ' 1. Suspend change tracking to prevent false triggers while populating fields
+        Dim previousState As Boolean = isManualChange
+        isManualChange = False
+
+        ' 2. Menu Button Logic
+        ' Enable Add only for Level 1 (AccountType) or Level 2 (AccountGroup)
+        MenuAdd.Enabled = (e.Node.Name = "AccountType" Or e.Node.Name = "AccountGroup")
+
+        ' Disable Save and Cancel (they will only be enabled by MenuAdd_Click or FieldChangedHandler)
+        MenuSave.Enabled = False
+        MenuCancel.Enabled = False
+
+        ' 3. Reset UI to baseline
+        Grbx_Beheer_Accountgroep.Enabled = False
+        Grbx_Beheer_Account.Enabled = False
+
+        AccountTree.BeginUpdate()
+
+        ' 4. Accordion Logic: Find the top-level root node
+        Dim currentRoot As TreeNode = e.Node
+        While currentRoot.Parent IsNot Nothing
+            currentRoot = currentRoot.Parent
+        End While
+
+        ' Collapse all Level 1 nodes we aren't currently inside
+        For Each rootNode As TreeNode In AccountTree.Nodes
+            If rootNode IsNot currentRoot Then
+                rootNode.Collapse()
+            End If
+        Next
+
+        ' Expand the clicked node
+        e.Node.Expand()
+        AccountTree.EndUpdate()
+
+        ' 5. UI Routing Logic
+        Select Case e.Node.Name
+            Case "AccountType"
+                Tbx_Beheer_Accountgroepnaam.Text = ""
+                Tbx_Beheer_Accountnaam.Text = ""
+                Clear_Account()
+
+            Case "AccountGroup"
+                Grbx_Beheer_Accountgroep.Enabled = True
+                Tbx_Beheer_Accountgroepnaam.Text = e.Node.Text
+                Clear_Account()
+
+                Dim groupId As String = e.Node.Tag.ToString()
+                Lbl_Beheer_Accgroup_id.Text = groupId
+                Tbx_Beheer_Accountnaam.Text = ""
+
+                Dim groupDetails As DataRow = AccountRepository.GetAccountGroupDetails(groupId)
+                If groupDetails IsNot Nothing Then
+                    Tbx_Beheer_Accgroup_Description.Text = If(IsDBNull(groupDetails("description")), "", groupDetails("description").ToString())
+                    Dim accType As String = If(IsDBNull(groupDetails("type")), "", groupDetails("type").ToString())
+                    Tbx_Beheer_Account_Type.Text = accType
+                    Chbx_Beheer_Accgroup_Active.Checked = If(IsDBNull(groupDetails("active")), False, Convert.ToBoolean(groupDetails("active")))
+                    Rbtn_Beheer_Accounttype1.Checked = (accType = "Inkomsten")
+                    Rbtn_Beheer_Accounttype2.Checked = (accType = "Uitgaven")
+                    Rbtn_Beheer_Accounttype3.Checked = (accType = "Transit")
+                    Cmbox_Beheer_Accgroup_Subtype.Text = If(IsDBNull(groupDetails("subtype")), "", groupDetails("subtype").ToString())
+
+                    ' If 'posts' doesn't exist in GetAccountGroupDetails, ensure it's handled safely
+                    Lbl_Beheer_Accgroup_posts.Text = If(groupDetails.Table.Columns.Contains("posts") AndAlso Not IsDBNull(groupDetails("posts")), groupDetails("posts").ToString(), "0")
+                    Chbx_Beheer_Accgroup_Active.Enabled = (Lbl_Beheer_Accgroup_posts.Text = "0")
+                Else
+                    Tbx_Beheer_Accgroup_Description.Text = ""
+                    Tbx_Beheer_Account_Type.Text = ""
+                    Chbx_Beheer_Accgroup_Active.Checked = False
+                    Rbtn_Beheer_Accounttype1.Checked = False
+                    Rbtn_Beheer_Accounttype2.Checked = False
+                    Rbtn_Beheer_Accounttype3.Checked = False
+                End If
+
+            Case "Account"
+                Grbx_Beheer_Accountgroep.Enabled = False
+                Grbx_Beheer_Account.Enabled = True
+                Cmbx_Beheer_Accgroup.Enabled = True
+                Dim accountId As String = e.Node.Tag.ToString()
+                Tbx_Beheer_Accountnaam.Text = e.Node.Text
+
+                ' ---> FIX: Explicitly cast the Tag to an Integer to satisfy WinForms binding
+                If e.Node.Parent IsNot Nothing AndAlso e.Node.Parent.Tag IsNot Nothing Then
+                    Dim parentId As Integer
+                    If Integer.TryParse(e.Node.Parent.Tag.ToString(), parentId) Then
+                        Cmbx_Beheer_Accgroup.SelectedValue = parentId
+                    End If
+                End If
+
+                If e.Node.Parent IsNot Nothing Then
+                    Tbx_Beheer_Accountgroepnaam.Text = e.Node.Parent.Text
+                    Lbl_Beheer_Accgroup_id.Text = e.Node.Parent.Tag.ToString()
+
+                    Dim accountDetails As DataRow = AccountRepository.GetAccountDetails(accountId)
+                    If accountDetails IsNot Nothing Then
+                        Lbl_Beheer_Account_id.Text = accountId
+                        Tbx_Beheer_Account_Description1.Text = If(accountDetails.Table.Columns.Contains("description") AndAlso Not IsDBNull(accountDetails("description")), accountDetails("description").ToString(), "")
+                        Tbx_Beheer_Accounttype.Text = Trim(If(IsDBNull(accountDetails("type")), "", accountDetails("type").ToString()))
+                        Tbx_Beheer_Account_Code.Text = If(accountDetails.Table.Columns.Contains("bankcode") AndAlso Not IsDBNull(accountDetails("bankcode")), accountDetails("bankcode").ToString(), "")
+                        Tbx_Beheer_AccountTrefwoorden.Text = If(accountDetails.Table.Columns.Contains("searchword") AndAlso Not IsDBNull(accountDetails("searchword")), accountDetails("searchword").ToString(), "")
+                        Lbl_Beheer_Account_posts.Text = If(accountDetails.Table.Columns.Contains("posts") AndAlso Not IsDBNull(accountDetails("posts")), accountDetails("posts").ToString(), "0")
+                        Chbx_Beheer_Account_Active.Checked = If(IsDBNull(accountDetails("active")), False, Convert.ToBoolean(accountDetails("active")))
+                        Cmbx_Beheer_Accgroup.Text = Tbx_Beheer_Accountgroepnaam.Text
+                        Tbx_Beheer_Accountbron.Text = If(IsDBNull(accountDetails("source")), "", accountDetails("source").ToString())
+
+                        Rbtn_Beheer_Account_1.Checked = (Rbtn_Beheer_Account_1.Tag IsNot Nothing AndAlso Rbtn_Beheer_Account_1.Tag.ToString() = Tbx_Beheer_Accounttype.Text)
+                        Rbtn_Beheer_Account_2.Checked = (Rbtn_Beheer_Account_2.Tag IsNot Nothing AndAlso Rbtn_Beheer_Account_2.Tag.ToString() = Tbx_Beheer_Accounttype.Text)
+                        Rbtn_Beheer_Account_3.Checked = (Rbtn_Beheer_Account_3.Tag IsNot Nothing AndAlso Rbtn_Beheer_Account_3.Tag.ToString() = Tbx_Beheer_Accounttype.Text)
+
+                        Chbx_Beheer_Account_Active.Enabled = (Lbl_Beheer_Account_posts.Text = "0")
+                    Else
+                        Clear_Account()
+                    End If
+                End If
+        End Select
+
+        ' 6. Critical Step: Update the tags to the new values so the FieldChangedHandler establishes this as the new baseline
+        UpdateControlTags(Me)
+
+        ' 7. Restore change tracking 
+        isManualChange = previousState
+    End Sub
+
+
+    Sub Clear_Account()
+        Tbx_Beheer_Account_Description1.Text = ""
+        Tbx_Beheer_Accounttype.Text = ""
+        Tbx_Beheer_Account_Code.Text = ""
+        Tbx_Beheer_AccountTrefwoorden.Text = ""
+        Chbx_Beheer_Accgroup_Active.Checked = False
+        Rbtn_Beheer_Account_1.Checked = False
+        Rbtn_Beheer_Account_2.Checked = False
+        Rbtn_Beheer_Account_3.Checked = False
+        Cmbx_Beheer_Accgroup.SelectedIndex = -1
+    End Sub
+    ''' <summary>
+    ''' Expands a specific Level 1 node by its text value (e.g., "Inkomsten"), collapsing all others.
+    ''' </summary>
+    Private Sub ExpandSpecificAccountType(targetTypeName As String)
+        AccountTree.BeginUpdate()
+
+        ' 1. Reset the tree to a fully collapsed state
+        AccountTree.CollapseAll()
+
+        ' 2. Loop through only the Level 1 nodes (the root nodes)
+        For Each rootNode As TreeNode In AccountTree.Nodes
+
+            ' 3. Perform a case-insensitive check against the text
+            If rootNode.Text.Equals(targetTypeName, StringComparison.OrdinalIgnoreCase) Then
+
+                ' Expand this specific node
+                rootNode.Expand()
+
+                ' Scroll the tree to ensure it is visible to the user
+                rootNode.EnsureVisible()
+
+                ' Exit the loop early since we found what we were looking for
+                Exit For
+            End If
+        Next
+
+        AccountTree.EndUpdate()
+    End Sub
+    Private Sub Lbl_00_Account__source_Click(sender As Object, e As EventArgs) Handles Lbl_00_Account__source.Click
+
+    End Sub
+
+    Private Sub Btn_Account_Budget_All_Click_1(sender As Object, e As EventArgs) Handles Btn_Account_Budget_All.Click
+        Calculate_Budget("")
+    End Sub
+
+    Private Sub Chbx_Beheer_Account_Active_CheckedChanged(sender As Object, e As EventArgs) Handles Chbx_Beheer_Account_Active.CheckedChanged
+        If Lbl_Beheer_Account_posts.Text = "0" And Chbx_Beheer_Account_Active.Checked = False Then
+            MsgBox($"Deactivering niet mogelijk: er zijn {Lbl_Beheer_Account_posts} boeking op dit account")
+            Chbx_Beheer_Account_Active.Checked = True
+        End If
+    End Sub
+    Private Function SaveCurrentAccountGroup() As Boolean
+        Try
+            Dim selectedType As String = ""
+            If Rbtn_Beheer_Accounttype1.Checked Then selectedType = "Inkomsten"
+            If Rbtn_Beheer_Accounttype2.Checked Then selectedType = "Uitgaven"
+            If Rbtn_Beheer_Accounttype3.Checked Then selectedType = "Transit"
+
+            Dim groupId As Integer = 0
+            Integer.TryParse(Lbl_Beheer_Accgroup_id.Text, groupId)
+
+            Dim groupModel As New AccountGroupModel() With {
+            .Id = groupId,
+            .Name = Tbx_Beheer_Accountgroepnaam.Text,
+            .Type = selectedType,
+            .Subtype = Cmbox_Beheer_Accgroup_Subtype.Text,
+            .Description = Tbx_Beheer_Accgroup_Description.Text,
+            .Active = Chbx_Beheer_Accgroup_Active.Checked
+        }
+
+            AccountRepository.SaveAccountGroup(groupModel)
+            MsgBox("Accountgroep succesvol opgeslagen.", MsgBoxStyle.Information)
+
+            Add_Mode = False
+
+            ' ---> FIX 3: Refresh the combobox so the newly saved group is immediately added to the dropdown!
+            Load_Combobox(Cmbx_Beheer_Accgroup, "id", "name", "SELECT id, name FROM accgroup WHERE active=True ORDER BY name")
+
+            Dim savedId As String = groupModel.Id.ToString()
+            If groupModel.Id = 0 Then
+                savedId = QuerySQL("SELECT MAX(id) FROM accgroup;").ToString()
+            End If
+
+            LoadAccountTree()
+            RestoreTreeSelection("AccountGroup", savedId)
+
+            Return True ' <--- Save was successful!
+
+        Catch ex As ArgumentException
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Validatie Fout")
+            Return False ' <--- Save failed
+        Catch ex As Exception
+            MsgBox($"Er is een onverwachte fout opgetreden: {ex.Message}", MsgBoxStyle.Critical, "Systeem Fout")
+            Return False ' <--- Save failed
+        End Try
+    End Function
+
+    ''' <summary>
+    ''' Reads the UI, maps to the AccountModel, and triggers the repository save.
+    ''' Returns True if successful, False if validation fails.
+    ''' </summary>
+    Private Function SaveCurrentAccount() As Boolean
+        Try
+            ' 1. Extract the Account Group ID safely using Index 0
+            Dim groupId As Integer = 0
+
+            If Cmbx_Beheer_Accgroup.SelectedItem IsNot Nothing Then
+                If TypeOf Cmbx_Beheer_Accgroup.SelectedItem Is DataRowView Then
+                    Dim rowView As DataRowView = DirectCast(Cmbx_Beheer_Accgroup.SelectedItem, DataRowView)
+                    Integer.TryParse(rowView(0).ToString(), groupId)
+                ElseIf Cmbx_Beheer_Accgroup.SelectedValue IsNot Nothing Then
+                    Integer.TryParse(Cmbx_Beheer_Accgroup.SelectedValue.ToString(), groupId)
+                End If
+            End If
+
+            If groupId <= 0 Then
+                MsgBox("Selecteer een geldige accountgroep uit de lijst.", MsgBoxStyle.Exclamation, "Validatie Fout")
+                Return False
+            End If
+
+            ' 2. Extract the account type directly from the radio buttons
+            Dim accType As String = ""
+            If Rbtn_Beheer_Account_1.Checked Then accType = Rbtn_Beheer_Account_1.Text
+            If Rbtn_Beheer_Account_2.Checked Then accType = Rbtn_Beheer_Account_2.Text
+            If Rbtn_Beheer_Account_3.Checked Then accType = Rbtn_Beheer_Account_3.Text
+
+            ' 3. Map the data to the model (Comments removed to prevent line continuation errors)
+            Dim accModel As New AccountModel() With {
+            .Id = If(Integer.TryParse(Lbl_Beheer_Account_id.Text, Nothing), Convert.ToInt32(Lbl_Beheer_Account_id.Text), 0),
+            .FkAccGroupId = groupId,
+            .Name = Tbx_Beheer_Accountnaam.Text,
+            .Type = accType,
+            .Source = Tbx_Beheer_Accountbron.Text,
+            .FKey = If(Integer.TryParse(Lbl_20_Account__f_key.Text, Nothing), Convert.ToInt32(Lbl_20_Account__f_key.Text), 0),
+            .Active = Chbx_Beheer_Account_Active.Checked,
+            .Description = Tbx_Beheer_Account_Description1.Text,
+            .Bankcode = Tbx_Beheer_Account_Code.Text,
+            .Searchword = Tbx_Beheer_AccountTrefwoorden.Text
+        }
+
+            ' 4. Save to database
+            AccountRepository.SaveAccount(accModel)
+            MsgBox("Account succesvol opgeslagen.", MsgBoxStyle.Information)
+
+            Add_Mode = False
+
+            ' 5. Fetch ID if it was a newly inserted account
+            Dim savedId As String = accModel.Id.ToString()
+            If accModel.Id = 0 Then
+                savedId = QuerySQL("SELECT MAX(id) FROM account;").ToString()
+            End If
+
+            ' 6. Reload the tree and focus the newly saved item
+            LoadAccountTree()
+            RestoreTreeSelection("Account", savedId)
+
+            Return True ' <--- Save was successful!
+
+        Catch ex As ArgumentException
+            MsgBox(ex.Message, MsgBoxStyle.Exclamation, "Validatie Fout")
+            Return False ' <--- Save failed
+        Catch ex As Exception
+            MsgBox($"Er is een onverwachte fout opgetreden: {ex.Message}", MsgBoxStyle.Critical, "Systeem Fout")
+            Return False ' <--- Save failed
+        End Try
+    End Function
+
+    Private Sub Btn_Account_Budget_Id_Click_1(sender As Object, e As EventArgs) Handles Btn_Account_Budget_Id.Click
+        Calculate_Budget(Lbl_Beheer_Account_id.Text)
+    End Sub
+
+    ''' <summary>
+    ''' Clears the group fields, then searches the tree to re-select the newly saved node.
+    ''' </summary>
+    Private Sub RestoreTreeSelection(targetName As String, targetTag As String)
+        ' 1. Wipe the stale data from the screen
+        Tbx_Beheer_Accountgroepnaam.Text = ""
+        Tbx_Beheer_Accgroup_Description.Text = ""
+        Cmbox_Beheer_Accgroup_Subtype.SelectedIndex = -1
+        Cmbox_Beheer_Accgroup_Subtype.Text = ""
+        Rbtn_Beheer_Accounttype1.Checked = False
+        Rbtn_Beheer_Accounttype2.Checked = False
+        Rbtn_Beheer_Accounttype3.Checked = False
+        Clear_Account()
+
+        ' 2. Search the newly built tree for the node we just saved
+        Dim foundNode As TreeNode = FindNodeByNameAndTag(AccountTree.Nodes, targetName, targetTag)
+
+        If foundNode IsNot Nothing Then
+            AccountTree.SelectedNode = foundNode
+            foundNode.EnsureVisible()
+        End If
+    End Sub
+
+    Private Function FindNodeByNameAndTag(nodes As TreeNodeCollection, name As String, tag As String) As TreeNode
+        For Each node As TreeNode In nodes
+            If node.Name = name AndAlso node.Tag IsNot Nothing AndAlso node.Tag.ToString() = tag Then
+                Return node
+            End If
+            Dim foundChild As TreeNode = FindNodeByNameAndTag(node.Nodes, name, tag)
+            If foundChild IsNot Nothing Then Return foundChild
+        Next
+        Return Nothing
+    End Function
 End Class

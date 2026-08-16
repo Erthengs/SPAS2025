@@ -420,6 +420,24 @@
   <metadata name="HelpProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>793, 20</value>
   </metadata>
+  <data name="Btn_Account_Budget_All.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAJZJREFUOE9jYGBgYHDMfPjUMfPhRxLxS5BeMHDMfPjVMfPhfxLxd2wGSDlmPhQg
+        Av/FZQAXXBAPGNwGgGhiMM5AJAVjNUDMMfMhD0gSyheB8n9D+UJQPk4vgMMAyQAOKB9mABuUj9MAkEaY
+        Zmx8ggYQwgQNAPmRA8lWUKoD8Yn2AsVh8BOKYU7Gx0cx4C1SgBGL34P0AgA0abviKBqEfQAAAABJRU5E
+        rkJggg==
+</value>
+  </data>
+  <data name="Btn_Account_Budget_Id.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAJZJREFUOE9jYGBgYHDMfPjUMfPhRxLxS5BeMHDMfPjVMfPhfxLxd2wGSDlmPhQg
+        Av/FZQAXXBAPGNwGgGhiMM5AJAVjNUDMMfMhD0gSyheB8n9D+UJQPk4vgMMAyQAOKB9mABuUj9MAkEaY
+        Zmx8ggYQwgQNAPmRA8lWUKoD8Yn2AsVh8BOKYU7Gx0cx4C1SgBGL34P0AgA0abviKBqEfQAAAABJRU5E
+        rkJggg==
+</value>
+  </data>
   <data name="Btn_Journal_Intern_Save.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAWNJREFUOE+N
@@ -4133,26 +4151,8 @@
         XdDvIDGA3/9/Ofhf/A+tQGEjQgN28AAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="Btn_Account_Budget_All.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAJZJREFUOE9jYGBgYHDMfPjUMfPhRxLxS5BeMHDMfPjVMfPhfxLxd2wGSDlmPhQg
-        Av/FZQAXXBAPGNwGgGhiMM5AJAVjNUDMMfMhD0gSyheB8n9D+UJQPk4vgMMAyQAOKB9mABuUj9MAkEaY
-        Zmx8ggYQwgQNAPmRA8lWUKoD8Yn2AsVh8BOKYU7Gx0cx4C1SgBGL34P0AgA0abviKBqEfQAAAABJRU5E
-        rkJggg==
-</value>
-  </data>
-  <data name="Btn_Account_Budget_Id.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAJZJREFUOE9jYGBgYHDMfPjUMfPhRxLxS5BeMHDMfPjVMfPhfxLxd2wGSDlmPhQg
-        Av/FZQAXXBAPGNwGgGhiMM5AJAVjNUDMMfMhD0gSyheB8n9D+UJQPk4vgMMAyQAOKB9mABuUj9MAkEaY
-        Zmx8ggYQwgQNAPmRA8lWUKoD8Yn2AsVh8BOKYU7Gx0cx4C1SgBGL34P0AgA0abviKBqEfQAAAABJRU5E
-        rkJggg==
-</value>
-  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>30</value>
+    <value>25</value>
   </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
