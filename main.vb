@@ -791,7 +791,10 @@ Public Class SPAS
 
             If TC_Object.SelectedIndex = 0 Then
                 RefreshContractList()
+            ElseIf TC_Object.SelectedIndex = 5 Then
+                Populate_BasisTree(BasisTree, Cbx_LifeCycle2.Text, Searchbox2.Text)
             Else
+
                 Load_Table()
             End If
 
@@ -1433,10 +1436,8 @@ Public Class SPAS
         MenuCancel.Enabled = _cancel
     End Sub
     Private Sub Tbx_BankAcc__accountno_TextChanged(sender As Object, e As EventArgs) Handles _
-          Tbx_01_BankAcc__accountno.TextChanged, Tbx_01_BankAcc__name.TextChanged, Tbx_01_Accgroup__name.TextChanged, Tbx_01_Target__name.TextChanged, Cmx_01_account__fk_accgroup_id.TextUpdate,
-          Tbx_01_Target__name_add.TextChanged, Tbx_01_Account__name.TextChanged, Tbx_01_CP__name_add.TextChanged,
-          Tbx_00_Accgroup__subtype.TextChanged, Tbx_00_Accgroup__description.TextChanged, Tbx_01_Accgroup__name.TextChanged, Tbx_01_Accgroup__type.TextChanged,
-          Rbtn_accgroup_Income.CheckedChanged, Rbtn_accgroup_expense.CheckedChanged, Rbtn_accgroup_transit.CheckedChanged
+          Tbx_01_BankAcc__accountno.TextChanged, Tbx_01_BankAcc__name.TextChanged, Tbx_01_Target__name.TextChanged, Cmx_01_account__fk_accgroup_id.TextUpdate,
+          Tbx_01_Target__name_add.TextChanged, Tbx_01_Account__name.TextChanged, Tbx_01_CP__name_add.TextChanged
 
         reload = True
     End Sub
@@ -2018,7 +2019,10 @@ Public Class SPAS
                 If TC_Object.SelectedIndex = 0 Then
                     ' --- NEW CODE FOR CONTRACTS ---
                     RefreshContractList()
+                ElseIf TC_Object.SelectedIndex = 5 Then
+                    Populate_BasisTree(BasisTree, Cbx_LifeCycle2.Text, Searchbox2.Text)
                 Else
+
                     ' --- OLD CODE ---
                     Load_Table()
                 End If
@@ -2041,6 +2045,7 @@ Public Class SPAS
                 'MsgBox(TC_Management.SelectedTab.Name)
                 If TC_Management.SelectedTab.Name = "TP_Accounts" Then
                     LoadAccountTree()
+
 
                 End If
         End Select
@@ -2263,7 +2268,7 @@ Public Class SPAS
                         End If
                 End Select
         End Select
-                Enable_Buttons(True, False)
+        Enable_Buttons(True, False)
         Lbx_Basis.Enabled = False
     End Sub
 
@@ -2445,22 +2450,22 @@ Public Class SPAS
 
 
                 isManualChange = True
-                    Case 7
-                        isManualChange = False
-                        Populate_Combobox(Cmbx_Tussenrekening, "select * from account where source = 'cat'  and type = 'Anders' and name not in ('[Niet toegewezen]','Euro tegenwaarde', 'Overhead') and name not ilike 'Bank%'")
-                        Cmbx_Tussenrekening.SelectedIndex = -1
-                        Prepare_Datagridview(Dgv_Tussenrekening, Fill_Afletterbox, {"TZ080", "TZ300", "NZ080", "NZ080", "NZ080"})
-                        Prepare_Datagridview(Dgv_Tussenrekening_Uitk,
+            Case 7
+                isManualChange = False
+                Populate_Combobox(Cmbx_Tussenrekening, "select * from account where source = 'cat'  and type = 'Anders' and name not in ('[Niet toegewezen]','Euro tegenwaarde', 'Overhead') and name not ilike 'Bank%'")
+                Cmbx_Tussenrekening.SelectedIndex = -1
+                Prepare_Datagridview(Dgv_Tussenrekening, Fill_Afletterbox, {"TZ080", "TZ300", "NZ080", "NZ080", "NZ080"})
+                Prepare_Datagridview(Dgv_Tussenrekening_Uitk,
                      "SELECT date, name, SUM(amt1) FROM journal WHERE source = 'Uitkering' AND status = 'Open' GROUP BY date, name order by date desc",
                      {"HZ000", "TZ200", "NZ080"})
-                        Lbl_Tussenrekening_3.Text = $"Openstaande uitkeringslijsten ({Dgv_Tussenrekening_Uitk.RowCount})"
-                        Initialize_Tussenrekening_DatePicker()
-                        isManualChange = True
+                Lbl_Tussenrekening_3.Text = $"Openstaande uitkeringslijsten ({Dgv_Tussenrekening_Uitk.RowCount})"
+                Initialize_Tussenrekening_DatePicker()
+                isManualChange = True
 
 
-                End Select
+        End Select
 
-                Show_buttons()
+        Show_buttons()
 
     End Sub
     Private Sub TC_Boeking_Click(sender As Object, e As EventArgs) Handles TC_Boeking.Click
@@ -2506,24 +2511,6 @@ Public Class SPAS
 
     Private Sub Tbx_Bank_Description_TextChanged(sender As Object, e As EventArgs)
         Dgv_Bank.SelectedCells(3).Value = Tbx_Bank_Description.Text
-    End Sub
-    Private Sub Tbx_01_Accgroup__type_TextChanged(sender As Object, e As EventArgs) Handles Tbx_01_Accgroup__type.TextChanged
-        Rbtn_accgroup_Income.Checked = Strings.Trim(Tbx_01_Accgroup__type.Text) = "Inkomsten"
-        Rbtn_accgroup_expense.Checked = Strings.Trim(Tbx_01_Accgroup__type.Text) = "Uitgaven"
-        Rbtn_accgroup_transit.Checked = Strings.Trim(Tbx_01_Accgroup__type.Text) = "Transit"
-        '@@@ hard value vervangen door tt_type.Text
-    End Sub
-
-    Private Sub Rbtn_accgroup_Income_CheckedChanged(sender As Object, e As EventArgs) Handles Rbtn_accgroup_Income.Click
-        If MenuSave.Enabled Then Tbx_01_Accgroup__type.Text = Rbtn_accgroup_Income.Text
-    End Sub
-
-    Private Sub Rbtn_accgroup_expense_CheckedChanged(sender As Object, e As EventArgs) Handles Rbtn_accgroup_expense.Click
-        If MenuSave.Enabled Then Tbx_01_Accgroup__type.Text = Rbtn_accgroup_expense.Text
-    End Sub
-
-    Private Sub Rbtn_accgroup_transit_CheckedChanged(sender As Object, e As EventArgs) Handles Rbtn_accgroup_transit.Click
-        If MenuSave.Enabled Then Tbx_01_Accgroup__type.Text = Rbtn_accgroup_transit.Text
     End Sub
 
 

@@ -51,7 +51,7 @@ Partial Class Login
         Me.LogoPictureBox.Image = CType(resources.GetObject("LogoPictureBox.Image"), System.Drawing.Image)
         Me.LogoPictureBox.InitialImage = CType(resources.GetObject("LogoPictureBox.InitialImage"), System.Drawing.Image)
         Me.LogoPictureBox.Location = New System.Drawing.Point(16, 44)
-        Me.LogoPictureBox.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.LogoPictureBox.Margin = New System.Windows.Forms.Padding(2)
         Me.LogoPictureBox.Name = "LogoPictureBox"
         Me.LogoPictureBox.Size = New System.Drawing.Size(196, 106)
         Me.LogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -84,7 +84,7 @@ Partial Class Login
         '
         Me.Tbx_Login_username.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Login_username.Location = New System.Drawing.Point(229, 22)
-        Me.Tbx_Login_username.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Login_username.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Login_username.Name = "Tbx_Login_username"
         Me.Tbx_Login_username.Size = New System.Drawing.Size(182, 21)
         Me.Tbx_Login_username.TabIndex = 1
@@ -93,7 +93,7 @@ Partial Class Login
         '
         Me.Tbx_login_password.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_login_password.Location = New System.Drawing.Point(229, 59)
-        Me.Tbx_login_password.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_login_password.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_login_password.Name = "Tbx_login_password"
         Me.Tbx_login_password.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.Tbx_login_password.Size = New System.Drawing.Size(182, 21)
@@ -103,7 +103,7 @@ Partial Class Login
         '
         Me.OK.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.OK.Location = New System.Drawing.Point(229, 152)
-        Me.OK.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.OK.Margin = New System.Windows.Forms.Padding(2)
         Me.OK.Name = "OK"
         Me.OK.Size = New System.Drawing.Size(82, 29)
         Me.OK.TabIndex = 4
@@ -114,7 +114,7 @@ Partial Class Login
         Me.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.Cancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cancel.Location = New System.Drawing.Point(329, 152)
-        Me.Cancel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Cancel.Margin = New System.Windows.Forms.Padding(2)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(82, 29)
         Me.Cancel.TabIndex = 5
@@ -146,7 +146,7 @@ Partial Class Login
         Me.Chbx_Login_Save_Password.AutoSize = True
         Me.Chbx_Login_Save_Password.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Chbx_Login_Save_Password.Location = New System.Drawing.Point(229, 81)
-        Me.Chbx_Login_Save_Password.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Chbx_Login_Save_Password.Margin = New System.Windows.Forms.Padding(2)
         Me.Chbx_Login_Save_Password.Name = "Chbx_Login_Save_Password"
         Me.Chbx_Login_Save_Password.Size = New System.Drawing.Size(141, 17)
         Me.Chbx_Login_Save_Password.TabIndex = 8
@@ -197,13 +197,13 @@ Partial Class Login
         Me.Controls.Add(Me.LogoPictureBox)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Login"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Tag = "3.3"
+        Me.Tag = "3.3.1"
         Me.Text = "Login"
         CType(Me.LogoPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

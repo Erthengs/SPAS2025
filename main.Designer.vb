@@ -625,21 +625,6 @@ Partial Class SPAS
         Me.Label88 = New System.Windows.Forms.Label()
         Me.Label87 = New System.Windows.Forms.Label()
         Me.Accgroup = New System.Windows.Forms.TabPage()
-        Me.Tbx_00_Accgroup__description = New System.Windows.Forms.TextBox()
-        Me.Label130 = New System.Windows.Forms.Label()
-        Me.Tbx_00_Accgroup__subtype = New System.Windows.Forms.TextBox()
-        Me.Label137 = New System.Windows.Forms.Label()
-        Me.Panel9 = New System.Windows.Forms.Panel()
-        Me.Rbtn_accgroup_Income = New System.Windows.Forms.RadioButton()
-        Me.Rbtn_accgroup_transit = New System.Windows.Forms.RadioButton()
-        Me.Rbtn_accgroup_expense = New System.Windows.Forms.RadioButton()
-        Me.Cbx_00_accgroup__active = New System.Windows.Forms.CheckBox()
-        Me.Label132 = New System.Windows.Forms.Label()
-        Me.Lbl_accgroup_pkid = New System.Windows.Forms.Label()
-        Me.Label134 = New System.Windows.Forms.Label()
-        Me.Label135 = New System.Windows.Forms.Label()
-        Me.Tbx_01_Accgroup__name = New System.Windows.Forms.TextBox()
-        Me.Tbx_01_Accgroup__type = New System.Windows.Forms.TextBox()
         Me.BankAcc = New System.Windows.Forms.TabPage()
         Me.Label104 = New System.Windows.Forms.Label()
         Me.Label105 = New System.Windows.Forms.Label()
@@ -695,6 +680,7 @@ Partial Class SPAS
         Me.Zoeken = New System.Windows.Forms.Label()
         Me.Testpanel = New System.Windows.Forms.Panel()
         Me.Cbx_LifeCycle2 = New System.Windows.Forms.ComboBox()
+        Me.BasisTree = New System.Windows.Forms.TreeView()
         Me.MenuStrip1.SuspendLayout
         Me.Beheer.SuspendLayout
         Me.TC_Management.SuspendLayout
@@ -772,7 +758,6 @@ Partial Class SPAS
         Me.Account.SuspendLayout
         Me.Pan_account.SuspendLayout
         Me.Accgroup.SuspendLayout
-        Me.Panel9.SuspendLayout
         Me.BankAcc.SuspendLayout
         Me.TC_Main.SuspendLayout
         Me.Tussenrekening.SuspendLayout
@@ -6973,187 +6958,13 @@ Partial Class SPAS
         '
         'Accgroup
         '
-        Me.Accgroup.Controls.Add(Me.Tbx_00_Accgroup__description)
-        Me.Accgroup.Controls.Add(Me.Label130)
-        Me.Accgroup.Controls.Add(Me.Tbx_00_Accgroup__subtype)
-        Me.Accgroup.Controls.Add(Me.Label137)
-        Me.Accgroup.Controls.Add(Me.Panel9)
-        Me.Accgroup.Controls.Add(Me.Cbx_00_accgroup__active)
-        Me.Accgroup.Controls.Add(Me.Label132)
-        Me.Accgroup.Controls.Add(Me.Lbl_accgroup_pkid)
-        Me.Accgroup.Controls.Add(Me.Label134)
-        Me.Accgroup.Controls.Add(Me.Label135)
-        Me.Accgroup.Controls.Add(Me.Tbx_01_Accgroup__name)
-        Me.Accgroup.Controls.Add(Me.Tbx_01_Accgroup__type)
+        Me.Accgroup.Controls.Add(Me.BasisTree)
         Me.Accgroup.Location = New System.Drawing.Point(4, 30)
         Me.Accgroup.Name = "Accgroup"
         Me.Accgroup.Padding = New System.Windows.Forms.Padding(3)
         Me.Accgroup.Size = New System.Drawing.Size(721, 513)
         Me.Accgroup.TabIndex = 7
-        Me.Accgroup.Text = "Accountgroep"
-        '
-        'Tbx_00_Accgroup__description
-        '
-        Me.Tbx_00_Accgroup__description.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_00_Accgroup__description.Location = New System.Drawing.Point(142, 138)
-        Me.Tbx_00_Accgroup__description.Margin = New System.Windows.Forms.Padding(2)
-        Me.Tbx_00_Accgroup__description.Multiline = True
-        Me.Tbx_00_Accgroup__description.Name = "Tbx_00_Accgroup__description"
-        Me.Tbx_00_Accgroup__description.Size = New System.Drawing.Size(302, 61)
-        Me.Tbx_00_Accgroup__description.TabIndex = 147
-        Me.Tbx_00_Accgroup__description.Tag = "Omschrijving"
-        '
-        'Label130
-        '
-        Me.Label130.AutoSize = True
-        Me.Label130.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label130.Location = New System.Drawing.Point(31, 130)
-        Me.Label130.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(89, 18)
-        Me.Label130.TabIndex = 146
-        Me.Label130.Text = "Omschrijving"
-        '
-        'Tbx_00_Accgroup__subtype
-        '
-        Me.Tbx_00_Accgroup__subtype.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_00_Accgroup__subtype.Location = New System.Drawing.Point(142, 103)
-        Me.Tbx_00_Accgroup__subtype.Margin = New System.Windows.Forms.Padding(2)
-        Me.Tbx_00_Accgroup__subtype.Name = "Tbx_00_Accgroup__subtype"
-        Me.Tbx_00_Accgroup__subtype.Size = New System.Drawing.Size(302, 23)
-        Me.Tbx_00_Accgroup__subtype.TabIndex = 145
-        Me.Tbx_00_Accgroup__subtype.Tag = "Subtype"
-        '
-        'Label137
-        '
-        Me.Label137.AutoSize = True
-        Me.Label137.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label137.Location = New System.Drawing.Point(32, 103)
-        Me.Label137.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(59, 18)
-        Me.Label137.TabIndex = 143
-        Me.Label137.Text = "Subtype"
-        '
-        'Panel9
-        '
-        Me.Panel9.Controls.Add(Me.Rbtn_accgroup_Income)
-        Me.Panel9.Controls.Add(Me.Rbtn_accgroup_transit)
-        Me.Panel9.Controls.Add(Me.Rbtn_accgroup_expense)
-        Me.Panel9.Location = New System.Drawing.Point(142, 74)
-        Me.Panel9.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(302, 25)
-        Me.Panel9.TabIndex = 139
-        '
-        'Rbtn_accgroup_Income
-        '
-        Me.Rbtn_accgroup_Income.AutoSize = True
-        Me.Rbtn_accgroup_Income.Location = New System.Drawing.Point(3, 0)
-        Me.Rbtn_accgroup_Income.Name = "Rbtn_accgroup_Income"
-        Me.Rbtn_accgroup_Income.Size = New System.Drawing.Size(91, 22)
-        Me.Rbtn_accgroup_Income.TabIndex = 26
-        Me.Rbtn_accgroup_Income.TabStop = True
-        Me.Rbtn_accgroup_Income.Text = "Inkomsten"
-        Me.Rbtn_accgroup_Income.UseVisualStyleBackColor = True
-        '
-        'Rbtn_accgroup_transit
-        '
-        Me.Rbtn_accgroup_transit.AutoSize = True
-        Me.Rbtn_accgroup_transit.Location = New System.Drawing.Point(187, -1)
-        Me.Rbtn_accgroup_transit.Name = "Rbtn_accgroup_transit"
-        Me.Rbtn_accgroup_transit.Size = New System.Drawing.Size(67, 22)
-        Me.Rbtn_accgroup_transit.TabIndex = 26
-        Me.Rbtn_accgroup_transit.TabStop = True
-        Me.Rbtn_accgroup_transit.Text = "Transit"
-        Me.Rbtn_accgroup_transit.UseVisualStyleBackColor = True
-        '
-        'Rbtn_accgroup_expense
-        '
-        Me.Rbtn_accgroup_expense.AutoSize = True
-        Me.Rbtn_accgroup_expense.Location = New System.Drawing.Point(100, -1)
-        Me.Rbtn_accgroup_expense.Name = "Rbtn_accgroup_expense"
-        Me.Rbtn_accgroup_expense.Size = New System.Drawing.Size(81, 22)
-        Me.Rbtn_accgroup_expense.TabIndex = 26
-        Me.Rbtn_accgroup_expense.TabStop = True
-        Me.Rbtn_accgroup_expense.Text = "Uitgaven"
-        Me.Rbtn_accgroup_expense.UseVisualStyleBackColor = True
-        '
-        'Cbx_00_accgroup__active
-        '
-        Me.Cbx_00_accgroup__active.AutoSize = True
-        Me.Cbx_00_accgroup__active.Checked = True
-        Me.Cbx_00_accgroup__active.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.Cbx_00_accgroup__active.Enabled = False
-        Me.Cbx_00_accgroup__active.Location = New System.Drawing.Point(336, 15)
-        Me.Cbx_00_accgroup__active.Name = "Cbx_00_accgroup__active"
-        Me.Cbx_00_accgroup__active.Size = New System.Drawing.Size(63, 22)
-        Me.Cbx_00_accgroup__active.TabIndex = 138
-        Me.Cbx_00_accgroup__active.Text = "Actief"
-        Me.Cbx_00_accgroup__active.UseVisualStyleBackColor = True
-        '
-        'Label132
-        '
-        Me.Label132.AutoSize = True
-        Me.Label132.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label132.Location = New System.Drawing.Point(32, 15)
-        Me.Label132.Name = "Label132"
-        Me.Label132.Size = New System.Drawing.Size(64, 18)
-        Me.Label132.TabIndex = 137
-        Me.Label132.Text = "Kenmerk"
-        '
-        'Lbl_accgroup_pkid
-        '
-        Me.Lbl_accgroup_pkid.AutoSize = True
-        Me.Lbl_accgroup_pkid.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Lbl_accgroup_pkid.Location = New System.Drawing.Point(142, 15)
-        Me.Lbl_accgroup_pkid.Name = "Lbl_accgroup_pkid"
-        Me.Lbl_accgroup_pkid.Size = New System.Drawing.Size(20, 18)
-        Me.Lbl_accgroup_pkid.TabIndex = 136
-        Me.Lbl_accgroup_pkid.Text = "id"
-        '
-        'Label134
-        '
-        Me.Label134.AutoSize = True
-        Me.Label134.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label134.Location = New System.Drawing.Point(31, 39)
-        Me.Label134.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(44, 18)
-        Me.Label134.TabIndex = 128
-        Me.Label134.Text = "Naam"
-        '
-        'Label135
-        '
-        Me.Label135.AutoSize = True
-        Me.Label135.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label135.Location = New System.Drawing.Point(31, 81)
-        Me.Label135.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label135.Name = "Label135"
-        Me.Label135.Size = New System.Drawing.Size(37, 18)
-        Me.Label135.TabIndex = 129
-        Me.Label135.Text = "Type"
-        '
-        'Tbx_01_Accgroup__name
-        '
-        Me.Tbx_01_Accgroup__name.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Tbx_01_Accgroup__name.Location = New System.Drawing.Point(142, 39)
-        Me.Tbx_01_Accgroup__name.Margin = New System.Windows.Forms.Padding(2)
-        Me.Tbx_01_Accgroup__name.Name = "Tbx_01_Accgroup__name"
-        Me.Tbx_01_Accgroup__name.Size = New System.Drawing.Size(302, 23)
-        Me.Tbx_01_Accgroup__name.TabIndex = 130
-        Me.Tbx_01_Accgroup__name.Tag = "Naam"
-        '
-        'Tbx_01_Accgroup__type
-        '
-        Me.Tbx_01_Accgroup__type.Enabled = False
-        Me.Tbx_01_Accgroup__type.Location = New System.Drawing.Point(454, 73)
-        Me.Tbx_01_Accgroup__type.Margin = New System.Windows.Forms.Padding(2)
-        Me.Tbx_01_Accgroup__type.Name = "Tbx_01_Accgroup__type"
-        Me.Tbx_01_Accgroup__type.Size = New System.Drawing.Size(69, 26)
-        Me.Tbx_01_Accgroup__type.TabIndex = 131
-        Me.Tbx_01_Accgroup__type.Tag = "Accounttype"
-        Me.Tbx_01_Accgroup__type.Visible = False
+        Me.Accgroup.Text = "Experimental"
         '
         'BankAcc
         '
@@ -7730,7 +7541,7 @@ Partial Class SPAS
         DataGridViewCellStyle110.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Tussenrekening_0.RowsDefaultCellStyle = DataGridViewCellStyle110
         Me.Dgv_Tussenrekening_0.RowTemplate.Height = 20
-        Me.Dgv_Tussenrekening_0.Size = New System.Drawing.Size(370, 198)
+        Me.Dgv_Tussenrekening_0.Size = New System.Drawing.Size(370, 204)
         Me.Dgv_Tussenrekening_0.TabIndex = 152
         '
         'Lbl_Netting3
@@ -7803,7 +7614,7 @@ Partial Class SPAS
         DataGridViewCellStyle112.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Tussenrekening_4.RowsDefaultCellStyle = DataGridViewCellStyle112
         Me.Dgv_Tussenrekening_4.RowTemplate.Height = 20
-        Me.Dgv_Tussenrekening_4.Size = New System.Drawing.Size(391, 555)
+        Me.Dgv_Tussenrekening_4.Size = New System.Drawing.Size(391, 561)
         Me.Dgv_Tussenrekening_4.TabIndex = 147
         '
         'Dgv_Tussenrekening_3
@@ -7832,7 +7643,7 @@ Partial Class SPAS
         DataGridViewCellStyle114.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Tussenrekening_3.RowsDefaultCellStyle = DataGridViewCellStyle114
         Me.Dgv_Tussenrekening_3.RowTemplate.Height = 20
-        Me.Dgv_Tussenrekening_3.Size = New System.Drawing.Size(311, 555)
+        Me.Dgv_Tussenrekening_3.Size = New System.Drawing.Size(311, 561)
         Me.Dgv_Tussenrekening_3.TabIndex = 146
         '
         'Dgv_Tussenrekening_2
@@ -7861,7 +7672,7 @@ Partial Class SPAS
         DataGridViewCellStyle116.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Tussenrekening_2.RowsDefaultCellStyle = DataGridViewCellStyle116
         Me.Dgv_Tussenrekening_2.RowTemplate.Height = 20
-        Me.Dgv_Tussenrekening_2.Size = New System.Drawing.Size(369, 193)
+        Me.Dgv_Tussenrekening_2.Size = New System.Drawing.Size(369, 199)
         Me.Dgv_Tussenrekening_2.TabIndex = 145
         '
         'Dgv_Tussenrekening_1
@@ -7890,7 +7701,7 @@ Partial Class SPAS
         DataGridViewCellStyle118.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Tussenrekening_1.RowsDefaultCellStyle = DataGridViewCellStyle118
         Me.Dgv_Tussenrekening_1.RowTemplate.Height = 20
-        Me.Dgv_Tussenrekening_1.Size = New System.Drawing.Size(369, 248)
+        Me.Dgv_Tussenrekening_1.Size = New System.Drawing.Size(369, 254)
         Me.Dgv_Tussenrekening_1.TabIndex = 144
         '
         'Zoeken
@@ -7926,6 +7737,13 @@ Partial Class SPAS
         Me.Cbx_LifeCycle2.Size = New System.Drawing.Size(82, 21)
         Me.Cbx_LifeCycle2.TabIndex = 76
         Me.Cbx_LifeCycle2.Text = "Actief"
+        '
+        'BasisTree
+        '
+        Me.BasisTree.Location = New System.Drawing.Point(30, 17)
+        Me.BasisTree.Name = "BasisTree"
+        Me.BasisTree.Size = New System.Drawing.Size(348, 483)
+        Me.BasisTree.TabIndex = 0
         '
         'SPAS
         '
@@ -8052,9 +7870,6 @@ Partial Class SPAS
         Me.Pan_account.ResumeLayout(False)
         Me.Pan_account.PerformLayout
         Me.Accgroup.ResumeLayout(False)
-        Me.Accgroup.PerformLayout
-        Me.Panel9.ResumeLayout(False)
-        Me.Panel9.PerformLayout
         Me.BankAcc.ResumeLayout(False)
         Me.BankAcc.PerformLayout
         Me.TC_Main.ResumeLayout(False)
@@ -8502,21 +8317,6 @@ Partial Class SPAS
     Friend WithEvents Tbx_BankAcc_startbalance As TextBox
     Friend WithEvents Label40 As Label
     Friend WithEvents Accgroup As TabPage
-    Friend WithEvents Tbx_00_Accgroup__description As TextBox
-    Friend WithEvents Label130 As Label
-    Friend WithEvents Tbx_00_Accgroup__subtype As TextBox
-    Friend WithEvents Label137 As Label
-    Friend WithEvents Panel9 As Panel
-    Friend WithEvents Rbtn_accgroup_Income As RadioButton
-    Friend WithEvents Rbtn_accgroup_transit As RadioButton
-    Friend WithEvents Rbtn_accgroup_expense As RadioButton
-    Friend WithEvents Cbx_00_accgroup__active As CheckBox
-    Friend WithEvents Label132 As Label
-    Friend WithEvents Lbl_accgroup_pkid As Label
-    Friend WithEvents Label134 As Label
-    Friend WithEvents Label135 As Label
-    Friend WithEvents Tbx_01_Accgroup__name As TextBox
-    Friend WithEvents Tbx_01_Accgroup__type As TextBox
     Friend WithEvents TC_Main As TabControl
     Friend WithEvents Panel11 As Panel
     Friend WithEvents ReportTree As TreeView
@@ -8693,4 +8493,5 @@ Partial Class SPAS
     Friend WithEvents Cmbox_Beheer_Accgroup_Subtype As ComboBox
     Friend WithEvents Cmbx_Beheer_Accgroup As ComboBox
     Friend WithEvents Label149 As Label
+    Friend WithEvents BasisTree As TreeView
 End Class

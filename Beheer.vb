@@ -93,7 +93,52 @@ Public Class AccountRepository
         End Using
     End Function
 
+    Public Sub Populate_AccountTree(ByVal tvAccount As TreeView, ByVal lifecycleStatus As String, Optional ByVal searchword As String = "")
+        ' 1. Fetch the base SQL query for the AccountTree
+        Dim sql As String = QuerySQL("SELECT sql FROM query WHERE name = 'AccountTree_Load'")
 
+        If String.IsNullOrEmpty(sql) Then
+            MsgBox("The query 'AccountTree_Load' was not found in the database.")
+            Exit Sub
+        End If
+
+        Dim paramList As New List(Of NpgsqlParameter)
+
+        ' 2. Process the Lifecycle Filter (Actief, Inactief, Beide)
+        ' Assuming 'a' is the alias for the public.account table in your SQL
+        Select Case lifecycleStatus.ToLower()
+            Case "actief"
+                sql = sql.Replace("WHERE 1=1", "WHERE 1=1 AND a.active = @isActive")
+                paramList.Add(New NpgsqlParameter("@isActive", True))
+            Case "inactief"
+                sql = sql.Replace("WHERE 1=1", "WHERE 1=1 AND a.active = @isActive")
+                paramList.Add(New NpgsqlParameter("@isActive", False))
+            Case "beide"
+                ' Do nothing, no filter required
+        End Select
+
+        ' 3. Process the Searchword Filter securely
+        ' Assuming 'a' is account and 'ag' is accgroup. We also include the specific 'searchword' column from the account table.
+        If Not String.IsNullOrWhiteSpace(searchword) Then
+            sql &= " AND (a.name ILIKE @search OR ag.name ILIKE @search OR a.searchword ILIKE @search) "
+            paramList.Add(New NpgsqlParameter("@search", "%" & searchword & "%"))
+        End If
+
+        ' 4. Fetch the data using the overloaded parameterized Collect_data2
+        Dim dtAccount As DataTable = Collect_data2(sql, paramList.ToArray())
+
+        ' 5. Build and expand the tree
+        If dtAccount IsNot Nothing AndAlso dtAccount.Rows.Count > 0 Then
+            TreeViewMapper.Populate3LevelTree(tvAccount, dtAccount, "AccountTypeNode", "AccountGroupNode", "AccountNode")
+
+            ' Expand the tree automatically if a searchword was used
+            If Not String.IsNullOrWhiteSpace(searchword) Then
+                tvAccount.ExpandAll()
+            End If
+        Else
+            tvAccount.Nodes.Clear()
+        End If
+    End Sub
     ' --- SAVE OPERATIONS ---
 
     ''' <summary>

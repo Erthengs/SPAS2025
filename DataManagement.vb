@@ -659,6 +659,35 @@ connstart:
             MsgBox("Error populating reporting year: " & ex.Message)
         End Try
     End Sub
+
+    Function Collect_data2(ByVal sql As String, ByVal parameters() As NpgsqlParameter) As DataTable
+        Try
+            Dim dt As New DataTable()
+
+            Using conn As New NpgsqlConnection(connect_string)
+                Using cmd As New NpgsqlCommand(sql, conn)
+                    ' Safely attach the parameters to the command
+                    If parameters IsNot Nothing AndAlso parameters.Length > 0 Then
+                        cmd.Parameters.AddRange(parameters)
+                    End If
+
+                    Using da As New NpgsqlDataAdapter(cmd)
+                        da.Fill(dt)
+                    End Using
+                End Using
+            End Using
+
+            Return dt
+        Catch ex As Exception
+            Clipboard.Clear()
+            Clipboard.SetText(sql)
+            MsgBox($"De geparametriseerde data kon niet opgehaald worden. {vbCr}SQL:{vbCr}{sql}{vbCr}{vbCr}Foutmelding: {ex.Message}{vbCr}{vbCr}Gekopieerd naar klembord")
+            Return Nothing
+        End Try
+    End Function
+
+
+
     Sub Populate_Combobox(ByVal cmbx As ComboBox, sql As String)
         Try
             Connect(sql)

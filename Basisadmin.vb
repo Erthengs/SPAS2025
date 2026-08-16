@@ -1335,4 +1335,57 @@ Module Basisadmin
 
     End Sub
 
+    Public Sub Populate_BasisTree(ByVal tvBasis As TreeView, ByVal lifecycleStatus As String, Optional ByVal searchword2 As String = "")
+        ' 1. Fetch the base SQL query from the public.query table
+        Dim sql As String = QuerySQL("SELECT sql FROM query WHERE name = 'BasisTree_Load'")
+
+        If String.IsNullOrEmpty(sql) Then
+            MsgBox("The query 'BasisTree_Load' was not found in the database.")
+            Exit Sub
+        End If
+
+        ' 2. Process the Lifecycle Filter (Actief, Inactief, Beide)
+        Dim activeFilter As String = ""
+        Select Case lifecycleStatus.ToLower()
+            Case "actief"
+                activeFilter = " AND c.active = true "
+            Case "inactief"
+                activeFilter = " AND c.active = false "
+            Case "beide"
+                activeFilter = "" ' Leave empty so it doesn't restrict by active status
+        End Select
+
+        ' 3. Process the Searchword Filter
+        Dim searchFilter As String = ""
+        Dim safeSearch As String = searchword2.Replace("'", "''") ' Prevent basic syntax errors
+        If Not String.IsNullOrWhiteSpace(safeSearch) Then
+            searchFilter = $" AND (c.name ILIKE '%{safeSearch}%' OR r.name ILIKE '%{safeSearch}%' OR t.name ILIKE '%{safeSearch}%') "
+        End If
+
+        ' 4. Inject the generated filters into the SQL template
+        sql = sql.Replace("{activeFilter}", activeFilter)
+        sql = sql.Replace("{searchFilter}", searchFilter)
+
+        ' 5. Fetch the data and build the tree
+        Dim dtBasis As DataTable = Collect_data2(sql)
+
+        If dtBasis IsNot Nothing AndAlso dtBasis.Rows.Count > 0 Then
+            TreeViewMapper.Populate3LevelTree(tvBasis, dtBasis, "TargetTypeNode", "ContractNode", "DetailsNode")
+        Else
+            tvBasis.Nodes.Clear() ' Clear the tree if no matches are found
+        End If
+        ' 6. Build the tree
+        If dtBasis IsNot Nothing AndAlso dtBasis.Rows.Count > 0 Then
+            TreeViewMapper.Populate3LevelTree(tvBasis, dtBasis, "TargetTypeNode", "ContractNode", "DetailsNode")
+
+            ' NEW: Expand the tree automatically if a searchword was used
+            If Not String.IsNullOrWhiteSpace(searchword2) Then
+                tvBasis.ExpandAll()
+            End If
+        Else
+            tvBasis.Nodes.Clear()
+        End If
+    End Sub
+
+
 End Module
