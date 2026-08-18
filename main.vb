@@ -1207,7 +1207,7 @@ Public Class SPAS
         Rbtn_Account_Expense.Checked = Tbx_00_Account__type.Text = "Specifiek (doel)"
         Rbtn_Account_Transit.Checked = Tbx_00_Account__type.Text = "Anders"
     End Sub
-    Private Sub Tbx_BankAcc__accountno_Leave(sender As Object, e As EventArgs) Handles Tbx_01_BankAcc__accountno.Leave
+    Private Sub Tbx_BankAcc__accountno_Leave(sender As Object, e As EventArgs)
         If Tbx_01_BankAcc__accountno.Text = "" Then Exit Sub
         Tbx_01_BankAcc__accountno.Text = Tbx_01_BankAcc__accountno.Text.ToUpper
         If IBANcheck(Tbx_01_BankAcc__accountno.Text) <> 1 Then
@@ -1436,7 +1436,7 @@ Public Class SPAS
         MenuCancel.Enabled = _cancel
     End Sub
     Private Sub Tbx_BankAcc__accountno_TextChanged(sender As Object, e As EventArgs) Handles _
-          Tbx_01_BankAcc__accountno.TextChanged, Tbx_01_BankAcc__name.TextChanged, Tbx_01_Target__name.TextChanged, Cmx_01_account__fk_accgroup_id.TextUpdate,
+           Tbx_01_Target__name.TextChanged, Cmx_01_account__fk_accgroup_id.TextUpdate,
           Tbx_01_Target__name_add.TextChanged, Tbx_01_Account__name.TextChanged, Tbx_01_CP__name_add.TextChanged
 
         reload = True
@@ -1711,9 +1711,11 @@ Public Class SPAS
     Sub MenuExcassoDelete()
         If Cmx_Excasso_Select.SelectedIndex = -1 Then Exit Sub
         If MsgBox("Wilt u de uitkeringslijst verwijderen?", vbYesNo) = vbYes Then
-            RunSQL("DELETE FROM journal WHERE name ilike '%" & Me.Cmx_Excasso_Select.DisplayMember & "'", "NULL", "Delete_Excasso_Job")
-            Fill_Cmx_Excasso_Select_Combined()
+            RunSQL("DELETE FROM journal WHERE name ilike '%" & Me.Cmx_Excasso_Select.Text & "'", "NULL", "Delete_Excasso_Job")
+            MsgBox($"Uitkeringsformulier {Me.Cmx_Excasso_Select.Text} verwijderd.")
             Empty_Excasso_Window()
+
+            Fill_Cmx_Excasso_Select_Combined()
         End If
 
     End Sub
@@ -2112,8 +2114,8 @@ Public Class SPAS
     Private Sub MenuSave_Click(sender As Object, e As EventArgs) Handles MenuSave.Click
         Dim saveSuccess As Boolean = True ' Default to true for the other tabs so their behavior stays identical
 
-        Select Case TC_Main.SelectedIndex
-            Case 0 ' Basisadministratie
+        Select Case TC_Main.SelectedTab.Name
+            Case "Basisadministratie"
                 If TC_Object.SelectedIndex = 0 Then
                     SaveContract()
                 Else
@@ -2121,24 +2123,24 @@ Public Class SPAS
                 End If
                 Lbx_Basis.Enabled = True
 
-            Case 1 ' Bank
+            Case "Bank"
                 Save_Banktransaction_Accounts()
                 MustWarn = True
                 Dgv_Bank.Enabled = True
 
-            Case 2 ' Incasso
+            Case "Incasso"
                 Create_Incasso_Journals()
                 Create_SEPA_XML()
                 Populate_Cmx_Incasso_IncassoForm()
                 Me.Lbl_Incasso_Status.Text = "Open"
                 Menu_Print.Enabled = True
 
-            Case 3 ' Uitkering
+            Case "Uitkering"
                 If Cmx_Excasso_Select.SelectedIndex = -1 Then Exit Sub
                 Save_Excasso_job()
                 MustWarn = True
 
-            Case 4 ' Boekingen
+            Case "Boekingen"
                 Select Case TC_Boeking.SelectedIndex
                     Case 0
                         Save_Internal_Booking()
@@ -2147,25 +2149,57 @@ Public Class SPAS
                 End Select
                 Load_Cmx_Bank_Account()
 
-            Case 6 ' Beheer (Instellingen)
-                If TC_Management.SelectedTab.Name = "TP_Accounts" Then
-                    Dim nodeName As String = ""
-                    If AccountTree.SelectedNode IsNot Nothing Then nodeName = AccountTree.SelectedNode.Name
+            Case "Beheer" 
+                    Select Case TC_Management.SelectedTab.Name
+                    Case "TP_Accounts"
+                            Dim nodeName As String = ""
+                            If AccountTree.SelectedNode IsNot Nothing Then nodeName = AccountTree.SelectedNode.Name
 
-                    If nodeName = "AccountType" Then
-                        saveSuccess = SaveCurrentAccountGroup()
-
-                    ElseIf nodeName = "AccountGroup" Then
-                        If Add_Mode Then
-                            saveSuccess = SaveCurrentAccount()
-                        Else
+                            If nodeName = "AccountType" Then
                             saveSuccess = SaveCurrentAccountGroup()
+
+                            ElseIf nodeName = "AccountGroup" Then
+                            If Add_Mode Then
+                            saveSuccess = SaveCurrentAccount()
+                            Else
+                            saveSuccess = SaveCurrentAccountGroup()
+                            End If
+
+                            ElseIf nodeName = "Account" Then
+                            saveSuccess = SaveCurrentAccount()
+                            End If
+
+                    Case "Instellingen"
+
+                        ' 1. Ask the generic helper for the changes
+                        Dim changedData As DataTable = GetModifiedRows(Dgv_Settings)
+
+                        If changedData IsNot Nothing AndAlso changedData.Rows.Count > 0 Then
+                            Try
+                                ' 2. Pass the raw data to your Data Access Layer
+                                SettingsDataAccess.SaveSettings(changedData)
+
+                                ' 3. Tell the helper to mark the UI as officially saved
+                                AcceptGridChanges(Dgv_Settings)
+
+                                MessageBox.Show("Settings saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                            Catch ex As Exception
+                                MessageBox.Show("An Error occurred While saving " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            End Try
+                        Else
+                            MessageBox.Show("No changes To save.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         End If
 
-                    ElseIf nodeName = "Account" Then
-                        saveSuccess = SaveCurrentAccount()
-                    End If
-                End If
+
+
+
+                    End Select
+
+
+ 
+
+
         End Select
 
         ' ---> FIX: Only disable the buttons if the save procedure returned True
@@ -2312,8 +2346,8 @@ Public Class SPAS
     Private Sub MenuDelete_Click(sender As Object, e As EventArgs) Handles MenuDelete.Click
 
 
-        Select Case TC_Main.SelectedIndex
-            Case 0
+        Select Case TC_Main.SelectedTab.Name
+            Case "Basisadministratie"
                 If TC_Object.SelectedIndex = 0 Then
                     ' --- NEW CODE FOR CONTRACTS ---
                     DeleteContract()
@@ -2321,7 +2355,7 @@ Public Class SPAS
                     ' --- OLD CODE ---
                     Basis_Delete()
                 End If
-            Case 2
+            Case "Incasso"
 
                 Dim Incasso2Delete As String = $"Delete From Journal where name ilike '%{Lbl_Incasso_job_name.Text}%' and source='Incasso'"
                 'MsgBox(Incasso2Delete)
@@ -2331,7 +2365,7 @@ Public Class SPAS
                 Me.Lbl_Incasso_Status.Text = "Nieuw"
                 Menu_Print.Enabled = False
                 Me.Lbl_Incasso_Error.Visible = False
-            Case 3
+            Case "Uitkering"
                 MenuExcassoDelete()
         End Select
         Enable_Buttons(False, True)
@@ -2364,15 +2398,17 @@ Public Class SPAS
     Private Sub TC_Main_Click(sender As Object, e As EventArgs) Handles TC_Main.SelectedIndexChanged
         'MsgBox($" begin TC_Main.Selectedindechanged: {isManualChange}")
         Enable_Buttons(False, True)
-        Select Case TC_Main.SelectedIndex
+        Select Case TC_Main.SelectedTab.Name
 
-            Case 0
+            Case "Basisadministratie"
                 isManualChange = True
                 If Searchbox2.Text <> "" Then Load_Table()
+                Searchbox2.Enabled = True
 
-            Case 1  'bank
+            Case "Bank"
                 isManualChange = True
                 Searchbox2.Text = ""
+                Searchbox2.Enabled = True
 
 
                 'only load the bank data if datagridview is still empty
@@ -2383,8 +2419,10 @@ Public Class SPAS
                 End If
 
                 Enable_Buttons(False, False)
-            Case 2 'incasso
+            Case "Incasso"
                 isManualChange = False
+                Searchbox2.Text = ""
+                Searchbox2.Enabled = False
                 Populate_Cmx_Incasso_IncassoForm()
                 Cmx_Incasso_IncassoForm.SelectedIndex = -1
                 If Me.Dgv_Mgnt_Tables.Rows(3).Cells(1).Value > 0 And
@@ -2395,12 +2433,14 @@ Public Class SPAS
                 End If
                 isManualChange = True
                 Enable_Buttons(False, False)
-            Case 3 'uitkering
+            Case "Uitkering"
                 isManualChange = False
+                Searchbox2.Text = ""
+                Searchbox2.Enabled = False
                 'Fill_Cmx_Excasso_Select_Combined()
 
                 Enable_Buttons((Dgv_Excasso2.Rows.Count > 0), (Dgv_Excasso2.Rows.Count = 0))
-
+                MenuAdd.Enabled = False
                 MenuBanktransactie.Visible = False '
                 MenuUploadAlles.Visible = False
                 MenuBanktransactie.Visible = False
@@ -2417,8 +2457,10 @@ Public Class SPAS
                     Fill_Cmx_Excasso_Select_Combined()
                 End If
                 isManualChange = True
-            Case 4
+            Case "Boekingen"
                 isManualChange = False
+                Searchbox2.Text = ""
+                Searchbox2.Enabled = True
                 Enable_Buttons(False, False)
                 Menu_Export.Enabled = True
 
@@ -2430,12 +2472,17 @@ Public Class SPAS
                 where name='nog te bepalen' and fk_account != (select value::integer from settings where label='nocat') and source = 'Bank'"
                 RunSQL(sql, "NULL", "TC_Main_Click")
                 isManualChange = True
-            Case 5
+            Case "Rapportage"
                 isManualChange = False
+                Searchbox2.Text = ""
+                Searchbox2.Enabled = True
                 'Enable_Buttons(False, False)
 
-            Case 6
+            Case "Beheer"
                 isManualChange = False
+                Searchbox2.Text = ""
+                Searchbox2.Enabled = False
+
                 Load_Account_Settings()
 
 
@@ -2450,8 +2497,10 @@ Public Class SPAS
 
 
                 isManualChange = True
-            Case 7
+            Case "Tussenrekening"
                 isManualChange = False
+                Searchbox2.Text = ""
+                Searchbox2.Enabled = False
                 Populate_Combobox(Cmbx_Tussenrekening, "select * from account where source = 'cat'  and type = 'Anders' and name not in ('[Niet toegewezen]','Euro tegenwaarde', 'Overhead') and name not ilike 'Bank%'")
                 Cmbx_Tussenrekening.SelectedIndex = -1
                 Prepare_Datagridview(Dgv_Tussenrekening, Fill_Afletterbox, {"TZ080", "TZ300", "NZ080", "NZ080", "NZ080"})
@@ -3076,7 +3125,7 @@ Public Class SPAS
         If colindex = 6 Then Me.Dgv_Excasso_numbers.Rows(rowindex).Cells(8).Value = Me.Dgv_Excasso_numbers.CurrentCell.Value * Me.Dgv_Excasso_numbers.Rows(rowindex).Cells(4).Value
         Me.Dgv_Excasso_numbers.Rows(1).Cells(10).Value = CInt(Me.Dgv_Excasso_numbers.Rows(0).Cells(8).Value) + CInt(Me.Dgv_Excasso_numbers.Rows(1).Cells(8).Value) + CInt(Me.Dgv_Excasso_numbers.Rows(2).Cells(8).Value)
         Me.Dgv_Excasso_numbers.Rows(2).Cells(10).Value = CInt(Me.Dgv_Excasso_numbers.Rows(0).Cells(10).Value) + CInt(Me.Dgv_Excasso_numbers.Rows(1).Cells(10).Value)
-
+        'Me.Dgv_Excasso_numbers.Rows(3).Cells(10).Value = CInt(Me.Dgv_Excasso_numbers.Rows(0).Cells(10).Value) + CInt(Me.Dgv_Excasso_numbers.Rows(1).Cells(10).Value)
 
     End Sub
 
@@ -3907,4 +3956,6 @@ Public Class SPAS
         Next
         Return Nothing
     End Function
+
+
 End Class

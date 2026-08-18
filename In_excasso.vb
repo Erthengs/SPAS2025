@@ -666,9 +666,10 @@ end as ""intern "",
 
 
     Sub Load_Existing_Excasso()
+
         'Loads an excasso form that has already been saved in the past, but is noet yet posted to the G/L.
 
-        'MsgBox($"A. [{SPAS.Cmx_Excasso_Select.Text}]")
+        If InStr(SPAS.Cmx_Excasso_Select.Text, "Excasso") = 0 Then Exit Sub
         If SPAS.Cmx_Excasso_Select.SelectedIndex = -1 Then Exit Sub
         If SPAS.Cmx_Excasso_Select.SelectedValue.ToString = "System.Data.DataRowView" Then Exit Sub 'alleen lijst genereren als gekozen is voor een bestaande of nieuwe lijst
         Dim cp As String = SPAS.Cmx_Excasso_Select.SelectedValue.ToString
@@ -927,25 +928,6 @@ end as ""intern "",
         SPAS.Lbl_Excasso_Aantal_doelen.Text = $"MDL        Doelen:  {SPAS.CalculateColumnCount(SPAS.Dgv_Excasso2, 9)}"
     End Sub
 
-    Sub Calculate_CP_Values1()
-
-
-
-        If Not SPAS.isManualChange Then Exit Sub
-        If SPAS.Dgv_Excasso2.Rows.Count = 0 Then Exit Sub
-        If IsDBNull(SPAS.Dgv_Excasso_numbers.CurrentCell.Value) Then Exit Sub
-
-        Dim colindex As Integer = SPAS.Dgv_Excasso_numbers.CurrentCell.ColumnIndex
-        Dim rowindex As Integer = SPAS.Dgv_Excasso_numbers.CurrentCell.RowIndex
-        If colindex <> 8 And colindex <> 10 Then Exit Sub
-
-        Try
-            If colindex = 8 Then SPAS.Dgv_Excasso_numbers.Rows(rowindex).Cells(8).Value = SPAS.Dgv_Excasso_numbers.CurrentCell.Value * 10
-        Catch ex As Exception
-
-        End Try
-
-    End Sub
 
     Sub Edit_Dgv_Excasso()
 

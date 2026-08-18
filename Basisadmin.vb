@@ -587,8 +587,6 @@ Module Basisadmin
         Dim tbl As String = SPAS.TC_Object.TabPages(tb).Name
         Dim SQLstr, SQLstr1, SQLstr2 As String
 
-        ' Dim arg = SPAS.Tbx_Basis_Filter.Text.ToUpper
-        'Dim arg = SPAS.Searchbox.Text.ToUpper
         Dim arg = SPAS.Searchbox2.Text.ToUpper
         Dim sel_act As String = ""
         If SPAS.Cbx_LifeCycle2.Text = "Actief" Then
@@ -1094,22 +1092,6 @@ Module Basisadmin
     'incasso
     '=================================================================================
 
-    Function Display_Incasso()
-        Dim SQLstr = "
-            SELECT distinct Concat(r.name, ', ', r.name_add), fk_account, ta.ttype,
-            (Select sum(amt1) from journal where fk_account = '100169'  AND fk_relation = r.id) As ovd,
-            (Select sum(amt1) from journal where fk_account != '100169' AND fk_relation = r.id  As don
-            FROM journal j
-            LEFT JOIN relation r ON j.fk_relation = r.id
-            LEFT join account ac ON j.fk_account = ac.id
-            LEFT JOIN target ta ON ac.f_key = ta.id
-            WHERE
-            j.source = 'Incasso' AND 
-            j.date='01-01-2021' 
-            Group by  j.amt1, Concat(r.name, ', ', r.name_add), j.fk_relation, r.id, fk_account, ta.ttype
-"
-        Return SQLstr
-    End Function
 
     Function Create_Incasso_Totals(date_start As String)
 
@@ -1151,95 +1133,8 @@ Module Basisadmin
     End Function
 
 
-    Function Existing_Excasso(ByVal exnam As String)
-
-        Dim overhead As String = QuerySQL("SELECT value FROM settings WHERE label='overhead'")
 
 
-        Dim SQLstr = "
-            SELECT 
-            ac.id, ac.name, 
-            (SELECT SUM(amt1) FROM journal WHERE fk_account=ac.id  AND type ILIKE 'Contract%') + 
-            (SELECT SUM(amt1) FROM journal WHERE fk_account=ac.id  AND type ILIKE 'Contract%' 
-                AND name ='" & exnam & "')*-1 As Contract, 
-            (SELECT SUM(amt1) FROM journal WHERE fk_account=ac.id  AND type ILIKE 'Extra%') + 
-            (SELECT SUM(amt1) FROM journal WHERE fk_account=ac.id  AND type ILIKE 'Extra%' 
-                AND name ='" & exnam & "')*-1 As Extra,
-            (SELECT SUM(amt1) FROM journal WHERE fk_account=ac.id  AND type ILIKE 'Intern%') +
-            (SELECT SUM(amt1) FROM journal WHERE fk_account=ac.id  AND type ILIKE 'Intern%' 
-                AND name ='" & exnam & "')*-1 As Intern,
-            SUM(j.amt1)*-1 As Eur, 
-            SUM(j.amt2)*-1 As MDL,
-            j.type
-            FROM journal j
-            LEFT JOIN account ac ON ac.id = fk_account
-            WHERE j.name ='" & exnam & "'
-            AND ac.id != '" & overhead & "'
-            GROUP BY ac.id, ac.name, j.type
-            ORDER BY ac.name ASC
-
-"
-        Return SQLstr
-
-
-
-
-    End Function
-
-
-    Function Create_Excasso(ByVal CP As String, t1 As String, t2 As String, t3 As String, d1 As String, d2 As String)
-
-        Dim SQLstr As String = "
-
-        SELECT 
-            distinct ac.id, ac.name,
-	        CASE 
-				WHEN " & d2 & " = 1 Then ac.b_jan
-				WHEN " & d2 & " = 2 Then ac.b_feb 
-				WHEN " & d2 & " = 3 Then ac.b_mar
-				WHEN " & d2 & " = 4 Then ac.b_apr
-				WHEN " & d2 & " = 5 Then ac.b_may 
-				WHEN " & d2 & " = 6 Then ac.b_jun
-				WHEN " & d2 & " = 7 Then ac.b_jul
-				WHEN " & d2 & " = 8 Then ac.b_aug
-				WHEN " & d2 & " = 9 Then ac.b_sep
-				WHEN " & d2 & " = 10 Then ac.b_oct
-				WHEN " & d2 & " = 11 Then ac.b_nov
-				WHEN " & d2 & " = 12 Then ac.b_dec
-            END As MndBdt,
-
-			(Select sum(amt1) from journal where type = 'Contract' 
-                AND journal.fk_account = ac.id 
-                AND journal.date <='" & d1 & "') As Contract,
-	        (Select sum(amt1) from journal where type =  'Extra' 
-                AND journal.fk_account = ac.id) As Extra,
-	        (Select sum(amt1) from journal where type = 'Internal' 
-                AND journal.fk_account = ac.id) As Intern,0,0
-
-        FROM  
-            Account ac
-            ---LEFT JOIN journal j ON j.fk_account = ac.id AND  j.name LIKE 'Contract%'  
-            ---LEFT JOIN journal j2 ON j2.fk_account = ac.id AND j2.name LIKE 'Extra%'
-            ---LEFT JOIN journal j3 ON j3.fk_account = ac.id  AND j3.name LIKE 'Intern%'
-            LEFT JOIN target ta ON ta.id = ac.f_key
-            LEFT JOIN cp ON cp.id = ta.fk_cp_id
-            WHERE cp.id='" & CP & "'
-			---AND 
-                ---j.date <= '" & d1 & "'::date
-            AND
-				(ta.ttype='" & t1 & "' OR
-                ta.ttype='" & t2 & "' OR
-                ta.ttype='" & t3 & "')
-            AND ta.active=true
-			GROUP BY ac.id, ac.name ---, j.name, j.amt1
-            ORDER BY ac.name ASC
-
-"
-
-        Return SQLstr
-
-
-    End Function
 
     Sub Basis_Delete()
         Dim id As Integer

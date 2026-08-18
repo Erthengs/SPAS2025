@@ -700,24 +700,7 @@ Module boekingen
 
 
     End Sub
-    Sub Save_Settings()
 
-        Dim sql As String = ""
-        With SPAS.Dgv_Settings
-            If .SelectedCells.Count = 0 Then Exit Sub
-            .Rows(.SelectedCells(0).RowIndex).Cells(2).Value = .CurrentCell.EditedFormattedValue
-            For r As Integer = 0 To .Rows.Count - 1
-                If .Rows(r).Cells(1).Value = "text" Or .Rows(r).Cells(1).Value = "currency" Then
-                    sql &= "Update settings set value ='" & .Rows(r).Cells(2).Value & "' where label = '" & .Rows(r).Cells(0).Value & "';" & vbCr
-                End If
-            Next
-        End With
-        RunSQL(sql, "NULL", "Save settings")
-
-        ToClipboard(sql, True)
-
-
-    End Sub
 
     Sub Select_in_Lv_Journal_list_ByNameAndDate(name As String, dateValue As String, idx As String, fltr As String)
         ' Loop through each item in the ListView

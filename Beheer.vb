@@ -1,4 +1,5 @@
 ﻿Imports System.Data
+Imports System.Data.SqlClient
 Imports System.Windows.Forms
 Imports Npgsql
 
@@ -247,6 +248,39 @@ Public Class AccountRepository
     End Sub
 
 End Class
+
+
+Module SettingsDataAccess
+
+    ''' <summary>
+    ''' Iterates through a table of modified rows and persists them to the database.
+    ''' </summary>
+    Public Sub SaveSettings(modifiedRows As DataTable)
+        If modifiedRows Is Nothing OrElse modifiedRows.Rows.Count = 0 Then Return
+
+        ' Open your database connection here
+        ' Example using standard DbConnection (adapt to Npgsql, SQLite, MySQL, etc.)
+
+        For Each row As DataRow In modifiedRows.Rows
+            ' Assuming Column 0 is Name, Column 2 is Value based on your load script
+            Dim settingName As String = row(0).ToString()
+            Dim settingValue As String = row(2).ToString()
+
+            ' Execute the parameterized update query
+            UpdateSingleSetting(settingName, settingValue)
+        Next
+    End Sub
+
+    Private Sub UpdateSingleSetting(settingName As String, settingValue As String)
+        RunSQL($"Update settings SET value='{settingValue}' Where label='{settingName}'", "NULL", "UpdateSingleSetting")
+
+    End Sub
+
+End Module
+
+
+
+
 Public Class AccountGroupModel
     Public Property Id As Integer
     Public Property Name As String

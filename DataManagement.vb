@@ -31,7 +31,42 @@ Module DataManagement
     Public report_year As Integer
     Public db As String
 
+    ' Module GridStateHelper
 
+    ''' <summary>
+    ''' Cancels active edits in a grid and rolls back the underlying DataTable.
+    ''' </summary>
+    Public Sub CancelGridChanges(dgv As DataGridView)
+            dgv.CancelEdit()
+            Dim dt As DataTable = TryCast(dgv.DataSource, DataTable)
+            If dt IsNot Nothing Then
+                dt.RejectChanges()
+            End If
+        End Sub
+
+        ''' <summary>
+        ''' Ends active edits and extracts only the modified rows from the grid's data source.
+        ''' </summary>
+        Public Function GetModifiedRows(dgv As DataGridView) As DataTable
+            dgv.EndEdit()
+            Dim dt As DataTable = TryCast(dgv.DataSource, DataTable)
+            If dt IsNot Nothing Then
+                Return dt.GetChanges(DataRowState.Modified)
+            End If
+            Return Nothing
+        End Function
+
+        ''' <summary>
+        ''' Commits the changes to the in-memory DataTable after a successful database save.
+        ''' </summary>
+        Public Sub AcceptGridChanges(dgv As DataGridView)
+            Dim dt As DataTable = TryCast(dgv.DataSource, DataTable)
+            If dt IsNot Nothing Then
+                dt.AcceptChanges()
+            End If
+        End Sub
+
+    'End Module
     Sub Connect(ByVal SQL)
 connstart:
         Dim ans = ""
@@ -89,9 +124,12 @@ connstart:
             WriteLog(sql, caller)
         Catch ex As Exception
             Dim e1 As Integer = ex.ToString.IndexOf("UNIQUE constraint failed")
-            If e1 > 0 Then MessageBox.Show("Name already exists.") Else MsgBox("RunSQL error while running procedure " & msg & vbCrLf & vbCrLf & Left(ex.ToString, 1000))
+            Clipboard.Clear()
+            Clipboard.SetText(sql)
+            If e1 > 0 Then MessageBox.Show("Name already exists.") Else MsgBox("RunSQL error while running procedure " & msg & vbCrLf & vbCrLf & sql & vbCrLf & "SQL gekopiëerd naar klembord")
 
         End Try
+
     End Sub
 
     Public Sub Load_Listbox(ByVal ls As ListBox, SQLstr As String)
@@ -390,7 +428,6 @@ connstart:
             End If
         Next
     End Sub
-
 
 
 
