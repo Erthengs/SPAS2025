@@ -4,10 +4,6 @@ Imports System.Text.RegularExpressions
 
 Public Module LoggingModule
 
-    ''' <param name="sql">The SQL statement to log.</param>
-    ''' <param name="caller">The name of the calling procedure or method.</param>
-    ''' <param name="username">The username performing the operation.</param>
-
     Public Sub WriteLog(ByVal sql As String, ByVal caller As String)
         Dim operationType As String = GetOperationType(sql)
         If String.IsNullOrEmpty(operationType) Then

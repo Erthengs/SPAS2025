@@ -46,11 +46,11 @@ Module Tussenrekening
 
             ' Leg 1: Book against the selected Target Account
             SQLstr &= "INSERT INTO journal(name, date, status, type, source, description, amt1, fk_account) "
-            SQLstr &= "VALUES('" & entryName & "', '" & dat1 & "'::date, 'Verwerkt', 'Internal', 'Intern', '" & manualDesc & "', " & Cur2(manualAmount) & ", " & targetAccountId & "); "
+            SQLstr &= "VALUES('" & entryName & "', '" & dat1 & "'::date, 'Verwerkt', 'Internal', 'Intern', '" & manualDesc & "', " & Cur2(-manualAmount) & ", " & targetAccountId & "); "
 
             ' Leg 2: Book the offset against the Clearance Account (inverted sign)
             SQLstr &= "INSERT INTO journal(name, date, status, type, source, description, amt1, fk_account) "
-            SQLstr &= "VALUES('" & entryName & "', '" & dat1 & "'::date, 'Verwerkt', 'Internal', 'Intern', '" & manualDesc & "', " & Cur2(-manualAmount) & ", " & clearanceAccountId & "); "
+            SQLstr &= "VALUES('" & entryName & "', '" & dat1 & "'::date, 'Verwerkt', 'Internal', 'Intern', '" & manualDesc & "', " & Cur2(manualAmount) & ", " & clearanceAccountId & "); "
         Else
             MsgBox("Onvoldoende gegevens om af te letteren.")
             Exit Sub
@@ -66,24 +66,21 @@ Module Tussenrekening
         End Try
     End Sub
 
-    Function Fill_Afletterbox()
-        Dim sql = "
+    Function Fill_Afletterbox() As String
+        Dim sql As String = "
             SELECT 
                 ""date"" AS Datum,
                 COALESCE(""name"", description, 'Overige Uitgave') AS Omschrijving,
                 
-                -- Opname (Column 3): Captures everything that is NOT an Uitkering, 
-                -- EXCEPT manual netting ('Intern') that has a negative amount.
+                -- Opname (Column 3): Bulk payments/cash withdrawals (Everything NOT entered via this tab)
                 CASE 
-                    WHEN TRIM(""source"") = 'Uitkering' THEN NULL::money 
-                    WHEN TRIM(""source"") = 'Intern' AND amt1 < 0::money THEN NULL::money
-                    ELSE amt1 
+                    WHEN TRIM(""source"") NOT IN ('Uitkering', 'Intern') THEN ABS(amt1::numeric)::money 
+                    ELSE NULL::money 
                 END AS Opname,
                 
-                -- Betaling (Column 4): Captures Uitkeringen AND manual netting ('Intern') with a negative amount.
+                -- Betaling (Column 4): Distribution lists and manual netting from this tab
                 CASE 
-                    WHEN TRIM(""source"") = 'Uitkering' THEN amt1 
-                    WHEN TRIM(""source"") = 'Intern' AND amt1 < 0::money THEN amt1
+                    WHEN TRIM(""source"") IN ('Uitkering', 'Intern') THEN ABS(amt1::numeric)::money 
                     ELSE NULL::money 
                 END AS Betaling,
                 
@@ -95,7 +92,8 @@ Module Tussenrekening
                 
             FROM public.journal
             WHERE fk_account = 750
-            ORDER BY ""date"" DESC, id ASC;
+            -- Ensures chronological sorting for intermediate saldos on the same day
+            ORDER BY ""date"" DESC, id DESC;
         "
 
         Return sql

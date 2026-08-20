@@ -64,7 +64,7 @@ Public Class SPAS
 
     Private Sub Btn_Tussenrekening_Save_Click(sender As Object, e As EventArgs) Handles Btn_Tussenrekening_Save.Click
         Dim clearanceAccountId As String = "750"
-
+        If MsgBox("Is de datum van deze aflettering correct?", vbYesNo) = vbNo Then Exit Sub
         ' Traffic Cop Check: Is the manual amount textbox filled?
         If Not String.IsNullOrWhiteSpace(Tbx_Tussenrekening_bedrag.Text) Then
             ' ==========================================
@@ -1464,7 +1464,7 @@ Public Class SPAS
     Sub Dgv_Bank_Click(sender As Object, e As EventArgs) Handles Dgv_Bank.Click, Dgv_Bank.SelectionChanged
         isManualChange = False
         If Dgv_Bank.Rows.Count = 0 Or Dgv_Bank.DataSource Is Nothing Then Exit Sub
-
+        MsgBox($"{Dgv_Bank.SelectedCells(3).Value.ToString}")
         Try
             'Voorkomen dat de gebruiker incassso- of excassojobs gaat editen
             If Not IsDBNull(Dgv_Bank.SelectedCells(3).Value) Then
@@ -1480,6 +1480,7 @@ Public Class SPAS
 
             Dim bankdata = Dgv_Bank.DataSource
             'vullen van niet aanpasbare velden
+
             Lbl_Bank_Relation.Text = Dgv_Bank.SelectedCells(2).Value
             If Not IsDBNull(Dgv_Bank.SelectedCells(8).Value) Then Lbl_Bank_Relation_account.Text = Dgv_Bank.SelectedCells(8).Value
             If Not IsDBNull(Dgv_Bank.SelectedCells(6).Value) Then Lbl_Bank_Code.Text = Dgv_Bank.SelectedCells(6).Value
@@ -1487,7 +1488,9 @@ Public Class SPAS
             Lbl_Transactie_totaal.Text = QuerySQL($"Select sum(credit-debit) from bank where seqorder ='{Lbl_Bank_Afschrift.Text}'")
 
             'Vullen van aanpasbare velden
+
             Tbx_Bank_Description.Text = Dgv_Bank.SelectedCells(3).Value
+
             If Chbx_Bank_ExtraInfo_voor.Checked Then
                 If Strings.InStr(Tbx_Bank_Description.Text, " | ") > 0 Then
                     Tbx_Bank_Extra_Info.Text = Strings.Left(Tbx_Bank_Description.Text, Strings.InStr(Tbx_Bank_Description.Text, " | ") - 1)
@@ -1846,7 +1849,7 @@ Public Class SPAS
     Private Sub Cmx_00_contract__fk_relation_id_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cmx_00_contract_fk_relation_id.SelectedIndexChanged
         If Not Add_Mode Then Exit Sub
         Exit Sub
-        ''' Dit is specifieke functionaliteit voor interne contracten
+        'Dit is specifieke functionaliteit voor interne contracten
         MsgBox("Lbl_00_contract__fk_relation_id.Text")
         Dim int = QuerySQL($"
                                         SELECT ba.id
@@ -2481,7 +2484,7 @@ Public Class SPAS
             Case "Beheer"
                 isManualChange = False
                 Searchbox2.Text = ""
-                Searchbox2.Enabled = False
+                Searchbox2.Enabled = True
 
                 Load_Account_Settings()
 
@@ -3957,5 +3960,11 @@ Public Class SPAS
         Return Nothing
     End Function
 
+    Private Sub Dgv_Tussenrekening_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Tussenrekening.CellContentClick
 
+    End Sub
+
+    Private Sub Dgv_Bank_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles Dgv_Bank.CellContentClick
+
+    End Sub
 End Class

@@ -896,7 +896,7 @@ Partial Class SPAS
         '
         Me.Searchbox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Searchbox2.Location = New System.Drawing.Point(59, 4)
-        Me.Searchbox2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Searchbox2.Margin = New System.Windows.Forms.Padding(2)
         Me.Searchbox2.Name = "Searchbox2"
         Me.Searchbox2.Size = New System.Drawing.Size(267, 21)
         Me.Searchbox2.TabIndex = 74
@@ -916,7 +916,7 @@ Partial Class SPAS
         Me.HelpProvider1.SetHelpNavigator(Me.Tbx_Bank_Description, System.Windows.Forms.HelpNavigator.KeywordIndex)
         Me.HelpProvider1.SetHelpString(Me.Tbx_Bank_Description, "Hulp bij omschrijving")
         Me.Tbx_Bank_Description.Location = New System.Drawing.Point(-2, 101)
-        Me.Tbx_Bank_Description.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Bank_Description.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Bank_Description.Multiline = True
         Me.Tbx_Bank_Description.Name = "Tbx_Bank_Description"
         Me.Tbx_Bank_Description.ReadOnly = True
@@ -930,10 +930,10 @@ Partial Class SPAS
         Me.Beheer.BackColor = System.Drawing.Color.Transparent
         Me.Beheer.Controls.Add(Me.TC_Management)
         Me.Beheer.Location = New System.Drawing.Point(4, 28)
-        Me.Beheer.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Beheer.Margin = New System.Windows.Forms.Padding(2)
         Me.Beheer.Name = "Beheer"
-        Me.Beheer.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.Beheer.Size = New System.Drawing.Size(1106, 567)
+        Me.Beheer.Padding = New System.Windows.Forms.Padding(2)
+        Me.Beheer.Size = New System.Drawing.Size(1106, 581)
         Me.Beheer.TabIndex = 6
         Me.Beheer.Text = "Beheer   "
         '
@@ -959,7 +959,7 @@ Partial Class SPAS
         Me.TP_Accounts.Controls.Add(Me.Panel17)
         Me.TP_Accounts.Location = New System.Drawing.Point(4, 28)
         Me.TP_Accounts.Name = "TP_Accounts"
-        Me.TP_Accounts.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.TP_Accounts.Padding = New System.Windows.Forms.Padding(3)
         Me.TP_Accounts.Size = New System.Drawing.Size(1072, 527)
         Me.TP_Accounts.TabIndex = 4
         Me.TP_Accounts.Text = "Accountbeheer"
@@ -1026,7 +1026,7 @@ Partial Class SPAS
         '
         Me.Tbx_Beheer_Accgroup_Description.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Beheer_Accgroup_Description.Location = New System.Drawing.Point(137, 93)
-        Me.Tbx_Beheer_Accgroup_Description.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Beheer_Accgroup_Description.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Beheer_Accgroup_Description.Multiline = True
         Me.Tbx_Beheer_Accgroup_Description.Name = "Tbx_Beheer_Accgroup_Description"
         Me.Tbx_Beheer_Accgroup_Description.Size = New System.Drawing.Size(456, 61)
@@ -1061,7 +1061,7 @@ Partial Class SPAS
         Me.Panel4.Controls.Add(Me.Rbtn_Beheer_Accounttype3)
         Me.Panel4.Controls.Add(Me.Rbtn_Beheer_Accounttype2)
         Me.Panel4.Location = New System.Drawing.Point(138, 63)
-        Me.Panel4.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(269, 25)
         Me.Panel4.TabIndex = 155
@@ -1152,7 +1152,7 @@ Partial Class SPAS
         '
         Me.Tbx_Beheer_Account_Type.Enabled = False
         Me.Tbx_Beheer_Account_Type.Location = New System.Drawing.Point(28, 115)
-        Me.Tbx_Beheer_Account_Type.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Beheer_Account_Type.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Beheer_Account_Type.Name = "Tbx_Beheer_Account_Type"
         Me.Tbx_Beheer_Account_Type.Size = New System.Drawing.Size(83, 27)
         Me.Tbx_Beheer_Account_Type.TabIndex = 151
@@ -1246,7 +1246,7 @@ Partial Class SPAS
         Me.Btn_Account_Budget_All.Image = CType(resources.GetObject("Btn_Account_Budget_All.Image"), System.Drawing.Image)
         Me.Btn_Account_Budget_All.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Btn_Account_Budget_All.Location = New System.Drawing.Point(314, 289)
-        Me.Btn_Account_Budget_All.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Btn_Account_Budget_All.Margin = New System.Windows.Forms.Padding(2)
         Me.Btn_Account_Budget_All.Name = "Btn_Account_Budget_All"
         Me.Btn_Account_Budget_All.Size = New System.Drawing.Size(302, 36)
         Me.Btn_Account_Budget_All.TabIndex = 175
@@ -1260,7 +1260,7 @@ Partial Class SPAS
         Me.Btn_Account_Budget_Id.Image = CType(resources.GetObject("Btn_Account_Budget_Id.Image"), System.Drawing.Image)
         Me.Btn_Account_Budget_Id.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.Btn_Account_Budget_Id.Location = New System.Drawing.Point(18, 288)
-        Me.Btn_Account_Budget_Id.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Btn_Account_Budget_Id.Margin = New System.Windows.Forms.Padding(2)
         Me.Btn_Account_Budget_Id.Name = "Btn_Account_Budget_Id"
         Me.Btn_Account_Budget_Id.Size = New System.Drawing.Size(285, 37)
         Me.Btn_Account_Budget_Id.TabIndex = 174
@@ -1273,7 +1273,7 @@ Partial Class SPAS
         Me.Tbx_Beheer_Accountbron.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Beheer_Accountbron.ForeColor = System.Drawing.Color.MediumPurple
         Me.Tbx_Beheer_Accountbron.Location = New System.Drawing.Point(544, 98)
-        Me.Tbx_Beheer_Accountbron.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Beheer_Accountbron.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Beheer_Accountbron.Name = "Tbx_Beheer_Accountbron"
         Me.Tbx_Beheer_Accountbron.Size = New System.Drawing.Size(49, 24)
         Me.Tbx_Beheer_Accountbron.TabIndex = 173
@@ -1337,7 +1337,7 @@ Partial Class SPAS
         '
         Me.Tbx_Beheer_Account_Code.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Beheer_Account_Code.Location = New System.Drawing.Point(137, 193)
-        Me.Tbx_Beheer_Account_Code.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Beheer_Account_Code.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Beheer_Account_Code.Name = "Tbx_Beheer_Account_Code"
         Me.Tbx_Beheer_Account_Code.Size = New System.Drawing.Size(87, 27)
         Me.Tbx_Beheer_Account_Code.TabIndex = 167
@@ -1346,7 +1346,7 @@ Partial Class SPAS
         '
         Me.Tbx_Beheer_AccountTrefwoorden.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Beheer_AccountTrefwoorden.Location = New System.Drawing.Point(137, 232)
-        Me.Tbx_Beheer_AccountTrefwoorden.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Beheer_AccountTrefwoorden.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Beheer_AccountTrefwoorden.Multiline = True
         Me.Tbx_Beheer_AccountTrefwoorden.Name = "Tbx_Beheer_AccountTrefwoorden"
         Me.Tbx_Beheer_AccountTrefwoorden.Size = New System.Drawing.Size(456, 39)
@@ -1358,7 +1358,7 @@ Partial Class SPAS
         Me.Panel10.Controls.Add(Me.Rbtn_Beheer_Account_3)
         Me.Panel10.Controls.Add(Me.Rbtn_Beheer_Account_1)
         Me.Panel10.Location = New System.Drawing.Point(137, 55)
-        Me.Panel10.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel10.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(357, 34)
         Me.Panel10.TabIndex = 165
@@ -1407,7 +1407,7 @@ Partial Class SPAS
         '
         Me.Tbx_Beheer_Accounttype.Enabled = False
         Me.Tbx_Beheer_Accounttype.Location = New System.Drawing.Point(47, 257)
-        Me.Tbx_Beheer_Accounttype.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Beheer_Accounttype.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Beheer_Accounttype.Name = "Tbx_Beheer_Accounttype"
         Me.Tbx_Beheer_Accounttype.Size = New System.Drawing.Size(64, 27)
         Me.Tbx_Beheer_Accounttype.TabIndex = 164
@@ -1452,7 +1452,7 @@ Partial Class SPAS
         '
         Me.Tbx_Beheer_Account_Description1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Beheer_Account_Description1.Location = New System.Drawing.Point(137, 126)
-        Me.Tbx_Beheer_Account_Description1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Beheer_Account_Description1.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Beheer_Account_Description1.Multiline = True
         Me.Tbx_Beheer_Account_Description1.Name = "Tbx_Beheer_Account_Description1"
         Me.Tbx_Beheer_Account_Description1.Size = New System.Drawing.Size(456, 61)
@@ -1472,7 +1472,7 @@ Partial Class SPAS
         Me.Panel17.Controls.Add(Me.Btn_Boeking_Expand_Collapse)
         Me.Panel17.Controls.Add(Me.AccountTree)
         Me.Panel17.Location = New System.Drawing.Point(5, 5)
-        Me.Panel17.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel17.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel17.Name = "Panel17"
         Me.Panel17.Size = New System.Drawing.Size(368, 517)
         Me.Panel17.TabIndex = 6
@@ -1493,7 +1493,7 @@ Partial Class SPAS
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AccountTree.Location = New System.Drawing.Point(18, 10)
-        Me.AccountTree.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.AccountTree.Margin = New System.Windows.Forms.Padding(2)
         Me.AccountTree.Name = "AccountTree"
         Me.AccountTree.Size = New System.Drawing.Size(338, 472)
         Me.AccountTree.TabIndex = 0
@@ -1503,7 +1503,7 @@ Partial Class SPAS
         Me.Instellingen.Controls.Add(Me.Dgv_Settings)
         Me.Instellingen.Location = New System.Drawing.Point(4, 28)
         Me.Instellingen.Name = "Instellingen"
-        Me.Instellingen.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.Instellingen.Padding = New System.Windows.Forms.Padding(3)
         Me.Instellingen.Size = New System.Drawing.Size(1072, 527)
         Me.Instellingen.TabIndex = 0
         Me.Instellingen.Text = "Instellingen"
@@ -1529,7 +1529,7 @@ Partial Class SPAS
         '
         Me.AVG.Location = New System.Drawing.Point(4, 28)
         Me.AVG.Name = "AVG"
-        Me.AVG.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.AVG.Padding = New System.Windows.Forms.Padding(3)
         Me.AVG.Size = New System.Drawing.Size(1072, 527)
         Me.AVG.TabIndex = 1
         Me.AVG.Text = "AVG"
@@ -1553,7 +1553,7 @@ Partial Class SPAS
         Me.QueryBuilder.Controls.Add(Me.Dgv_Query_Test)
         Me.QueryBuilder.Location = New System.Drawing.Point(4, 28)
         Me.QueryBuilder.Name = "QueryBuilder"
-        Me.QueryBuilder.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.QueryBuilder.Padding = New System.Windows.Forms.Padding(3)
         Me.QueryBuilder.Size = New System.Drawing.Size(1072, 527)
         Me.QueryBuilder.TabIndex = 2
         Me.QueryBuilder.Text = "QueryBuilder"
@@ -1562,7 +1562,7 @@ Partial Class SPAS
         'Button1
         '
         Me.Button1.Location = New System.Drawing.Point(52, 160)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(2)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(127, 34)
         Me.Button1.TabIndex = 33
@@ -1720,7 +1720,7 @@ Partial Class SPAS
         Me.TP_Test.Controls.Add(Me.Dgv_Mgnt_Tables)
         Me.TP_Test.Location = New System.Drawing.Point(4, 28)
         Me.TP_Test.Name = "TP_Test"
-        Me.TP_Test.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.TP_Test.Padding = New System.Windows.Forms.Padding(3)
         Me.TP_Test.Size = New System.Drawing.Size(1072, 527)
         Me.TP_Test.TabIndex = 3
         Me.TP_Test.Text = "Test"
@@ -1729,7 +1729,7 @@ Partial Class SPAS
         'DateTimePicker1
         '
         Me.DateTimePicker1.Location = New System.Drawing.Point(31, 282)
-        Me.DateTimePicker1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.DateTimePicker1.Margin = New System.Windows.Forms.Padding(2)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.Size = New System.Drawing.Size(140, 27)
         Me.DateTimePicker1.TabIndex = 44
@@ -1766,7 +1766,7 @@ Partial Class SPAS
         Me.Pan_Test.Controls.Add(Me.Chbx_test)
         Me.Pan_Test.Font = New System.Drawing.Font("Calibri Light", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Pan_Test.Location = New System.Drawing.Point(201, 392)
-        Me.Pan_Test.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Pan_Test.Margin = New System.Windows.Forms.Padding(2)
         Me.Pan_Test.Name = "Pan_Test"
         Me.Pan_Test.Size = New System.Drawing.Size(273, 86)
         Me.Pan_Test.TabIndex = 40
@@ -1774,7 +1774,7 @@ Partial Class SPAS
         'Button3
         '
         Me.Button3.Location = New System.Drawing.Point(156, 40)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(2)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(100, 31)
         Me.Button3.TabIndex = 32
@@ -1784,7 +1784,7 @@ Partial Class SPAS
         'Button4
         '
         Me.Button4.Location = New System.Drawing.Point(51, 0)
-        Me.Button4.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Button4.Margin = New System.Windows.Forms.Padding(2)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(33, 20)
         Me.Button4.TabIndex = 2
@@ -1795,7 +1795,7 @@ Partial Class SPAS
         '
         Me.Chbx_test.AutoSize = True
         Me.Chbx_test.Location = New System.Drawing.Point(0, 3)
-        Me.Chbx_test.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Chbx_test.Margin = New System.Windows.Forms.Padding(2)
         Me.Chbx_test.Name = "Chbx_test"
         Me.Chbx_test.Size = New System.Drawing.Size(46, 18)
         Me.Chbx_test.TabIndex = 3
@@ -1838,7 +1838,7 @@ Partial Class SPAS
         Me.TP_Bank.Controls.Add(Me.Label40)
         Me.TP_Bank.Location = New System.Drawing.Point(4, 28)
         Me.TP_Bank.Name = "TP_Bank"
-        Me.TP_Bank.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.TP_Bank.Padding = New System.Windows.Forms.Padding(3)
         Me.TP_Bank.Size = New System.Drawing.Size(1072, 527)
         Me.TP_Bank.TabIndex = 5
         Me.TP_Bank.Text = "Bankrekeningen"
@@ -1900,7 +1900,7 @@ Partial Class SPAS
         'Tbx_00_BankAcc__bic
         '
         Me.Tbx_00_BankAcc__bic.Location = New System.Drawing.Point(443, 343)
-        Me.Tbx_00_BankAcc__bic.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_00_BankAcc__bic.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_BankAcc__bic.Name = "Tbx_00_BankAcc__bic"
         Me.Tbx_00_BankAcc__bic.Size = New System.Drawing.Size(259, 27)
         Me.Tbx_00_BankAcc__bic.TabIndex = 78
@@ -1909,7 +1909,7 @@ Partial Class SPAS
         '
         Me.Tbx_01_BankAcc__name.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_01_BankAcc__name.Location = New System.Drawing.Point(443, 120)
-        Me.Tbx_01_BankAcc__name.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_01_BankAcc__name.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_01_BankAcc__name.Name = "Tbx_01_BankAcc__name"
         Me.Tbx_01_BankAcc__name.Size = New System.Drawing.Size(259, 23)
         Me.Tbx_01_BankAcc__name.TabIndex = 84
@@ -1918,7 +1918,7 @@ Partial Class SPAS
         'Tbx_00_BankAcc__id2
         '
         Me.Tbx_00_BankAcc__id2.Location = New System.Drawing.Point(443, 314)
-        Me.Tbx_00_BankAcc__id2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_00_BankAcc__id2.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_BankAcc__id2.Name = "Tbx_00_BankAcc__id2"
         Me.Tbx_00_BankAcc__id2.Size = New System.Drawing.Size(259, 27)
         Me.Tbx_00_BankAcc__id2.TabIndex = 79
@@ -1980,7 +1980,7 @@ Partial Class SPAS
         '
         Me.Tbx_01_BankAcc__owner.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_01_BankAcc__owner.Location = New System.Drawing.Point(443, 150)
-        Me.Tbx_01_BankAcc__owner.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_01_BankAcc__owner.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_01_BankAcc__owner.Name = "Tbx_01_BankAcc__owner"
         Me.Tbx_01_BankAcc__owner.Size = New System.Drawing.Size(259, 23)
         Me.Tbx_01_BankAcc__owner.TabIndex = 86
@@ -2000,7 +2000,7 @@ Partial Class SPAS
         '
         Me.Tbx_00_BankAcc__description.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_00_BankAcc__description.Location = New System.Drawing.Point(721, 90)
-        Me.Tbx_00_BankAcc__description.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_00_BankAcc__description.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_BankAcc__description.Multiline = True
         Me.Tbx_00_BankAcc__description.Name = "Tbx_00_BankAcc__description"
         Me.Tbx_00_BankAcc__description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -2011,7 +2011,7 @@ Partial Class SPAS
         '
         Me.Tbx_01_BankAcc__accountno.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_01_BankAcc__accountno.Location = New System.Drawing.Point(443, 90)
-        Me.Tbx_01_BankAcc__accountno.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_01_BankAcc__accountno.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_01_BankAcc__accountno.Name = "Tbx_01_BankAcc__accountno"
         Me.Tbx_01_BankAcc__accountno.Size = New System.Drawing.Size(259, 23)
         Me.Tbx_01_BankAcc__accountno.TabIndex = 81
@@ -2054,7 +2054,7 @@ Partial Class SPAS
         '
         Me.Tbx_BankAcc_startbalance.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_BankAcc_startbalance.Location = New System.Drawing.Point(443, 245)
-        Me.Tbx_BankAcc_startbalance.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_BankAcc_startbalance.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_BankAcc_startbalance.Name = "Tbx_BankAcc_startbalance"
         Me.Tbx_BankAcc_startbalance.Size = New System.Drawing.Size(120, 23)
         Me.Tbx_BankAcc_startbalance.TabIndex = 87
@@ -2079,10 +2079,10 @@ Partial Class SPAS
         Me.Rapportage.Controls.Add(Me.Panel12)
         Me.Rapportage.Controls.Add(Me.Panel11)
         Me.Rapportage.Location = New System.Drawing.Point(4, 28)
-        Me.Rapportage.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Rapportage.Margin = New System.Windows.Forms.Padding(2)
         Me.Rapportage.Name = "Rapportage"
-        Me.Rapportage.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.Rapportage.Size = New System.Drawing.Size(1106, 567)
+        Me.Rapportage.Padding = New System.Windows.Forms.Padding(2)
+        Me.Rapportage.Size = New System.Drawing.Size(1106, 581)
         Me.Rapportage.TabIndex = 5
         Me.Rapportage.Text = "Rapportage "
         Me.Rapportage.UseVisualStyleBackColor = True
@@ -2100,7 +2100,7 @@ Partial Class SPAS
         '
         Me.Splitter_left.Location = New System.Drawing.Point(198, 364)
         Me.Splitter_left.Name = "Splitter_left"
-        Me.Splitter_left.Size = New System.Drawing.Size(3, 201)
+        Me.Splitter_left.Size = New System.Drawing.Size(3, 215)
         Me.Splitter_left.TabIndex = 95
         Me.Splitter_left.TabStop = False
         '
@@ -2111,7 +2111,7 @@ Partial Class SPAS
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel13.Location = New System.Drawing.Point(198, 364)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(906, 201)
+        Me.Panel13.Size = New System.Drawing.Size(906, 215)
         Me.Panel13.TabIndex = 94
         '
         'Lbl_Rapportage_Detail
@@ -2140,7 +2140,7 @@ Partial Class SPAS
         DataGridViewCellStyle6.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Report_6.RowsDefaultCellStyle = DataGridViewCellStyle6
         Me.Dgv_Report_6.RowTemplate.Height = 20
-        Me.Dgv_Report_6.Size = New System.Drawing.Size(894, 163)
+        Me.Dgv_Report_6.Size = New System.Drawing.Size(894, 177)
         Me.Dgv_Report_6.TabIndex = 90
         '
         'Panel12
@@ -2174,7 +2174,7 @@ Partial Class SPAS
         Me.Dgv_Rapportage_Overzicht.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Dgv_Rapportage_Overzicht.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.Dgv_Rapportage_Overzicht.Location = New System.Drawing.Point(5, 25)
-        Me.Dgv_Rapportage_Overzicht.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Dgv_Rapportage_Overzicht.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Rapportage_Overzicht.Name = "Dgv_Rapportage_Overzicht"
         Me.Dgv_Rapportage_Overzicht.RowHeadersVisible = False
         Me.Dgv_Rapportage_Overzicht.RowHeadersWidth = 50
@@ -2203,7 +2203,7 @@ Partial Class SPAS
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel11.Location = New System.Drawing.Point(2, 2)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(196, 563)
+        Me.Panel11.Size = New System.Drawing.Size(196, 577)
         Me.Panel11.TabIndex = 91
         '
         'ReportTree
@@ -2214,7 +2214,7 @@ Partial Class SPAS
         Me.ReportTree.Font = New System.Drawing.Font("Calibri", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ReportTree.Location = New System.Drawing.Point(3, 26)
         Me.ReportTree.Name = "ReportTree"
-        Me.ReportTree.Size = New System.Drawing.Size(190, 503)
+        Me.ReportTree.Size = New System.Drawing.Size(190, 517)
         Me.ReportTree.TabIndex = 83
         '
         'Label119
@@ -2229,7 +2229,7 @@ Partial Class SPAS
         'Btn_Rap_Expand_Collapse
         '
         Me.Btn_Rap_Expand_Collapse.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Btn_Rap_Expand_Collapse.Location = New System.Drawing.Point(3, 535)
+        Me.Btn_Rap_Expand_Collapse.Location = New System.Drawing.Point(3, 549)
         Me.Btn_Rap_Expand_Collapse.Name = "Btn_Rap_Expand_Collapse"
         Me.Btn_Rap_Expand_Collapse.Size = New System.Drawing.Size(196, 28)
         Me.Btn_Rap_Expand_Collapse.TabIndex = 84
@@ -2251,9 +2251,9 @@ Partial Class SPAS
         Me.Boekingen.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Boekingen.Controls.Add(Me.TC_Boeking)
         Me.Boekingen.Location = New System.Drawing.Point(4, 28)
-        Me.Boekingen.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Boekingen.Margin = New System.Windows.Forms.Padding(2)
         Me.Boekingen.Name = "Boekingen"
-        Me.Boekingen.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Boekingen.Padding = New System.Windows.Forms.Padding(2)
         Me.Boekingen.Size = New System.Drawing.Size(1106, 567)
         Me.Boekingen.TabIndex = 4
         Me.Boekingen.Text = "Boekingen"
@@ -2268,7 +2268,7 @@ Partial Class SPAS
         Me.TC_Boeking.Controls.Add(Me.Jaarafsluiting)
         Me.TC_Boeking.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TC_Boeking.Location = New System.Drawing.Point(2, 4)
-        Me.TC_Boeking.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TC_Boeking.Margin = New System.Windows.Forms.Padding(2)
         Me.TC_Boeking.Name = "TC_Boeking"
         Me.TC_Boeking.SelectedIndex = 0
         Me.TC_Boeking.Size = New System.Drawing.Size(1075, 570)
@@ -2280,9 +2280,9 @@ Partial Class SPAS
         Me.Overboekingen.Controls.Add(Me.Panel8)
         Me.Overboekingen.Controls.Add(Me.Panel7)
         Me.Overboekingen.Location = New System.Drawing.Point(4, 28)
-        Me.Overboekingen.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Overboekingen.Margin = New System.Windows.Forms.Padding(2)
         Me.Overboekingen.Name = "Overboekingen"
-        Me.Overboekingen.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Overboekingen.Padding = New System.Windows.Forms.Padding(2)
         Me.Overboekingen.Size = New System.Drawing.Size(1067, 538)
         Me.Overboekingen.TabIndex = 1
         Me.Overboekingen.Text = "Overboekingen"
@@ -2312,7 +2312,7 @@ Partial Class SPAS
         Me.Panel8.Controls.Add(Me.Label125)
         Me.Panel8.Controls.Add(Me.Tbx_Journal_Description)
         Me.Panel8.Location = New System.Drawing.Point(10, 63)
-        Me.Panel8.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel8.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Size = New System.Drawing.Size(974, 452)
         Me.Panel8.TabIndex = 50
@@ -2423,7 +2423,7 @@ Partial Class SPAS
         Me.Btn_Journal_Intern_Save.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Btn_Journal_Intern_Save.Image = CType(resources.GetObject("Btn_Journal_Intern_Save.Image"), System.Drawing.Image)
         Me.Btn_Journal_Intern_Save.Location = New System.Drawing.Point(825, 3)
-        Me.Btn_Journal_Intern_Save.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Btn_Journal_Intern_Save.Margin = New System.Windows.Forms.Padding(2)
         Me.Btn_Journal_Intern_Save.Name = "Btn_Journal_Intern_Save"
         Me.Btn_Journal_Intern_Save.Size = New System.Drawing.Size(31, 32)
         Me.Btn_Journal_Intern_Save.TabIndex = 46
@@ -2472,7 +2472,7 @@ Partial Class SPAS
         Me.Dtp_Journal_intern.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dtp_Journal_intern.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.Dtp_Journal_intern.Location = New System.Drawing.Point(460, 105)
-        Me.Dtp_Journal_intern.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Dtp_Journal_intern.Margin = New System.Windows.Forms.Padding(2)
         Me.Dtp_Journal_intern.Name = "Dtp_Journal_intern"
         Me.Dtp_Journal_intern.Size = New System.Drawing.Size(110, 25)
         Me.Dtp_Journal_intern.TabIndex = 124
@@ -2490,7 +2490,7 @@ Partial Class SPAS
         Me.Dgv_Journal_Intern.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.Dgv_Journal_Intern.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.id1, Me.Accnt, Me.Amt1})
         Me.Dgv_Journal_Intern.Location = New System.Drawing.Point(124, 66)
-        Me.Dgv_Journal_Intern.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Dgv_Journal_Intern.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Journal_Intern.Name = "Dgv_Journal_Intern"
         Me.Dgv_Journal_Intern.RowHeadersVisible = False
         Me.Dgv_Journal_Intern.RowHeadersWidth = 50
@@ -2550,7 +2550,7 @@ Partial Class SPAS
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Tbx_Journal_Description.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Journal_Description.Location = New System.Drawing.Point(460, 169)
-        Me.Tbx_Journal_Description.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Journal_Description.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Journal_Description.Multiline = True
         Me.Tbx_Journal_Description.Name = "Tbx_Journal_Description"
         Me.Tbx_Journal_Description.Size = New System.Drawing.Size(464, 176)
@@ -2569,7 +2569,7 @@ Partial Class SPAS
         Me.Panel7.Controls.Add(Me.Lbl_Journal_Source_id)
         Me.Panel7.Controls.Add(Me.Label129)
         Me.Panel7.Location = New System.Drawing.Point(10, 8)
-        Me.Panel7.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel7.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(974, 51)
         Me.Panel7.TabIndex = 49
@@ -2620,7 +2620,7 @@ Partial Class SPAS
         Me.Tbx_Journal_Source_Amt.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Journal_Source_Amt.ForeColor = System.Drawing.SystemColors.HotTrack
         Me.Tbx_Journal_Source_Amt.Location = New System.Drawing.Point(420, 9)
-        Me.Tbx_Journal_Source_Amt.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Journal_Source_Amt.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Journal_Source_Amt.Name = "Tbx_Journal_Source_Amt"
         Me.Tbx_Journal_Source_Amt.Size = New System.Drawing.Size(85, 25)
         Me.Tbx_Journal_Source_Amt.TabIndex = 44
@@ -2680,7 +2680,7 @@ Partial Class SPAS
         Me.Journaalposten.Controls.Add(Me.Panel2)
         Me.Journaalposten.Location = New System.Drawing.Point(4, 28)
         Me.Journaalposten.Name = "Journaalposten"
-        Me.Journaalposten.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.Journaalposten.Padding = New System.Windows.Forms.Padding(3)
         Me.Journaalposten.Size = New System.Drawing.Size(1067, 538)
         Me.Journaalposten.TabIndex = 2
         Me.Journaalposten.Text = "Journaalposten"
@@ -3002,7 +3002,7 @@ Partial Class SPAS
         Me.Btn_journaalposten_Save.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Btn_journaalposten_Save.Image = CType(resources.GetObject("Btn_journaalposten_Save.Image"), System.Drawing.Image)
         Me.Btn_journaalposten_Save.Location = New System.Drawing.Point(325, 24)
-        Me.Btn_journaalposten_Save.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Btn_journaalposten_Save.Margin = New System.Windows.Forms.Padding(2)
         Me.Btn_journaalposten_Save.Name = "Btn_journaalposten_Save"
         Me.Btn_journaalposten_Save.Size = New System.Drawing.Size(30, 23)
         Me.Btn_journaalposten_Save.TabIndex = 81
@@ -3085,7 +3085,7 @@ Partial Class SPAS
         Me.Panel2.Controls.Add(Me.Lv_Journal_List)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel2.Location = New System.Drawing.Point(3, 3)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(186, 532)
         Me.Panel2.TabIndex = 134
@@ -3130,7 +3130,7 @@ Partial Class SPAS
         '
         Me.Tbx_Journal_Filter.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Journal_Filter.Location = New System.Drawing.Point(2, 2)
-        Me.Tbx_Journal_Filter.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Journal_Filter.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Journal_Filter.Name = "Tbx_Journal_Filter"
         Me.Tbx_Journal_Filter.Size = New System.Drawing.Size(18, 25)
         Me.Tbx_Journal_Filter.TabIndex = 57
@@ -3147,7 +3147,7 @@ Partial Class SPAS
         Me.Lv_Journal_List.FullRowSelect = True
         Me.Lv_Journal_List.HideSelection = False
         Me.Lv_Journal_List.Location = New System.Drawing.Point(2, 32)
-        Me.Lv_Journal_List.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Lv_Journal_List.Margin = New System.Windows.Forms.Padding(2)
         Me.Lv_Journal_List.Name = "Lv_Journal_List"
         Me.Lv_Journal_List.Size = New System.Drawing.Size(182, 498)
         Me.Lv_Journal_List.TabIndex = 54
@@ -3165,9 +3165,9 @@ Partial Class SPAS
         'Accounts
         '
         Me.Accounts.Location = New System.Drawing.Point(4, 28)
-        Me.Accounts.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Accounts.Margin = New System.Windows.Forms.Padding(2)
         Me.Accounts.Name = "Accounts"
-        Me.Accounts.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Accounts.Padding = New System.Windows.Forms.Padding(2)
         Me.Accounts.Size = New System.Drawing.Size(1067, 538)
         Me.Accounts.TabIndex = 4
         Me.Accounts.Text = "Accounts"
@@ -3181,7 +3181,7 @@ Partial Class SPAS
         Me.Jaarafsluiting.Controls.Add(Me.Btn_Report_YearEnd_Post)
         Me.Jaarafsluiting.Location = New System.Drawing.Point(4, 28)
         Me.Jaarafsluiting.Name = "Jaarafsluiting"
-        Me.Jaarafsluiting.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.Jaarafsluiting.Padding = New System.Windows.Forms.Padding(3)
         Me.Jaarafsluiting.Size = New System.Drawing.Size(1067, 538)
         Me.Jaarafsluiting.TabIndex = 3
         Me.Jaarafsluiting.Text = "Jaarafsluiting"
@@ -3199,7 +3199,7 @@ Partial Class SPAS
         Me.Dgv_Report_Year_Closing.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Dgv_Report_Year_Closing.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.Dgv_Report_Year_Closing.Location = New System.Drawing.Point(5, 39)
-        Me.Dgv_Report_Year_Closing.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Dgv_Report_Year_Closing.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Report_Year_Closing.Name = "Dgv_Report_Year_Closing"
         Me.Dgv_Report_Year_Closing.RowHeadersVisible = False
         Me.Dgv_Report_Year_Closing.RowHeadersWidth = 50
@@ -3214,7 +3214,7 @@ Partial Class SPAS
         Me.Btn_Report_YearEnd_Check.BackColor = System.Drawing.SystemColors.Control
         Me.Btn_Report_YearEnd_Check.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Btn_Report_YearEnd_Check.Location = New System.Drawing.Point(2, 2)
-        Me.Btn_Report_YearEnd_Check.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Btn_Report_YearEnd_Check.Margin = New System.Windows.Forms.Padding(2)
         Me.Btn_Report_YearEnd_Check.Name = "Btn_Report_YearEnd_Check"
         Me.Btn_Report_YearEnd_Check.Size = New System.Drawing.Size(180, 33)
         Me.Btn_Report_YearEnd_Check.TabIndex = 88
@@ -3238,7 +3238,7 @@ Partial Class SPAS
         Me.Btn_Report_YearEnd_Post.BackColor = System.Drawing.SystemColors.Control
         Me.Btn_Report_YearEnd_Post.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Btn_Report_YearEnd_Post.Location = New System.Drawing.Point(182, 2)
-        Me.Btn_Report_YearEnd_Post.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Btn_Report_YearEnd_Post.Margin = New System.Windows.Forms.Padding(2)
         Me.Btn_Report_YearEnd_Post.Name = "Btn_Report_YearEnd_Post"
         Me.Btn_Report_YearEnd_Post.Size = New System.Drawing.Size(155, 33)
         Me.Btn_Report_YearEnd_Post.TabIndex = 86
@@ -3258,9 +3258,9 @@ Partial Class SPAS
         Me.Uitkering.Controls.Add(Me.Btn_Excasso_Cancel)
         Me.Uitkering.Controls.Add(Me.Btn_Excasso_Delete)
         Me.Uitkering.Location = New System.Drawing.Point(4, 28)
-        Me.Uitkering.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Uitkering.Margin = New System.Windows.Forms.Padding(2)
         Me.Uitkering.Name = "Uitkering"
-        Me.Uitkering.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Uitkering.Padding = New System.Windows.Forms.Padding(2)
         Me.Uitkering.Size = New System.Drawing.Size(1106, 567)
         Me.Uitkering.TabIndex = 3
         Me.Uitkering.Text = "Uitkering   "
@@ -3345,7 +3345,7 @@ Partial Class SPAS
         DataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Dgv_Excasso2.DefaultCellStyle = DataGridViewCellStyle17
         Me.Dgv_Excasso2.Location = New System.Drawing.Point(3, 5)
-        Me.Dgv_Excasso2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Dgv_Excasso2.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Excasso2.Name = "Dgv_Excasso2"
         Me.Dgv_Excasso2.RowHeadersVisible = False
         Me.Dgv_Excasso2.RowHeadersWidth = 50
@@ -3371,7 +3371,7 @@ Partial Class SPAS
         Me.Pan_Excasso.Dock = System.Windows.Forms.DockStyle.Top
         Me.Pan_Excasso.Font = New System.Drawing.Font("Calibri", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Pan_Excasso.Location = New System.Drawing.Point(2, 2)
-        Me.Pan_Excasso.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Pan_Excasso.Margin = New System.Windows.Forms.Padding(2)
         Me.Pan_Excasso.Name = "Pan_Excasso"
         Me.Pan_Excasso.Size = New System.Drawing.Size(1102, 105)
         Me.Pan_Excasso.TabIndex = 131
@@ -3410,7 +3410,7 @@ Partial Class SPAS
         'Cbx_CP_Automatisch
         '
         Me.Cbx_CP_Automatisch.Location = New System.Drawing.Point(9, 58)
-        Me.Cbx_CP_Automatisch.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Cbx_CP_Automatisch.Margin = New System.Windows.Forms.Padding(2)
         Me.Cbx_CP_Automatisch.Name = "Cbx_CP_Automatisch"
         Me.Cbx_CP_Automatisch.Size = New System.Drawing.Size(250, 22)
         Me.Cbx_CP_Automatisch.TabIndex = 148
@@ -3423,7 +3423,7 @@ Partial Class SPAS
         Me.Tbx_Excasso_Exchange_rate.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Excasso_Exchange_rate.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Tbx_Excasso_Exchange_rate.Location = New System.Drawing.Point(96, 80)
-        Me.Tbx_Excasso_Exchange_rate.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Excasso_Exchange_rate.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Excasso_Exchange_rate.Name = "Tbx_Excasso_Exchange_rate"
         Me.Tbx_Excasso_Exchange_rate.Size = New System.Drawing.Size(33, 25)
         Me.Tbx_Excasso_Exchange_rate.TabIndex = 145
@@ -3464,7 +3464,7 @@ Partial Class SPAS
         Me.Dgv_Excasso_numbers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.Dgv_Excasso_numbers.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Doel0, Me.Doel, Me.Prefil, Me.Bron, Me.Aantal, Me.Bedrag, Me.Norm, Me.Eenheid, Me.CPTotaal, Me.Comp, Me.Euro, Me.MLD})
         Me.Dgv_Excasso_numbers.Location = New System.Drawing.Point(278, 1)
-        Me.Dgv_Excasso_numbers.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Dgv_Excasso_numbers.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Excasso_numbers.Name = "Dgv_Excasso_numbers"
         DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.Control
@@ -3731,9 +3731,9 @@ Partial Class SPAS
         Me.Incasso.Controls.Add(Me.Panel3)
         Me.Incasso.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Incasso.Location = New System.Drawing.Point(4, 28)
-        Me.Incasso.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Incasso.Margin = New System.Windows.Forms.Padding(2)
         Me.Incasso.Name = "Incasso"
-        Me.Incasso.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Incasso.Padding = New System.Windows.Forms.Padding(2)
         Me.Incasso.Size = New System.Drawing.Size(1106, 567)
         Me.Incasso.TabIndex = 2
         Me.Incasso.Text = "Incasso   "
@@ -3742,7 +3742,7 @@ Partial Class SPAS
         '
         Me.Pan_Incasso.Controls.Add(Me.Dgv_Incasso)
         Me.Pan_Incasso.Location = New System.Drawing.Point(300, 5)
-        Me.Pan_Incasso.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Pan_Incasso.Margin = New System.Windows.Forms.Padding(2)
         Me.Pan_Incasso.Name = "Pan_Incasso"
         Me.Pan_Incasso.Size = New System.Drawing.Size(774, 560)
         Me.Pan_Incasso.TabIndex = 101
@@ -3770,7 +3770,7 @@ Partial Class SPAS
         DataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Dgv_Incasso.DefaultCellStyle = DataGridViewCellStyle35
         Me.Dgv_Incasso.Location = New System.Drawing.Point(2, 2)
-        Me.Dgv_Incasso.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Dgv_Incasso.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Incasso.MultiSelect = False
         Me.Dgv_Incasso.Name = "Dgv_Incasso"
         Me.Dgv_Incasso.ReadOnly = True
@@ -3789,7 +3789,7 @@ Partial Class SPAS
         Me.Panel3.Controls.Add(Me.GroupBox1)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel3.Location = New System.Drawing.Point(2, 2)
-        Me.Panel3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel3.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(294, 563)
         Me.Panel3.TabIndex = 100
@@ -3952,7 +3952,7 @@ Partial Class SPAS
         Me.Cmx_Incasso_Bankaccount.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cmx_Incasso_Bankaccount.FormattingEnabled = True
         Me.Cmx_Incasso_Bankaccount.Location = New System.Drawing.Point(80, 21)
-        Me.Cmx_Incasso_Bankaccount.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Cmx_Incasso_Bankaccount.Margin = New System.Windows.Forms.Padding(2)
         Me.Cmx_Incasso_Bankaccount.Name = "Cmx_Incasso_Bankaccount"
         Me.Cmx_Incasso_Bankaccount.Size = New System.Drawing.Size(197, 24)
         Me.Cmx_Incasso_Bankaccount.TabIndex = 79
@@ -4105,10 +4105,10 @@ Partial Class SPAS
         Me.Bank.Controls.Add(Me.Pan_Bank)
         Me.Bank.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Bank.Location = New System.Drawing.Point(4, 28)
-        Me.Bank.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Bank.Margin = New System.Windows.Forms.Padding(2)
         Me.Bank.Name = "Bank"
-        Me.Bank.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.Bank.Size = New System.Drawing.Size(1106, 567)
+        Me.Bank.Padding = New System.Windows.Forms.Padding(2)
+        Me.Bank.Size = New System.Drawing.Size(1106, 581)
         Me.Bank.TabIndex = 1
         Me.Bank.Text = "Bank   "
         '
@@ -4119,9 +4119,9 @@ Partial Class SPAS
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Pan_Bank2.Controls.Add(Me.Dgv_Bank)
         Me.Pan_Bank2.Location = New System.Drawing.Point(302, 2)
-        Me.Pan_Bank2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Pan_Bank2.Margin = New System.Windows.Forms.Padding(2)
         Me.Pan_Bank2.Name = "Pan_Bank2"
-        Me.Pan_Bank2.Size = New System.Drawing.Size(773, 576)
+        Me.Pan_Bank2.Size = New System.Drawing.Size(773, 590)
         Me.Pan_Bank2.TabIndex = 58
         '
         'Dgv_Bank
@@ -4146,7 +4146,7 @@ Partial Class SPAS
         DataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Dgv_Bank.DefaultCellStyle = DataGridViewCellStyle42
         Me.Dgv_Bank.Location = New System.Drawing.Point(2, 2)
-        Me.Dgv_Bank.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Dgv_Bank.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Bank.MultiSelect = False
         Me.Dgv_Bank.Name = "Dgv_Bank"
         Me.Dgv_Bank.ReadOnly = True
@@ -4156,7 +4156,7 @@ Partial Class SPAS
         Me.Dgv_Bank.RowTemplate.Height = 20
         Me.Dgv_Bank.RowTemplate.ReadOnly = True
         Me.Dgv_Bank.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.Dgv_Bank.Size = New System.Drawing.Size(773, 569)
+        Me.Dgv_Bank.Size = New System.Drawing.Size(773, 583)
         Me.Dgv_Bank.TabIndex = 3
         '
         'Pan_Bank
@@ -4184,9 +4184,9 @@ Partial Class SPAS
         Me.Pan_Bank.Controls.Add(Me.Label76)
         Me.Pan_Bank.Controls.Add(Me.Pan_Bank_jtype)
         Me.Pan_Bank.Location = New System.Drawing.Point(2, 0)
-        Me.Pan_Bank.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Pan_Bank.Margin = New System.Windows.Forms.Padding(2)
         Me.Pan_Bank.Name = "Pan_Bank"
-        Me.Pan_Bank.Size = New System.Drawing.Size(299, 574)
+        Me.Pan_Bank.Size = New System.Drawing.Size(299, 588)
         Me.Pan_Bank.TabIndex = 47
         '
         'Button6
@@ -4212,7 +4212,7 @@ Partial Class SPAS
         Me.Panel6.Controls.Add(Me.Label73)
         Me.Panel6.Controls.Add(Me.Label72)
         Me.Panel6.Location = New System.Drawing.Point(6, 56)
-        Me.Panel6.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel6.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(285, 157)
         Me.Panel6.TabIndex = 60
@@ -4359,7 +4359,7 @@ Partial Class SPAS
         Me.Cmx_Bank_bankacc.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cmx_Bank_bankacc.FormattingEnabled = True
         Me.Cmx_Bank_bankacc.Location = New System.Drawing.Point(2, 3)
-        Me.Cmx_Bank_bankacc.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Cmx_Bank_bankacc.Margin = New System.Windows.Forms.Padding(2)
         Me.Cmx_Bank_bankacc.Name = "Cmx_Bank_bankacc"
         Me.Cmx_Bank_bankacc.Size = New System.Drawing.Size(295, 26)
         Me.Cmx_Bank_bankacc.TabIndex = 21
@@ -4387,20 +4387,20 @@ Partial Class SPAS
         Me.Dgv_Bank_Account.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.Dgv_Bank_Account.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.Dgv_Bank_Account.Location = New System.Drawing.Point(0, 335)
-        Me.Dgv_Bank_Account.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Dgv_Bank_Account.Margin = New System.Windows.Forms.Padding(2)
         Me.Dgv_Bank_Account.Name = "Dgv_Bank_Account"
         Me.Dgv_Bank_Account.RowHeadersVisible = False
         Me.Dgv_Bank_Account.RowHeadersWidth = 50
         DataGridViewCellStyle44.Font = New System.Drawing.Font("Arial Narrow", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Bank_Account.RowsDefaultCellStyle = DataGridViewCellStyle44
         Me.Dgv_Bank_Account.RowTemplate.Height = 20
-        Me.Dgv_Bank_Account.Size = New System.Drawing.Size(298, 234)
+        Me.Dgv_Bank_Account.Size = New System.Drawing.Size(298, 248)
         Me.Dgv_Bank_Account.TabIndex = 37
         '
         'Tbx_Bank_Search
         '
         Me.Tbx_Bank_Search.Location = New System.Drawing.Point(104, 611)
-        Me.Tbx_Bank_Search.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Bank_Search.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Bank_Search.Name = "Tbx_Bank_Search"
         Me.Tbx_Bank_Search.Size = New System.Drawing.Size(40, 23)
         Me.Tbx_Bank_Search.TabIndex = 23
@@ -4411,7 +4411,7 @@ Partial Class SPAS
         Me.CheckBox1.AutoSize = True
         Me.CheckBox1.Enabled = False
         Me.CheckBox1.Location = New System.Drawing.Point(7, 628)
-        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CheckBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(141, 21)
         Me.CheckBox1.TabIndex = 24
@@ -4450,7 +4450,7 @@ Partial Class SPAS
         Me.Cmx_Bank_Account.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.Cmx_Bank_Account.FormattingEnabled = True
         Me.Cmx_Bank_Account.Location = New System.Drawing.Point(59, 307)
-        Me.Cmx_Bank_Account.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Cmx_Bank_Account.Margin = New System.Windows.Forms.Padding(2)
         Me.Cmx_Bank_Account.Name = "Cmx_Bank_Account"
         Me.Cmx_Bank_Account.Size = New System.Drawing.Size(167, 24)
         Me.Cmx_Bank_Account.TabIndex = 32
@@ -4470,7 +4470,7 @@ Partial Class SPAS
         '
         Me.Tbx_Bank_Amount.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Tbx_Bank_Amount.Location = New System.Drawing.Point(200, 36)
-        Me.Tbx_Bank_Amount.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Bank_Amount.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Bank_Amount.Name = "Tbx_Bank_Amount"
         Me.Tbx_Bank_Amount.Size = New System.Drawing.Size(52, 23)
         Me.Tbx_Bank_Amount.TabIndex = 34
@@ -4522,7 +4522,7 @@ Partial Class SPAS
         Me.Pan_Bank_jtype.Controls.Add(Me.Rbn_Bank_jtype_ext)
         Me.Pan_Bank_jtype.Location = New System.Drawing.Point(7, 282)
         Me.Pan_Bank_jtype.Name = "Pan_Bank_jtype"
-        Me.Pan_Bank_jtype.Size = New System.Drawing.Size(277, 24)
+        Me.Pan_Bank_jtype.Size = New System.Drawing.Size(277, 38)
         Me.Pan_Bank_jtype.TabIndex = 52
         Me.Pan_Bank_jtype.Visible = False
         '
@@ -4578,9 +4578,9 @@ Partial Class SPAS
         Me.Basisadministratie.Controls.Add(Me.TC_Object)
         Me.Basisadministratie.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Basisadministratie.Location = New System.Drawing.Point(4, 28)
-        Me.Basisadministratie.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Basisadministratie.Margin = New System.Windows.Forms.Padding(2)
         Me.Basisadministratie.Name = "Basisadministratie"
-        Me.Basisadministratie.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Basisadministratie.Padding = New System.Windows.Forms.Padding(2)
         Me.Basisadministratie.Size = New System.Drawing.Size(1106, 567)
         Me.Basisadministratie.TabIndex = 0
         Me.Basisadministratie.Text = "Basisadministratie   "
@@ -4592,7 +4592,7 @@ Partial Class SPAS
         Me.Panel1.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Panel1.Controls.Add(Me.Lbx_Basis)
         Me.Panel1.Location = New System.Drawing.Point(4, 15)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(366, 544)
         Me.Panel1.TabIndex = 99
@@ -4622,7 +4622,7 @@ Partial Class SPAS
         Me.TC_Object.Controls.Add(Me.Accgroup)
         Me.TC_Object.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TC_Object.Location = New System.Drawing.Point(370, 16)
-        Me.TC_Object.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TC_Object.Margin = New System.Windows.Forms.Padding(2)
         Me.TC_Object.Name = "TC_Object"
         Me.TC_Object.SelectedIndex = 0
         Me.TC_Object.Size = New System.Drawing.Size(729, 547)
@@ -4678,9 +4678,9 @@ Partial Class SPAS
         Me.Contract.Controls.Add(Me.Tbx_11_Contract__donation)
         Me.Contract.Controls.Add(Me.Tbx_01_contract_yeartotal)
         Me.Contract.Location = New System.Drawing.Point(4, 30)
-        Me.Contract.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Contract.Margin = New System.Windows.Forms.Padding(2)
         Me.Contract.Name = "Contract"
-        Me.Contract.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Contract.Padding = New System.Windows.Forms.Padding(2)
         Me.Contract.Size = New System.Drawing.Size(721, 513)
         Me.Contract.TabIndex = 1
         Me.Contract.Text = "Contract"
@@ -4786,7 +4786,7 @@ Partial Class SPAS
         'Tbx_Contract_ttype
         '
         Me.Tbx_Contract_ttype.Location = New System.Drawing.Point(339, 90)
-        Me.Tbx_Contract_ttype.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Contract_ttype.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Contract_ttype.Name = "Tbx_Contract_ttype"
         Me.Tbx_Contract_ttype.Size = New System.Drawing.Size(52, 26)
         Me.Tbx_Contract_ttype.TabIndex = 66
@@ -5115,7 +5115,7 @@ Partial Class SPAS
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Tbx_00_contract__description.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_00_contract__description.Location = New System.Drawing.Point(15, 397)
-        Me.Tbx_00_contract__description.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_00_contract__description.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_contract__description.Multiline = True
         Me.Tbx_00_contract__description.Name = "Tbx_00_contract__description"
         Me.Tbx_00_contract__description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -5127,7 +5127,7 @@ Partial Class SPAS
         Me.Chx_00_contract__autcol.AutoSize = True
         Me.Chx_00_contract__autcol.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Chx_00_contract__autcol.Location = New System.Drawing.Point(422, 195)
-        Me.Chx_00_contract__autcol.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Chx_00_contract__autcol.Margin = New System.Windows.Forms.Padding(2)
         Me.Chx_00_contract__autcol.Name = "Chx_00_contract__autcol"
         Me.Chx_00_contract__autcol.Size = New System.Drawing.Size(160, 22)
         Me.Chx_00_contract__autcol.TabIndex = 24
@@ -5149,7 +5149,7 @@ Partial Class SPAS
         '
         Me.Tbx_11_contract__overhead.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_11_contract__overhead.Location = New System.Drawing.Point(546, 77)
-        Me.Tbx_11_contract__overhead.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_11_contract__overhead.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_11_contract__overhead.Name = "Tbx_11_contract__overhead"
         Me.Tbx_11_contract__overhead.Size = New System.Drawing.Size(62, 23)
         Me.Tbx_11_contract__overhead.TabIndex = 22
@@ -5170,7 +5170,7 @@ Partial Class SPAS
         '
         Me.Tbx_contract_period_amt.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_contract_period_amt.Location = New System.Drawing.Point(546, 167)
-        Me.Tbx_contract_period_amt.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_contract_period_amt.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_contract_period_amt.Name = "Tbx_contract_period_amt"
         Me.Tbx_contract_period_amt.Size = New System.Drawing.Size(62, 23)
         Me.Tbx_contract_period_amt.TabIndex = 23
@@ -5214,7 +5214,7 @@ Partial Class SPAS
         '
         Me.Tbx_11_Contract__donation.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_11_Contract__donation.Location = New System.Drawing.Point(546, 51)
-        Me.Tbx_11_Contract__donation.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_11_Contract__donation.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_11_Contract__donation.Name = "Tbx_11_Contract__donation"
         Me.Tbx_11_Contract__donation.Size = New System.Drawing.Size(62, 23)
         Me.Tbx_11_Contract__donation.TabIndex = 20
@@ -5224,7 +5224,7 @@ Partial Class SPAS
         '
         Me.Tbx_01_contract_yeartotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_01_contract_yeartotal.Location = New System.Drawing.Point(546, 103)
-        Me.Tbx_01_contract_yeartotal.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_01_contract_yeartotal.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_01_contract_yeartotal.Name = "Tbx_01_contract_yeartotal"
         Me.Tbx_01_contract_yeartotal.Size = New System.Drawing.Size(62, 23)
         Me.Tbx_01_contract_yeartotal.TabIndex = 22
@@ -5300,7 +5300,7 @@ Partial Class SPAS
         Me.target.Controls.Add(Me.Pic_Target__photo)
         Me.target.Location = New System.Drawing.Point(4, 30)
         Me.target.Name = "target"
-        Me.target.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.target.Padding = New System.Windows.Forms.Padding(3)
         Me.target.Size = New System.Drawing.Size(721, 513)
         Me.target.TabIndex = 2
         Me.target.Tag = "Doel"
@@ -5418,7 +5418,7 @@ Partial Class SPAS
         Me.Pan_Target.Controls.Add(Me.Rbtn_Target_Other)
         Me.Pan_Target.Enabled = False
         Me.Pan_Target.Location = New System.Drawing.Point(228, 87)
-        Me.Pan_Target.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Pan_Target.Margin = New System.Windows.Forms.Padding(2)
         Me.Pan_Target.Name = "Pan_Target"
         Me.Pan_Target.Size = New System.Drawing.Size(81, 69)
         Me.Pan_Target.TabIndex = 53
@@ -5521,7 +5521,7 @@ Partial Class SPAS
         'Tbx_00_Target__living
         '
         Me.Tbx_00_Target__living.Location = New System.Drawing.Point(504, 202)
-        Me.Tbx_00_Target__living.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_00_Target__living.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_Target__living.Name = "Tbx_00_Target__living"
         Me.Tbx_00_Target__living.Size = New System.Drawing.Size(61, 26)
         Me.Tbx_00_Target__living.TabIndex = 31
@@ -5969,7 +5969,7 @@ Partial Class SPAS
         Me.Relation.Controls.Add(Me.Tbx_00_Relation__iban)
         Me.Relation.Location = New System.Drawing.Point(4, 30)
         Me.Relation.Name = "Relation"
-        Me.Relation.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.Relation.Padding = New System.Windows.Forms.Padding(3)
         Me.Relation.Size = New System.Drawing.Size(721, 513)
         Me.Relation.TabIndex = 3
         Me.Relation.Text = "Relatie"
@@ -6123,7 +6123,7 @@ Partial Class SPAS
         '
         Me.Rbn_Relation_6.AutoSize = True
         Me.Rbn_Relation_6.Location = New System.Drawing.Point(240, 124)
-        Me.Rbn_Relation_6.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Rbn_Relation_6.Margin = New System.Windows.Forms.Padding(2)
         Me.Rbn_Relation_6.Name = "Rbn_Relation_6"
         Me.Rbn_Relation_6.Size = New System.Drawing.Size(42, 22)
         Me.Rbn_Relation_6.TabIndex = 79
@@ -6135,7 +6135,7 @@ Partial Class SPAS
         '
         Me.Rbn_Relation_5.AutoSize = True
         Me.Rbn_Relation_5.Location = New System.Drawing.Point(145, 152)
-        Me.Rbn_Relation_5.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Rbn_Relation_5.Margin = New System.Windows.Forms.Padding(2)
         Me.Rbn_Relation_5.Name = "Rbn_Relation_5"
         Me.Rbn_Relation_5.Size = New System.Drawing.Size(56, 22)
         Me.Rbn_Relation_5.TabIndex = 78
@@ -6156,7 +6156,7 @@ Partial Class SPAS
         '
         Me.Rbn_Relation_4.AutoSize = True
         Me.Rbn_Relation_4.Location = New System.Drawing.Point(240, 152)
-        Me.Rbn_Relation_4.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Rbn_Relation_4.Margin = New System.Windows.Forms.Padding(2)
         Me.Rbn_Relation_4.Name = "Rbn_Relation_4"
         Me.Rbn_Relation_4.Size = New System.Drawing.Size(59, 22)
         Me.Rbn_Relation_4.TabIndex = 76
@@ -6168,7 +6168,7 @@ Partial Class SPAS
         '
         Me.Rbn_Relation_3.AutoSize = True
         Me.Rbn_Relation_3.Location = New System.Drawing.Point(240, 96)
-        Me.Rbn_Relation_3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Rbn_Relation_3.Margin = New System.Windows.Forms.Padding(2)
         Me.Rbn_Relation_3.Name = "Rbn_Relation_3"
         Me.Rbn_Relation_3.Size = New System.Drawing.Size(104, 22)
         Me.Rbn_Relation_3.TabIndex = 75
@@ -6180,7 +6180,7 @@ Partial Class SPAS
         '
         Me.Rbn_Relation_2.AutoSize = True
         Me.Rbn_Relation_2.Location = New System.Drawing.Point(145, 124)
-        Me.Rbn_Relation_2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Rbn_Relation_2.Margin = New System.Windows.Forms.Padding(2)
         Me.Rbn_Relation_2.Name = "Rbn_Relation_2"
         Me.Rbn_Relation_2.Size = New System.Drawing.Size(60, 22)
         Me.Rbn_Relation_2.TabIndex = 75
@@ -6192,7 +6192,7 @@ Partial Class SPAS
         '
         Me.Rbn_Relation_1.AutoSize = True
         Me.Rbn_Relation_1.Location = New System.Drawing.Point(145, 96)
-        Me.Rbn_Relation_1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Rbn_Relation_1.Margin = New System.Windows.Forms.Padding(2)
         Me.Rbn_Relation_1.Name = "Rbn_Relation_1"
         Me.Rbn_Relation_1.Size = New System.Drawing.Size(50, 22)
         Me.Rbn_Relation_1.TabIndex = 75
@@ -6369,7 +6369,7 @@ Partial Class SPAS
         Me.CP.Controls.Add(Me.Pic_cp__photo)
         Me.CP.Location = New System.Drawing.Point(4, 30)
         Me.CP.Name = "CP"
-        Me.CP.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.CP.Padding = New System.Windows.Forms.Padding(3)
         Me.CP.Size = New System.Drawing.Size(721, 513)
         Me.CP.TabIndex = 4
         Me.CP.Tag = "CP"
@@ -6391,7 +6391,7 @@ Partial Class SPAS
         '
         Me.Tbx_00_cp__description.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_00_cp__description.Location = New System.Drawing.Point(418, 146)
-        Me.Tbx_00_cp__description.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_00_cp__description.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_cp__description.Multiline = True
         Me.Tbx_00_cp__description.Name = "Tbx_00_cp__description"
         Me.Tbx_00_cp__description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -6645,7 +6645,7 @@ Partial Class SPAS
         Me.Account.Controls.Add(Me.Label87)
         Me.Account.Location = New System.Drawing.Point(4, 30)
         Me.Account.Name = "Account"
-        Me.Account.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.Account.Padding = New System.Windows.Forms.Padding(3)
         Me.Account.Size = New System.Drawing.Size(721, 513)
         Me.Account.TabIndex = 5
         Me.Account.Text = "Account"
@@ -6664,7 +6664,7 @@ Partial Class SPAS
         '
         Me.Cmx_01_account__fk_accgroup_id.FormattingEnabled = True
         Me.Cmx_01_account__fk_accgroup_id.Location = New System.Drawing.Point(140, 80)
-        Me.Cmx_01_account__fk_accgroup_id.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Cmx_01_account__fk_accgroup_id.Margin = New System.Windows.Forms.Padding(2)
         Me.Cmx_01_account__fk_accgroup_id.Name = "Cmx_01_account__fk_accgroup_id"
         Me.Cmx_01_account__fk_accgroup_id.Size = New System.Drawing.Size(302, 26)
         Me.Cmx_01_account__fk_accgroup_id.TabIndex = 128
@@ -6727,7 +6727,7 @@ Partial Class SPAS
         'Tbx_10_Account__b_nov
         '
         Me.Tbx_10_Account__b_nov.Location = New System.Drawing.Point(657, 168)
-        Me.Tbx_10_Account__b_nov.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_10_Account__b_nov.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_nov.Name = "Tbx_10_Account__b_nov"
         Me.Tbx_10_Account__b_nov.Size = New System.Drawing.Size(60, 26)
         Me.Tbx_10_Account__b_nov.TabIndex = 103
@@ -6736,7 +6736,7 @@ Partial Class SPAS
         'Tbx_10_Account__b_dec
         '
         Me.Tbx_10_Account__b_dec.Location = New System.Drawing.Point(657, 197)
-        Me.Tbx_10_Account__b_dec.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_10_Account__b_dec.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_dec.Name = "Tbx_10_Account__b_dec"
         Me.Tbx_10_Account__b_dec.Size = New System.Drawing.Size(59, 26)
         Me.Tbx_10_Account__b_dec.TabIndex = 102
@@ -6745,7 +6745,7 @@ Partial Class SPAS
         'Tbx_00_Account__bankcode
         '
         Me.Tbx_00_Account__bankcode.Location = New System.Drawing.Point(139, 232)
-        Me.Tbx_00_Account__bankcode.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_00_Account__bankcode.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_Account__bankcode.Name = "Tbx_00_Account__bankcode"
         Me.Tbx_00_Account__bankcode.Size = New System.Drawing.Size(87, 26)
         Me.Tbx_00_Account__bankcode.TabIndex = 79
@@ -6754,7 +6754,7 @@ Partial Class SPAS
         'Tbx_10_Account__b_oct
         '
         Me.Tbx_10_Account__b_oct.Location = New System.Drawing.Point(657, 139)
-        Me.Tbx_10_Account__b_oct.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_10_Account__b_oct.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_oct.Name = "Tbx_10_Account__b_oct"
         Me.Tbx_10_Account__b_oct.Size = New System.Drawing.Size(60, 26)
         Me.Tbx_10_Account__b_oct.TabIndex = 101
@@ -6763,7 +6763,7 @@ Partial Class SPAS
         'Tbx_10_Account__b_aug
         '
         Me.Tbx_10_Account__b_aug.Location = New System.Drawing.Point(657, 81)
-        Me.Tbx_10_Account__b_aug.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_10_Account__b_aug.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_aug.Name = "Tbx_10_Account__b_aug"
         Me.Tbx_10_Account__b_aug.Size = New System.Drawing.Size(60, 26)
         Me.Tbx_10_Account__b_aug.TabIndex = 100
@@ -6772,7 +6772,7 @@ Partial Class SPAS
         'Tbx_10_Account__b_sep
         '
         Me.Tbx_10_Account__b_sep.Location = New System.Drawing.Point(657, 109)
-        Me.Tbx_10_Account__b_sep.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_10_Account__b_sep.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_sep.Name = "Tbx_10_Account__b_sep"
         Me.Tbx_10_Account__b_sep.Size = New System.Drawing.Size(60, 26)
         Me.Tbx_10_Account__b_sep.TabIndex = 99
@@ -6784,7 +6784,7 @@ Partial Class SPAS
         Me.Pan_account.Controls.Add(Me.Rbtn_Account_Transit)
         Me.Pan_account.Controls.Add(Me.Rbtn_Account_Expense)
         Me.Pan_account.Location = New System.Drawing.Point(140, 116)
-        Me.Pan_account.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Pan_account.Margin = New System.Windows.Forms.Padding(2)
         Me.Pan_account.Name = "Pan_account"
         Me.Pan_account.Size = New System.Drawing.Size(168, 70)
         Me.Pan_account.TabIndex = 53
@@ -6826,7 +6826,7 @@ Partial Class SPAS
         'Tbx_10_Account__b_jul
         '
         Me.Tbx_10_Account__b_jul.Location = New System.Drawing.Point(657, 52)
-        Me.Tbx_10_Account__b_jul.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_10_Account__b_jul.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_jul.Name = "Tbx_10_Account__b_jul"
         Me.Tbx_10_Account__b_jul.Size = New System.Drawing.Size(60, 26)
         Me.Tbx_10_Account__b_jul.TabIndex = 98
@@ -6848,7 +6848,7 @@ Partial Class SPAS
         'Tbx_10_Account__b_may
         '
         Me.Tbx_10_Account__b_may.Location = New System.Drawing.Point(532, 168)
-        Me.Tbx_10_Account__b_may.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_10_Account__b_may.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_may.Name = "Tbx_10_Account__b_may"
         Me.Tbx_10_Account__b_may.Size = New System.Drawing.Size(70, 26)
         Me.Tbx_10_Account__b_may.TabIndex = 97
@@ -6857,7 +6857,7 @@ Partial Class SPAS
         'Tbx_10_Account__b_jun
         '
         Me.Tbx_10_Account__b_jun.Location = New System.Drawing.Point(532, 197)
-        Me.Tbx_10_Account__b_jun.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_10_Account__b_jun.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_jun.Name = "Tbx_10_Account__b_jun"
         Me.Tbx_10_Account__b_jun.Size = New System.Drawing.Size(70, 26)
         Me.Tbx_10_Account__b_jun.TabIndex = 96
@@ -6876,7 +6876,7 @@ Partial Class SPAS
         'Tbx_10_Account__b_apr
         '
         Me.Tbx_10_Account__b_apr.Location = New System.Drawing.Point(532, 139)
-        Me.Tbx_10_Account__b_apr.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_10_Account__b_apr.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_apr.Name = "Tbx_10_Account__b_apr"
         Me.Tbx_10_Account__b_apr.Size = New System.Drawing.Size(70, 26)
         Me.Tbx_10_Account__b_apr.TabIndex = 95
@@ -6886,7 +6886,7 @@ Partial Class SPAS
         '
         Me.Tbx_00_Account__searchword.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_00_Account__searchword.Location = New System.Drawing.Point(140, 269)
-        Me.Tbx_00_Account__searchword.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_00_Account__searchword.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_Account__searchword.Multiline = True
         Me.Tbx_00_Account__searchword.Name = "Tbx_00_Account__searchword"
         Me.Tbx_00_Account__searchword.Size = New System.Drawing.Size(302, 65)
@@ -6895,7 +6895,7 @@ Partial Class SPAS
         'Tbx_10_Account__b_feb
         '
         Me.Tbx_10_Account__b_feb.Location = New System.Drawing.Point(532, 81)
-        Me.Tbx_10_Account__b_feb.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_10_Account__b_feb.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_feb.Name = "Tbx_10_Account__b_feb"
         Me.Tbx_10_Account__b_feb.Size = New System.Drawing.Size(70, 26)
         Me.Tbx_10_Account__b_feb.TabIndex = 94
@@ -6914,7 +6914,7 @@ Partial Class SPAS
         'Tbx_10_Account__b_mar
         '
         Me.Tbx_10_Account__b_mar.Location = New System.Drawing.Point(532, 109)
-        Me.Tbx_10_Account__b_mar.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_10_Account__b_mar.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_mar.Name = "Tbx_10_Account__b_mar"
         Me.Tbx_10_Account__b_mar.Size = New System.Drawing.Size(70, 26)
         Me.Tbx_10_Account__b_mar.TabIndex = 93
@@ -6934,7 +6934,7 @@ Partial Class SPAS
         'Tbx_10_Account__b_jan
         '
         Me.Tbx_10_Account__b_jan.Location = New System.Drawing.Point(532, 52)
-        Me.Tbx_10_Account__b_jan.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_10_Account__b_jan.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_jan.Name = "Tbx_10_Account__b_jan"
         Me.Tbx_10_Account__b_jan.Size = New System.Drawing.Size(70, 26)
         Me.Tbx_10_Account__b_jan.TabIndex = 80
@@ -6977,7 +6977,7 @@ Partial Class SPAS
         '
         Me.Tbx_00_Account__description.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_00_Account__description.Location = New System.Drawing.Point(140, 376)
-        Me.Tbx_00_Account__description.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_00_Account__description.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_Account__description.Multiline = True
         Me.Tbx_00_Account__description.Name = "Tbx_00_Account__description"
         Me.Tbx_00_Account__description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -7000,7 +7000,7 @@ Partial Class SPAS
         Me.Tbx_01_Account__name.Enabled = False
         Me.Tbx_01_Account__name.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_01_Account__name.Location = New System.Drawing.Point(140, 45)
-        Me.Tbx_01_Account__name.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_01_Account__name.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_01_Account__name.Name = "Tbx_01_Account__name"
         Me.Tbx_01_Account__name.Size = New System.Drawing.Size(302, 23)
         Me.Tbx_01_Account__name.TabIndex = 6
@@ -7077,7 +7077,7 @@ Partial Class SPAS
         Me.Tbx_10_Account__b_year.Enabled = False
         Me.Tbx_10_Account__b_year.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_10_Account__b_year.Location = New System.Drawing.Point(532, 232)
-        Me.Tbx_10_Account__b_year.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_10_Account__b_year.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_10_Account__b_year.Name = "Tbx_10_Account__b_year"
         Me.Tbx_10_Account__b_year.Size = New System.Drawing.Size(70, 25)
         Me.Tbx_10_Account__b_year.TabIndex = 79
@@ -7120,7 +7120,7 @@ Partial Class SPAS
         '
         Me.Tbx_00_Account__type.Enabled = False
         Me.Tbx_00_Account__type.Location = New System.Drawing.Point(330, 116)
-        Me.Tbx_00_Account__type.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_00_Account__type.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_00_Account__type.Name = "Tbx_00_Account__type"
         Me.Tbx_00_Account__type.Size = New System.Drawing.Size(94, 26)
         Me.Tbx_00_Account__type.TabIndex = 27
@@ -7220,7 +7220,7 @@ Partial Class SPAS
         Me.Accgroup.Controls.Add(Me.BasisTree)
         Me.Accgroup.Location = New System.Drawing.Point(4, 30)
         Me.Accgroup.Name = "Accgroup"
-        Me.Accgroup.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.Accgroup.Padding = New System.Windows.Forms.Padding(3)
         Me.Accgroup.Size = New System.Drawing.Size(721, 513)
         Me.Accgroup.TabIndex = 7
         Me.Accgroup.Text = "Experimental"
@@ -7247,30 +7247,32 @@ Partial Class SPAS
         Me.TC_Main.Controls.Add(Me.Tussenrekening)
         Me.TC_Main.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TC_Main.Location = New System.Drawing.Point(0, 29)
-        Me.TC_Main.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TC_Main.Margin = New System.Windows.Forms.Padding(2)
         Me.TC_Main.Name = "TC_Main"
         Me.TC_Main.SelectedIndex = 0
-        Me.TC_Main.Size = New System.Drawing.Size(1114, 599)
+        Me.TC_Main.Size = New System.Drawing.Size(1114, 613)
         Me.TC_Main.TabIndex = 0
         '
         'Tussenrekening
         '
         Me.Tussenrekening.Controls.Add(Me.TC_Tussenrekening)
         Me.Tussenrekening.Location = New System.Drawing.Point(4, 28)
-        Me.Tussenrekening.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tussenrekening.Margin = New System.Windows.Forms.Padding(2)
         Me.Tussenrekening.Name = "Tussenrekening"
-        Me.Tussenrekening.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.Tussenrekening.Size = New System.Drawing.Size(1106, 567)
+        Me.Tussenrekening.Padding = New System.Windows.Forms.Padding(2)
+        Me.Tussenrekening.Size = New System.Drawing.Size(1106, 581)
         Me.Tussenrekening.TabIndex = 7
         Me.Tussenrekening.Text = "Tussenrekening"
         Me.Tussenrekening.UseVisualStyleBackColor = True
         '
         'TC_Tussenrekening
         '
+        Me.TC_Tussenrekening.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TC_Tussenrekening.Controls.Add(Me.TC_Verwerken)
         Me.TC_Tussenrekening.Controls.Add(Me.TP_Analyse)
         Me.TC_Tussenrekening.Location = New System.Drawing.Point(5, 14)
-        Me.TC_Tussenrekening.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TC_Tussenrekening.Margin = New System.Windows.Forms.Padding(2)
         Me.TC_Tussenrekening.Name = "TC_Tussenrekening"
         Me.TC_Tussenrekening.SelectedIndex = 0
         Me.TC_Tussenrekening.Size = New System.Drawing.Size(1098, 554)
@@ -7285,9 +7287,9 @@ Partial Class SPAS
         Me.TC_Verwerken.Controls.Add(Me.Lbl_Uitkering_5)
         Me.TC_Verwerken.Controls.Add(Me.Dgv_Tussenrekening)
         Me.TC_Verwerken.Location = New System.Drawing.Point(4, 28)
-        Me.TC_Verwerken.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TC_Verwerken.Margin = New System.Windows.Forms.Padding(2)
         Me.TC_Verwerken.Name = "TC_Verwerken"
-        Me.TC_Verwerken.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TC_Verwerken.Padding = New System.Windows.Forms.Padding(2)
         Me.TC_Verwerken.Size = New System.Drawing.Size(1090, 522)
         Me.TC_Verwerken.TabIndex = 0
         Me.TC_Verwerken.Text = "Verwerken"
@@ -7306,6 +7308,8 @@ Partial Class SPAS
         '
         'Pan_Uitkering
         '
+        Me.Pan_Uitkering.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Pan_Uitkering.Controls.Add(Me.Lbl_tussenrekening_datum)
         Me.Pan_Uitkering.Controls.Add(Me.Dtp_tussenrekening)
         Me.Pan_Uitkering.Controls.Add(Me.Lbl_Uitkering_4)
@@ -7314,32 +7318,32 @@ Partial Class SPAS
         Me.Pan_Uitkering.Controls.Add(Me.Lbl_Uitkering_2)
         Me.Pan_Uitkering.Controls.Add(Me.Tbx_Tussenrekening_bedrag)
         Me.Pan_Uitkering.Controls.Add(Me.Cmbx_Tussenrekening)
-        Me.Pan_Uitkering.Location = New System.Drawing.Point(4, 267)
-        Me.Pan_Uitkering.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Pan_Uitkering.Location = New System.Drawing.Point(7, 219)
+        Me.Pan_Uitkering.Margin = New System.Windows.Forms.Padding(2)
         Me.Pan_Uitkering.Name = "Pan_Uitkering"
-        Me.Pan_Uitkering.Size = New System.Drawing.Size(316, 203)
+        Me.Pan_Uitkering.Size = New System.Drawing.Size(316, 194)
         Me.Pan_Uitkering.TabIndex = 144
         '
         'Lbl_tussenrekening_datum
         '
         Me.Lbl_tussenrekening_datum.AutoSize = True
         Me.Lbl_tussenrekening_datum.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_tussenrekening_datum.Location = New System.Drawing.Point(138, 65)
+        Me.Lbl_tussenrekening_datum.Location = New System.Drawing.Point(13, 66)
         Me.Lbl_tussenrekening_datum.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Lbl_tussenrekening_datum.Name = "Lbl_tussenrekening_datum"
-        Me.Lbl_tussenrekening_datum.Size = New System.Drawing.Size(55, 19)
+        Me.Lbl_tussenrekening_datum.Size = New System.Drawing.Size(155, 19)
         Me.Lbl_tussenrekening_datum.TabIndex = 145
-        Me.Lbl_tussenrekening_datum.Text = "Bedrag"
+        Me.Lbl_tussenrekening_datum.Text = "Bedrag (positief getal)"
         '
         'Dtp_tussenrekening
         '
         Me.Dtp_tussenrekening.CalendarFont = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dtp_tussenrekening.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dtp_tussenrekening.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.Dtp_tussenrekening.Location = New System.Drawing.Point(197, 62)
-        Me.Dtp_tussenrekening.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Dtp_tussenrekening.Location = New System.Drawing.Point(209, 32)
+        Me.Dtp_tussenrekening.Margin = New System.Windows.Forms.Padding(2)
         Me.Dtp_tussenrekening.Name = "Dtp_tussenrekening"
-        Me.Dtp_tussenrekening.Size = New System.Drawing.Size(110, 25)
+        Me.Dtp_tussenrekening.Size = New System.Drawing.Size(98, 25)
         Me.Dtp_tussenrekening.TabIndex = 144
         Me.Dtp_tussenrekening.Value = New Date(2026, 1, 1, 0, 0, 0, 0)
         '
@@ -7356,15 +7360,12 @@ Partial Class SPAS
         '
         'Tbx_Tussenrekening_toelichting
         '
-        Me.Tbx_Tussenrekening_toelichting.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Tbx_Tussenrekening_toelichting.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Tussenrekening_toelichting.Location = New System.Drawing.Point(13, 116)
-        Me.Tbx_Tussenrekening_toelichting.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Tussenrekening_toelichting.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Tussenrekening_toelichting.Multiline = True
         Me.Tbx_Tussenrekening_toelichting.Name = "Tbx_Tussenrekening_toelichting"
-        Me.Tbx_Tussenrekening_toelichting.Size = New System.Drawing.Size(294, 81)
+        Me.Tbx_Tussenrekening_toelichting.Size = New System.Drawing.Size(294, 67)
         Me.Tbx_Tussenrekening_toelichting.TabIndex = 142
         '
         'Lbl_Uitkering_1
@@ -7382,21 +7383,21 @@ Partial Class SPAS
         '
         Me.Lbl_Uitkering_2.AutoSize = True
         Me.Lbl_Uitkering_2.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Lbl_Uitkering_2.Location = New System.Drawing.Point(239, 6)
+        Me.Lbl_Uitkering_2.Location = New System.Drawing.Point(205, 7)
         Me.Lbl_Uitkering_2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Lbl_Uitkering_2.Name = "Lbl_Uitkering_2"
-        Me.Lbl_Uitkering_2.Size = New System.Drawing.Size(55, 19)
+        Me.Lbl_Uitkering_2.Size = New System.Drawing.Size(52, 19)
         Me.Lbl_Uitkering_2.TabIndex = 137
-        Me.Lbl_Uitkering_2.Text = "Bedrag"
+        Me.Lbl_Uitkering_2.Text = "Datum"
         '
         'Tbx_Tussenrekening_bedrag
         '
         Me.Tbx_Tussenrekening_bedrag.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tbx_Tussenrekening_bedrag.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.Tbx_Tussenrekening_bedrag.Location = New System.Drawing.Point(232, 32)
-        Me.Tbx_Tussenrekening_bedrag.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Tbx_Tussenrekening_bedrag.Location = New System.Drawing.Point(209, 66)
+        Me.Tbx_Tussenrekening_bedrag.Margin = New System.Windows.Forms.Padding(2)
         Me.Tbx_Tussenrekening_bedrag.Name = "Tbx_Tussenrekening_bedrag"
-        Me.Tbx_Tussenrekening_bedrag.Size = New System.Drawing.Size(75, 25)
+        Me.Tbx_Tussenrekening_bedrag.Size = New System.Drawing.Size(98, 25)
         Me.Tbx_Tussenrekening_bedrag.TabIndex = 138
         Me.Tbx_Tussenrekening_bedrag.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -7406,7 +7407,7 @@ Partial Class SPAS
         Me.Cmbx_Tussenrekening.FormattingEnabled = True
         Me.Cmbx_Tussenrekening.Location = New System.Drawing.Point(13, 32)
         Me.Cmbx_Tussenrekening.Name = "Cmbx_Tussenrekening"
-        Me.Cmbx_Tussenrekening.Size = New System.Drawing.Size(213, 26)
+        Me.Cmbx_Tussenrekening.Size = New System.Drawing.Size(171, 26)
         Me.Cmbx_Tussenrekening.TabIndex = 135
         '
         'Dgv_Tussenrekening_Uitk
@@ -7419,9 +7420,8 @@ Partial Class SPAS
         DataGridViewCellStyle46.ForeColor = System.Drawing.Color.Black
         DataGridViewCellStyle46.SelectionBackColor = System.Drawing.SystemColors.Highlight
         Me.Dgv_Tussenrekening_Uitk.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle46
-        Me.Dgv_Tussenrekening_Uitk.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Dgv_Tussenrekening_Uitk.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Dgv_Tussenrekening_Uitk.BackgroundColor = System.Drawing.SystemColors.ButtonFace
         Me.Dgv_Tussenrekening_Uitk.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Dgv_Tussenrekening_Uitk.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -7435,21 +7435,23 @@ Partial Class SPAS
         DataGridViewCellStyle47.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Tussenrekening_Uitk.RowsDefaultCellStyle = DataGridViewCellStyle47
         Me.Dgv_Tussenrekening_Uitk.RowTemplate.Height = 20
-        Me.Dgv_Tussenrekening_Uitk.Size = New System.Drawing.Size(316, 246)
+        Me.Dgv_Tussenrekening_Uitk.Size = New System.Drawing.Size(316, 170)
         Me.Dgv_Tussenrekening_Uitk.TabIndex = 143
         '
         'Btn_Tussenrekening_Save
         '
-        Me.Btn_Tussenrekening_Save.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Btn_Tussenrekening_Save.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Btn_Tussenrekening_Save.BackColor = System.Drawing.Color.Honeydew
         Me.Btn_Tussenrekening_Save.Font = New System.Drawing.Font("Calibri", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_Tussenrekening_Save.Location = New System.Drawing.Point(7, 474)
-        Me.Btn_Tussenrekening_Save.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Btn_Tussenrekening_Save.Location = New System.Drawing.Point(7, 439)
+        Me.Btn_Tussenrekening_Save.Margin = New System.Windows.Forms.Padding(2)
         Me.Btn_Tussenrekening_Save.Name = "Btn_Tussenrekening_Save"
         Me.Btn_Tussenrekening_Save.Size = New System.Drawing.Size(316, 51)
         Me.Btn_Tussenrekening_Save.TabIndex = 142
         Me.Btn_Tussenrekening_Save.Text = ">>> naar tussenrekening >>>"
+        Me.Btn_Tussenrekening_Save.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.Btn_Tussenrekening_Save.UseVisualStyleBackColor = False
         '
         'Lbl_Uitkering_5
@@ -7503,9 +7505,9 @@ Partial Class SPAS
         Me.TP_Analyse.Controls.Add(Me.Dgv_Tussenrekening_2)
         Me.TP_Analyse.Controls.Add(Me.Dgv_Tussenrekening_1)
         Me.TP_Analyse.Location = New System.Drawing.Point(4, 28)
-        Me.TP_Analyse.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TP_Analyse.Margin = New System.Windows.Forms.Padding(2)
         Me.TP_Analyse.Name = "TP_Analyse"
-        Me.TP_Analyse.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TP_Analyse.Padding = New System.Windows.Forms.Padding(2)
         Me.TP_Analyse.Size = New System.Drawing.Size(1090, 522)
         Me.TP_Analyse.TabIndex = 1
         Me.TP_Analyse.Text = "Analyse"
@@ -7548,7 +7550,7 @@ Partial Class SPAS
         DataGridViewCellStyle51.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Tussenrekening_0.RowsDefaultCellStyle = DataGridViewCellStyle51
         Me.Dgv_Tussenrekening_0.RowTemplate.Height = 20
-        Me.Dgv_Tussenrekening_0.Size = New System.Drawing.Size(370, 231)
+        Me.Dgv_Tussenrekening_0.Size = New System.Drawing.Size(370, 237)
         Me.Dgv_Tussenrekening_0.TabIndex = 152
         '
         'Lbl_Netting3
@@ -7621,7 +7623,7 @@ Partial Class SPAS
         DataGridViewCellStyle53.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Tussenrekening_4.RowsDefaultCellStyle = DataGridViewCellStyle53
         Me.Dgv_Tussenrekening_4.RowTemplate.Height = 20
-        Me.Dgv_Tussenrekening_4.Size = New System.Drawing.Size(391, 588)
+        Me.Dgv_Tussenrekening_4.Size = New System.Drawing.Size(391, 594)
         Me.Dgv_Tussenrekening_4.TabIndex = 147
         '
         'Dgv_Tussenrekening_3
@@ -7650,7 +7652,7 @@ Partial Class SPAS
         DataGridViewCellStyle55.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Tussenrekening_3.RowsDefaultCellStyle = DataGridViewCellStyle55
         Me.Dgv_Tussenrekening_3.RowTemplate.Height = 20
-        Me.Dgv_Tussenrekening_3.Size = New System.Drawing.Size(311, 588)
+        Me.Dgv_Tussenrekening_3.Size = New System.Drawing.Size(311, 594)
         Me.Dgv_Tussenrekening_3.TabIndex = 146
         '
         'Dgv_Tussenrekening_2
@@ -7679,7 +7681,7 @@ Partial Class SPAS
         DataGridViewCellStyle57.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Tussenrekening_2.RowsDefaultCellStyle = DataGridViewCellStyle57
         Me.Dgv_Tussenrekening_2.RowTemplate.Height = 20
-        Me.Dgv_Tussenrekening_2.Size = New System.Drawing.Size(369, 226)
+        Me.Dgv_Tussenrekening_2.Size = New System.Drawing.Size(369, 232)
         Me.Dgv_Tussenrekening_2.TabIndex = 145
         '
         'Dgv_Tussenrekening_1
@@ -7708,7 +7710,7 @@ Partial Class SPAS
         DataGridViewCellStyle59.Font = New System.Drawing.Font("Calibri", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_Tussenrekening_1.RowsDefaultCellStyle = DataGridViewCellStyle59
         Me.Dgv_Tussenrekening_1.RowTemplate.Height = 20
-        Me.Dgv_Tussenrekening_1.Size = New System.Drawing.Size(369, 281)
+        Me.Dgv_Tussenrekening_1.Size = New System.Drawing.Size(369, 287)
         Me.Dgv_Tussenrekening_1.TabIndex = 144
         '
         'Zoeken
@@ -7729,7 +7731,7 @@ Partial Class SPAS
         Me.Testpanel.Controls.Add(Me.Zoeken)
         Me.Testpanel.Controls.Add(Me.Searchbox2)
         Me.Testpanel.Location = New System.Drawing.Point(587, 0)
-        Me.Testpanel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Testpanel.Margin = New System.Windows.Forms.Padding(2)
         Me.Testpanel.Name = "Testpanel"
         Me.Testpanel.Size = New System.Drawing.Size(421, 24)
         Me.Testpanel.TabIndex = 74
@@ -7739,7 +7741,7 @@ Partial Class SPAS
         Me.Cbx_LifeCycle2.FormattingEnabled = True
         Me.Cbx_LifeCycle2.Items.AddRange(New Object() {"Actief", "Inactief", "Beide"})
         Me.Cbx_LifeCycle2.Location = New System.Drawing.Point(329, 4)
-        Me.Cbx_LifeCycle2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Cbx_LifeCycle2.Margin = New System.Windows.Forms.Padding(2)
         Me.Cbx_LifeCycle2.Name = "Cbx_LifeCycle2"
         Me.Cbx_LifeCycle2.Size = New System.Drawing.Size(82, 21)
         Me.Cbx_LifeCycle2.TabIndex = 76
@@ -7750,14 +7752,14 @@ Partial Class SPAS
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.MediumAquamarine
-        Me.ClientSize = New System.Drawing.Size(1114, 629)
+        Me.ClientSize = New System.Drawing.Size(1114, 643)
         Me.Controls.Add(Me.Testpanel)
         Me.Controls.Add(Me.TC_Main)
         Me.Controls.Add(Me.MenuStrip1)
         Me.HelpButton = True
         Me.HelpProvider1.SetHelpNavigator(Me, System.Windows.Forms.HelpNavigator.TableOfContents)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "SPAS"
         Me.HelpProvider1.SetShowHelp(Me, True)
         Me.Text = "SPAS"
